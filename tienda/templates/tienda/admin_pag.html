@@ -1,0 +1,2217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Panel Admin — ColMercia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0D1117;
+      color: #E2E8F0;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      border: none;
+    }
+
+    :root {
+      --col: #F5C518;
+      --mer: #003087;
+      --cia: #CE1126;
+      --bg: #161B27;
+      --card: #1E2535;
+      --bd: #2D3748;
+      --mut: #718096;
+      --wht: #fff;
+      --r: 14px;
+      --rs: 10px;
+      --tr: .2s ease;
+    }
+
+    #loginOverlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #060B14 0%, #0A1628 50%, #0D1117 100%);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #loginOverlay.hidden {
+      display: none;
+    }
+
+    .lo-box {
+      background: #1E2535;
+      border: 1px solid #2D3748;
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, .6);
+      animation: fadeUp .4s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .lo-logo {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .lo-logo .lc {
+      color: var(--col);
+    }
+
+    .lo-logo .lm {
+      color: #90B8FF;
+    }
+
+    .lo-logo .lr {
+      color: var(--cia);
+    }
+
+    .lo-sub {
+      font-size: .78rem;
+      color: var(--mut);
+      margin-bottom: 32px;
+    }
+
+    .lo-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .lo-desc {
+      font-size: .75rem;
+      color: var(--mut);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .lo-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .admin-card {
+      background: #111827;
+      border: 2px solid #2D3748;
+      border-radius: 14px;
+      padding: 24px 16px;
+      cursor: pointer;
+      transition: all var(--tr);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-card:hover {
+      border-color: var(--col);
+      background: #161B27;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(245, 197, 24, .15);
+    }
+
+    .admin-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--col), #e6aa00);
+      transform: scaleX(0);
+      transition: transform var(--tr);
+    }
+
+    .admin-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .ac-ava {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      border: 3px solid #2D3748;
+      overflow: hidden;
+      transition: border-color var(--tr);
+    }
+
+    .admin-card:hover .ac-ava {
+      border-color: var(--col);
+    }
+
+    .ac-name {
+      font-size: .95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .ac-role {
+      font-size: .68rem;
+      color: var(--mut);
+    }
+
+    .ac-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(245, 197, 24, .12);
+      border: 1px solid rgba(245, 197, 24, .25);
+      color: var(--col);
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: .62rem;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .lo-note {
+      font-size: .68rem;
+      color: #4A5568;
+    }
+
+    nav {
+      background: #0A0D14;
+      border-bottom: 3px solid var(--col);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .nav-logo .lc {
+      color: var(--col);
+    }
+
+    .nav-logo .lm {
+      color: #90B8FF;
+    }
+
+    .nav-logo .lr {
+      color: var(--cia);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nlink {
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--mut);
+      padding: 8px 18px;
+      border-radius: 50px;
+      transition: all var(--tr);
+    }
+
+    .nlink:hover {
+      background: #1E2535;
+      color: #fff;
+    }
+
+    .nlink.act {
+      background: var(--col);
+      color: #1A1A2E;
+      font-weight: 700;
+    }
+
+    .nalert {
+      background: var(--cia);
+      color: #fff;
+      font-size: .62rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 50px;
+      margin-left: 4px;
+    }
+
+    .wrapper {
+      max-width: 1340px;
+      margin: 36px auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .sidebar {
+      background: var(--card);
+      border-radius: var(--r);
+      overflow: hidden;
+      border: 1px solid var(--bd);
+    }
+
+    .s-top {
+      background: linear-gradient(145deg, #060B14, #0A1628);
+      padding: 28px 24px;
+      text-align: center;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .admin-ava {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--col), #e6aa00);
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1A1A2E;
+      position: relative;
+      overflow: hidden;
+      border: 3px solid rgba(245, 197, 24, .3);
+      cursor: pointer;
+    }
+
+    .admin-ava img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .ava-edit-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--tr);
+      font-size: .6rem;
+      font-weight: 700;
+      color: #fff;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .admin-ava:hover .ava-edit-overlay {
+      opacity: 1;
+    }
+
+    .admin-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .admin-role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(245, 197, 24, .15);
+      border: 1px solid rgba(245, 197, 24, .3);
+      color: var(--col);
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: .7rem;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .clock-box {
+      background: #060B14;
+      padding: 18px 24px;
+      text-align: center;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .clock-time {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+
+    .clock-date {
+      font-size: .73rem;
+      color: rgba(255, 255, 255, .4);
+      margin-top: 6px;
+    }
+
+    .clock-tz {
+      font-size: .63rem;
+      color: rgba(255, 255, 255, .2);
+      margin-top: 2px;
+    }
+
+    .smenu {
+      padding: 12px;
+    }
+
+    .smenu-lbl {
+      font-size: .63rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--mut);
+      padding: 7px 13px 3px;
+    }
+
+    .sitem {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: var(--rs);
+      font-size: .84rem;
+      font-weight: 500;
+      color: #94A3B8;
+      cursor: pointer;
+      transition: all var(--tr);
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .sitem:hover {
+      background: rgba(255, 255, 255, .05);
+      color: #fff;
+    }
+
+    .sitem.act {
+      background: rgba(245, 197, 24, .1);
+      color: var(--col);
+      font-weight: 600;
+    }
+
+    .si-bar {
+      width: 3px;
+      height: 18px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .si-col {
+      background: var(--col);
+    }
+
+    .si-mer {
+      background: #3B82F6;
+    }
+
+    .si-grn {
+      background: #22C55E;
+    }
+
+    .si-red {
+      background: var(--cia);
+    }
+
+    .si-pur {
+      background: #A78BFA;
+    }
+
+    .sitem-badge {
+      margin-left: auto;
+      background: var(--cia);
+      color: #fff;
+      font-size: .6rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 50px;
+    }
+
+    .sdiv {
+      height: 1px;
+      background: var(--bd);
+      margin: 8px 0;
+    }
+
+    .sitem.danger {
+      color: #FC8181;
+    }
+
+    .sitem.danger:hover {
+      background: rgba(206, 17, 38, .1);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--r);
+      border: 1px solid var(--bd);
+    }
+
+    .card-hdr {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .card-sub {
+      font-size: .76rem;
+      color: var(--mut);
+      margin-top: 3px;
+    }
+
+    .card-body {
+      padding: 24px 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      background: #111827;
+      border-radius: var(--rs);
+      border: 1px solid var(--bd);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-stripe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-val {
+      font-size: 1.9rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .sv-col {
+      color: var(--col);
+    }
+
+    .sv-blu {
+      color: #60A5FA;
+    }
+
+    .sv-grn {
+      color: #34D399;
+    }
+
+    .sv-red {
+      color: #F87171;
+    }
+
+    .stat-lbl {
+      font-size: .73rem;
+      color: var(--mut);
+      font-weight: 500;
+    }
+
+    .stat-delta {
+      font-size: .7rem;
+      font-weight: 600;
+      margin-top: 7px;
+    }
+
+    .dUp {
+      color: #34D399;
+    }
+
+    .dDn {
+      color: #F87171;
+    }
+
+    .chart-wrap {
+      background: #111827;
+      border-radius: var(--rs);
+      border: 1px solid var(--bd);
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .chart-title {
+      font-size: .84rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 100px;
+    }
+
+    .bw {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .bv {
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--mut);
+    }
+
+    .bf {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      min-height: 4px;
+    }
+
+    .bf-col {
+      background: linear-gradient(180deg, var(--col), #c8900a);
+    }
+
+    .bl {
+      font-size: .63rem;
+      color: var(--mut);
+    }
+
+    .vreq-item {
+      background: #111827;
+      border: 1px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      transition: border-color var(--tr);
+    }
+
+    .vreq-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .vreq-item:hover {
+      border-color: #4A5568;
+    }
+
+    .vreq-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .vreq-ava {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2D3748, #4A5568);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .vreq-info {
+      flex: 1;
+    }
+
+    .vreq-name {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .vreq-meta {
+      font-size: .73rem;
+      color: var(--mut);
+      line-height: 1.55;
+    }
+
+    .vreq-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .vtag {
+      font-size: .65rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
+    .vt-cat {
+      background: rgba(245, 197, 24, .1);
+      color: var(--col);
+    }
+
+    .vt-reg {
+      background: rgba(96, 165, 250, .1);
+      color: #60A5FA;
+    }
+
+    .vt-date {
+      background: rgba(148, 163, 184, .08);
+      color: var(--mut);
+    }
+
+    .vreq-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--bd);
+      flex-wrap: wrap;
+    }
+
+    .vbtn {
+      font-size: .74rem;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 50px;
+      border: 1px solid transparent;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .vb-ok {
+      background: rgba(52, 211, 153, .1);
+      color: #34D399;
+      border-color: rgba(52, 211, 153, .25);
+    }
+
+    .vb-ok:hover {
+      background: rgba(52, 211, 153, .2);
+    }
+
+    .vb-no {
+      background: rgba(248, 113, 113, .1);
+      color: #F87171;
+      border-color: rgba(248, 113, 113, .25);
+    }
+
+    .vb-no:hover {
+      background: rgba(248, 113, 113, .2);
+    }
+
+    .u-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .u-table th {
+      text-align: left;
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--mut);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--bd);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .u-table td {
+      font-size: .8rem;
+      padding: 12px;
+      border-bottom: 1px solid rgba(45, 55, 72, .5);
+      color: #CBD5E0;
+      vertical-align: top;
+    }
+
+    .u-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .u-table tbody tr:hover td {
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .u-ava {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .u-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .u-name {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .u-email {
+      font-size: .68rem;
+      color: var(--mut);
+      margin-top: 1px;
+    }
+
+    .badge {
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
+    .b-buyer {
+      background: rgba(96, 165, 250, .12);
+      color: #60A5FA;
+    }
+
+    .b-seller {
+      background: rgba(245, 197, 24, .12);
+      color: var(--col);
+    }
+
+    .b-admin {
+      background: rgba(248, 113, 113, .12);
+      color: #F87171;
+    }
+
+    .b-ok {
+      background: rgba(52, 211, 153, .12);
+      color: #34D399;
+    }
+
+    .b-pend {
+      background: rgba(251, 191, 36, .12);
+      color: #FCD34D;
+    }
+
+    .act-btn {
+      background: transparent;
+      border: 1px solid var(--bd);
+      color: var(--mut);
+      border-radius: 50px;
+      font-size: .68rem;
+      padding: 4px 12px;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .act-btn:hover {
+      border-color: var(--col);
+      color: var(--col);
+    }
+
+    .user-detail {
+      display: none;
+      background: #0D1117;
+      border: 1px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 16px;
+      margin-top: 8px;
+    }
+
+    .user-detail.open {
+      display: block;
+    }
+
+    .ud-section {
+      margin-bottom: 12px;
+    }
+
+    .ud-title {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--col);
+      margin-bottom: 8px;
+    }
+
+    .ud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(45, 55, 72, .4);
+      font-size: .75rem;
+      color: #94A3B8;
+    }
+
+    .ud-item:last-child {
+      border-bottom: none;
+    }
+
+    .ud-item strong {
+      color: #fff;
+    }
+
+    .seller-card {
+      background: #111827;
+      border: 1px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      transition: border-color var(--tr);
+    }
+
+    .seller-card:hover {
+      border-color: #4A5568;
+    }
+
+    .seller-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .sc-ava {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .sc-info {
+      flex: 1;
+    }
+
+    .sc-name {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .sc-meta {
+      font-size: .72rem;
+      color: var(--mut);
+      margin-top: 2px;
+    }
+
+    .sc-stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .sc-stat {
+      font-size: .72rem;
+      color: var(--mut);
+    }
+
+    .sc-stat strong {
+      color: #fff;
+      display: block;
+      font-size: .85rem;
+    }
+
+    .sc-actions {
+      display: flex;
+      gap: 7px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--bd);
+      flex-wrap: wrap;
+    }
+
+    .sc-btn {
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid transparent;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .sb-view {
+      background: rgba(96, 165, 250, .1);
+      color: #60A5FA;
+      border-color: rgba(96, 165, 250, .25);
+    }
+
+    .sb-view:hover {
+      background: rgba(96, 165, 250, .2);
+    }
+
+    .sb-close {
+      background: rgba(248, 113, 113, .1);
+      color: #F87171;
+      border-color: rgba(248, 113, 113, .25);
+    }
+
+    .sb-close:hover {
+      background: rgba(248, 113, 113, .2);
+    }
+
+    .sb-open {
+      background: rgba(52, 211, 153, .1);
+      color: #34D399;
+      border-color: rgba(52, 211, 153, .25);
+    }
+
+    .sb-open:hover {
+      background: rgba(52, 211, 153, .2);
+    }
+
+    .prod-list {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .prod-list.open {
+      display: block;
+    }
+
+    .prod-row-s {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(45, 55, 72, .4);
+    }
+
+    .prod-row-s:last-child {
+      border-bottom: none;
+    }
+
+    .pr-ico {
+      font-size: 1.3rem;
+      width: 36px;
+      text-align: center;
+    }
+
+    .pr-info {
+      flex: 1;
+    }
+
+    .pr-name {
+      font-size: .8rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .pr-meta {
+      font-size: .68rem;
+      color: var(--mut);
+    }
+
+    .pr-price {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--col);
+    }
+
+    .pr-act {
+      display: flex;
+      gap: 5px;
+    }
+
+    .pr-btn {
+      font-size: .66rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 50px;
+      border: 1px solid transparent;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .prb-del {
+      background: rgba(248, 113, 113, .1);
+      color: #F87171;
+      border-color: rgba(248, 113, 113, .2);
+    }
+
+    .prb-del:hover {
+      background: rgba(248, 113, 113, .2);
+    }
+
+    .prb-hide {
+      background: rgba(148, 163, 184, .08);
+      color: var(--mut);
+      border-color: rgba(148, 163, 184, .15);
+    }
+
+    .prb-hide:hover {
+      background: rgba(148, 163, 184, .12);
+    }
+
+    .edit-block {
+      background: #111827;
+      border-radius: var(--rs);
+      border: 1px solid var(--bd);
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    .edit-block-title {
+      font-size: .86rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    .erow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .erow:last-child {
+      margin-bottom: 0;
+    }
+
+    .elbl {
+      font-size: .72rem;
+      color: var(--mut);
+      width: 120px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+
+    .einp {
+      flex: 1;
+      padding: 9px 13px;
+      border-radius: var(--rs);
+      border: 1px solid var(--bd);
+      font-size: .78rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      background: #0D1117;
+      color: #fff;
+      transition: border-color var(--tr);
+    }
+
+    .einp:focus {
+      border-color: var(--col);
+    }
+
+    select.einp {
+      appearance: none;
+    }
+
+    .notif-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(45, 55, 72, .5);
+    }
+
+    .notif-item:last-child {
+      border-bottom: none;
+    }
+
+    .notif-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .nd-col {
+      background: var(--col);
+    }
+
+    .nd-blu {
+      background: #3B82F6;
+    }
+
+    .nd-grn {
+      background: #22C55E;
+    }
+
+    .nd-red {
+      background: var(--cia);
+    }
+
+    .notif-txt {
+      font-size: .82rem;
+      color: #CBD5E0;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .notif-txt strong {
+      color: #fff;
+    }
+
+    .notif-time {
+      font-size: .68rem;
+      color: var(--mut);
+      margin-top: 3px;
+    }
+
+    .audit-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(45, 55, 72, .4);
+    }
+
+    .audit-row:last-child {
+      border-bottom: none;
+    }
+
+    .audit-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .ai-sara {
+      background: linear-gradient(135deg, var(--col), #e6aa00);
+      color: #1A1A2E;
+    }
+
+    .ai-yudis {
+      background: linear-gradient(135deg, #818CF8, #4F46E5);
+      color: #fff;
+    }
+
+    .ai-user {
+      background: linear-gradient(135deg, #34D399, #059669);
+      color: #fff;
+    }
+
+    .ai-sys {
+      background: linear-gradient(135deg, #60A5FA, #2563EB);
+      color: #fff;
+    }
+
+    .audit-body {
+      flex: 1;
+    }
+
+    .audit-actor {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .audit-action {
+      font-size: .78rem;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+
+    .audit-action .hl {
+      color: var(--col);
+    }
+
+    .audit-time {
+      font-size: .66rem;
+      color: var(--mut);
+      margin-top: 3px;
+    }
+
+    .audit-type-badge {
+      font-size: .6rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 50px;
+      margin-left: 6px;
+    }
+
+    .at-admin {
+      background: rgba(248, 113, 113, .12);
+      color: #F87171;
+    }
+
+    .at-user {
+      background: rgba(52, 211, 153, .12);
+      color: #34D399;
+    }
+
+    .at-system {
+      background: rgba(96, 165, 250, .12);
+      color: #60A5FA;
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .filter-inp {
+      background: #111827;
+      border: 1px solid var(--bd);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: .78rem;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .filter-inp:focus {
+      border-color: var(--col);
+    }
+
+    .filter-inp::placeholder {
+      color: var(--mut);
+    }
+
+    .filter-sel {
+      background: #111827;
+      border: 1px solid var(--bd);
+      border-radius: 50px;
+      padding: 8px 14px;
+      font-size: .75rem;
+      color: #CBD5E0;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--col);
+      color: #1A1A2E;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: .82rem;
+      font-weight: 700;
+      border: none;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      filter: brightness(.92);
+      transform: translateY(-1px);
+    }
+
+    .btn-out {
+      background: transparent;
+      border: 1px solid var(--bd);
+      color: var(--mut);
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: .8rem;
+      font-weight: 500;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .btn-out:hover {
+      border-color: var(--col);
+      color: var(--col);
+    }
+
+    .btn-sm {
+      font-size: .76rem;
+      padding: 7px 16px;
+    }
+
+    input[type=file] {
+      display: none;
+    }
+
+    @media(max-width:960px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ LOGIN SELECTOR OVERLAY ══ -->
+  <div id="loginOverlay">
+    <div class="lo-box">
+      <div class="lo-logo"><span class="lc">Col</span><span class="lm">Mer</span><span class="lr">cia</span></div>
+      <div class="lo-sub">Sistema de Administración Interno</div>
+      <div class="lo-title">¡Hola! ¿Quién eres?</div>
+      <div class="lo-desc">Selecciona tu perfil de administrador para ingresar al panel de control.</div>
+      <div class="lo-cards">
+        <div class="admin-card" onclick="loginAs('sara')">
+          <div class="ac-ava" style="background:linear-gradient(135deg,var(--col),#e6aa00);color:#1A1A2E;"
+            id="loAva-sara">S</div>
+          <div class="ac-name">Sara</div>
+          <div class="ac-role">Administradora del sistema</div>
+          <div class="ac-badge">⭐ Admin</div>
+        </div>
+        <div class="admin-card" onclick="loginAs('yudis')">
+          <div class="ac-ava" style="background:linear-gradient(135deg,#818CF8,#4F46E5);color:#fff;" id="loAva-yudis">Y
+          </div>
+          <div class="ac-name">Yudis</div>
+          <div class="ac-role">Administradora del sistema</div>
+          <div class="ac-badge">⭐ Admin</div>
+        </div>
+      </div>
+      <div class="lo-note">Acceso restringido solo para administradoras de ColMercia</div>
+    </div>
+  </div>
+
+  <!-- ══ NAV ══ -->
+  <nav>
+    <a href="{% url 'landing' %}" class="nav-logo"><span class="lc">Col</span><span class="lm">Mer</span><span
+        class="lr">cia</span></a>
+    <div class="nav-right">
+      <a href="{% url 'landing' %}" class="nlink">Marketplace</a>
+      <a href="{% url 'admin_pag' %}" class="nlink act">
+        Admin <span class="nalert">{{ vendedores_pendientes.count }}</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="wrapper">
+    <aside class="sidebar">
+      <div class="s-top">
+        <div class="admin-ava" id="adminAvaSidebar" onclick="document.getElementById('avatarInput').click()">
+          <span id="adminAvaText">S</span>
+          <img id="adminAvaImg" alt="" />
+          <div class="ava-edit-overlay">📷<span>Cambiar</span></div>
+        </div>
+        <input type="file" id="avatarInput" accept="image/*" onchange="changeAvatar(this)" />
+        <div class="admin-name" id="adminNameSidebar">Bienvenida, Admin</div>
+        <div class="admin-role-badge" id="adminRoleSidebar">Acceso total al sistema</div>
+      </div>
+      <div class="clock-box">
+        <div class="clock-time" id="ct">--:--:--</div>
+        <div class="clock-date" id="cd">Cargando...</div>
+        <div class="clock-tz">Colombia &middot; GMT-5</div>
+      </div>
+      <div class="smenu">
+        <div class="smenu-lbl">Panel principal</div>
+        <button class="sitem act" onclick="sec('overview',this)"><span class="si-bar si-col"></span> Resumen
+          general</button>
+        <button class="sitem" onclick="sec('vendors',this)">
+          <span class="si-bar si-red"></span> Solicitudes vendedores
+          {% if vendedores_pendientes.count > 0 %}
+          <span class="sitem-badge">{{ vendedores_pendientes.count }}</span>
+          {% endif %}
+        </button>
+        <div class="smenu-lbl" style="margin-top:6px;">Control</div>
+        <button class="sitem" onclick="sec('users',this)"><span class="si-bar si-mer"></span> Control Usuarios</button>
+        <button class="sitem" onclick="sec('sellers',this)"><span class="si-bar si-col"></span> Control
+          Vendedores</button>
+        <button class="sitem" onclick="sec('audit',this)"><span class="si-bar si-pur"></span> Auditoría</button>
+        <div class="smenu-lbl" style="margin-top:6px;">Configuración</div>
+        <button class="sitem" onclick="sec('editor',this)"><span class="si-bar si-col"></span> Editor landing
+          page</button>
+        <button class="sitem" onclick="sec('notifs',this)"><span class="si-bar si-grn"></span> Notificaciones</button>
+        <div class="sdiv"></div>
+        <button class="sitem danger" onclick="doLogout()"><span class="si-bar si-red"></span> Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <div class="main">
+
+      <!-- ══ OVERVIEW ══ -->
+      <div id="secOverview">
+        <div class="card">
+          <div class="card-hdr">
+            <div>
+              <div class="card-title">Resumen General del Sistema</div>
+              <div class="card-sub">ColMercia — datos en tiempo real</div>
+            </div>
+            <button class="btn-out btn-sm">Exportar reporte</button>
+          </div>
+          <div class="card-body">
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-stripe" style="background:#3B82F6"></div>
+                <div class="stat-val sv-blu">{{ todos_usuarios.count }}</div>
+                <div class="stat-lbl">Usuarios totales</div>
+                <div class="stat-delta dUp">Total registrados</div>
+              </div>
+              <div class="stat">
+                <div class="stat-stripe" style="background:var(--col)"></div>
+                <div class="stat-val sv-col">{{ vendedores_aprobados.count }}</div>
+                <div class="stat-lbl">Vendedores activos</div>
+                <div class="stat-delta dUp">Aprobados</div>
+              </div>
+              <div class="stat">
+                <div class="stat-stripe" style="background:#22C55E"></div>
+                <div class="stat-val sv-grn">—</div>
+                <div class="stat-lbl">Productos publicados</div>
+                <div class="stat-delta dUp">En tiendas activas</div>
+              </div>
+              <div class="stat">
+                <div class="stat-stripe" style="background:var(--cia)"></div>
+                <div class="stat-val sv-red">{{ vendedores_pendientes.count }}</div>
+                <div class="stat-lbl">Solicitudes pendientes</div>
+                <div class="stat-delta dDn">
+                  {% if vendedores_pendientes.count > 0 %}Requieren atención{% else %}Sin pendientes{% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <div class="chart-title">Ventas totales de la plataforma — 2025 (en millones COP)</div>
+              <div class="bars">
+                <div class="bw">
+                  <div class="bv">$32M</div>
+                  <div class="bf bf-col" style="height:38%"></div>
+                  <div class="bl">Ene</div>
+                </div>
+                <div class="bw">
+                  <div class="bv">$35M</div>
+                  <div class="bf bf-col" style="height:44%"></div>
+                  <div class="bl">Feb</div>
+                </div>
+                <div class="bw">
+                  <div class="bv">$38M</div>
+                  <div class="bf bf-col" style="height:50%"></div>
+                  <div class="bl">Mar</div>
+                </div>
+                <div class="bw">
+                  <div class="bv">$48M</div>
+                  <div class="bf bf-col" style="height:64%"></div>
+                  <div class="bl">Abr</div>
+                </div>
+                <div class="bw">
+                  <div class="bv">Proy.</div>
+                  <div class="bf"
+                    style="height:18%;background:rgba(245,197,24,.25);border:1px dashed rgba(245,197,24,.4);"></div>
+                  <div class="bl">May</div>
+                </div>
+                <div class="bw">
+                  <div class="bv">Proy.</div>
+                  <div class="bf"
+                    style="height:12%;background:rgba(245,197,24,.2);border:1px dashed rgba(245,197,24,.3);"></div>
+                  <div class="bl">Jun</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SOLICITUDES VENDEDORES ══ -->
+      <div class="card" id="secVendors" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Solicitudes de Nuevos Vendedores</div>
+            <div class="card-sub">
+              {{ vendedores_pendientes.count }}
+              {% if vendedores_pendientes.count == 1 %}solicitud pendiente{% else %}solicitudes pendientes{% endif %}
+              de aprobación
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          {% if vendedores_pendientes %}
+          {% for v in vendedores_pendientes %}
+          <div class="vreq-item" id="vreq-{{ v.id }}">
+            <div class="vreq-top">
+              <div class="vreq-ava">
+                {{ v.first_name|slice:":1"|upper }}{{ v.last_name|slice:":1"|upper }}
+              </div>
+              <div class="vreq-info">
+                <div class="vreq-name">
+                  {% if v.tienda %}{{ v.tienda.nombre }}{% else %}Sin tienda{% endif %}
+                </div>
+                <div class="vreq-meta">
+                  {{ v.first_name }} {{ v.last_name }} · {{ v.email }}
+                  {% if v.telefono %} · {{ v.telefono }}{% endif %}
+                </div>
+                <div class="vreq-tags">
+                  {% if v.tienda and v.tienda.categoria %}
+                  <span class="vtag vt-cat">{{ v.tienda.categoria }}</span>
+                  {% endif %}
+                  {% if v.tienda and v.tienda.ubicacion %}
+                  <span class="vtag vt-reg">{{ v.tienda.ubicacion }}</span>
+                  {% endif %}
+                  <span class="vtag vt-date">{{ v.date_joined|date:"d M Y" }}</span>
+                </div>
+                {% if v.tienda and v.tienda.descripcion %}
+                <div style="font-size:.72rem;color:var(--mut);margin-top:7px;line-height:1.5;">
+                  "{{ v.tienda.descripcion }}"
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="vreq-actions">
+              <button class="vbtn vb-ok"
+                onclick="aprobarVendedorReal({{ v.id }}, '{% if v.tienda %}{{ v.tienda.nombre|escapejs }}{% else %}{{ v.first_name|escapejs }}{% endif %}')">
+                Aprobar tienda
+              </button>
+              <button class="vbtn vb-no"
+                onclick="rechazarVendedorReal({{ v.id }}, '{% if v.tienda %}{{ v.tienda.nombre|escapejs }}{% else %}{{ v.first_name|escapejs }}{% endif %}')">
+                Rechazar
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">
+            ✅ No hay solicitudes pendientes en este momento.
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- ══ CONTROL USUARIOS ══ -->
+      <div class="card" id="secUsers" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Control de Usuarios</div>
+            <div class="card-sub">Historial completo de actividad por usuario</div>
+          </div>
+          <button class="btn-out btn-sm" onclick="exportCSV('usuarios')">Exportar CSV</button>
+        </div>
+        <div class="card-body">
+          <div class="filter-bar">
+            <input class="filter-inp" type="text" placeholder="Buscar usuario por nombre o correo..."
+              oninput="filterUsers(this.value)" />
+          </div>
+          <table class="u-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Región</th>
+                <th>Registro</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for u in todos_usuarios %}
+              <tr>
+                <td>
+                  <div class="u-row">
+                    <div class="u-ava"
+                      style="background:linear-gradient(135deg,{% if u.rol == 'admin' %}var(--cia),#7C0000{% elif u.rol == 'vendedor' %}var(--col),#e6aa00{% else %}#60A5FA,#2563EB{% endif %});color:{% if u.rol == 'vendedor' %}#1A1A2E{% else %}#fff{% endif %};">
+                      {{ u.first_name|slice:":1"|upper|default:u.username|slice:":1"|upper }}
+                    </div>
+                    <div>
+                      <div class="u-name">{{ u.first_name }} {{ u.last_name }}</div>
+                      <div class="u-email">{{ u.email }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span
+                    class="badge {% if u.rol == 'comprador' %}b-buyer{% elif u.rol == 'vendedor' %}b-seller{% else %}b-admin{% endif %}">
+                    {{ u.rol|capfirst }}
+                  </span>
+                </td>
+                <td>{% if u.tienda %}{{ u.tienda.ubicacion|default:"—" }}{% else %}—{% endif %}</td>
+                <td style="color:var(--mut)">{{ u.date_joined|date:"d M Y" }}</td>
+                <td>
+                  <span class="badge {% if u.aprobado or u.rol == 'admin' %}b-ok{% else %}b-pend{% endif %}">
+                    {% if u.aprobado or u.rol == 'admin' %}Activo{% else %}Pendiente{% endif %}
+                  </span>
+                </td>
+                <td>
+                  {% if u.rol != 'admin' %}
+                  <button class="act-btn" onclick="toggleUserDetail('ud-{{ u.id }}', this)">Ver detalle ▾</button>
+                  {% else %}
+                  <button class="act-btn" disabled style="opacity:.4">Sistema</button>
+                  {% endif %}
+                </td>
+              </tr>
+              {% if u.rol != 'admin' %}
+              <tr>
+                <td colspan="6" style="padding:0 12px;">
+                  <div class="user-detail" id="ud-{{ u.id }}">
+                    <div class="ud-section">
+                      <div class="ud-title">📋 Datos del usuario</div>
+                      <div class="ud-item">Email: <strong>{{ u.email }}</strong></div>
+                      {% if u.telefono %}
+                      <div class="ud-item">Teléfono: <strong>{{ u.telefono }}</strong></div>
+                      {% endif %}
+                      <div class="ud-item">Registrado: <strong>{{ u.date_joined|date:"d M Y, H:i" }}</strong></div>
+                      <div class="ud-item">Estado: <strong>{% if u.aprobado %}Aprobado{% else %}Pendiente de
+                          aprobación{% endif %}</strong></div>
+                    </div>
+                    {% if u.rol == 'vendedor' and u.tienda %}
+                    <div class="ud-section">
+                      <div class="ud-title">🏪 Tienda</div>
+                      <div class="ud-item">Nombre: <strong>{{ u.tienda.nombre }}</strong></div>
+                      <div class="ud-item">Categoría: <strong>{{ u.tienda.categoria|default:"—" }}</strong></div>
+                      <div class="ud-item">Ciudad: <strong>{{ u.tienda.ubicacion|default:"—" }}</strong></div>
+                      {% if u.tienda.descripcion %}
+                      <div class="ud-item">Descripción: <strong>{{ u.tienda.descripcion }}</strong></div>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if u.rol == 'vendedor' and not u.aprobado %}
+                    <div class="vreq-actions" style="padding-top:10px;border-top:none;">
+                      <button class="vbtn vb-ok"
+                        onclick="aprobarVendedorReal({{ u.id }}, '{% if u.tienda %}{{ u.tienda.nombre|escapejs }}{% else %}{{ u.first_name|escapejs }}{% endif %}')">
+                        Aprobar
+                      </button>
+                      <button class="vbtn vb-no"
+                        onclick="rechazarVendedorReal({{ u.id }}, '{% if u.tienda %}{{ u.tienda.nombre|escapejs }}{% else %}{{ u.first_name|escapejs }}{% endif %}')">
+                        Rechazar
+                      </button>
+                    </div>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
+              {% endif %}
+              {% empty %}
+              <tr>
+                <td colspan="6" style="text-align:center;color:var(--mut);padding:30px;">Sin usuarios registrados.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ CONTROL VENDEDORES ══ -->
+      <div class="card" id="secSellers" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Control de Vendedores</div>
+            <div class="card-sub">Gestión de tiendas y publicaciones activas</div>
+          </div>
+          <button class="btn-out btn-sm" onclick="exportCSV('vendedores')">Exportar CSV</button>
+        </div>
+        <div class="card-body">
+          {% for v in vendedores_aprobados %}
+          <div class="seller-card" id="sc-{{ v.id }}">
+            <div class="seller-card-top">
+              <div class="sc-ava" style="background:linear-gradient(135deg,var(--col),#e6aa00);color:#1A1A2E;">
+                {{ v.first_name|slice:":1"|upper }}
+              </div>
+              <div class="sc-info">
+                <div class="sc-name">
+                  {% if v.tienda %}{{ v.tienda.nombre }}{% else %}{{ v.first_name }}{% endif %}
+                  <span class="badge b-ok" style="font-size:.6rem;padding:2px 8px;margin-left:6px;">Activa</span>
+                </div>
+                <div class="sc-meta">
+                  {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif %}
+                  · {{ v.email }}
+                </div>
+                <div class="sc-stats">
+                  <div class="sc-stat">
+                    <strong>{% if v.tienda %}{{ v.tienda.producto_set.count }}{% else %}0{% endif %}</strong>Productos
+                  </div>
+                  <div class="sc-stat">
+                    <strong>{{ v.date_joined|date:"d M Y" }}</strong>Registrado
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sc-actions">
+              <button class="sc-btn sb-view" onclick="toggleProdList('pl-{{ v.id }}', this)">Ver publicaciones
+                ▾</button>
+              <button class="sc-btn sb-close"
+                onclick="toggleStore('sc-{{ v.id }}', '{% if v.tienda %}{{ v.tienda.nombre|escapejs }}{% else %}{{ v.first_name|escapejs }}{% endif %}', 'cerrar')">
+                Cerrar tienda
+              </button>
+            </div>
+            <div class="prod-list" id="pl-{{ v.id }}">
+              {% for prod in v.tienda.producto_set.all %}
+              <div class="prod-row-s">
+                <div class="pr-ico">📦</div>
+                <div class="pr-info">
+                  <div class="pr-name">{{ prod.nombre }}</div>
+                  <div class="pr-meta">
+                    {{ prod.cantidad }} disponibles
+                    {% if prod.stock == 'out' %}<span style="color:#F87171;"> · Agotado</span>{% endif %}
+                  </div>
+                </div>
+                <div class="pr-price">{{ prod.precio_formateado }}</div>
+                <div class="pr-act">
+                  <button class="pr-btn prb-hide"
+                    onclick="auditLog('ocultó producto', '{{ prod.nombre|escapejs }}')">Ocultar</button>
+                  <button class="pr-btn prb-del"
+                    onclick="auditLog('eliminó producto', '{{ prod.nombre|escapejs }}')">Eliminar</button>
+                </div>
+              </div>
+              {% empty %}
+              <div style="padding:14px 0;font-size:.76rem;color:var(--mut);">
+                Esta tienda aún no tiene productos.
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% empty %}
+          <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">
+            No hay vendedores aprobados aún.
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+
+      <!-- ══ AUDITORÍA ══ -->
+      <div class="card" id="secAudit" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Auditoría del Sistema</div>
+            <div class="card-sub">Registro completo de acciones de administradoras y usuarios</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <select class="filter-sel" id="auditFilter" onchange="filterAudit(this.value)">
+              <option value="all">Todas las acciones</option>
+              <option value="admin">Solo admins</option>
+              <option value="user">Solo usuarios</option>
+              <option value="system">Solo sistema</option>
+            </select>
+            <button class="btn btn-sm" onclick="exportAuditCSV()">⬇ Exportar .CSV</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="auditList"></div>
+        </div>
+      </div>
+
+      <!-- ══ EDITOR ══ -->
+      <div class="card" id="secEditor" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Editor de Landing Page</div>
+            <div class="card-sub">Los cambios se publican inmediatamente</div>
+          </div>
+          <button class="btn" onclick="saveEditor()">Guardar y publicar</button>
+        </div>
+        <div class="card-body">
+          <div class="edit-block">
+            <div class="edit-block-title">Banners del Hero Slider</div>
+            <div class="erow">
+              <div class="elbl">Banner 1 - Título</div><input class="einp"
+                value="Descubre los productos únicos de la región Caribe" />
+            </div>
+            <div class="erow">
+              <div class="elbl">Banner 1 - Botón</div><input class="einp" value="Explorar región" />
+            </div>
+            <div class="erow">
+              <div class="elbl">Banner 2 - Título</div><input class="einp" value="Colección Belleza Total" />
+            </div>
+            <div class="erow">
+              <div class="elbl">Banner 3 - Título</div><input class="einp" value="Colección Primavera 2025" />
+            </div>
+          </div>
+          <div class="edit-block">
+            <div class="edit-block-title">Evento Activo de Región</div>
+            <div class="erow">
+              <div class="elbl">Región activa</div>
+              <select class="einp">
+                <option>Caribe</option>
+                <option>Andina</option>
+                <option>Pacífico</option>
+                <option>Amazonia</option>
+                <option>Orinoquía</option>
+              </select>
+            </div>
+            <div class="erow">
+              <div class="elbl">Mensaje principal</div><input class="einp"
+                value="Descubre los productos únicos de la región Caribe" />
+            </div>
+            <div class="erow">
+              <div class="elbl">Subtítulo</div><input class="einp"
+                value="Artesanías, moda y sabor caribeño de microempresas locales" />
+            </div>
+          </div>
+          <div class="edit-block">
+            <div class="edit-block-title">Tiendas Destacadas</div>
+            <div class="erow">
+              <div class="elbl">Tienda 1</div><select class="einp">
+                <option>Luxedrop Beauty</option>
+                <option>Studio BH</option>
+                <option>Moda Propia</option>
+              </select>
+            </div>
+            <div class="erow">
+              <div class="elbl">Tienda 2</div><select class="einp">
+                <option>Studio BH</option>
+                <option>Luxedrop Beauty</option>
+                <option>Papel y Arte</option>
+              </select>
+            </div>
+            <div class="erow">
+              <div class="elbl">Tienda 3</div><select class="einp">
+                <option>Moda Propia</option>
+                <option>TechPyme</option>
+                <option>Paso Firme</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ NOTIFICACIONES ══ -->
+      <div class="card" id="secNotifs" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Notificaciones del Sistema</div>
+            <div class="card-sub">Actividad reciente</div>
+          </div>
+          <button class="btn-out btn-sm">Marcar todas leídas</button>
+        </div>
+        <div class="card-body">
+          {% if vendedores_pendientes %}
+          {% for v in vendedores_pendientes %}
+          <div class="notif-item">
+            <div class="notif-dot nd-red"></div>
+            <div>
+              <div class="notif-txt"><strong>Nueva solicitud de vendedor</strong> —
+                {% if v.tienda %}{{ v.tienda.nombre }}{% else %}{{ v.first_name }}{% endif %}
+                solicitó ser vendedor/a. Requiere revisión.
+              </div>
+              <div class="notif-time">{{ v.date_joined|date:"d M Y, H:i" }}</div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <div class="notif-item">
+            <div class="notif-dot nd-grn"></div>
+            <div>
+              <div class="notif-txt"><strong>Sin solicitudes pendientes</strong> — Todo está al día.</div>
+              <div class="notif-time">Ahora</div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /wrapper -->
+
+  <script>
+    let currentAdmin = null;
+    const ADMINS = {
+      sara: { name: 'Sara', fullName: 'Bienvenida, Sara', initials: 'S', color: 'linear-gradient(135deg,#F5C518,#e6aa00)', textColor: '#1A1A2E', avatarKey: 'avatar_sara' },
+      yudis: { name: 'Yudis', fullName: 'Bienvenida, Yudis', initials: 'Y', color: 'linear-gradient(135deg,#818CF8,#4F46E5)', textColor: '#fff', avatarKey: 'avatar_yudis' }
+    };
+
+    let auditData = [
+      { type: 'system', actor: 'Sistema', action: 'Plataforma ColMercia iniciada correctamente.', time: '01 ene 2025, 00:00', tag: 'system' },
+    ];
+
+    function loginAs(adminKey) {
+      currentAdmin = adminKey;
+      const admin = ADMINS[adminKey];
+      document.getElementById('loginOverlay').classList.add('hidden');
+      const atext = document.getElementById('adminAvaText');
+      const aimg = document.getElementById('adminAvaImg');
+      atext.textContent = admin.initials;
+      document.getElementById('adminAvaSidebar').style.background = admin.color;
+      atext.style.color = admin.textColor;
+      const saved = localStorage.getItem(admin.avatarKey);
+      if (saved) { aimg.src = saved; aimg.style.display = 'block'; atext.style.display = 'none'; }
+      document.getElementById('adminNameSidebar').textContent = admin.fullName;
+      document.getElementById('adminRoleSidebar').textContent = '⭐ Administradora del sistema';
+      addAuditEntry({ type: 'admin', actor: admin.name, action: `Inició sesión en el Panel de Administración`, time: now(), tag: 'admin' });
+      renderAudit('all');
+    }
+
+    function doLogout() {
+      if (currentAdmin) {
+        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Cerró sesión del Panel`, time: now(), tag: 'admin' });
+      }
+      document.getElementById('loginOverlay').classList.remove('hidden');
+      currentAdmin = null;
+    }
+
+    function tick() {
+      const n = new Date(), pad = v => String(v).padStart(2, '0');
+      const ctEl = document.getElementById('ct'), cdEl = document.getElementById('cd');
+      if (ctEl) ctEl.textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      if (cdEl) cdEl.textContent = `${days[n.getDay()]} ${n.getDate()} de ${months[n.getMonth()]}, ${n.getFullYear()}`;
+    }
+    tick(); setInterval(tick, 1000);
+
+    function sec(id, btn) {
+      ['secOverview', 'secVendors', 'secUsers', 'secSellers', 'secAudit', 'secEditor', 'secNotifs']
+        .forEach(s => { const el = document.getElementById(s); if (el) el.style.display = 'none'; });
+      const map = { overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers', audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs' };
+      const el = document.getElementById(map[id]);
+      if (el) el.style.display = 'block';
+      document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
+      btn.classList.add('act');
+      if (id === 'audit') renderAudit(document.getElementById('auditFilter').value);
+    }
+
+    function changeAvatar(input) {
+      if (!input.files[0]) return;
+      const r = new FileReader();
+      r.onload = e => {
+        const aimg = document.getElementById('adminAvaImg'), atext = document.getElementById('adminAvaText');
+        aimg.src = e.target.result; aimg.style.display = 'block'; atext.style.display = 'none';
+        if (currentAdmin) localStorage.setItem(ADMINS[currentAdmin].avatarKey, e.target.result);
+      };
+      r.readAsDataURL(input.files[0]);
+    }
+
+    function toggleUserDetail(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.user-detail').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.act-btn').forEach(b => { if (b.textContent.includes('▴')) b.textContent = 'Ver detalle ▾'; });
+      if (!isOpen) { el.classList.add('open'); btn.textContent = 'Cerrar ▴'; }
+    }
+
+    function toggleProdList(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.contains('open');
+      el.classList.toggle('open', !isOpen);
+      btn.textContent = isOpen ? 'Ver publicaciones ▾' : 'Ocultar publicaciones ▴';
+    }
+
+    function toggleStore(cardId, storeName, action) {
+      const card = document.getElementById(cardId);
+      const badge = card.querySelector('.sc-name .badge');
+      if (action === 'cerrar') {
+        if (!confirm(`¿Cerrar temporalmente "${storeName}"?`)) return;
+        badge.className = 'badge b-pend'; badge.textContent = 'Suspendida';
+        const btn = card.querySelector('.sb-close');
+        btn.className = 'sc-btn sb-open'; btn.textContent = 'Reabrir tienda';
+        btn.onclick = () => toggleStore(cardId, storeName, 'abrir');
+        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Cerró tienda: <span class="hl">${storeName}</span>`, time: now(), tag: 'admin' });
+      } else {
+        badge.className = 'badge b-ok'; badge.textContent = 'Activa';
+        const btn = card.querySelector('.sb-open');
+        btn.className = 'sc-btn sb-close'; btn.textContent = 'Cerrar tienda';
+        btn.onclick = () => toggleStore(cardId, storeName, 'cerrar');
+        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Reactivó tienda: <span class="hl">${storeName}</span>`, time: now(), tag: 'admin' });
+      }
+    }
+
+    function getCsrf() {
+      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1];
+    }
+
+    async function aprobarVendedorReal(userId, nombre) {
+      try {
+        const res = await fetch(`/admin/aprobar-vendedor/${userId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() }
+        });
+        const data = await res.json();
+        if (data.ok) {
+          const item = document.getElementById(`vreq-${userId}`);
+          if (item) {
+            item.style.opacity = '.45';
+            item.querySelectorAll('button').forEach(b => b.disabled = true);
+            item.querySelector('.vb-ok').textContent = '✓ Aprobado';
+          }
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Aprobó solicitud de vendedor: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
+          alert(`✅ "${nombre}" aprobada. El vendedor ya puede iniciar sesión.`);
+        } else { alert('❌ Error: ' + data.error); }
+      } catch (e) { alert('❌ Error de conexión.'); }
+    }
+
+    async function rechazarVendedorReal(userId, nombre) {
+      if (!confirm(`¿Rechazar y eliminar la solicitud de "${nombre}"?`)) return;
+      try {
+        const res = await fetch(`/admin/rechazar-vendedor/${userId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() }
+        });
+        const data = await res.json();
+        if (data.ok) {
+          const item = document.getElementById(`vreq-${userId}`);
+          if (item) {
+            item.style.opacity = '.45';
+            item.querySelectorAll('button').forEach(b => b.disabled = true);
+            item.querySelector('.vb-no').textContent = '✗ Rechazado';
+          }
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Rechazó solicitud: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
+          alert(`✅ Solicitud de "${nombre}" rechazada.`);
+        } else { alert('❌ Error: ' + data.error); }
+      } catch (e) { alert('❌ Error de conexión.'); }
+    }
+
+    function saveEditor() {
+      addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Guardó cambios en la Landing Page`, time: now(), tag: 'admin' });
+      alert('Cambios guardados y publicados correctamente.');
+    }
+
+    function auditLog(action, target) {
+      if (!currentAdmin) return;
+      addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `${action}: <span class="hl">${target}</span>`, time: now(), tag: 'admin' });
+      alert(`Registrado: ${action} — ${target}`);
+    }
+
+    function addAuditEntry(entry) {
+      auditData.unshift(entry);
+      renderAudit(document.getElementById('auditFilter')?.value || 'all');
+    }
+
+    function renderAudit(filter) {
+      const list = document.getElementById('auditList');
+      if (!list) return;
+      const filtered = filter === 'all' ? auditData : auditData.filter(e => e.tag === filter);
+      if (!filtered.length) {
+        list.innerHTML = '<div style="color:var(--mut);font-size:.82rem;padding:20px 0;text-align:center;">No hay registros con este filtro.</div>';
+        return;
+      }
+      list.innerHTML = filtered.map(e => {
+        const iconClass = e.actor === 'Sara' ? 'ai-sara' : e.actor === 'Yudis' ? 'ai-yudis' : e.actor === 'Sistema' ? 'ai-sys' : 'ai-user';
+        const initials = e.actor.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+        const tagLabel = e.tag === 'admin' ? 'Admin' : e.tag === 'user' ? 'Usuario' : 'Sistema';
+        const tagClass = e.tag === 'admin' ? 'at-admin' : e.tag === 'user' ? 'at-user' : 'at-system';
+        return `<div class="audit-row">
+          <div class="audit-icon ${iconClass}">${initials}</div>
+          <div class="audit-body">
+            <div class="audit-actor">${e.actor} <span class="audit-type-badge ${tagClass}">${tagLabel}</span></div>
+            <div class="audit-action">${e.action}</div>
+            <div class="audit-time">${e.time}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function filterAudit(val) { renderAudit(val); }
+
+    function exportAuditCSV() {
+      const filter = document.getElementById('auditFilter').value;
+      const filtered = filter === 'all' ? auditData : auditData.filter(e => e.tag === filter);
+      let csv = 'Actor,Tipo,Acción,Fecha\n';
+      filtered.forEach(e => {
+        const action = e.action.replace(/<[^>]+>/g, '').replace(/,/g, ';');
+        csv += `"${e.actor}","${e.tag}","${action}","${e.time}"\n`;
+      });
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'colmercia_auditoria.csv'; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportCSV(type) {
+      const rows = type === 'usuarios'
+        ? 'Nombre,Correo,Rol,Región,Registro,Estado'
+        : 'Tienda,Categoría,Ciudad,Productos,Estado';
+      const blob = new Blob(['\uFEFF' + rows], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = `colmercia_${type}.csv`; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function filterUsers(val) {
+      document.querySelectorAll('#usersTable tbody tr').forEach(tr => {
+        if (!tr.querySelector('.u-name')) return;
+        const name = tr.querySelector('.u-name').textContent.toLowerCase();
+        const email = tr.querySelector('.u-email')?.textContent.toLowerCase() || '';
+        tr.style.display = (name.includes(val.toLowerCase()) || email.includes(val.toLowerCase())) ? '' : 'none';
+      });
+    }
+
+    function now() {
+      const n = new Date(), pad = v => String(v).padStart(2, '0');
+      const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+      return `${pad(n.getDate())} ${months[n.getMonth()]} ${n.getFullYear()}, ${pad(n.getHours())}:${pad(n.getMinutes())}`;
+    }
+
+    renderAudit('all');
+  </script>
+</body>
+
+</html>

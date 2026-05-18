@@ -1,0 +1,1806 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Mi Perfil — ColMercia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #F0F2F5;
+      color: #1A1A2E;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      border: none;
+    }
+
+    :root {
+      --col: #F5C518;
+      --mer: #003087;
+      --cia: #CE1126;
+      --bg: #F0F2F5;
+      --wht: #fff;
+      --bd: #E2E8F0;
+      --mut: #718096;
+      --r: 14px;
+      --rs: 10px;
+      --tr: .2s ease;
+      --shadow: 0 4px 20px rgba(0, 48, 135, .08);
+      --shadow-md: 0 8px 32px rgba(0, 48, 135, .14);
+    }
+
+    /* NAV */
+    nav {
+      background: var(--wht);
+      border-bottom: 3px solid var(--col);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo .lc {
+      color: var(--col);
+    }
+
+    .nav-logo .lm {
+      color: var(--mer);
+    }
+
+    .nav-logo .lr {
+      color: var(--cia);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nlink {
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--mut);
+      padding: 8px 18px;
+      border-radius: 50px;
+      transition: all var(--tr);
+    }
+
+    .nlink:hover {
+      background: #EDF2F7;
+      color: var(--mer);
+    }
+
+    .nlink.act {
+      background: var(--mer);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* LAYOUT */
+    .wrapper {
+      max-width: 1240px;
+      margin: 36px auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: var(--wht);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: sticky;
+      top: 84px;
+    }
+
+    .prof-top {
+      background: linear-gradient(145deg, var(--mer) 0%, #002060 100%);
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .prof-ava-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .prof-ava {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .2);
+      border: 3px solid rgba(255, 255, 255, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      overflow: hidden;
+    }
+
+    .prof-ava img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Photo upload button */
+    .photo-upload-btn {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--col);
+      border: 2px solid #fff;
+      color: #1A1A2E;
+      font-size: .72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform var(--tr);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    }
+
+    .photo-upload-btn:hover {
+      transform: scale(1.2);
+    }
+
+    #photoInput {
+      display: none;
+    }
+
+    .prof-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .prof-email {
+      font-size: .78rem;
+      color: rgba(255, 255, 255, .6);
+      margin-bottom: 12px;
+    }
+
+    .prof-phone-display {
+      font-size: .76rem;
+      color: rgba(255, 255, 255, .5);
+      margin-bottom: 12px;
+    }
+
+    .prof-plan-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, .15);
+      border: 1px solid rgba(255, 255, 255, .3);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .prof-plan-btn:hover {
+      background: var(--col);
+      color: #1A1A2E;
+      border-color: var(--col);
+    }
+
+    /* CLOCK */
+    .clock-box {
+      background: #0A1628;
+      padding: 18px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .clock-time {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+
+    .clock-date {
+      font-size: .75rem;
+      color: rgba(255, 255, 255, .5);
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .clock-tz {
+      font-size: .66rem;
+      color: rgba(255, 255, 255, .3);
+      margin-top: 2px;
+    }
+
+    /* MENU */
+    .smenu {
+      padding: 12px;
+    }
+
+    .smenu-group {
+      margin-bottom: 6px;
+    }
+
+    .smenu-label {
+      font-size: .64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--mut);
+      padding: 8px 14px 4px;
+    }
+
+    .sitem {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--rs);
+      font-size: .84rem;
+      font-weight: 500;
+      color: #4A5568;
+      cursor: pointer;
+      transition: all var(--tr);
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .sitem:hover {
+      background: #EDF2F7;
+      color: var(--mer);
+    }
+
+    .sitem.act {
+      background: #EBF4FF;
+      color: var(--mer);
+      font-weight: 600;
+    }
+
+    .sitem .si-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .sitem.act .si-icon {
+      background: var(--mer);
+      color: #fff;
+    }
+
+    .smenu-div {
+      height: 1px;
+      background: var(--bd);
+      margin: 8px 0;
+    }
+
+    .sitem.danger {
+      color: var(--cia);
+    }
+
+    .sitem.danger:hover {
+      background: #FFF5F5;
+    }
+
+    .sitem.danger .si-icon {
+      color: var(--cia);
+    }
+
+    /* MAIN */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--wht);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-hdr {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1A1A2E;
+    }
+
+    .card-sub {
+      font-size: .76rem;
+      color: var(--mut);
+    }
+
+    .card-body {
+      padding: 24px 28px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--mer);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: .8rem;
+      font-weight: 600;
+      border: none;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #002060;
+      transform: translateY(-1px);
+    }
+
+    .btn-col {
+      background: var(--col) !important;
+      color: #1A1A2E !important;
+    }
+
+    .btn-out {
+      background: transparent;
+      color: var(--mer);
+      border: 2px solid var(--mer);
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: .78rem;
+      font-weight: 600;
+      transition: all var(--tr);
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    .btn-out:hover {
+      background: var(--mer);
+      color: #fff;
+    }
+
+    .btn-sm {
+      font-size: .74rem;
+      padding: 7px 16px;
+    }
+
+    .btn-danger {
+      color: var(--cia) !important;
+      border-color: var(--cia) !important;
+    }
+
+    .btn-danger:hover {
+      background: var(--cia) !important;
+      color: #fff !important;
+    }
+
+    /* STATUS DOTS */
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    .dot-blue {
+      background: #3B82F6;
+    }
+
+    .dot-green {
+      background: #22C55E;
+    }
+
+    .dot-amber {
+      background: #F59E0B;
+    }
+
+    .dot-red {
+      background: var(--cia);
+    }
+
+    /* ORDERS */
+    .order-card {
+      border: 1px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      transition: all var(--tr);
+    }
+
+    .order-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .order-card:hover {
+      border-color: #C3DAFE;
+      box-shadow: 0 2px 12px rgba(0, 48, 135, .08);
+    }
+
+    .order-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .order-id {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--mut);
+      margin-bottom: 3px;
+    }
+
+    .order-name {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .order-meta {
+      font-size: .74rem;
+      color: var(--mut);
+      margin-top: 3px;
+    }
+
+    .order-price {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--mer);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .sp-blue {
+      background: #EBF8FF;
+      color: #1565C0;
+    }
+
+    .sp-green {
+      background: #F0FFF4;
+      color: #276749;
+    }
+
+    .sp-amber {
+      background: #FFFBEB;
+      color: #92400E;
+    }
+
+    .order-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--bd);
+    }
+
+    /* TRACKING */
+    .track-panel {
+      display: none;
+      background: #F7FAFF;
+      border: 1px solid #C3DAFE;
+      border-radius: var(--rs);
+      padding: 20px;
+      margin-top: 14px;
+    }
+
+    .track-panel.open {
+      display: block;
+    }
+
+    .track-title {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--mer);
+      margin-bottom: 16px;
+    }
+
+    .tstep {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .tstep:last-child {
+      margin-bottom: 0;
+    }
+
+    .tscol {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .tsdot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .tsd {
+      background: var(--mer);
+      color: #fff;
+    }
+
+    .tsa {
+      background: var(--col);
+      color: #1A1A2E;
+    }
+
+    .tsp {
+      background: #E2E8F0;
+      border: 2px solid var(--bd);
+      color: var(--mut);
+    }
+
+    .tsline {
+      width: 2px;
+      flex: 1;
+      margin: 4px 0;
+    }
+
+    .tsld {
+      background: var(--mer);
+    }
+
+    .tslp {
+      background: var(--bd);
+    }
+
+    .tsinfo {
+      padding-top: 3px;
+    }
+
+    .tsname {
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .tsmeta {
+      font-size: .7rem;
+      color: var(--mut);
+      margin-top: 2px;
+    }
+
+    /* FAVORITES */
+    .fav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 14px;
+    }
+
+    .fav-card {
+      background: var(--bg);
+      border-radius: var(--rs);
+      border: 1px solid var(--bd);
+      overflow: hidden;
+      transition: all var(--tr);
+      cursor: pointer;
+    }
+
+    .fav-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #C3DAFE;
+      transform: translateY(-2px);
+    }
+
+    .fav-img {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #FFF9E6, #FFF3CD);
+    }
+
+    .fav-info {
+      padding: 10px 12px;
+    }
+
+    .fav-name {
+      font-size: .78rem;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .fav-store {
+      font-size: .68rem;
+      color: var(--mut);
+      margin-top: 2px;
+    }
+
+    .fav-price {
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--mer);
+      margin-top: 5px;
+    }
+
+    .fav-btn {
+      width: 100%;
+      background: var(--col);
+      color: #1A1A2E;
+      border: none;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 7px;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all var(--tr);
+    }
+
+    .fav-btn:hover {
+      background: var(--mer);
+      color: #fff;
+    }
+
+    /* PROFILE SECTION */
+    .prof-section-card {
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+    }
+
+    .sec-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--bd);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sec-row:last-child {
+      border-bottom: none;
+    }
+
+    .sec-lbl {
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .sec-sub {
+      font-size: .73rem;
+      color: var(--mut);
+      margin-top: 3px;
+    }
+
+    .sec-sub.editable {
+      color: var(--mer);
+      font-weight: 500;
+    }
+
+    /* INLINE EDIT */
+    .inline-edit {
+      display: none;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .inline-edit.open {
+      display: flex;
+    }
+
+    .inline-inp {
+      flex: 1;
+      border: 2px solid var(--mer);
+      border-radius: 50px;
+      padding: 7px 16px;
+      font-size: .8rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+    }
+
+    .inline-save {
+      background: var(--mer);
+      color: #fff;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: .76rem;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .inline-save:hover {
+      background: #002060;
+    }
+
+    .inline-cancel {
+      background: var(--bg);
+      color: var(--mut);
+      border: none;
+      padding: 7px 12px;
+      border-radius: 50px;
+      font-size: .76rem;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    /* SECURITY */
+    .security-item {
+      border: 1px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color var(--tr);
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .security-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .security-item:hover {
+      border-color: #C3DAFE;
+    }
+
+    .security-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .security-text-wrap {
+      flex: 1;
+    }
+
+    .security-lbl {
+      font-size: .88rem;
+      font-weight: 700;
+    }
+
+    .security-desc {
+      font-size: .72rem;
+      color: var(--mut);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    .security-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-top: 6px;
+    }
+
+    .ss-ok {
+      background: #F0FFF4;
+      color: #276749;
+    }
+
+    .ss-warn {
+      background: #FFFBEB;
+      color: #92400E;
+    }
+
+    .ss-off {
+      background: #FFF5F5;
+      color: var(--cia);
+    }
+
+    /* MODAL */
+    .modal-ov {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 30, .6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-ov.open {
+      display: flex;
+    }
+
+    .mbox {
+      background: #fff;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .22);
+      overflow: hidden;
+      animation: mi .28s cubic-bezier(.34, 1.2, .64, 1);
+    }
+
+    @keyframes mi {
+      from {
+        opacity: 0;
+        transform: scale(.94) translateY(16px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .mhdr {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mttl {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .mxbtn {
+      background: #F7FAFC;
+      border: 1px solid var(--bd);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: .8rem;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 24px 28px;
+    }
+
+    .pc {
+      border-radius: var(--r);
+      border: 2px solid var(--bd);
+      padding: 22px;
+      position: relative;
+      transition: border-color var(--tr);
+    }
+
+    .pc.feat {
+      border-color: var(--col);
+      background: linear-gradient(135deg, #FFFEF0, #FFF9CC);
+    }
+
+    .pbadge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--col);
+      color: #1A1A2E;
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: 50px;
+    }
+
+    .pname {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .pprice {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--mer);
+      margin-bottom: 12px;
+    }
+
+    .pprice span {
+      font-size: .76rem;
+      font-weight: 400;
+      color: var(--mut);
+    }
+
+    .plist {
+      list-style: none;
+      font-size: .78rem;
+      color: #4A5568;
+      line-height: 1.95;
+    }
+
+    .plist li::before {
+      content: '+ ';
+      color: var(--mer);
+      font-weight: 700;
+    }
+
+    .pbtn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 11px;
+      border-radius: 50px;
+      font-size: .82rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all var(--tr);
+    }
+
+    .pc .pbtn {
+      background: var(--mer);
+      color: #fff;
+    }
+
+    .pc.feat .pbtn {
+      background: var(--col);
+      color: #1A1A2E;
+    }
+
+    .pbtn:hover {
+      filter: brightness(.92);
+    }
+
+    /* CHANGE PASSWORD MODAL */
+    .mbody-pad {
+      padding: 22px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .fg label {
+      display: block;
+      font-size: .76rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #4A5568;
+    }
+
+    .fc {
+      width: 100%;
+      border: 1.5px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 10px 14px;
+      font-size: .84rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      transition: border-color var(--tr);
+    }
+
+    .fc:focus {
+      border-color: var(--mer);
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOAST */
+    #prof-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1A1A2E;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-size: .82rem;
+      font-weight: 600;
+      z-index: 9999;
+      transition: transform .3s cubic-bezier(.34, 1.2, .64, 1), opacity .3s;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .22);
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:860px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      nav {
+        padding: 0 20px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-body {
+        padding: 18px 16px;
+      }
+
+      .card-hdr {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+  <div id="prof-toast"></div>
+
+  <nav>
+    <a href="{% url 'landing' %}" class="nav-logo"><span class="lc">Col</span><span class="lm">Mer</span><span
+        class="lr">cia</span></a>
+    <div class="nav-right">
+      <a href="{% url 'landing' %}" class="nlink">Marketplace</a>
+
+    </div>
+  </nav>
+
+  <div class="wrapper">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="prof-top">
+        <div class="prof-ava-wrap">
+          <div class="prof-ava" id="profAvatar">{{ user.first_name|first|upper }}</div>
+          <label class="photo-upload-btn" for="photoInput" title="Cambiar foto de perfil">✎</label>
+          <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)" />
+        </div>
+        <div class="prof-name" id="sidebarName">{{ user.first_name }}</div>
+        <div class="prof-email" id="sidebarEmail">{{ user.email }}</div>
+        <div class="prof-phone-display" id="sidebarPhone">{{ user.telefono|default:"Sin teléfono" }}</div>
+        <button class="prof-plan-btn" onclick="document.getElementById('plansModal').classList.add('open')">
+          Plan actual: Free &nbsp;&#8594; Ver planes
+        </button>
+      </div>
+      <div class="clock-box">
+        <div>
+          <span class="clock-time" id="ct">--:--:--</span>
+        </div>
+        <div class="clock-date" id="cd">Cargando fecha...</div>
+        <div class="clock-tz">Colombia &middot; GMT-5</div>
+      </div>
+      <div class="smenu">
+        <div class="smenu-group">
+          <div class="smenu-label">Mi cuenta</div>
+          <button class="sitem act" onclick="showSec('orders',this)">
+            <span class="si-icon">P</span> Mis Pedidos
+          </button>
+          <button class="sitem" onclick="showSec('favs',this)">
+            <span class="si-icon">F</span> Favoritos
+          </button>
+          <button class="sitem" onclick="showSec('profile',this)">
+            <span class="si-icon">U</span> Editar Perfil
+          </button>
+          <button class="sitem" onclick="showSec('security',this)">
+            <span class="si-icon">S</span> Seguridad
+          </button>
+        </div>
+        <div class="smenu-div"></div>
+        <form method="post" action="/auth/logout/">
+          {% csrf_token %}
+          <button type="submit" class="sitem danger"
+            style="width:100%;text-align:left;background:none;font-family:'Poppins',sans-serif;">
+            <span class="si-icon">X</span> Cerrar sesión
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- ── ORDERS ── -->
+      <div class="card" id="secOrders">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Mis Pedidos</div>
+            <div class="card-sub">
+              {% if pedidos %}
+              {{ pedidos.count }} pedido{{ pedidos.count|pluralize }} activo{{ pedidos.count|pluralize }}
+              {% else %}
+              Sin pedidos todavía
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+
+          {% if pedidos %}
+          {% for pedido in pedidos %}
+          <div class="order-card">
+            <div class="order-top">
+              <div>
+                <div class="order-id">Pedido #{{ pedido.id }}</div>
+                <div class="order-name">
+                  {% if pedido.producto %}
+                  {{ pedido.producto.nombre }}
+                  {% else %}
+                  Producto no disponible
+                  {% endif %}
+                </div>
+                <div class="order-meta">
+                  {% if pedido.producto %}
+                  {{ pedido.producto.tienda.nombre }} &middot;
+                  {% endif %}
+                  {{ pedido.fecha|date:"d M Y" }} &middot;
+                  {{ pedido.cantidad }} producto{{ pedido.cantidad|pluralize }}
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div class="order-price">{{ pedido.total_formateado }}</div>
+                <div style="margin-top:6px;">
+                  <span class="status-pill {{ pedido.estado_pill_class }}">
+                    <span
+                      class="dot dot-{% if pedido.estado == 'en_camino' %}blue{% elif pedido.estado == 'entregado' %}green{% else %}amber{% endif %}"></span>
+                    {{ pedido.estado_label }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-actions">
+              <button class="btn btn-sm" onclick="toggleTrack('t{{ pedido.id }}')">
+                {% if pedido.estado == 'entregado' %}Ver detalles{% else %}Rastrear pedido{% endif %}
+              </button>
+            </div>
+
+            {# Panel de rastreo #}
+            <div class="track-panel" id="t{{ pedido.id }}">
+              <div class="track-title">Pedido #{{ pedido.id }} — {{ pedido.estado_label }}</div>
+
+              {# Paso 1: Confirmado — siempre completado #}
+              <div class="tstep">
+                <div class="tscol">
+                  <div class="tsdot tsd">1</div>
+                  {% if pedido.estado != 'procesando' %}<div class="tsline tsld"></div>{% else %}<div
+                    class="tsline tslp"></div>{% endif %}
+                </div>
+                <div class="tsinfo">
+                  <div class="tsname">Pedido confirmado</div>
+                  <div class="tsmeta">{{ pedido.fecha|date:"d M, H:i" }}</div>
+                </div>
+              </div>
+
+              {# Paso 2: Preparando #}
+              <div class="tstep">
+                <div class="tscol">
+                  <div
+                    class="tsdot {% if pedido.estado in 'preparando,en_camino,entregado' %}tsd{% elif pedido.estado == 'procesando' %}tsp{% else %}tsa{% endif %}">
+                    2</div>
+                  {% if pedido.estado in 'en_camino,entregado' %}<div class="tsline tsld"></div>{% else %}<div
+                    class="tsline tslp"></div>{% endif %}
+                </div>
+                <div class="tsinfo">
+                  <div class="tsname">Preparando pedido</div>
+                  <div class="tsmeta">{% if pedido.estado in 'preparando,en_camino,entregado' %}En proceso{% else
+                    %}Pendiente{% endif %}</div>
+                </div>
+              </div>
+
+              {# Paso 3: En camino #}
+              <div class="tstep">
+                <div class="tscol">
+                  <div
+                    class="tsdot {% if pedido.estado == 'en_camino' %}tsa{% elif pedido.estado == 'entregado' %}tsd{% else %}tsp{% endif %}">
+                    3</div>
+                  {% if pedido.estado == 'entregado' %}<div class="tsline tsld"></div>{% else %}<div
+                    class="tsline tslp"></div>{% endif %}
+                </div>
+                <div class="tsinfo">
+                  <div class="tsname">En camino</div>
+                  <div class="tsmeta">
+                    {% if pedido.estado == 'en_camino' %}En tránsito{% elif pedido.estado == 'entregado'
+                    %}Completado{% else %}Pendiente{% endif %}
+                  </div>
+                </div>
+              </div>
+
+              {# Paso 4: Entregado #}
+              <div class="tstep">
+                <div class="tscol">
+                  <div class="tsdot {% if pedido.estado == 'entregado' %}tsd{% else %}tsp{% endif %}">4</div>
+                </div>
+                <div class="tsinfo">
+                  <div class="tsname">Entregado</div>
+                  <div class="tsmeta">
+                    {% if pedido.estado == 'entregado' %}
+                    Entregado el {{ pedido.fecha|date:"d M" }}
+                    {% else %}
+                    Pendiente
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+            </div>{# /track-panel #}
+          </div>{# /order-card #}
+          {% endfor %}
+
+          {% else %}
+          {# Estado vacío — usuario recién registrado #}
+          <div style="
+        text-align: center;
+        padding: 52px 20px;
+        color: var(--mut);
+      ">
+            <div style="font-size: 3rem; margin-bottom: 14px;">🛒</div>
+            <div style="font-size: 1rem; font-weight: 700; color: #1A1A2E; margin-bottom: 6px;">
+              Aún no tienes pedidos
+            </div>
+            <p style="font-size: .84rem; margin-bottom: 22px;">
+              Explora el marketplace y encuentra productos de microempresas colombianas.
+            </p>
+            <a href="{% url 'landing' %}" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--mer);
+            color: #fff;
+            padding: 11px 26px;
+            border-radius: 50px;
+            font-size: .84rem;
+            font-weight: 600;
+            text-decoration: none;
+          ">
+              🇨🇴 Ir al Marketplace
+            </a>
+          </div>
+          {% endif %}
+
+        </div>{# /card-body #}
+      </div>{# /card #}
+
+      <!-- ── FAVORITES ── -->
+      <div class="card" id="secFavs" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Favoritos</div>
+            <div class="card-sub">6 productos guardados</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="fav-grid">
+            <div class="fav-card">
+              <div class="fav-img">&#128132;</div>
+              <div class="fav-info">
+                <div class="fav-name">Paleta Sombras Nude</div>
+                <div class="fav-store">Glam Medellín</div>
+                <div class="fav-price">$67.000</div>
+              </div><button class="fav-btn">+ Agregar al carrito</button>
+            </div>
+            <div class="fav-card">
+              <div class="fav-img">&#128095;</div>
+              <div class="fav-info">
+                <div class="fav-name">Sneakers Blancas Premium</div>
+                <div class="fav-store">Paso Firme</div>
+                <div class="fav-price">$185.000</div>
+              </div><button class="fav-btn">+ Agregar al carrito</button>
+            </div>
+            <div class="fav-card">
+              <div class="fav-img">&#128221;</div>
+              <div class="fav-info">
+                <div class="fav-name">Bullet Journal A5</div>
+                <div class="fav-store">Papel y Arte</div>
+                <div class="fav-price">$28.000</div>
+              </div><button class="fav-btn">+ Agregar al carrito</button>
+            </div>
+            <div class="fav-card">
+              <div class="fav-img">&#127801;</div>
+              <div class="fav-info">
+                <div class="fav-name">Perfume Dulce Miel 50ml</div>
+                <div class="fav-store">Essence CO</div>
+                <div class="fav-price">$95.000</div>
+              </div><button class="fav-btn">+ Agregar al carrito</button>
+            </div>
+            <div class="fav-card">
+              <div class="fav-img">&#128092;</div>
+              <div class="fav-info">
+                <div class="fav-name">Mini Bag Cadena Dorada</div>
+                <div class="fav-store">Studio BH</div>
+                <div class="fav-price">$118.000</div>
+              </div><button class="fav-btn">+ Agregar al carrito</button>
+            </div>
+            <div class="fav-card">
+              <div class="fav-img">&#129405;</div>
+              <div class="fav-info">
+                <div class="fav-name">Blazer Oversized Gris</div>
+                <div class="fav-store">Urban Style</div>
+                <div class="fav-price">$195.000</div>
+              </div><button class="fav-btn">+ Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EDITAR PERFIL ── -->
+      <div class="card" id="secProfile" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Editar Perfil</div>
+            <div class="card-sub">Actualiza tu información personal</div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <!-- Photo section -->
+          <div
+            style="display:flex;align-items:center;gap:20px;padding:14px 0 24px;border-bottom:1px solid var(--bd);margin-bottom:20px;">
+            <div style="position:relative;">
+              <div id="profilePhotoPreview"
+                style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--mer),#002060);color:#fff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid var(--bd);">
+                V</div>
+            </div>
+            <div>
+              <div style="font-size:.88rem;font-weight:700;margin-bottom:4px;">Foto de perfil</div>
+              <div style="font-size:.74rem;color:var(--mut);margin-bottom:10px;">JPG, PNG o GIF. Máximo 5MB.</div>
+              <div style="display:flex;gap:8px;">
+                <label class="btn btn-sm" for="photoInputProfile" style="cursor:pointer;">📷 Subir foto</label>
+                <button class="btn-out btn-sm" onclick="removePhoto()">Eliminar</button>
+              </div>
+              <input type="file" id="photoInputProfile" accept="image/*" style="display:none;"
+                onchange="handlePhotoUpload(event)" />
+            </div>
+          </div>
+
+          <!-- Fields -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="fg">
+              <label>Nombre completo</label>
+              <input type="text" class="fc" id="editName" placeholder="Tu nombre completo" />
+            </div>
+            <div class="fg">
+              <label>Correo electrónico</label>
+              <input type="email" class="fc" id="editEmail" placeholder="tu@correo.com" />
+            </div>
+            <div class="fg">
+              <label>Teléfono</label>
+              <input type="tel" class="fc" id="editPhone" placeholder="+57 300 000 0000" />
+            </div>
+            <div class="fg">
+              <label>Ciudad</label>
+              <input type="text" class="fc" id="editCity" placeholder="Barranquilla" value="Barranquilla" />
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:20px;">
+            <button class="btn" style="flex:1;" onclick="saveProfileChanges()">💾 Guardar cambios</button>
+            <button class="btn-out" onclick="cancelProfileEdit()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SEGURIDAD ── -->
+      <div class="card" id="secSecurity" style="display:none;">
+        <div class="card-hdr">
+          <div class="card-title">Seguridad de la Cuenta</div>
+        </div>
+        <div class="card-body">
+
+          <div class="security-item">
+            <div class="security-icon">🔑</div>
+            <div class="security-text-wrap">
+              <div class="security-lbl">Contraseña</div>
+              <div class="security-desc">Última actualización: hace 30 días. Recomendamos cambiarla cada 3 meses.
+              </div>
+              <div class="security-status ss-ok">✓ Contraseña establecida</div>
+            </div>
+            <button class="btn-out btn-sm"
+              onclick="document.getElementById('changePassModal').classList.add('open')">Cambiar</button>
+          </div>
+
+          <div class="security-item">
+            <div class="security-icon">📧</div>
+            <div class="security-text-wrap">
+              <div class="security-lbl">Correo electrónico</div>
+              <div class="security-desc" id="secEmailDisplay">sara@correo.com</div>
+              <div id="emailInlineEdit" class="inline-edit" style="margin-top:10px;">
+                <input class="inline-inp" type="email" id="inlineEmailInp" placeholder="nuevo@correo.com" />
+                <button class="inline-save" onclick="saveInlineField('email')">Guardar</button>
+                <button class="inline-cancel" onclick="closeInline('email')">✕</button>
+              </div>
+            </div>
+            <button class="btn-out btn-sm" onclick="openInline('email')">Editar</button>
+          </div>
+
+          <div class="security-item">
+            <div class="security-icon">📱</div>
+            <div class="security-text-wrap">
+              <div class="security-lbl">Teléfono</div>
+              <div class="security-desc" id="secPhoneDisplay">+57 300 123 4567</div>
+              <div id="phoneInlineEdit" class="inline-edit" style="margin-top:10px;">
+                <input class="inline-inp" type="tel" id="inlinePhoneInp" placeholder="+57 300 000 0000" />
+                <button class="inline-save" onclick="saveInlineField('phone')">Guardar</button>
+                <button class="inline-cancel" onclick="closeInline('phone')">✕</button>
+              </div>
+            </div>
+            <button class="btn-out btn-sm" onclick="openInline('phone')">Editar</button>
+          </div>
+
+          <div class="security-item">
+            <div class="security-icon">🔐</div>
+            <div class="security-text-wrap">
+              <div class="security-lbl">Verificación en dos pasos</div>
+              <div class="security-desc">Agrega una capa extra de seguridad. Se enviará un código a tu teléfono al
+                iniciar sesión.</div>
+              <div class="security-status ss-off" id="twoFAStatus">✕ No activada</div>
+            </div>
+            <button class="btn btn-sm" onclick="toggle2FA()">Activar</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PLANS MODAL -->
+  <div class="modal-ov" id="plansModal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="mbox">
+      <div class="mhdr">
+        <div class="mttl">Planes ColMercia</div>
+        <button class="mxbtn" onclick="document.getElementById('plansModal').classList.remove('open')">X</button>
+      </div>
+      <div class="plans-grid">
+        <div class="pc">
+          <div class="pname">Standard</div>
+          <div class="pprice">$9.900<span>/mes</span></div>
+          <ul class="plist">
+            <li>Envío gratis desde $40.000</li>
+            <li>Empaque de regalo limitado</li>
+            <li>Historial completo de pedidos</li>
+            <li>Soporte por chat</li>
+          </ul>
+          <button class="pbtn" onclick="alert('Plan Standard activado')">Suscribirme</button>
+        </div>
+        <div class="pc feat">
+          <div class="pbadge">Más popular</div>
+          <div class="pname">Pro</div>
+          <div class="pprice">$24.900<span>/mes</span></div>
+          <ul class="plist">
+            <li>Envío gratis sin mínimo</li>
+            <li>Empaque regalo premium</li>
+            <li>Acceso anticipado a productos</li>
+            <li>Descuentos exclusivos</li>
+            <li>Soporte prioritario 24/7</li>
+          </ul>
+          <button class="pbtn" onclick="alert('Plan Pro activado')">Suscribirme</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANGE PASSWORD MODAL -->
+  <div class="modal-ov" id="changePassModal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="mbox">
+      <div class="mhdr">
+        <div class="mttl">🔑 Cambiar Contraseña</div>
+        <button class="mxbtn" onclick="document.getElementById('changePassModal').classList.remove('open')">X</button>
+      </div>
+      <div class="mbody-pad">
+        <div class="fg">
+          <label>Contraseña actual</label>
+          <input type="password" class="fc" placeholder="••••••••" />
+        </div>
+        <div class="fg">
+          <label>Nueva contraseña</label>
+          <input type="password" class="fc" id="newPass" placeholder="Mínimo 8 caracteres" />
+        </div>
+        <div class="fg">
+          <label>Confirmar nueva contraseña</label>
+          <input type="password" class="fc" id="newPassConf" placeholder="Repite la contraseña" />
+        </div>
+        <button class="btn" style="width:100%;justify-content:center;" onclick="changePassword()">Actualizar
+          contraseña</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ── SHARED STATE ── */
+    const ColMercia_State = {
+      buyer: {
+        name: '{{ user.first_name }}',
+        email: '{{ user.email }}',
+        phone: '{{ user.telefono }}',
+        avatar: null,
+        plan: 'Free',
+        updatedAt: new Date().toISOString()
+      },
+      save() {
+        try { sessionStorage.setItem('colmercia_buyer', JSON.stringify(this.buyer)); } catch (e) { }
+      },
+      load() {
+        try {
+          const s = sessionStorage.getItem('colmercia_buyer');
+          if (s) this.buyer = { ...this.buyer, ...JSON.parse(s) };
+        } catch (e) { }
+      }
+    };
+    ColMercia_State.load();
+
+    /* ── INIT UI FROM STATE ── */
+    function initFromState() {
+      const b = ColMercia_State.buyer;
+      // Sidebar
+      document.getElementById('sidebarName').textContent = b.name;
+      document.getElementById('sidebarEmail').textContent = b.email;
+      document.getElementById('sidebarPhone').textContent = b.phone;
+      // Avatar sidebar
+      const ava = document.getElementById('profAvatar');
+      if (b.avatar) {
+        ava.innerHTML = `<img src="${b.avatar}" alt="avatar" />`;
+      } else {
+        ava.textContent = (b.name || 'V').charAt(0).toUpperCase();
+      }
+      // Avatar profile section
+      const preview = document.getElementById('profilePhotoPreview');
+      if (preview) {
+        if (b.avatar) {
+          preview.innerHTML = `<img src="${b.avatar}" alt="avatar" style="width:100%;height:100%;object-fit:cover;" />`;
+        } else {
+          preview.textContent = (b.name || 'V').charAt(0).toUpperCase();
+        }
+      }
+      // Edit form fields
+      const en = document.getElementById('editName'); if (en) en.value = b.name;
+      const ee = document.getElementById('editEmail'); if (ee) ee.value = b.email;
+      const ep = document.getElementById('editPhone'); if (ep) ep.value = b.phone;
+      // Security display
+      const sd = document.getElementById('secEmailDisplay'); if (sd) sd.textContent = b.email;
+      const sp = document.getElementById('secPhoneDisplay'); if (sp) sp.textContent = b.phone;
+    }
+    initFromState();
+
+    /* ── CLOCK ── */
+    function tick() {
+      const n = new Date(), pad = v => String(v).padStart(2, '0');
+      document.getElementById('ct').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      document.getElementById('cd').textContent = `${days[n.getDay()]} ${n.getDate()} de ${months[n.getMonth()]}, ${n.getFullYear()}`;
+    }
+    tick(); setInterval(tick, 1000);
+
+    /* ── SECTION TOGGLE ── */
+    function showSec(id, btn) {
+      ['secOrders', 'secFavs', 'secProfile', 'secSecurity'].forEach(s => {
+        const el = document.getElementById(s);
+        if (el) el.style.display = 'none';
+      });
+      const target = document.getElementById('sec' + id.charAt(0).toUpperCase() + id.slice(1));
+      if (target) target.style.display = 'block';
+      document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
+      btn.classList.add('act');
+    }
+
+    /* ── TRACK TOGGLE ── */
+    function toggleTrack(id) { document.getElementById(id).classList.toggle('open'); }
+
+    /* ── PHOTO UPLOAD ── */
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { showToast('❌ La imagen debe pesar menos de 5MB'); return; }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataURL = e.target.result;
+        ColMercia_State.buyer.avatar = dataURL;
+        ColMercia_State.buyer.updatedAt = new Date().toISOString();
+        ColMercia_State.save();
+        initFromState();
+        showToast('✅ Foto de perfil actualizada correctamente');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removePhoto() {
+      ColMercia_State.buyer.avatar = null;
+      ColMercia_State.save();
+      initFromState();
+      showToast('🗑 Foto de perfil eliminada');
+    }
+
+    /* ── SAVE PROFILE (full form) ── */
+    function saveProfileChanges() {
+      const b = ColMercia_State.buyer;
+      const nameVal = document.getElementById('editName').value.trim();
+      const emailVal = document.getElementById('editEmail').value.trim();
+      const phoneVal = document.getElementById('editPhone').value.trim();
+
+      if (!nameVal || !emailVal || !phoneVal) { showToast('❌ Por favor completa todos los campos'); return; }
+      if (!emailVal.includes('@')) { showToast('❌ Ingresa un correo electrónico válido'); return; }
+
+      b.name = nameVal;
+      b.email = emailVal;
+      b.phone = phoneVal;
+      b.updatedAt = new Date().toISOString();
+      ColMercia_State.save();
+      initFromState();
+      showToast('✅ Perfil actualizado correctamente');
+    }
+
+    function cancelProfileEdit() {
+      initFromState(); // Reset form to stored values
+    }
+
+    /* ── INLINE EDIT (security section) ── */
+    function openInline(field) {
+      const b = ColMercia_State.buyer;
+      if (field === 'email') {
+        document.getElementById('inlineEmailInp').value = b.email;
+        document.getElementById('emailInlineEdit').classList.add('open');
+      } else if (field === 'phone') {
+        document.getElementById('inlinePhoneInp').value = b.phone;
+        document.getElementById('phoneInlineEdit').classList.add('open');
+      }
+    }
+
+    function closeInline(field) {
+      if (field === 'email') document.getElementById('emailInlineEdit').classList.remove('open');
+      if (field === 'phone') document.getElementById('phoneInlineEdit').classList.remove('open');
+    }
+
+    function saveInlineField(field) {
+      const b = ColMercia_State.buyer;
+      if (field === 'email') {
+        const val = document.getElementById('inlineEmailInp').value.trim();
+        if (!val || !val.includes('@')) { showToast('❌ Ingresa un correo válido'); return; }
+        b.email = val;
+        document.getElementById('secEmailDisplay').textContent = val;
+        closeInline('email');
+      } else if (field === 'phone') {
+        const val = document.getElementById('inlinePhoneInp').value.trim();
+        if (!val) { showToast('❌ Ingresa un teléfono válido'); return; }
+        b.phone = val;
+        document.getElementById('secPhoneDisplay').textContent = val;
+        closeInline('phone');
+      }
+      b.updatedAt = new Date().toISOString();
+      ColMercia_State.save();
+      initFromState();
+      showToast(`✅ ${field === 'email' ? 'Correo' : 'Teléfono'} actualizado correctamente`);
+    }
+
+    /* ── CHANGE PASSWORD ── */
+    function changePassword() {
+      const np = document.getElementById('newPass').value;
+      const nc = document.getElementById('newPassConf').value;
+      if (np.length < 8) { showToast('❌ La contraseña debe tener mínimo 8 caracteres'); return; }
+      if (np !== nc) { showToast('❌ Las contraseñas no coinciden'); return; }
+      document.getElementById('changePassModal').classList.remove('open');
+      showToast('✅ Contraseña actualizada correctamente');
+    }
+
+    /* ── 2FA ── */
+    let twoFAEnabled = false;
+    function toggle2FA() {
+      twoFAEnabled = !twoFAEnabled;
+      const s = document.getElementById('twoFAStatus');
+      const btn = s.parentElement.parentElement.querySelector('.btn');
+      if (twoFAEnabled) {
+        s.className = 'security-status ss-ok';
+        s.textContent = '✓ Activada';
+        btn.textContent = 'Desactivar';
+        showToast('✅ Verificación en dos pasos activada');
+      } else {
+        s.className = 'security-status ss-off';
+        s.textContent = '✕ No activada';
+        btn.textContent = 'Activar';
+        showToast('ℹ️ Verificación en dos pasos desactivada');
+      }
+    }
+
+    /* ── TOAST ── */
+    function showToast(msg) {
+      const t = document.getElementById('prof-toast');
+      t.textContent = msg;
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateX(-50%) translateY(80px)';
+      }, 2800);
+    }
+  </script>
+</body>
+
+</html>

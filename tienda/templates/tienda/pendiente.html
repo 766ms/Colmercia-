@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Solicitud en revisión — ColMercia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --col: #F5C518;
+            --mer: #003087;
+            --cia: #CE1126;
+            --bg: #F0F2F5;
+            --wht: #fff;
+            --mut: #718096;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background: var(--wht);
+            border-bottom: 3px solid var(--col);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 48, 135, .08);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .lc {
+            color: var(--col);
+        }
+
+        .lm {
+            color: var(--mer);
+        }
+
+        .lr {
+            color: var(--cia);
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .box {
+            background: var(--wht);
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0, 48, 135, .12);
+            padding: 52px 48px;
+            text-align: center;
+            max-width: 520px;
+            width: 100%;
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1A1A2E;
+            margin-bottom: 10px;
+        }
+
+        .sub {
+            font-size: .9rem;
+            color: var(--mut);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .info-box {
+            background: #EBF8FF;
+            border: 1px solid #BEE3F8;
+            border-radius: 12px;
+            padding: 18px 20px;
+            font-size: .82rem;
+            color: #1565C0;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: .88rem;
+        }
+
+        .tienda-name {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #FFF9E6, #FFF3CD);
+            border: 1px solid #F6D860;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: .9rem;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 28px;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--mer);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: .88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .btn-home:hover {
+            background: #002060;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="{% url 'landing' %}" class="nav-logo">
+            <span class="lc">Col</span><span class="lm">Mer</span><span class="lr">cia</span>
+        </a>
+    </nav>
+
+    <div class="hero">
+        <div class="box">
+            <span class="icon">⏳</span>
+            <h1>Solicitud en revisión</h1>
+            <p class="sub">
+                Hola <strong>{{ user.first_name }}</strong>, recibimos tu solicitud para abrir una tienda en ColMercia.
+                Nuestro equipo la revisará y te notificaremos por correo.
+            </p>
+
+            {% if user.tienda %}
+            <div class="tienda-name">
+                🏪 {{ user.tienda.nombre }}
+            </div>
+            {% endif %}
+
+            <div class="info-box">
+                <strong>¿Qué pasa ahora?</strong>
+                Verificaremos los datos de tu tienda en un plazo de <strong>24 a 48 horas hábiles</strong>.
+                Una vez aprobada, recibirás acceso completo a tu panel de vendedor y podrás empezar a publicar
+                productos.
+            </div>
+
+            <a href="{% url 'landing' %}" class="btn-home">
+                🇨🇴 Explorar el Marketplace
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
