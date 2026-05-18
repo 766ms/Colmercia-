@@ -16,6 +16,14 @@ urlpatterns = [
     path("auth/logout/", auth_views.LogoutView.as_view(next_page="/"), name="logout"),
     path("auth/register/", views.RegistroView.as_view(), name="register"),
 
+    # ── Pedidos ──────────────────────────────────────────
+    path("pedidos/crear/", views.CrearPedidoView.as_view(), name="crear_pedido"),
+    path(
+        "pedidos/<int:pedido_id>/estado/",
+        views.ActualizarEstadoPedidoView.as_view(),
+        name="actualizar_estado_pedido",
+    ),
+
     # ── Admin: gestión de vendedores ─────────────────────
     path(
         "admin/aprobar-vendedor/<int:user_id>/",

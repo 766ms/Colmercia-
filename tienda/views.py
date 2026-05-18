@@ -1,14 +1,22 @@
 import json
+from decimal import Decimal, InvalidOperation
 
+# Importaciones de autenticación y mezcla de Django
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+# Importaciones de vistas y respuestas de Django
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import TemplateView
 
-from .models import Pedido, Tienda, Usuario
+# Importaciones de decoradores para peticiones asíncronas
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
+# Importaciones de tus modelos locales de la app
+from .models import Pedido, Tienda, Usuario  # Asegúrate de que 'Usuario' exista en tu models.py
 
 # ─────────────────────────────────────────────
 #  LANDING
@@ -262,3 +270,161 @@ class RechazarVendedorView(View):
             return JsonResponse(
                 {"ok": False, "error": "Vendedor no encontrado."}, status=404
             )
+
+
+#  CREAR PEDIDO  —  POST /pedidos/crear/
+#
+#  Recibe desde el frontend el carrito completo (lista de productos)
+#  y crea un Pedido por cada ítem.  Devuelve JSON con los pedidos
+#  creados o un error.
+# ────────────────────────────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class CrearPedidoView(LoginRequiredMixin, View):
+    """
+    Body esperado (JSON):
+    {
+        "items": [
+            {
+                "id": "Perfume Dulce Miel 50ml",   // nombre usado como id en el carrito
+                "name": "Perfume Dulce Miel 50ml",
+                "brand": "Essence CO",
+                "price": "$95.000",
+                "cantidad": 2,
+                ...
+            },
+            ...
+        ],
+        "metodo_pago": "card"   // opcional, para registro futuro
+    }
+    """
+ 
+    def post(self, request):
+        try:
+            body = json.loads(request.body)
+        except (json.JSONDecodeError, ValueError):
+            return JsonResponse({"ok": False, "error": "JSON inválido"}, status=400)
+ 
+        items = body.get("items", [])
+        if not items:
+            return JsonResponse({"ok": False, "error": "El carrito está vacío"}, status=400)
+ 
+        pedidos_creados = []
+        errores = []
+ 
+        for item in items:
+            nombre_producto = (item.get("name") or item.get("id") or "").strip()
+            cantidad = int(item.get("cantidad", 1))
+ 
+            # Precio: viene como "$95.000" → convertir a Decimal
+            precio_raw = item.get("price", "0")
+            try:
+                precio_num = Decimal(
+                    precio_raw.replace("$", "").replace(".", "").replace(",", ".")
+                )
+            except (InvalidOperation, AttributeError):
+                precio_num = Decimal("0")
+ 
+            total = precio_num * cantidad
+ 
+            # Buscar el producto en la BD por nombre (ajusta si tienes otro identificador)
+            from .models import Producto, Pedido  # import local para evitar circulares
+ 
+            producto_obj = (
+                Producto.objects.filter(nombre__iexact=nombre_producto).first()
+            )
+ 
+            # Si no existe en BD lo creamos igualmente como pedido (modo catálogo estático)
+            # pero sin FK a Producto (producto=None).  Puedes cambiar esto si prefieres
+            # rechazar productos desconocidos.
+            pedido = Pedido.objects.create(
+                usuario=request.user,
+                producto=producto_obj,          # puede ser None
+                cantidad=cantidad,
+                total=total,
+                estado="procesando",
+            )
+            pedidos_creados.append(
+                {
+                    "id": pedido.id,
+                    "producto": nombre_producto,
+                    "cantidad": cantidad,
+                    "total": str(total),
+                    "estado": pedido.estado,
+                }
+            )
+ 
+        return JsonResponse(
+            {
+                "ok": True,
+                "pedidos": pedidos_creados,
+                "mensaje": f"{len(pedidos_creados)} pedido(s) creado(s) correctamente.",
+            }
+        )
+ 
+ 
+# ────────────────────────────────────────────────────────────────────
+#  ACTUALIZAR ESTADO DE PEDIDO  —  PATCH /pedidos/<id>/estado/
+#
+#  Solo el vendedor dueño del producto (o un admin) puede cambiar
+#  el estado.  El comprador solo puede leer en su perfil.
+# ────────────────────────────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class ActualizarEstadoPedidoView(LoginRequiredMixin, View):
+    """
+    Body esperado (JSON):
+    { "estado": "preparando" }   // procesando | preparando | en_camino | entregado | cancelado
+    """
+ 
+    ESTADOS_VALIDOS = ["procesando", "preparando", "en_camino", "entregado", "cancelado"]
+ 
+    def patch(self, request, pedido_id):
+        from .models import Pedido  # import local
+ 
+        try:
+            pedido = Pedido.objects.select_related(
+                "producto__tienda__vendedor", "usuario"
+            ).get(pk=pedido_id)
+        except Pedido.DoesNotExist:
+            return JsonResponse({"ok": False, "error": "Pedido no encontrado"}, status=404)
+ 
+        # Verificar permisos: vendedor del producto o admin
+        es_admin = request.user.rol == "admin"
+        es_vendedor_dueño = (
+            request.user.rol == "vendedor"
+            and pedido.producto is not None
+            and pedido.producto.tienda.vendedor == request.user
+        )
+ 
+        if not (es_admin or es_vendedor_dueño):
+            return JsonResponse(
+                {"ok": False, "error": "No tienes permiso para cambiar este pedido"},
+                status=403,
+            )
+ 
+        try:
+            body = json.loads(request.body)
+        except (json.JSONDecodeError, ValueError):
+            return JsonResponse({"ok": False, "error": "JSON inválido"}, status=400)
+ 
+        nuevo_estado = body.get("estado", "").strip()
+        if nuevo_estado not in self.ESTADOS_VALIDOS:
+            return JsonResponse(
+                {
+                    "ok": False,
+                    "error": f"Estado inválido. Opciones: {', '.join(self.ESTADOS_VALIDOS)}",
+                },
+                status=400,
+            )
+ 
+        pedido.estado = nuevo_estado
+        pedido.save(update_fields=["estado"])
+ 
+        return JsonResponse(
+            {
+                "ok": True,
+                "pedido_id": pedido.id,
+                "estado": pedido.estado,
+                "estado_label": pedido.estado_label(),
+            }
+        )
+ 
