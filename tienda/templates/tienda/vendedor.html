@@ -966,8 +966,7 @@
           <input type="file" id="sidePhotoInput" accept="image/*" style="display:none" onchange="setSidePhoto(this)" />
         </div>
         <div class="store-name">{% if tienda %}{{ tienda.nombre }}{% else %}{{ user.first_name }}{% endif %}</div>
-        <div class="store-cat">{% if tienda %}{{ tienda.categoria|default:"Sin categoría" }} &middot; {{
-          tienda.ubicacion|default:"" }}{% else %}Sin tienda aún{% endif %}</div>
+        <div class="store-cat">{% if tienda %}{{ tienda.categoria|default:"Sin categoría" }}{% if tienda.ubicacion %} &middot; {{ tienda.ubicacion }}{% endif %}{% else %}Sin tienda aún{% endif %}</div>
         <div class="verified-badge">Tienda verificada</div>
       </div>
       <div class="clock-box">
@@ -1084,8 +1083,8 @@
               id="dot-{{ pedido.id }}"></div>
             <div class="or-info">
               <div class="or-name">
-                {% if pedido.producto %}{{ pedido.producto.nombre }}{% else %}Producto externo{% endif %} &times; {{
-                pedido.cantidad }}
+                {# ── FIX: pedido.cantidad es un campo del modelo, se llama directamente ── #}
+                {% if pedido.producto %}{{ pedido.producto.nombre }}{% else %}Producto externo{% endif %} &times; {{ pedido.cantidad }}
               </div>
               <div class="or-meta">
                 {{ pedido.usuario.first_name }} {{ pedido.usuario.last_name }}
@@ -1103,8 +1102,9 @@
                 <option value="entregado">Entregado</option>
                 <option value="cancelado">Cancelado</option>
               </select>
-              <span class="status-pill sp-{{ pedido.estado_pill_class }}" id="pill-{{ pedido.id }}">{{
-                pedido.estado_label }}</span>
+              {# ── FIX: estado_pill_class y estado_label son métodos, Django los llama sin () en templates ── #}
+              <span class="status-pill {{ pedido.estado_pill_class }}" id="pill-{{ pedido.id }}">{{ pedido.estado_label }}</span>
+              {# ── FIX: total_formateado es método, Django lo llama sin () en templates ── #}
               <div class="or-price">{{ pedido.total_formateado }}</div>
             </div>
           </div>
@@ -1202,21 +1202,26 @@
           <div style="margin-top:8px;">
             {% for prod in productos %}
             <div class="prod-row">
-              <div class="prod-thumb">{% if prod.imagen %}<img src="{{ prod.imagen.url }}" alt="{{ prod.nombre }}">{%
-                else %}{{ prod.nombre|slice:":1"|upper }}{% endif %}</div>
+              <div class="prod-thumb">
+                {% if prod.imagen %}<img src="{{ prod.imagen.url }}" alt="{{ prod.nombre }}">
+                {% else %}{{ prod.nombre|slice:":1"|upper }}{% endif %}
+              </div>
               <div>
                 <div class="prod-name">{{ prod.nombre }}</div>
                 <div class="prod-meta">{{ prod.categoria|default:"—" }}</div>
                 <div>
+                  {# ── FIX: prod.stock es el CharField "high"/"low"/"out", prod.cantidad es el entero ── #}
                   {% if prod.stock == "out" or prod.cantidad == 0 %}
-                  <span class="stock-pill sp-out">Agotado</span>
-                  {% elif prod.cantidad <= 5 %} <span class="stock-pill sp-low">{{ prod.cantidad }} disponibles</span>
-                    {% else %}
+                    <span class="stock-pill sp-out">Agotado</span>
+                  {% elif prod.cantidad <= 5 %}
+                    <span class="stock-pill sp-low">{{ prod.cantidad }} disponibles</span>
+                  {% else %}
                     <span class="stock-pill sp-ok">{{ prod.cantidad }} disponibles</span>
-                    {% endif %}
+                  {% endif %}
                 </div>
               </div>
               <div style="text-align:right;">
+                {# ── FIX: precio_formateado es método, Django lo llama sin () en templates ── #}
                 <div class="prod-price">{{ prod.precio_formateado }}</div>
               </div>
               <div class="prod-acts"><button class="pa">Editar</button><button class="pa del">Eliminar</button></div>
@@ -1261,12 +1266,9 @@
               <div class="pez-current">
                 <div class="pez-photo" id="profilePhotoCircle">{{ user.first_name|slice:":1"|upper }}</div>
                 <div class="pez-info">
-                  <div class="pez-name">{% if tienda %}{{ tienda.nombre }}{% else %}{{ user.first_name }}{% endif %}
-                  </div>
-                  <div class="pez-pending" id="photoPendingBadge" style="display:none">Cambio pendiente de aprobación
-                  </div>
-                  <div style="font-size:.72rem;color:var(--mut);margin-top:5px;">JPG, PNG o WEBP &middot; Máx 5MB
-                    &middot; 400x400px</div>
+                  <div class="pez-name">{% if tienda %}{{ tienda.nombre }}{% else %}{{ user.first_name }}{% endif %}</div>
+                  <div class="pez-pending" id="photoPendingBadge" style="display:none">Cambio pendiente de aprobación</div>
+                  <div style="font-size:.72rem;color:var(--mut);margin-top:5px;">JPG, PNG o WEBP &middot; Máx 5MB &middot; 400x400px</div>
                 </div>
                 <button class="btn btn-sm btn-col"
                   onclick="document.getElementById('profilePhotoFileInput').click()">Cambiar foto</button>
@@ -1304,12 +1306,10 @@
           <div class="frow2">
             <div class="fg"><label>Teléfono de contacto</label><input type="tel" class="fc"
                 value="{{ user.telefono|default:'' }}" /></div>
-            <div class="fg"><label>Correo electrónico</label><input type="email" class="fc" value="{{ user.email }}" />
-            </div>
+            <div class="fg"><label>Correo electrónico</label><input type="email" class="fc" value="{{ user.email }}" /></div>
           </div>
           <div style="display:flex;gap:10px;margin-top:4px;">
-            <button class="btn" onclick="alert('Cambios enviados para aprobación.')">Guardar y enviar a
-              revisión</button>
+            <button class="btn" onclick="alert('Cambios enviados para aprobación.')">Guardar y enviar a revisión</button>
             <button class="btn-out">Cancelar cambios</button>
           </div>
         </div>
