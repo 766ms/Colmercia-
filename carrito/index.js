@@ -7,11 +7,13 @@ app.use(express.json());
 
 const carritos = {};
 
+// GET — obtener carrito
 app.get('/carrito/:sessionId', (req, res) => {
     const { sessionId } = req.params;
     res.json(carritos[sessionId] || []);
 });
 
+// POST — agregar producto
 app.post('/carrito/:sessionId', (req, res) => {
     const { sessionId } = req.params;
     const { producto } = req.body;
@@ -25,6 +27,7 @@ app.post('/carrito/:sessionId', (req, res) => {
     res.json(carritos[sessionId]);
 });
 
+// PATCH — cambiar cantidad
 app.patch('/carrito/:sessionId/:productoId', (req, res) => {
     const { sessionId, productoId } = req.params;
     const { cantidad } = req.body;
@@ -36,6 +39,7 @@ app.patch('/carrito/:sessionId/:productoId', (req, res) => {
     res.json(carritos[sessionId] || []);
 });
 
+// DELETE — eliminar un producto
 app.delete('/carrito/:sessionId/:productoId', (req, res) => {
     const { sessionId, productoId } = req.params;
     if (carritos[sessionId]) {
@@ -44,6 +48,7 @@ app.delete('/carrito/:sessionId/:productoId', (req, res) => {
     res.json(carritos[sessionId] || []);
 });
 
+// DELETE — vaciar carrito completo (se llama tras pago exitoso)
 app.delete('/carrito/:sessionId', (req, res) => {
     carritos[req.params.sessionId] = [];
     res.json([]);
