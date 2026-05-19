@@ -107,6 +107,12 @@ class Pedido(models.Model):
     fecha             = models.DateTimeField(auto_now_add=True)
     direccion_entrega = models.CharField(max_length=200, blank=True, default="")
 
+    # ── EMPAQUE DE REGALO ────────────────────────────────
+    es_regalo         = models.BooleanField(default=False)
+    regalo_envoltura  = models.CharField(max_length=30, blank=True, default="")   # bolsa_papel | bolsa_tela | caja
+    regalo_decoracion = models.CharField(max_length=30, blank=True, default="")   # corazon | globos | navidad | halloween
+    regalo_mensaje    = models.TextField(blank=True, default="")
+
     def __str__(self):
         return f"Pedido #{self.id} — {self.usuario.email}"
 
