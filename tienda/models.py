@@ -30,7 +30,7 @@ class Tienda(models.Model):
         Usuario, on_delete=models.CASCADE, related_name="tienda"
     )
     nombre = models.CharField(max_length=100)
-    descripcion = models.TextField(blank=True, default="")   # ← campo que faltaba
+    descripcion = models.TextField(blank=True, default="")
     ubicacion = models.CharField(max_length=100, blank=True, default="")
     categoria = models.CharField(max_length=50, blank=True, default="")
     aprobada = models.BooleanField(default=False)
@@ -49,17 +49,32 @@ class Producto(models.Model):
         ("low", "Poco stock"),
         ("out", "Agotado"),
     ]
-    tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
-    descripcion = models.TextField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_antiguo = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True
-    )
-    stock = models.CharField(max_length=10, choices=STOCK_CHOICES, default="high")
-    cantidad = models.PositiveIntegerField(default=0)
-    imagen = models.ImageField(upload_to="productos/", blank=True)
-    creado_en = models.DateTimeField(auto_now_add=True)
+
+    OCASION_CHOICES = [
+        ("todos",      "Todas las ocasiones"),
+        ("cumpleanos", "Cumpleaños"),
+        ("amor",       "Amor y Amistad"),
+        ("navidad",    "Navidad"),
+        ("halloween",  "Halloween"),
+    ]
+
+    tienda          = models.ForeignKey(Tienda, on_delete=models.CASCADE)
+    nombre          = models.CharField(max_length=100)
+    descripcion     = models.TextField()
+    precio          = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_antiguo  = models.DecimalField(
+                        max_digits=10, decimal_places=2, null=True, blank=True
+                      )
+    stock           = models.CharField(max_length=10, choices=STOCK_CHOICES, default="high")
+    cantidad        = models.PositiveIntegerField(default=0)
+    imagen          = models.ImageField(upload_to="productos/", blank=True)
+    ocasion_regalo  = models.CharField(          # ← NUEVO CAMPO
+                        max_length=20,
+                        choices=OCASION_CHOICES,
+                        default="todos",
+                        blank=True,
+                      )
+    creado_en       = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nombre
@@ -76,9 +91,9 @@ class Pedido(models.Model):
     ESTADOS = [
         ("procesando", "Procesando"),
         ("preparando", "Preparando"),
-        ("en_camino", "En camino"),
-        ("entregado", "Entregado"),
-        ("cancelado", "Cancelado"),
+        ("en_camino",  "En camino"),
+        ("entregado",  "Entregado"),
+        ("cancelado",  "Cancelado"),
     ]
     usuario = models.ForeignKey(
         Usuario, on_delete=models.CASCADE, related_name="pedidos"
@@ -86,10 +101,10 @@ class Pedido(models.Model):
     producto = models.ForeignKey(
         Producto, on_delete=models.SET_NULL, null=True, related_name="pedidos"
     )
-    cantidad = models.PositiveIntegerField(default=1)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
-    estado = models.CharField(max_length=20, choices=ESTADOS, default="procesando")
-    fecha = models.DateTimeField(auto_now_add=True)
+    cantidad          = models.PositiveIntegerField(default=1)
+    total             = models.DecimalField(max_digits=10, decimal_places=2)
+    estado            = models.CharField(max_length=20, choices=ESTADOS, default="procesando")
+    fecha             = models.DateTimeField(auto_now_add=True)
     direccion_entrega = models.CharField(max_length=200, blank=True, default="")
 
     def __str__(self):
@@ -103,9 +118,9 @@ class Pedido(models.Model):
         clases = {
             "procesando": "sp-amber",
             "preparando": "sp-amber",
-            "en_camino": "sp-blue",
-            "entregado": "sp-green",
-            "cancelado": "sp-red",
+            "en_camino":  "sp-blue",
+            "entregado":  "sp-green",
+            "cancelado":  "sp-red",
         }
         return clases.get(self.estado, "sp-blue")
 

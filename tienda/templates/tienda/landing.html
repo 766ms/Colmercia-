@@ -12,6 +12,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <style>
+    /* ── GIFT WRAP OPTIONS ── */
+    .wrap-opt {
+      border: 2px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 8px 4px 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--tr);
+      background: #fff;
+    }
+
+    .wrap-opt:hover {
+      border-color: var(--col);
+      background: #FFFDE7;
+    }
+
+    .wrap-opt.sel {
+      border-color: var(--mer);
+      background: #E8F0FD;
+    }
+
+    .wrap-ico {
+      font-size: 1.3rem;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .wrap-lbl {
+      font-size: .6rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
     /* ===== DROPDOWN PERFIL ===== */
     .user-dropdown {
       position: relative;
@@ -3644,17 +3678,18 @@
           <p class="ssub2">Encuentra el regalo perfecto para cada ocasión.</p>
         </div>
         <div class="gift-top">
-          <select class="gf-sel">
-            <option>Todas las ocasiones</option>
-            <option>Cumpleaños</option>
-            <option>Amor y Amistad</option>
-            <option>Navidad</option>
+          <select class="gf-sel" id="giftOcasionFilter" onchange="filtrarRegalos()">
+            <option value="todos">Todas las ocasiones</option>
+            <option value="cumpleanos">🎂 Cumpleaños</option>
+            <option value="amor">💝 Amor y Amistad</option>
+            <option value="navidad">🎄 Navidad</option>
+            <option value="halloween">🎃 Halloween</option>
           </select>
-          <select class="gf-sel">
-            <option>Todos los precios</option>
-            <option>Menos de $50.000</option>
-            <option>$50.000 – $100.000</option>
-            <option>Más de $100.000</option>
+          <select class="gf-sel" id="giftPrecioFilter" onchange="filtrarRegalos()">
+            <option value="todos">Todos los precios</option>
+            <option value="50">Menos de $50.000</option>
+            <option value="50-100">$50.000 – $100.000</option>
+            <option value="100">Más de $100.000</option>
           </select>
         </div>
         <div class="gift-cta">
@@ -3667,939 +3702,1008 @@
         <div class="ggrid" id="giftsGrid"></div>
       </div>
     </section>
-  </main>
 
-  <footer>
-    <div class="fbrand"><span class="lc">Col</span><span class="lm">Mer</span><span class="lr">cia</span></div>
-    <p class="fdesc">El marketplace de Colombia ideal para microempresas by Jorge Villa</p>
-  </footer>
+    <footer>
+      <div class="fbrand"><span class="lc">Col</span><span class="lm">Mer</span><span class="lr">cia</span></div>
+      <p class="fdesc">El marketplace de Colombia ideal para microempresas by Jorge Villa</p>
+    </footer>
 
-  <!-- CART -->
-  <div class="cart-ov" id="cartOv" onclick="closeCart()"></div>
-  <div class="cdrawer" id="cartDrawer">
-    <div class="cdhdr">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="cdtitle">Mi Carrito</div>
-        <div class="cdcnt" id="drawerCnt">0 productos</div>
+    <!-- CART -->
+    <div class="cart-ov" id="cartOv" onclick="closeCart()"></div>
+    <div class="cdrawer" id="cartDrawer">
+      <div class="cdhdr">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="cdtitle">Mi Carrito</div>
+          <div class="cdcnt" id="drawerCnt">0 productos</div>
+        </div>
+        <button class="cdclose" onclick="closeCart()">✕</button>
       </div>
-      <button class="cdclose" onclick="closeCart()">✕</button>
-    </div>
-    <div class="citems" id="cartItems">
-      <div class="cempty">
-        <div class="cempty-ico">🛒</div>
-        <p>Tu carrito está vacío.<br />¡Explora y encuentra algo que te encante!</p>
+      <div class="citems" id="cartItems">
+        <div class="cempty">
+          <div class="cempty-ico">🛒</div>
+          <p>Tu carrito está vacío.<br />¡Explora y encuentra algo que te encante!</p>
+        </div>
+      </div>
+      <div class="cfooter">
+        <div class="csum-row"><span>Subtotal</span><span id="subtotal">$0</span></div>
+        <div class="csum-row"><span>Envío</span><span style="color:#2E7D32;font-weight:600;">Gratis</span></div>
+        <div class="csum-row total"><span>Total</span><span id="totalPagar">$0</span></div>
+        <button class="chkbtn" onclick="closeCart();openModal('payModal')">Finalizar compra</button>
       </div>
     </div>
-    <div class="cfooter">
-      <div class="csum-row"><span>Subtotal</span><span id="subtotal">$0</span></div>
-      <div class="csum-row"><span>Envío</span><span style="color:#2E7D32;font-weight:600;">Gratis</span></div>
-      <div class="csum-row total"><span>Total</span><span id="totalPagar">$0</span></div>
-      <button class="chkbtn" onclick="closeCart();openModal('payModal')">Finalizar compra</button>
-    </div>
-  </div>
 
-  <!-- CHATBOT -->
-  <button id="chatbot-btn" onclick="openChatbot()" title="Asistente de regalos">🤖</button>
-  <div id="chatbot-win">
-    <div class="cb-hdr">
-      <div>
-        <div class="cb-title">🤖 Asistente de Regalos</div>
-        <div class="cb-sub">Te ayudo a encontrar el regalo ideal</div>
-      </div>
-      <button class="cb-close" onclick="closeChatbot()">✕</button>
-    </div>
-    <div class="cb-body">
-      <div class="cb-step active" id="cbStep1">
-        <div class="cb-q">¿Qué le gusta hacer a la persona?</div>
-        <div class="cb-opts">
-          <button class="cb-opt" onclick="cbSelect(this,1)">Arte y Diseño</button>
-          <button class="cb-opt" onclick="cbSelect(this,1)">Leer</button>
-          <button class="cb-opt" onclick="cbSelect(this,1)">Gaming</button>
-          <button class="cb-opt" onclick="cbSelect(this,1)">Bailar</button>
-          <button class="cb-opt" onclick="cbSelect(this,1)">Naturaleza</button>
-          <button class="cb-opt" onclick="cbSelect(this,1)">Tecnología</button>
+    <!-- CHATBOT -->
+    <button id="chatbot-btn" onclick="openChatbot()" title="Asistente de regalos">🤖</button>
+    <div id="chatbot-win">
+      <div class="cb-hdr">
+        <div>
+          <div class="cb-title">🤖 Asistente de Regalos</div>
+          <div class="cb-sub">Te ayudo a encontrar el regalo ideal</div>
         </div>
+        <button class="cb-close" onclick="closeChatbot()">✕</button>
       </div>
-      <div class="cb-step" id="cbStep2">
-        <div class="cb-q">¿Cuál es su color favorito?</div>
-        <div class="cb-opts">
-          <button class="cb-opt" onclick="cbSelect(this,2)">🔴 Rojo</button>
-          <button class="cb-opt" onclick="cbSelect(this,2)">🔵 Azul</button>
-          <button class="cb-opt" onclick="cbSelect(this,2)">🟡 Amarillo</button>
-          <button class="cb-opt" onclick="cbSelect(this,2)">🟢 Verde</button>
-          <button class="cb-opt" onclick="cbSelect(this,2)">🖤 Negro</button>
-          <button class="cb-opt" onclick="cbSelect(this,2)">🤍 Blanco</button>
-        </div>
-      </div>
-      <div class="cb-step" id="cbStep3">
-        <div class="cb-q">¿Cuánto quieres gastar?</div>
-        <div class="cb-opts">
-          <button class="cb-opt" onclick="cbSelect(this,3)">Menos de $50K</button>
-          <button class="cb-opt" onclick="cbSelect(this,3)">$50K – $100K</button>
-          <button class="cb-opt" onclick="cbSelect(this,3)">$100K – $200K</button>
-          <button class="cb-opt" onclick="cbSelect(this,3)">Más de $200K</button>
-        </div>
-      </div>
-      <div class="cb-recs" id="cbRecs">
-        <div class="cb-rec-title">✨ Recomendaciones para ti</div>
-        <div class="cb-rec-grid">
-          <div class="cb-prod">
-            <div class="cb-prod-img">🌸</div>
-            <div class="cb-prod-name">Set Belleza</div>
-            <div class="cb-prod-price">$89.900</div>
-          </div>
-          <div class="cb-prod">
-            <div class="cb-prod-img">📓</div>
-            <div class="cb-prod-name">Kit Papelería</div>
-            <div class="cb-prod-price">$38.500</div>
-          </div>
-          <div class="cb-prod">
-            <div class="cb-prod-img">💍</div>
-            <div class="cb-prod-name">Accesorios</div>
-            <div class="cb-prod-price">$65.000</div>
+      <div class="cb-body">
+        <div class="cb-step active" id="cbStep1">
+          <div class="cb-q">¿Qué le gusta hacer a la persona?</div>
+          <div class="cb-opts">
+            <button class="cb-opt" onclick="cbSelect(this,1)">Arte y Diseño</button>
+            <button class="cb-opt" onclick="cbSelect(this,1)">Leer</button>
+            <button class="cb-opt" onclick="cbSelect(this,1)">Gaming</button>
+            <button class="cb-opt" onclick="cbSelect(this,1)">Bailar</button>
+            <button class="cb-opt" onclick="cbSelect(this,1)">Naturaleza</button>
+            <button class="cb-opt" onclick="cbSelect(this,1)">Tecnología</button>
           </div>
         </div>
-        <button class="cb-see-btn"
-          onclick="closeChatbot();document.getElementById('gifts').scrollIntoView({behavior:'smooth'})">Ver más regalos
-          →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- QUICK VIEW — PRODUCT MODAL -->
-  <div class="qv-overlay" id="quickViewModal" onclick="handleQVOverlayClick(event)">
-    <div class="qv-modal" id="qvModalBox">
-      <div class="qv-handle"></div>
-      <div class="qv-inner">
-        <div class="qv-img-col" id="qvImgCol">
-          <div class="qv-tag" id="qvTag"></div>
-          <div id="qvImg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+        <div class="cb-step" id="cbStep2">
+          <div class="cb-q">¿Cuál es su color favorito?</div>
+          <div class="cb-opts">
+            <button class="cb-opt" onclick="cbSelect(this,2)">🔴 Rojo</button>
+            <button class="cb-opt" onclick="cbSelect(this,2)">🔵 Azul</button>
+            <button class="cb-opt" onclick="cbSelect(this,2)">🟡 Amarillo</button>
+            <button class="cb-opt" onclick="cbSelect(this,2)">🟢 Verde</button>
+            <button class="cb-opt" onclick="cbSelect(this,2)">🖤 Negro</button>
+            <button class="cb-opt" onclick="cbSelect(this,2)">🤍 Blanco</button>
           </div>
-          <button class="qv-close" onclick="closeModal('quickViewModal')">✕</button>
         </div>
-        <div class="qv-info-col">
-          <div class="qv-brand" id="qvBrand">Marca</div>
-          <div class="qv-name" id="qvName">Nombre del producto</div>
-          <div class="qv-price-row">
-            <div class="qv-price" id="qvPrice">$0</div>
-            <div class="qv-old" id="qvOld" style="display:none;"></div>
+        <div class="cb-step" id="cbStep3">
+          <div class="cb-q">¿Cuánto quieres gastar?</div>
+          <div class="cb-opts">
+            <button class="cb-opt" onclick="cbSelect(this,3)">Menos de $50K</button>
+            <button class="cb-opt" onclick="cbSelect(this,3)">$50K – $100K</button>
+            <button class="cb-opt" onclick="cbSelect(this,3)">$100K – $200K</button>
+            <button class="cb-opt" onclick="cbSelect(this,3)">Más de $200K</button>
           </div>
-          <div class="qv-badges" id="qvBadges"></div>
-          <div class="qv-desc" id="qvDesc">Descripción del producto.</div>
-          <div class="qv-qty-row">
-            <span class="qv-qty-label">Cantidad:</span>
-            <div class="qv-qty-ctrl">
-              <button class="qv-qbtn" onclick="qvChangeQty(-1)">−</button>
-              <span class="qv-qnum" id="qvQty">1</span>
-              <button class="qv-qbtn" onclick="qvChangeQty(1)">+</button>
+        </div>
+        <div class="cb-recs" id="cbRecs">
+          <div class="cb-rec-title">✨ Recomendaciones para ti</div>
+          <div class="cb-rec-grid">
+            <div class="cb-prod">
+              <div class="cb-prod-img">🌸</div>
+              <div class="cb-prod-name">Set Belleza</div>
+              <div class="cb-prod-price">$89.900</div>
+            </div>
+            <div class="cb-prod">
+              <div class="cb-prod-img">📓</div>
+              <div class="cb-prod-name">Kit Papelería</div>
+              <div class="cb-prod-price">$38.500</div>
+            </div>
+            <div class="cb-prod">
+              <div class="cb-prod-img">💍</div>
+              <div class="cb-prod-name">Accesorios</div>
+              <div class="cb-prod-price">$65.000</div>
             </div>
           </div>
-          <div class="qv-btn-row">
-            <button class="qv-add-btn" id="qvAddBtn" onclick="qvAddToCart()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <path d="M16 10a4 4 0 0 1-8 0" />
-              </svg>
-              Agregar al carrito
-            </button>
-            <button class="qv-wish-btn" id="qvWishBtn" onclick="qvToggleWish(this)">♡</button>
-          </div>
-          <div class="qv-store-row">
-            <div class="qv-store-ico" id="qvStoreIco">🌸</div>
-            <div class="qv-store-info">
-              <div class="qv-store-name" id="qvStoreName">Tienda</div>
-              <div class="qv-store-loc" id="qvStoreLoc">Colombia</div>
-            </div>
-          </div>
+          <button class="cb-see-btn"
+            onclick="closeChatbot();document.getElementById('gifts').scrollIntoView({behavior:'smooth'})">Ver más
+            regalos
+            →</button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- STORE QUICK VIEW MODAL -->
-  <div class="sqv-overlay" id="storeQuickViewModal" onclick="handleSQVOverlayClick(event)">
-    <div class="sqv-modal" id="sqvModalBox">
-      <div class="sqv-hdr">
-        <button class="sqv-close" onclick="closeModal('storeQuickViewModal')">✕</button>
-        <div class="sqv-hdr-top">
-          <div class="sqv-logo" id="sqvLogo">🌸</div>
-          <div class="sqv-title">
-            <h2 id="sqvName">Tienda</h2>
-            <p id="sqvTagTxt">Categoría · Ciudad</p>
-            <div id="sqvStars" style="color:var(--col);font-size:.82rem;margin-top:4px;"></div>
+    <!-- QUICK VIEW — PRODUCT MODAL -->
+    <div class="qv-overlay" id="quickViewModal" onclick="handleQVOverlayClick(event)">
+      <div class="qv-modal" id="qvModalBox">
+        <div class="qv-handle"></div>
+        <div class="qv-inner">
+          <div class="qv-img-col" id="qvImgCol">
+            <div class="qv-tag" id="qvTag"></div>
+            <div id="qvImg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+            </div>
+            <button class="qv-close" onclick="closeModal('quickViewModal')">✕</button>
           </div>
-        </div>
-        <div class="sqv-stats">
-          <div class="sqv-stat"><strong id="sqvReviews">0</strong><span>Reseñas</span></div>
-          <div class="sqv-stat"><strong id="sqvProds">0</strong><span>Productos</span></div>
-        </div>
-      </div>
-      <div class="sqv-search-wrap">
-        <div class="sqv-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.35-4.35" />
-          </svg>
-          <input type="text" id="sqvSearchInput" placeholder="Buscar productos en esta tienda..."
-            oninput="sqvFilterProducts(this)" />
-          <button class="sqv-search-clear" id="sqvSearchClear" onclick="sqvClearSearch()">✕</button>
-        </div>
-      </div>
-      <div class="sqv-body">
-        <div class="sqv-section-title" id="sqvSectionTitle">Productos destacados</div>
-        <div class="sqv-prod-grid" id="sqvProdGrid"></div>
-        <div class="sqv-no-results" id="sqvNoResults">😕 No se encontraron productos con ese nombre.</div>
-      </div>
-    </div>
-  </div>
-  <!-- ACCOUNT MODAL -->
-  <div class="overlay" id="accountModal" onclick="closeOnOv(event,'accountModal')">
-    <div class="modal" onclick="event.stopPropagation()">
-
-      <!-- ── VISTA: LOGIN / REGISTRO ── -->
-      <div id="authView">
-        <div class="mhdr">
-          <div class="mtitle">Mi Cuenta</div>
-          <button class="mclose" onclick="closeModal('accountModal')">✕</button>
-        </div>
-        <div class="mtabs">
-          <div class="mtab active" onclick="switchTab('login')">Iniciar sesión</div>
-          <div class="mtab" onclick="switchTab('register')">Registrarse</div>
-        </div>
-
-        <!-- LOGIN -->
-        <div class="mbody" id="tabLogin">
-          <div class="fg">
-            <label>Correo</label>
-            <input type="email" class="fc" id="loginEmail" placeholder="tu@correo.com" />
-          </div>
-          <div class="fg">
-            <label>Contraseña</label>
-            <input type="password" class="fc" id="loginPassword" placeholder="••••••••" />
-          </div>
-          <button class="mbtn" style="width:100%;margin-top:4px;" onclick="doLogin()">Ingresar</button>
-          <div class="ffooter">¿Olvidaste tu contraseña? <a href="#">Recupérala</a></div>
-        </div>
-
-        <!-- REGISTRO -->
-        <div class="mbody" id="tabReg" style="display:none;">
-
-          <!-- Selector rol -->
-          <div class="fg">
-            <label>Tipo de cuenta <span class="req">*</span></label>
-            <div class="rtoggle">
-              <button class="rtbtn active" data-rol="comprador" onclick="setRole('comprador',this)">🛍
-                Comprador</button>
-              <button class="rtbtn" data-rol="vendedor" onclick="setRole('vendedor',this)">🏪 Vendedor</button>
+          <div class="qv-info-col">
+            <div class="qv-brand" id="qvBrand">Marca</div>
+            <div class="qv-name" id="qvName">Nombre del producto</div>
+            <div class="qv-price-row">
+              <div class="qv-price" id="qvPrice">$0</div>
+              <div class="qv-old" id="qvOld" style="display:none;"></div>
             </div>
-          </div>
-
-          <!-- ── FORM COMPRADOR ── -->
-          <div id="buyerForm">
-            <div class="fg">
-              <label>Nombre completo <span class="req">*</span></label>
-              <input id="regNombre" type="text" class="fc" placeholder="Tu nombre completo" />
-            </div>
-            <div class="fg">
-              <label>Correo electrónico <span class="req">*</span></label>
-              <input id="regEmail" type="email" class="fc" placeholder="tu@correo.com" />
-            </div>
-            <div class="fg">
-              <label>Teléfono</label>
-              <input id="regTelefono" type="tel" class="fc" placeholder="+57 300 000 0000" />
-            </div>
-            <div class="fg">
-              <label>Contraseña <span class="req">*</span></label>
-              <input id="regPassword" type="password" class="fc" placeholder="Mínimo 8 caracteres" />
-            </div>
-            <div class="fg">
-              <label>Confirmar contraseña <span class="req">*</span></label>
-              <input id="regPassword2" type="password" class="fc" placeholder="Repite la contraseña" />
-            </div>
-            <button class="mbtn" style="width:100%;margin-top:4px;" onclick="doRegister()">Crear cuenta</button>
-          </div>
-
-          <!-- ── FORM VENDEDOR (3 pasos) ── -->
-          <div id="sellerForm" style="display:none;">
-
-            <!-- Barra de pasos -->
-            <div class="stepbar">
-              <div class="step active" id="st1">
-                <div class="snum">1</div>
-                <div class="slbl">Personal</div>
+            <div class="qv-badges" id="qvBadges"></div>
+            <div class="qv-desc" id="qvDesc">Descripción del producto.</div>
+            <div class="qv-qty-row">
+              <span class="qv-qty-label">Cantidad:</span>
+              <div class="qv-qty-ctrl">
+                <button class="qv-qbtn" onclick="qvChangeQty(-1)">−</button>
+                <span class="qv-qnum" id="qvQty">1</span>
+                <button class="qv-qbtn" onclick="qvChangeQty(1)">+</button>
               </div>
-              <div class="sline"></div>
-              <div class="step" id="st2">
-                <div class="snum">2</div>
-                <div class="slbl">Tienda</div>
+            </div>
+            <div class="qv-btn-row">
+              <button class="qv-add-btn" id="qvAddBtn" onclick="qvAddToCart()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+                Agregar al carrito
+              </button>
+              <button class="qv-wish-btn" id="qvWishBtn" onclick="qvToggleWish(this)">♡</button>
+            </div>
+            <div class="qv-store-row">
+              <div class="qv-store-ico" id="qvStoreIco">🌸</div>
+              <div class="qv-store-info">
+                <div class="qv-store-name" id="qvStoreName">Tienda</div>
+                <div class="qv-store-loc" id="qvStoreLoc">Colombia</div>
               </div>
-              <div class="sline"></div>
-              <div class="step" id="st3">
-                <div class="snum">3</div>
-                <div class="slbl">Acceso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORE QUICK VIEW MODAL -->
+    <div class="sqv-overlay" id="storeQuickViewModal" onclick="handleSQVOverlayClick(event)">
+      <div class="sqv-modal" id="sqvModalBox">
+        <div class="sqv-hdr">
+          <button class="sqv-close" onclick="closeModal('storeQuickViewModal')">✕</button>
+          <div class="sqv-hdr-top">
+            <div class="sqv-logo" id="sqvLogo">🌸</div>
+            <div class="sqv-title">
+              <h2 id="sqvName">Tienda</h2>
+              <p id="sqvTagTxt">Categoría · Ciudad</p>
+              <div id="sqvStars" style="color:var(--col);font-size:.82rem;margin-top:4px;"></div>
+            </div>
+          </div>
+          <div class="sqv-stats">
+            <div class="sqv-stat"><strong id="sqvReviews">0</strong><span>Reseñas</span></div>
+            <div class="sqv-stat"><strong id="sqvProds">0</strong><span>Productos</span></div>
+          </div>
+        </div>
+        <div class="sqv-search-wrap">
+          <div class="sqv-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input type="text" id="sqvSearchInput" placeholder="Buscar productos en esta tienda..."
+              oninput="sqvFilterProducts(this)" />
+            <button class="sqv-search-clear" id="sqvSearchClear" onclick="sqvClearSearch()">✕</button>
+          </div>
+        </div>
+        <div class="sqv-body">
+          <div class="sqv-section-title" id="sqvSectionTitle">Productos destacados</div>
+          <div class="sqv-prod-grid" id="sqvProdGrid"></div>
+          <div class="sqv-no-results" id="sqvNoResults">😕 No se encontraron productos con ese nombre.</div>
+        </div>
+      </div>
+    </div>
+    <!-- ACCOUNT MODAL -->
+    <div class="overlay" id="accountModal" onclick="closeOnOv(event,'accountModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+
+        <!-- ── VISTA: LOGIN / REGISTRO ── -->
+        <div id="authView">
+          <div class="mhdr">
+            <div class="mtitle">Mi Cuenta</div>
+            <button class="mclose" onclick="closeModal('accountModal')">✕</button>
+          </div>
+          <div class="mtabs">
+            <div class="mtab active" onclick="switchTab('login')">Iniciar sesión</div>
+            <div class="mtab" onclick="switchTab('register')">Registrarse</div>
+          </div>
+
+          <!-- LOGIN -->
+          <div class="mbody" id="tabLogin">
+            <div class="fg">
+              <label>Correo</label>
+              <input type="email" class="fc" id="loginEmail" placeholder="tu@correo.com" />
+            </div>
+            <div class="fg">
+              <label>Contraseña</label>
+              <input type="password" class="fc" id="loginPassword" placeholder="••••••••" />
+            </div>
+            <button class="mbtn" style="width:100%;margin-top:4px;" onclick="doLogin()">Ingresar</button>
+            <div class="ffooter">¿Olvidaste tu contraseña? <a href="#">Recupérala</a></div>
+          </div>
+
+          <!-- REGISTRO -->
+          <div class="mbody" id="tabReg" style="display:none;">
+
+            <!-- Selector rol -->
+            <div class="fg">
+              <label>Tipo de cuenta <span class="req">*</span></label>
+              <div class="rtoggle">
+                <button class="rtbtn active" data-rol="comprador" onclick="setRole('comprador',this)">🛍
+                  Comprador</button>
+                <button class="rtbtn" data-rol="vendedor" onclick="setRole('vendedor',this)">🏪 Vendedor</button>
               </div>
             </div>
 
-            <!-- Paso 1 -->
-            <div id="ss1">
+            <!-- ── FORM COMPRADOR ── -->
+            <div id="buyerForm">
               <div class="fg">
                 <label>Nombre completo <span class="req">*</span></label>
-                <input id="vNombre" type="text" class="fc" placeholder="Tu nombre" />
+                <input id="regNombre" type="text" class="fc" placeholder="Tu nombre completo" />
               </div>
               <div class="fg">
                 <label>Correo electrónico <span class="req">*</span></label>
-                <input id="vEmail" type="email" class="fc" placeholder="tu@correo.com" />
+                <input id="regEmail" type="email" class="fc" placeholder="tu@correo.com" />
               </div>
               <div class="fg">
                 <label>Teléfono</label>
-                <input id="vTelefono" type="tel" class="fc" placeholder="+57 300 000 0000" />
+                <input id="regTelefono" type="tel" class="fc" placeholder="+57 300 000 0000" />
               </div>
-              <button class="mbtn" style="width:100%;" onclick="selStep(2)">Siguiente →</button>
-            </div>
-
-            <!-- Paso 2 -->
-            <div id="ss2" style="display:none;">
-              <div class="fg">
-                <label>Nombre de tu tienda <span class="req">*</span></label>
-                <input id="vTiendaNombre" type="text" class="fc" placeholder="Mi Tienda ColMercia" />
-              </div>
-              <div class="fg">
-                <label>Categoría principal</label>
-                <select id="vCategoria" class="fc">
-                  <option value="">Selecciona...</option>
-                  <option>Maquillaje</option>
-                  <option>Ropa y Accesorios</option>
-                  <option>Carteras y Bolsos</option>
-                  <option>Calzado</option>
-                  <option>Papelería</option>
-                  <option>Tecnología</option>
-                  <option>Regalos</option>
-                </select>
-              </div>
-              <div class="fg">
-                <label>Ciudad</label>
-                <input id="vCiudad" type="text" class="fc" placeholder="Barranquilla" />
-              </div>
-              <div class="fg">
-                <label>Descripción de tu tienda</label>
-                <textarea id="vTiendaDesc" class="fc" placeholder="Cuéntanos qué vendes..."></textarea>
-              </div>
-              <div style="display:flex;gap:8px;">
-                <button class="mbtn-out" onclick="selStep(1)">← Atrás</button>
-                <button class="mbtn" style="flex:1;" onclick="selStep(3)">Siguiente →</button>
-              </div>
-            </div>
-
-            <!-- Paso 3 -->
-            <div id="ss3" style="display:none;">
               <div class="fg">
                 <label>Contraseña <span class="req">*</span></label>
-                <input id="vPassword" type="password" class="fc" placeholder="Mínimo 8 caracteres" />
+                <input id="regPassword" type="password" class="fc" placeholder="Mínimo 8 caracteres" />
               </div>
               <div class="fg">
                 <label>Confirmar contraseña <span class="req">*</span></label>
-                <input id="vPassword2" type="password" class="fc" placeholder="Repite la contraseña" />
+                <input id="regPassword2" type="password" class="fc" placeholder="Repite la contraseña" />
               </div>
-              <label style="display:flex;align-items:center;gap:8px;font-size:.8rem;margin-bottom:14px;cursor:pointer;">
-                <input type="checkbox" id="tcheck" />
-                Acepto los Términos y Condiciones de ColMercia
-              </label>
-              <div style="display:flex;gap:8px;">
-                <button class="mbtn-out" onclick="selStep(2)">← Atrás</button>
-                <button class="mbtn" style="flex:1;" onclick="submitSeller()">Enviar solicitud</button>
-              </div>
+              <button class="mbtn" style="width:100%;margin-top:4px;" onclick="doRegister()">Crear cuenta</button>
             </div>
 
-          </div><!-- /sellerForm -->
+            <!-- ── FORM VENDEDOR (3 pasos) ── -->
+            <div id="sellerForm" style="display:none;">
 
-        </div><!-- /tabReg -->
-      </div><!-- /authView -->
+              <!-- Barra de pasos -->
+              <div class="stepbar">
+                <div class="step active" id="st1">
+                  <div class="snum">1</div>
+                  <div class="slbl">Personal</div>
+                </div>
+                <div class="sline"></div>
+                <div class="step" id="st2">
+                  <div class="snum">2</div>
+                  <div class="slbl">Tienda</div>
+                </div>
+                <div class="sline"></div>
+                <div class="step" id="st3">
+                  <div class="snum">3</div>
+                  <div class="slbl">Acceso</div>
+                </div>
+              </div>
 
-      {% load static %}
+              <!-- Paso 1 -->
+              <div id="ss1">
+                <div class="fg">
+                  <label>Nombre completo <span class="req">*</span></label>
+                  <input id="vNombre" type="text" class="fc" placeholder="Tu nombre" />
+                </div>
+                <div class="fg">
+                  <label>Correo electrónico <span class="req">*</span></label>
+                  <input id="vEmail" type="email" class="fc" placeholder="tu@correo.com" />
+                </div>
+                <div class="fg">
+                  <label>Teléfono</label>
+                  <input id="vTelefono" type="tel" class="fc" placeholder="+57 300 000 0000" />
+                </div>
+                <button class="mbtn" style="width:100%;" onclick="selStep(2)">Siguiente →</button>
+              </div>
 
-      <!-- ── VISTA: DASHBOARD ── -->
-      <div id="dashView" style="display:none;">
-        <div class="prof-hdr">
-          <div class="prof-ava" id="dashAvatar">
-            {{ user.first_name|slice:":1"|upper|default:"👤" }}
+              <!-- Paso 2 -->
+              <div id="ss2" style="display:none;">
+                <div class="fg">
+                  <label>Nombre de tu tienda <span class="req">*</span></label>
+                  <input id="vTiendaNombre" type="text" class="fc" placeholder="Mi Tienda ColMercia" />
+                </div>
+                <div class="fg">
+                  <label>Categoría principal</label>
+                  <select id="vCategoria" class="fc">
+                    <option value="">Selecciona...</option>
+                    <option>Maquillaje</option>
+                    <option>Ropa y Accesorios</option>
+                    <option>Carteras y Bolsos</option>
+                    <option>Calzado</option>
+                    <option>Papelería</option>
+                    <option>Tecnología</option>
+                    <option>Regalos</option>
+                  </select>
+                </div>
+                <div class="fg">
+                  <label>Ciudad</label>
+                  <input id="vCiudad" type="text" class="fc" placeholder="Barranquilla" />
+                </div>
+                <div class="fg">
+                  <label>Descripción de tu tienda</label>
+                  <textarea id="vTiendaDesc" class="fc" placeholder="Cuéntanos qué vendes..."></textarea>
+                </div>
+                <div style="display:flex;gap:8px;">
+                  <button class="mbtn-out" onclick="selStep(1)">← Atrás</button>
+                  <button class="mbtn" style="flex:1;" onclick="selStep(3)">Siguiente →</button>
+                </div>
+              </div>
+
+              <!-- Paso 3 -->
+              <div id="ss3" style="display:none;">
+                <div class="fg">
+                  <label>Contraseña <span class="req">*</span></label>
+                  <input id="vPassword" type="password" class="fc" placeholder="Mínimo 8 caracteres" />
+                </div>
+                <div class="fg">
+                  <label>Confirmar contraseña <span class="req">*</span></label>
+                  <input id="vPassword2" type="password" class="fc" placeholder="Repite la contraseña" />
+                </div>
+                <label
+                  style="display:flex;align-items:center;gap:8px;font-size:.8rem;margin-bottom:14px;cursor:pointer;">
+                  <input type="checkbox" id="tcheck" />
+                  Acepto los Términos y Condiciones de ColMercia
+                </label>
+                <div style="display:flex;gap:8px;">
+                  <button class="mbtn-out" onclick="selStep(2)">← Atrás</button>
+                  <button class="mbtn" style="flex:1;" onclick="submitSeller()">Enviar solicitud</button>
+                </div>
+              </div>
+
+            </div><!-- /sellerForm -->
+
+          </div><!-- /tabReg -->
+        </div><!-- /authView -->
+
+        {% load static %}
+
+        <!-- ── VISTA: DASHBOARD ── -->
+        <div id="dashView" style="display:none;">
+          <div class="prof-hdr">
+            <div class="prof-ava" id="dashAvatar">
+              {{ user.first_name|slice:":1"|upper|default:"👤" }}
+            </div>
+            <div>
+              <div class="prof-name" id="profName">
+                Hola, {{ user.first_name|default:user.username }}
+              </div>
+              <div class="prof-meta" id="profEmail">{{ user.email }}</div>
+              <div class="prof-plan" onclick="openModal('plansModal')">⭐ Plan: Free — Ver planes</div>
+            </div>
+            <div class="prof-clock">
+              <div class="prof-time" id="profTime">--:--</div>
+              <div class="prof-date" id="profDate"></div>
+            </div>
+            <button class="prof-close" onclick="closeModal('accountModal')">✕</button>
           </div>
-          <div>
-            <div class="prof-name" id="profName">
-              Hola, {{ user.first_name|default:user.username }}
-            </div>
-            <div class="prof-meta" id="profEmail">{{ user.email }}</div>
-            <div class="prof-plan" onclick="openModal('plansModal')">⭐ Plan: Free — Ver planes</div>
-          </div>
-          <div class="prof-clock">
-            <div class="prof-time" id="profTime">--:--</div>
-            <div class="prof-date" id="profDate"></div>
-          </div>
-          <button class="prof-close" onclick="closeModal('accountModal')">✕</button>
-        </div>
-        <div class="prof-body">
-          <div class="prof-section">
-            <div class="psec-title">Mi cuenta</div>
-            <div class="sec-row-sm">
-              <div>
-                <div class="sec-lbl">Nombre completo</div>
-                <div class="sec-sub">{{ user.get_full_name|default:user.username }}</div>
+          <div class="prof-body">
+            <div class="prof-section">
+              <div class="psec-title">Mi cuenta</div>
+              <div class="sec-row-sm">
+                <div>
+                  <div class="sec-lbl">Nombre completo</div>
+                  <div class="sec-sub">{{ user.get_full_name|default:user.username }}</div>
+                </div>
+              </div>
+              <div class="sec-row-sm">
+                <div>
+                  <div class="sec-lbl">Correo electrónico</div>
+                  <div class="sec-sub" id="secEmail">{{ user.email }}</div>
+                </div>
+              </div>
+              {% if user.telefono %}
+              <div class="sec-row-sm">
+                <div>
+                  <div class="sec-lbl">Teléfono</div>
+                  <div class="sec-sub">{{ user.telefono }}</div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="sec-row-sm">
+                <div>
+                  <div class="sec-lbl">Tipo de cuenta</div>
+                  <div class="sec-sub" style="text-transform:capitalize;">{{ user.rol }}</div>
+                </div>
               </div>
             </div>
-            <div class="sec-row-sm">
-              <div>
-                <div class="sec-lbl">Correo electrónico</div>
-                <div class="sec-sub" id="secEmail">{{ user.email }}</div>
-              </div>
-            </div>
-            {% if user.telefono %}
-            <div class="sec-row-sm">
-              <div>
-                <div class="sec-lbl">Teléfono</div>
-                <div class="sec-sub">{{ user.telefono }}</div>
-              </div>
-            </div>
+
+            {% if user.rol == 'comprador' %}
+            <a href="/comprador/" class="mbtn" style="width:100%;justify-content:center;margin-bottom:8px;">
+              Ver mis pedidos
+            </a>
+            {% elif user.rol == 'vendedor' %}
+            <a href="/vendedor/" class="mbtn" style="width:100%;justify-content:center;margin-bottom:8px;">
+              Ir a mi tienda
+            </a>
+            {% elif user.rol == 'admin' %}
+            <a href="/admin-pag/" class="mbtn" style="width:100%;justify-content:center;margin-bottom:8px;">
+              Panel de administración
+            </a>
             {% endif %}
-            <div class="sec-row-sm">
-              <div>
-                <div class="sec-lbl">Tipo de cuenta</div>
-                <div class="sec-sub" style="text-transform:capitalize;">{{ user.rol }}</div>
-              </div>
-            </div>
+
+            <button class="mbtn-out" style="width:100%;color:var(--cia);border-color:var(--cia);"
+              onclick="doLogout()">Cerrar sesión</button>
           </div>
+        </div><!-- /dashView -->
 
-          {% if user.rol == 'comprador' %}
-          <a href="/comprador/" class="mbtn" style="width:100%;justify-content:center;margin-bottom:8px;">
-            Ver mis pedidos
-          </a>
-          {% elif user.rol == 'vendedor' %}
-          <a href="/vendedor/" class="mbtn" style="width:100%;justify-content:center;margin-bottom:8px;">
-            Ir a mi tienda
-          </a>
-          {% elif user.rol == 'admin' %}
-          <a href="/admin-pag/" class="mbtn" style="width:100%;justify-content:center;margin-bottom:8px;">
-            Panel de administración
-          </a>
-          {% endif %}
-
-          <button class="mbtn-out" style="width:100%;color:var(--cia);border-color:var(--cia);"
-            onclick="doLogout()">Cerrar sesión</button>
-        </div>
-      </div><!-- /dashView -->
-
-    </div><!-- /modal -->
-  </div><!-- /accountModal ══ CIERRA AQUÍ ══ -->
+      </div><!-- /modal -->
+    </div><!-- /accountModal ══ CIERRA AQUÍ ══ -->
 
 
-  <!-- ══════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════
        TRACKING MODAL — fuera del accountModal
   ══════════════════════════════════════════════════ -->
-  <div class="overlay" id="trackModal" onclick="closeOnOv(event,'trackModal')">
-    <div class="modal" onclick="event.stopPropagation()">
-      <div class="mhdr">
-        <div class="mtitle">📦 Rastrear Pedido</div>
-        <button class="mclose" onclick="closeModal('trackModal')">✕</button>
+    <div class="overlay" id="trackModal" onclick="closeOnOv(event,'trackModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="mhdr">
+          <div class="mtitle">📦 Rastrear Pedido</div>
+          <button class="mclose" onclick="closeModal('trackModal')">✕</button>
+        </div>
+        <div class="track-steps">
+          <div class="track-step">
+            <div class="ts-line">
+              <div class="ts-dot ts-done">✓</div>
+              <div class="ts-conn done"></div>
+            </div>
+            <div class="ts-info">
+              <div class="ts-name">Pedido confirmado</div>
+              <div class="ts-meta">25 abr, 10:30 AM</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="ts-line">
+              <div class="ts-dot ts-done">✓</div>
+              <div class="ts-conn done"></div>
+            </div>
+            <div class="ts-info">
+              <div class="ts-name">Preparando pedido</div>
+              <div class="ts-meta">26 abr, 8:00 AM</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="ts-line">
+              <div class="ts-dot ts-active">🚚</div>
+              <div class="ts-conn"></div>
+            </div>
+            <div class="ts-info">
+              <div class="ts-name">En camino</div>
+              <div class="ts-meta">27 abr — Barranquilla → Bogotá</div>
+            </div>
+          </div>
+          <div class="track-step">
+            <div class="ts-line">
+              <div class="ts-dot ts-pend">🏠</div>
+            </div>
+            <div class="ts-info">
+              <div class="ts-name">Entregado</div>
+              <div class="ts-meta">Estimado: 30 abr</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="track-steps">
-        <div class="track-step">
-          <div class="ts-line">
-            <div class="ts-dot ts-done">✓</div>
-            <div class="ts-conn done"></div>
-          </div>
-          <div class="ts-info">
-            <div class="ts-name">Pedido confirmado</div>
-            <div class="ts-meta">25 abr, 10:30 AM</div>
-          </div>
-        </div>
-        <div class="track-step">
-          <div class="ts-line">
-            <div class="ts-dot ts-done">✓</div>
-            <div class="ts-conn done"></div>
-          </div>
-          <div class="ts-info">
-            <div class="ts-name">Preparando pedido</div>
-            <div class="ts-meta">26 abr, 8:00 AM</div>
-          </div>
-        </div>
-        <div class="track-step">
-          <div class="ts-line">
-            <div class="ts-dot ts-active">🚚</div>
-            <div class="ts-conn"></div>
-          </div>
-          <div class="ts-info">
-            <div class="ts-name">En camino</div>
-            <div class="ts-meta">27 abr — Barranquilla → Bogotá</div>
-          </div>
-        </div>
-        <div class="track-step">
-          <div class="ts-line">
-            <div class="ts-dot ts-pend">🏠</div>
-          </div>
-          <div class="ts-info">
-            <div class="ts-name">Entregado</div>
-            <div class="ts-meta">Estimado: 30 abr</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div><!-- /trackModal -->
+    </div><!-- /trackModal -->
 
 
-  <!-- ══════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════
        PLANS MODAL — fuera del accountModal
   ══════════════════════════════════════════════════ -->
-  <div class="overlay" id="plansModal" onclick="closeOnOv(event,'plansModal')">
-    <div class="modal" onclick="event.stopPropagation()">
-      <div class="mhdr">
-        <div class="mtitle">⭐ Planes ColMercia</div>
-        <button class="mclose" onclick="closeModal('plansModal')">✕</button>
-      </div>
-      <div class="plans-wrap">
-        <div class="plans-grid">
-          <div class="plan-c">
-            <div class="plan-name">Standard</div>
-            <div class="plan-price">$9.900<span>/mes</span></div>
-            <ul class="plan-feats">
-              <li>Envío gratis desde $40.000</li>
-              <li>Historial de pedidos</li>
-              <li>Soporte por chat</li>
-            </ul>
-            <button class="plan-btn" onclick="alert('¡Suscripción Standard activada!')">Suscribirme</button>
-          </div>
-          <div class="plan-c feat">
-            <div class="plan-badge">🔥 Más popular</div>
-            <div class="plan-name">Pro</div>
-            <div class="plan-price">$24.900<span>/mes</span></div>
-            <ul class="plan-feats">
-              <li>Envío gratis sin mínimo</li>
-              <li>Empaque regalo premium</li>
-              <li>Acceso anticipado</li>
-              <li>Soporte 24/7</li>
-            </ul>
-            <button class="plan-btn" onclick="alert('¡Suscripción Pro activada!')">Suscribirme</button>
+    <div class="overlay" id="plansModal" onclick="closeOnOv(event,'plansModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="mhdr">
+          <div class="mtitle">⭐ Planes ColMercia</div>
+          <button class="mclose" onclick="closeModal('plansModal')">✕</button>
+        </div>
+        <div class="plans-wrap">
+          <div class="plans-grid">
+            <div class="plan-c">
+              <div class="plan-name">Standard</div>
+              <div class="plan-price">$9.900<span>/mes</span></div>
+              <ul class="plan-feats">
+                <li>Envío gratis desde $40.000</li>
+                <li>Historial de pedidos</li>
+                <li>Soporte por chat</li>
+              </ul>
+              <button class="plan-btn" onclick="alert('¡Suscripción Standard activada!')">Suscribirme</button>
+            </div>
+            <div class="plan-c feat">
+              <div class="plan-badge">🔥 Más popular</div>
+              <div class="plan-name">Pro</div>
+              <div class="plan-price">$24.900<span>/mes</span></div>
+              <ul class="plan-feats">
+                <li>Envío gratis sin mínimo</li>
+                <li>Empaque regalo premium</li>
+                <li>Acceso anticipado</li>
+                <li>Soporte 24/7</li>
+              </ul>
+              <button class="plan-btn" onclick="alert('¡Suscripción Pro activada!')">Suscribirme</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div><!-- /plansModal -->
+    </div><!-- /plansModal -->
 
 
-  <!-- ══════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════
        PAYMENT MODAL — fuera del accountModal
   ══════════════════════════════════════════════════ -->
-  <div class="overlay" id="payModal" onclick="closeOnOv(event,'payModal')">
-    <div class="modal" onclick="event.stopPropagation()">
-      <div class="pay-hdr">
-        <div style="font-size:1rem;font-weight:700;">💳 Finalizar Compra</div>
-        <button class="mclose" style="background:rgba(255,255,255,.15);color:#fff;"
-          onclick="closeModal('payModal')">✕</button>
-      </div>
-      <div class="pay-body">
-        <div class="pay-sum">
-          <div id="payItems"></div>
-          <div class="pay-row">
-            <span style="color:#2E7D32;">Envío</span>
-            <span style="color:#2E7D32;">Gratis</span>
-          </div>
-          <div class="pay-total">
-            <span>Total</span>
-            <span id="payTotal">$0</span>
-          </div>
+    <div class="overlay" id="payModal" onclick="closeOnOv(event,'payModal')">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="pay-hdr">
+          <div style="font-size:1rem;font-weight:700;">💳 Finalizar Compra</div>
+          <button class="mclose" style="background:rgba(255,255,255,.15);color:#fff;"
+            onclick="closeModal('payModal')">✕</button>
         </div>
-
-        <div class="pay-method-ttl">Método de pago</div>
-        <div class="pay-opts">
-          <div class="pay-opt sel" onclick="selectPay(this,'card')">
-            <div class="pay-opt-ico">💳</div>
-            <div class="pay-opt-name">Tarjeta</div>
-          </div>
-          <div class="pay-opt" onclick="selectPay(this,'nequi')">
-            <div class="pay-opt-ico">📱</div>
-            <div class="pay-opt-name">Nequi</div>
-          </div>
-          <div class="pay-opt" onclick="selectPay(this,'daviplata')">
-            <div class="pay-opt-ico">🏦</div>
-            <div class="pay-opt-name">Daviplata</div>
-          </div>
-          <div class="pay-opt" onclick="selectPay(this,'pse')">
-            <div class="pay-opt-ico">🌐</div>
-            <div class="pay-opt-name">PSE</div>
-          </div>
-        </div>
-
-        <div class="pay-form show" id="payCard">
-          <div class="fg">
-            <label>Número de tarjeta</label>
-            <input type="text" class="fc" placeholder="1234 5678 9012 3456" />
-          </div>
-          <div class="frow">
-            <div class="fg">
-              <label>Vencimiento</label>
-              <input type="text" class="fc" placeholder="MM/AA" />
+        <div class="pay-body">
+          <div class="pay-sum">
+            <div id="payItems"></div>
+            <div class="pay-row">
+              <span style="color:#2E7D32;">Envío</span>
+              <span style="color:#2E7D32;">Gratis</span>
             </div>
-            <div class="fg">
-              <label>CVV</label>
-              <input type="text" class="fc" placeholder="123" />
+            <div class="pay-total">
+              <span>Total</span>
+              <span id="payTotal">$0</span>
             </div>
           </div>
-        </div>
 
-        <div class="pay-form" id="payNequi">
-          <div class="fg">
-            <label>Número Nequi</label>
-            <input type="tel" class="fc" placeholder="+57 300 000 0000" />
-          </div>
-        </div>
-
-        <div class="pay-form" id="payDaviplata">
-          <div class="fg">
-            <label>Número Daviplata</label>
-            <input type="tel" class="fc" placeholder="+57 300 000 0000" />
-          </div>
-        </div>
-
-        <div class="pay-form" id="payPse">
-          <div class="fg">
-            <label>Banco</label>
-            <select class="fc">
-              <option>Bancolombia</option>
-              <option>Davivienda</option>
-              <option>BBVA</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="gift-wrap-box">
-          <div class="gift-wrap-ttl">🎁 ¿Es un regalo?</div>
-          <div class="gift-tog">
-            <input type="checkbox" id="giftCheck" onchange="toggleGiftMsg()" />
-            <label for="giftCheck" style="font-size:.72rem;font-weight:500;">Agregar empaque de regalo</label>
-          </div>
-          <div class="gift-msg-box" id="giftMsgBox">
-            <div class="fg">
-              <label>Mensaje</label>
-              <textarea class="fc" rows="2" placeholder="¡Feliz cumpleaños! 💛"></textarea>
+          <div class="pay-method-ttl">Método de pago</div>
+          <div class="pay-opts">
+            <div class="pay-opt sel" onclick="selectPay(this,'card')">
+              <div class="pay-opt-ico">💳</div>
+              <div class="pay-opt-name">Tarjeta</div>
+            </div>
+            <div class="pay-opt" onclick="selectPay(this,'nequi')">
+              <div class="pay-opt-ico">📱</div>
+              <div class="pay-opt-name">Nequi</div>
+            </div>
+            <div class="pay-opt" onclick="selectPay(this,'daviplata')">
+              <div class="pay-opt-ico">🏦</div>
+              <div class="pay-opt-name">Daviplata</div>
+            </div>
+            <div class="pay-opt" onclick="selectPay(this,'pse')">
+              <div class="pay-opt-ico">🌐</div>
+              <div class="pay-opt-name">PSE</div>
             </div>
           </div>
-        </div>
 
-        <button class="mbtn" id="payConfirmBtn" style="width:100%;margin-top:12px;" onclick="confirmarPago()">
-          Confirmar pago — $0
-        </button>
+          <div class="pay-form show" id="payCard">
+            <div class="fg">
+              <label>Número de tarjeta</label>
+              <input type="text" class="fc" placeholder="1234 5678 9012 3456" />
+            </div>
+            <div class="frow">
+              <div class="fg">
+                <label>Vencimiento</label>
+                <input type="text" class="fc" placeholder="MM/AA" />
+              </div>
+              <div class="fg">
+                <label>CVV</label>
+                <input type="text" class="fc" placeholder="123" />
+              </div>
+            </div>
+          </div>
 
-      </div>
-    </div>
-  </div><!-- /payModal -->
+          <div class="pay-form" id="payNequi">
+            <div class="fg">
+              <label>Número Nequi</label>
+              <input type="tel" class="fc" placeholder="+57 300 000 0000" />
+            </div>
+          </div>
 
-  <!-- ══════════════════════════════════════════════════════
+          <div class="pay-form" id="payDaviplata">
+            <div class="fg">
+              <label>Número Daviplata</label>
+              <input type="tel" class="fc" placeholder="+57 300 000 0000" />
+            </div>
+          </div>
+
+          <div class="pay-form" id="payPse">
+            <div class="fg">
+              <label>Banco</label>
+              <select class="fc">
+                <option>Bancolombia</option>
+                <option>Davivienda</option>
+                <option>BBVA</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="gift-wrap-box">
+            <div class="gift-wrap-ttl">🎁 ¿Es un regalo?</div>
+            <div class="gift-tog">
+              <input type="checkbox" id="giftCheck" onchange="toggleGiftMsg()" />
+              <label for="giftCheck" style="font-size:.72rem;font-weight:500;">Agregar empaque de regalo</label>
+            </div>
+            <div class="gift-msg-box" id="giftMsgBox">
+
+              <!-- TIPO DE ENVOLTURA -->
+              <div class="fg" style="margin-bottom:10px;">
+                <label style="font-size:.68rem;font-weight:700;margin-bottom:6px;display:block;">Tipo de
+                  envoltura</label>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
+                  <div class="wrap-opt" onclick="selectWrap(this,'bolsa_papel')" data-val="bolsa_papel">
+                    <div class="wrap-ico">🛍️</div>
+                    <div class="wrap-lbl">Bolsa de papel</div>
+                  </div>
+                  <div class="wrap-opt" onclick="selectWrap(this,'bolsa_tela')" data-val="bolsa_tela">
+                    <div class="wrap-ico">👜</div>
+                    <div class="wrap-lbl">Bolsa de tela</div>
+                  </div>
+                  <div class="wrap-opt" onclick="selectWrap(this,'caja')" data-val="caja">
+                    <div class="wrap-ico">📦</div>
+                    <div class="wrap-lbl">Caja decorativa</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DECORACIÓN -->
+              <div class="fg" style="margin-bottom:10px;">
+                <label style="font-size:.68rem;font-weight:700;margin-bottom:6px;display:block;">Decoración de la
+                  envoltura</label>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;">
+                  <div class="wrap-opt" onclick="selectDeco(this,'corazon')" data-val="corazon">
+                    <div class="wrap-ico">❤️</div>
+                    <div class="wrap-lbl">Corazón</div>
+                  </div>
+                  <div class="wrap-opt" onclick="selectDeco(this,'globos')" data-val="globos">
+                    <div class="wrap-ico">🎈</div>
+                    <div class="wrap-lbl">Globos</div>
+                  </div>
+                  <div class="wrap-opt" onclick="selectDeco(this,'navidad')" data-val="navidad">
+                    <div class="wrap-ico">🎄</div>
+                    <div class="wrap-lbl">Navidad</div>
+                  </div>
+                  <div class="wrap-opt" onclick="selectDeco(this,'halloween')" data-val="halloween">
+                    <div class="wrap-ico">🎃</div>
+                    <div class="wrap-lbl">Halloween</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MENSAJE -->
+              <div class="fg">
+                <label style="font-size:.68rem;font-weight:700;margin-bottom:4px;display:block;">Mensaje para la
+                  tarjeta</label>
+                <textarea class="fc" id="giftMsgText" rows="2" placeholder="¡Feliz cumpleaños! 💛"></textarea>
+              </div>
+
+            </div><!-- /gift-msg-box -->
+          </div><!-- /gift-wrap-box -->
+
+          <button class="mbtn" id="payConfirmBtn" style="width:100%;margin-top:12px;" onclick="confirmarPago()">
+            Confirmar pago — $0
+          </button>
+
+        </div><!-- /pay-body -->
+      </div><!-- /modal -->
+    </div><!-- /payModal -->
+
+    <!-- ══════════════════════════════════════════════════════
        TODA LA LÓGICA JS VA DENTRO DE ESTE BLOQUE SCRIPT
   ══════════════════════════════════════════════════════ -->
-  <script>
-
-    /* ══ DATA ══ */
-    const TICK_MSGS = [
-      "🚚 Envíos gratis en toda Colombia", "✨ Más de 200 tiendas verificadas",
-      "🎁 Nuevos productos cada semana", "🔐 Pago 100% seguro",
-      "🇨🇴 Apoya las microempresas colombianas", "⭐ Productos únicos y auténticos"
-    ];
-
-    const NEW_PRODS = [
-      { ico: '🌸', name: 'Perfume Dulce Miel 50ml', brand: 'Essence CO', price: '$95.000', old: '', stock: 'ok', cnt: 14, store: 'Essence CO', storeLoc: 'Bucaramanga · Perfumería', desc: 'Fragancia dulce y envolvente, elaborada con ingredientes naturales del Caribe colombiano. Presentación 50ml ideal para uso diario.', img: '/static/images/image1.jpg' },
-      { ico: '👗', name: 'Vestido Maxi Floral', brand: 'Moda Propia', price: '$138.000', old: '', stock: 'ok', cnt: 8, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Diseño exclusivo inspirado en los jardines del Pacífico. Tela liviana y fresca, perfecta para el clima tropical colombiano.', img: '/static/images/image2.jpg' },
-      { ico: '👟', name: 'Zapatos Plataforma Beige', brand: 'Paso Firme', price: '$162.000', old: '$195.000', stock: 'low', cnt: 3, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Calzado artesanal de cuero genuino con plataforma de 4cm. Cómodo para largas jornadas y elegante para cualquier ocasión.', img: '/static/images/image3.jpg' },
-      { ico: '👜', name: 'Mini Bag Cadena Dorada', brand: 'Studio BH', price: '$118.000', old: '', stock: 'ok', cnt: 20, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Bolso mini en cuero sintético de alta calidad con cadena dorada ajustable. Capacidad para esenciales con diseño sofisticado.', img: '/static/images/image4.jpg' },
-      { ico: '📓', name: 'Box Organizador Escritorio', brand: 'Papel y Arte', price: '$48.000', old: '', stock: 'ok', cnt: 35, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Set organizador de escritorio con 4 compartimentos, fabricado en cartón premium reciclado.', img: '/static/images/image5.jpg' },
-      { ico: '💄', name: 'Sérum Vitamina C 30ml', brand: 'Glam Medellín', price: '$62.000', old: '', stock: 'ok', cnt: 22, store: 'Glam Medellín', storeLoc: 'Medellín · Skincare', desc: 'Sérum antioxidante con 15% de Vitamina C pura. Ilumina el tono de la piel y reduce manchas con uso diario de 30 días.', img: '/static/images/image6.jpg' },
-    ];
-
-    const SELLERS = [
-      { ico: '🌸', name: 'Yours Truly Set Edición Limitada', brand: 'r.e.m. beauty', price: '$189.900', old: '$230.000', stock: 'low', cnt: 5, store: 'r.e.m. beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Set de edición limitada con base, rubor y labial en tonos cálidos. Presentación de lujo con empaque biodegradable.', img: '/static/images/image7.jpg' },
-      { ico: '👜', name: 'Sombrero Vueltiao Tricolor', brand: 'Artesanías La Fuente', price: '$245.000', old: '', stock: 'ok', cnt: 23, store: 'Artesanías La Fuente', storeLoc: 'Bogotá · Artesanías', desc: 'Sombrero vueltiao fabricado en caña flecha por artesanos de la comunidad Zenú. Diseño tradicional con banda tricolor. Tallas S, M, L.', img: '/static/images/image8.jpg' },
-      { ico: '👟', name: 'Sneakers Blancas Premium', brand: 'Paso Firme', price: '$185.000', old: '$210.000', stock: 'ok', cnt: 11, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Sneakers en cuero genuino blanco con suela de goma vulcanizada. Plantilla anatómica para máxima comodidad.', img: '/static/images/image9.jpg' },
-      { ico: '📻', name: 'Parlante Bluetooth Portátil', brand: 'TechPyme', price: '$92.000', old: '', stock: 'out', cnt: 0, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Parlante inalámbrico con 12h de batería, resistencia al agua IPX5 y sonido 360°.', img: '/static/images/parlante.png' },
-      { ico: '📓', name: 'Kit Planner Mensual + Stickers', brand: 'Papel y Arte', price: '$38.500', old: '', stock: 'ok', cnt: 34, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Kit completo con planner A5 mensual, 120 stickers decorativos y 3 marcadores brush.', img: '/static/images/image11.jpg' },
-      { ico: '💄', name: 'Paleta Sombras 12 Tonos Nude', brand: 'Glam Medellín', price: '$67.000', old: '', stock: 'low', cnt: 3, store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Paleta de 12 sombras en tonos nude y marrón, fórmula larga duración 24h.', img: '/static/images/image12.jpg' },
-    ];
-
-    const STORES_DATA = [
-      { name: 'Luxedrop Beauty', img: '/static/images/logo1.jpg', tag: 'Maquillaje · Bogotá', stars: 5, reviews: 128, prods: 47, featured: [{ ico: '🌸', name: 'Set Glow Total', price: '$125.000', img: '/static/images/image1.jpg' }, { ico: '💋', name: 'Labial Set x3', price: '$68.000', img: '/static/images/image14.jpg' }, { ico: '✨', name: 'Iluminador Duo', price: '$54.000', img: '/static/images/image15.jpg' }] },
-      { name: 'Studio BH', img: '/static/images/logo2.jpg', tag: 'Carteras · Medellín', stars: 5, reviews: 95, prods: 32, featured: [{ ico: '👜', name: 'Bolso Tote Canvas', price: '$120.000', img: '/static/images/image25.jpg' }, { ico: '👛', name: 'Clutch Cuero', price: '$95.000', img: '/static/images/image26.jpg' }, { ico: '💼', name: 'Riñonera Mini', price: '$75.000', img: '/static/images/image28.jpg' }] },
-      { name: 'Moda Propia', img: '/static/images/logo3.jpg', tag: 'Ropa · Cali', stars: 4, reviews: 74, prods: 61, featured: [{ ico: '👗', name: 'Vestido Maxi', price: '$138.000', img: '/static/images/image2.jpg' }, { ico: '🧥', name: 'Chaqueta Bomber', price: '$145.000', img: '/static/images/image23.jpg' }, { ico: '👚', name: 'Blusa Floral', price: '$58.000', img: '/static/images/image22.jpg' }] },
-      { name: 'Papel y Arte', img: '/static/images/logo4.jpg', tag: 'Papelería · Barranquilla', stars: 5, reviews: 210, prods: 88, featured: [{ ico: '📓', name: 'Bullet Journal A5', price: '$28.000', img: '/static/images/image34.jpg' }, { ico: '📅', name: 'Planner Semanal', price: '$35.000', img: '/static/images/image37.jpg' }, { ico: '🎀', name: 'Washi Tape x10', price: '$18.000', img: '/static/images/image36.jpg' }] },
-      { name: 'TechPyme', img: '/static/images/logo5.jpg', tag: 'Tecnología · Bogotá', stars: 4, reviews: 53, prods: 24, featured: [{ ico: '🔌', name: 'Hub USB-C 7P', price: '$85.000', img: '/static/images/image39.jpg' }, { ico: '🖱', name: 'Mouse Slim', price: '$65.000', img: '/static/images/image41.jpg' }, { ico: '🎧', name: 'Auriculares BT', price: '$98.000', img: '/static/images/audiculare.png' }] },
-      { name: 'Paso Firme', img: '/static/images/logo4.jpg', tag: 'Calzado · Bucaramanga', stars: 5, reviews: 162, prods: 55, featured: [{ ico: '👢', name: 'Botas Chelsea', price: '$210.000', img: '/static/images/image29.jpg' }, { ico: '🩴', name: 'Sandalias Nude', price: '$88.000', img: '/static/images/image30.jpg' }, { ico: '👟', name: 'Sneakers White', price: '$185.000', img: '/static/images/image9.jpg' }] },
-    ];
-
-    const CATS = {
-      maquillaje: [
-        { ico: '💄', name: 'Base de Maquillaje SPF30', brand: 'Glam Medellín', price: '$55.000', stock: 'ok', cnt: 22, store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Base de cobertura media-alta con SPF30.', img: '/static/images/image13.jpg' },
-        { ico: '💋', name: 'Labial Líquido Matte Rojo', brand: 'r.e.m. beauty', price: '$38.000', stock: 'ok', cnt: 40, store: 'r.e.m. beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Labial líquido de alta pigmentación en rojo intenso.', img: '/static/images/image14.jpg' },
-        { ico: '✨', name: 'Paleta Iluminador 3 Tonos', brand: 'Luxedrop Beauty', price: '$78.000', stock: 'low', cnt: 6, store: 'Luxedrop Beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Paleta con 3 tonos iluminadores.', img: '/static/images/image15.jpg' },
-        { ico: '👁', name: 'Máscara de Pestañas Volume', brand: 'Glam Medellín', price: '$42.000', stock: 'ok', cnt: 15, store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Máscara de pestañas con fórmula volumizadora.', img: '/static/images/image16.jpg' },
-        { ico: '💄', name: 'Contorno en Polvo Bronze', brand: 'r.e.m. beauty', price: '$48.000', stock: 'ok', cnt: 19, store: 'r.e.m. beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Polvo de contorno bronze.', img: '/static/images/image17.jpg' },
-        { ico: '💧', name: 'Primer Poros Invisible', brand: 'Luxedrop Beauty', price: '$52.000', stock: 'out', cnt: 0, store: 'Luxedrop Beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Primer de base silicona.', img: '/static/images/image18.jpg' },
-      ],
-      ropa: [
-        { ico: '👗', name: 'Suéter Oversize Tejido', brand: 'Moda Propia', price: '$89.000', stock: 'ok', cnt: 18, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Suéter oversize en hilo tejido artesanalmente.', img: '/static/images/image19.jpg' },
-        { ico: '👗', name: 'Camisa Lino Manga Larga', brand: 'Moda Propia', price: '$72.000', stock: 'ok', cnt: 24, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Camisa 100% lino lavado.', img: '/static/images/image20.jpg' },
-        { ico: '👖', name: 'Pantalón Baggy Denim', brand: 'Denim CO', price: '$115.000', stock: 'low', cnt: 4, store: 'Denim CO', storeLoc: 'Bogotá · Denim', desc: 'Pantalón baggy en denim premium.', img: '/static/images/image21.jpg' },
-        { ico: '👚', name: 'Blusa Floral Manga Corta', brand: 'Moda Propia', price: '$58.000', stock: 'ok', cnt: 30, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Blusa en tela viscosa con estampado floral.', img: '/static/images/image22.jpg' },
-        { ico: '🧥', name: 'Chaqueta Bomber Negra', brand: 'Urban Style', price: '$145.000', stock: 'ok', cnt: 9, store: 'Urban Style', storeLoc: 'Bogotá · Streetwear', desc: 'Chaqueta bomber en nylon ripstop.', img: '/static/images/image23.jpg' },
-        { ico: '🩳', name: 'Short Cargo Verde', brand: 'Denim CO', price: '$68.000', stock: 'low', cnt: 3, store: 'Denim CO', storeLoc: 'Bogotá · Denim', desc: 'Short cargo en gabardina verde militar.', img: '/static/images/image24.jpg' },
-      ],
-      carteras: [
-        { ico: '👜', name: 'Bolso Tote Canvas Natural', brand: 'Studio BH', price: '$120.000', stock: 'ok', cnt: 12, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Bolso tote en canvas 100% algodón natural.', img: '/static/images/image25.jpg' },
-        { ico: '👛', name: 'Clutch Cuero Dorado', brand: 'Studio BH', price: '$95.000', stock: 'low', cnt: 5, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Clutch en cuero sintético metalizado dorado.', img: '/static/images/image26.jpg' },
-        { ico: '🎒', name: 'Mochila Urbana Negra', brand: 'BagCo', price: '$135.000', stock: 'ok', cnt: 8, store: 'BagCo', storeLoc: 'Cali · Carteras', desc: 'Mochila urban con compartimento para laptop.', img: '/static/images/image43.jpg' },
-        { ico: '👜', name: 'Cartera Baguette Beige', brand: 'Studio BH', price: '$145.000', stock: 'ok', cnt: 16, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Cartera estilo baguette en piel beige.', img: '/static/images/image27.jpg' },
-        { ico: '💼', name: 'Riñonera Mini Rosa', brand: 'BagCo', price: '$75.000', stock: 'ok', cnt: 25, store: 'BagCo', storeLoc: 'Cali · Carteras', desc: 'Riñonera compacta en rosa nude.', img: '/static/images/image28.jpg' },
-      ],
-      calzado: [
-        { ico: '👢', name: 'Botas Chelsea Café', brand: 'Paso Firme', price: '$210.000', stock: 'ok', cnt: 10, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Botas Chelsea en cuero genuino café.', img: '/static/images/image29.jpg' },
-        { ico: '🩴', name: 'Sandalias Planas Nude', brand: 'Paso Firme', price: '$88.000', stock: 'ok', cnt: 20, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Sandalias en tiras de cuero nude tejido.', img: '/static/images/image30.jpg' },
-        { ico: '👞', name: 'Zapatos Oxford Negros', brand: 'Cuero MX', price: '$175.000', stock: 'low', cnt: 3, store: 'Cuero MX', storeLoc: 'Manizales · Calzado', desc: 'Oxford clásico en cuero negro pulido.', img: '/static/images/image31.jpg' },
-        { ico: '👠', name: 'Tacones Stiletto Rojo', brand: 'Cuero MX', price: '$145.000', stock: 'ok', cnt: 11, store: 'Cuero MX', storeLoc: 'Manizales · Calzado', desc: 'Stiletto en charol rojo con tacón de 10cm.', img: '/static/images/image32.jpg' },
-        { ico: '🩴', name: 'Alpargatas Trenzadas', brand: 'Paso Firme', price: '$65.000', stock: 'ok', cnt: 35, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Alpargatas artesanales tejidas en fique natural.', img: '/static/images/image33.jpg' },
-      ],
-      papeleria: [
-        { ico: '📓', name: 'Cuaderno Bullet Journal A5', brand: 'Papel y Arte', price: '$28.000', stock: 'ok', cnt: 50, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Bullet journal A5 con 200 páginas punteadas.', img: '/static/images/image34.jpg' },
-        { ico: '🖍', name: 'Set Lápices de Colores 24u', brand: 'Papel y Arte', price: '$22.000', stock: 'ok', cnt: 60, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Set 24 lápices de colores solubles en agua.', img: '/static/images/image35.jpg' },
-        { ico: '🎀', name: 'Washi Tape Pack x10', brand: 'Craft Studio', price: '$18.000', stock: 'ok', cnt: 80, store: 'Craft Studio', storeLoc: 'Bogotá · Craft', desc: 'Pack 10 washi tapes de 15mm, diseños florales.', img: '/static/images/image36.jpg' },
-        { ico: '📅', name: 'Planner Semanal Premium', brand: 'Papel y Arte', price: '$35.000', stock: 'low', cnt: 8, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Planner semanal A5 sin fechas, 52 semanas.', img: '/static/images/image37.jpg' },
-        { ico: '⭐', name: 'Stickers Decorativos 200u', brand: 'Craft Studio', price: '$12.000', stock: 'ok', cnt: 120, store: 'Craft Studio', storeLoc: 'Bogotá · Craft', desc: '200 stickers impresos en papel adhesivo matte.', img: '/static/images/image38.jpg' },
-      ],
-      tecnologia: [
-        { ico: '🔌', name: 'Hub USB-C 7 Puertos', brand: 'TechPyme', price: '$85.000', stock: 'ok', cnt: 14, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Hub USB-C con 7 puertos.', img: '/static/images/image39.jpg' },
-        { ico: '💻', name: 'Soporte Laptop Aluminio', brand: 'TechPyme', price: '$72.000', stock: 'ok', cnt: 18, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Soporte ergonómico de aluminio.', img: '/static/images/image40.jpg' },
-        { ico: '🖱', name: 'Mouse Inalámbrico Slim', brand: 'PixelTech', price: '$65.000', stock: 'low', cnt: 5, store: 'PixelTech', storeLoc: 'Medellín · Tecnología', desc: 'Mouse inalámbrico 2.4GHz ultra-delgado.', img: '/static/images/image41.jpg' },
-        { ico: '🔋', name: 'Cable USB-C Trenzado 2m', brand: 'TechPyme', price: '$28.000', stock: 'ok', cnt: 45, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Cable USB-C trenzado en nylon de 2 metros.', img: '/static/images/image42.jpg' },
-      ],
-      joyeria: [
-        { ico: '💛', name: 'Aretes de Filigrana Dorados', brand: 'Joyas Mompox', price: '$85.000', stock: 'ok', cnt: 15, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes elaborados a mano en filigrana de oro 18k por artesanos de Mompox.', img: '/static/images/aretes_dorados.jpg' },
-        { ico: '🤍', name: 'Aretes Filigrana Plateados Orquídea', brand: 'Joyas Mompox', price: '$72.000', stock: 'ok', cnt: 12, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes en filigrana de plata 950 con diseño inspirado en la orquídea, flor nacional de Colombia.', img: '/static/images/aretes_plateados.jpg' },
-        { ico: '💎', name: 'Brazalete de Filigrana', brand: 'Joyas Mompox', price: '$95.000', stock: 'ok', cnt: 8, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Brazalete elaborado a mano en filigrana de plata 950 por artesanos de Mompox.', img: '/static/images/brazalete.jpg' },
-        { ico: '💍', name: 'Set Accesorios Dorados', brand: 'Joyas Zenú', price: '$75.000', stock: 'ok', cnt: 22, store: 'Joyas Zenú', storeLoc: 'Montería · Joyería', desc: 'Set con collar, aretes y pulsera bañados en oro 18k. Hipoalergénicos, presentación caja de terciopelo.', img: '/static/images/set_accesorios.png' },
-      ],
-      artesanias: [
-        { ico: '🌴', name: 'Hamaca Sanjacintana', brand: 'Artesanías San Jacinto', price: '$180.000', stock: 'low', cnt: 6, store: 'Artesanías San Jacinto', storeLoc: 'San Jacinto · Artesanías', desc: 'Hamaca tejida a mano en algodón 100% natural por tejedoras de San Jacinto, Bolívar.', img: '/static/images/hamaca.jpg' },
-        { ico: '🎩', name: 'Sombrero Vueltiao', brand: 'Artesanías La Fuente', price: '$245.000', stock: 'ok', cnt: 10, store: 'Artesanías La Fuente', storeLoc: 'Tuchín · Artesanías', desc: 'Sombrero vueltiao 21 vueltas fabricado en caña flecha por artesanos de la comunidad Zenú de Tuchín, Córdoba.', img: '/static/images/vueltiao.jpg' },
-        { ico: '🌈', name: 'Mochila Wayuu', brand: 'Wayuu Taya', price: '$135.000', stock: 'ok', cnt: 20, store: 'Wayuu Taya', storeLoc: 'Riohacha · Artesanías', desc: 'Mochila auténtica tejida a crochet por mujeres Wayuu de La Guajira. Cada mochila tarda entre 3 y 5 días en tejerse.', img: '/static/images/mochila_wayuu.jpg' },
-        { ico: '👕', name: 'Camiseta blanca CARIBE', brand: 'Tshirts', price: '$95.000', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Camiseta 100% algodón con diseño caribeño impreso.', img: '/static/images/tshirt.jpg' },
-      ]
-    };
-
-    const GIFT_PRODS = [
-      { ico: '🌸', name: 'Set Bienestar Mujer', price: '$120.000', old: '', stock: 'ok', cnt: 12, brand: 'Essence CO', store: 'Essence CO', storeLoc: 'Bucaramanga · Bienestar', desc: 'Set de bienestar con crema corporal, sales de baño y vela aromática. Presentación caja regalo biodegradable.', img: '/static/images/set_bienestar.jpeg' },
-      { ico: '📓', name: 'Kit Papelería Creativa', price: '$55.000', old: '', stock: 'ok', cnt: 30, brand: 'Papel y Arte', store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Kit con cuaderno A5, 10 stickers decorativos, 3 marcadores brush y washi tape. Ideal para amantes del lettering.', img: '/static/images/kit_papeleria.png' },
-      { ico: '💄', name: 'Set Maquillaje Básico', price: '$89.000', old: '', stock: 'ok', cnt: 18, brand: 'Glam Medellín', store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Set básico con labial matte, máscara de pestañas y rubor en polvo. Perfecto para regalo de cumpleaños.', img: '/static/images/set_maquillaje.jpg' },
-      { ico: '👜', name: 'Mini Bolso de Fiesta', price: '$95.000', old: '', stock: 'low', cnt: 5, brand: 'Studio BH', store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Mini bolso clutch con cadena dorada desmontable. Interior forrado con espejo. Disponible en negro y nude.', img: '/static/images/mini_bolso.png' },
-      { ico: '🕯', name: 'Velas Aromáticas x3', price: '$48.000', old: '', stock: 'ok', cnt: 40, brand: 'Aroma Casa', store: 'Aroma Casa', storeLoc: 'Bogotá · Hogar', desc: 'Pack de 3 velas de soya con fragancias: lavanda, vainilla y coco. Tiempo de quema: 25h cada una.', img: '/static/images/velas.png' },
-      { ico: '💍', name: 'Set Accesorios Dorados', price: '$75.000', old: '', stock: 'ok', cnt: 22, brand: 'Joyas Zenú', store: 'Joyas Zenú', storeLoc: 'Montería · Joyería', desc: 'Set con collar, aretes y pulsera bañados en oro 18k. Hipoalergénicos, presentación caja de terciopelo.', img: '/static/images/set_accesorios.png' },
-    ];
-
-    const REGION_PRODS = [
-      { ico: '💛', name: 'Aretes de Filigrana Dorados', brand: 'Joyas Mompox', price: '$85.000', old: '', stock: 'ok', cnt: 15, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes elaborados a mano en filigrana de oro 18k por artesanos de Mompox.', img: '/static/images/aretes_dorados.jpg' },
-      { ico: '🤍', name: 'Aretes Filigrana Plateados Orquídea', brand: 'Joyas Mompox', price: '$72.000', old: '', stock: 'ok', cnt: 12, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes en filigrana de plata 950 con diseño inspirado en la orquídea, flor nacional de Colombia.', img: '/static/images/aretes_plateados.jpg' },
-      { ico: '🌴', name: 'Hamaca Sanjacintana', brand: 'Artesanías San Jacinto', price: '$180.000', old: '$220.000', stock: 'low', cnt: 6, store: 'Artesanías San Jacinto', storeLoc: 'San Jacinto · Artesanías', desc: 'Hamaca tejida a mano en algodón 100% natural por tejedoras de San Jacinto, Bolívar.', img: '/static/images/hamaca.jpg' },
-      { ico: '🎩', name: 'Sombrero Vueltiao', brand: 'Artesanías La Fuente', price: '$245.000', old: '', stock: 'ok', cnt: 10, store: 'Artesanías La Fuente', storeLoc: 'Tuchín · Artesanías', desc: 'Sombrero vueltiao 21 vueltas fabricado en caña flecha por artesanos de la comunidad Zenú de Tuchín, Córdoba.', img: '/static/images/vueltiao.jpg' },
-      { ico: '🌈', name: 'Mochila Wayuu', brand: 'Wayuu Taya', price: '$135.000', old: '', stock: 'ok', cnt: 20, store: 'Wayuu Taya', storeLoc: 'Riohacha · Artesanías', desc: 'Mochila auténtica tejida a crochet por mujeres Wayuu de La Guajira. Cada mochila tarda entre 3 y 5 días en tejerse.', img: '/static/images/mochila_wayuu.jpg' },
-      { ico: '💎', name: 'Brazalete de Filigrana', brand: 'Joyas Mompox', price: '$95.000', old: '', stock: 'ok', cnt: 8, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Brazalete elaborado a mano en filigrana de plata 950 por artesanos de Mompox.', img: '/static/images/brazalete.jpg' },
-      { ico: '📱', name: 'Funda S26 Ultra CARIBE', brand: 'Joyas Mompox', price: '$95.000', old: '', stock: 'ok', cnt: 8, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Funda artesanal para Samsung S26 Ultra con diseños del Caribe colombiano.', img: '/static/images/casephone.jpg' },
-      { ico: '👕', name: 'Camiseta blanca CARIBE', brand: 'Tshirts', price: '$95.000', old: '', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Camiseta 100% algodón con diseño caribeño impreso.', img: '/static/images/tshirt.jpg' },
-      { ico: '💼', name: 'Funda GalaxyBooks 3 CARIBE', brand: 'Tshirts', price: '$54.900', old: '', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Funda protectora para Samsung Galaxy Book 3 con diseños del Caribe.', img: '/static/images/funda_auds.png' },
-      { ico: '☕', name: 'Pocillo Blanco CARIBE', brand: 'Tshirts', price: '$19.900', old: '', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Pocillo blanco 350ml con diseño caribeño impreso a alta temperatura.', img: '/static/images/pocillo.png' },
-    ];
-
-    /* ══ ÍNDICE GLOBAL DE PRODUCTOS ══ */
-    const ALL_PRODUCTS = [];
-    function registerProduct(p) {
-      const exists = ALL_PRODUCTS.find(x => x.name === p.name && x.brand === p.brand);
-      if (exists) {
-        if (p.img && !exists.img) exists.img = p.img;
-        return ALL_PRODUCTS.indexOf(exists);
-      }
-      ALL_PRODUCTS.push(p);
-      return ALL_PRODUCTS.length - 1;
-    }
-
-    /* Pre-cargar todos los productos al inicio */
-    (function preloadProducts() {
-      Object.values(CATS).forEach(arr => arr.forEach(p => registerProduct(p)));
-      REGION_PRODS.forEach(p => registerProduct(p));
-      GIFT_PRODS.forEach(p => registerProduct(p));
-    })();
-
-    /* ══ HELPERS ══ */
-    function starsStr(n) { return '⭐'.repeat(n); }
-
-    /* ══ TICKER ══ */
-    (function () {
-      const items = [...TICK_MSGS, ...TICK_MSGS];
-      document.getElementById('tickTrack').innerHTML =
-        items.map(m => `<span class="tick-item">${m}<span class="tick-sep">✦</span></span>`).join('');
-    })();
-
-    /* ══ SLIDER ══ */
-    let cur = 0, tot = 3, slTimer;
-    const SDUR = 5000;
-    function goSlide(n) {
-      cur = n;
-      document.getElementById('slidesTrack').style.transform = `translateX(-${cur * 100}%)`;
-      document.querySelectorAll('.sdot').forEach((d, i) => d.classList.toggle('active', i === cur));
-      resetProg();
-    }
-    function slideMove(d) { goSlide((cur + d + tot) % tot); resetTimer(); }
-    function resetTimer() { clearInterval(slTimer); slTimer = setInterval(() => slideMove(1), SDUR); }
-    function resetProg() {
-      const p = document.getElementById('sprog');
-      p.style.transition = 'none'; p.style.width = '0';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        p.style.transition = `width ${SDUR}ms linear`; p.style.width = '100%';
-      }));
-    }
-    resetTimer(); resetProg();
-
-    /* ══ QUICK VIEW — Producto ══ */
-    let qvCurrentProduct = null;
-
-    function openProductQV(idx) {
-      const prod = ALL_PRODUCTS[idx];
-      if (!prod) return;
-      qvCurrentProduct = prod;
-
-      document.getElementById('qvTag').textContent = prod.brand;
-
-      const qvImg = document.getElementById('qvImg');
-      if (prod.img) {
-        qvImg.style.cssText = [
-          'position:absolute', 'inset:0', 'background-size:cover',
-          'background-position:center center', 'background-repeat:no-repeat',
-          `background-image:url('${prod.img}')`, 'font-size:0'
-        ].join(';');
-        qvImg.textContent = '';
-      } else {
-        qvImg.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;background-image:none;';
-        qvImg.textContent = prod.ico;
+    <script>
+      /* ══ REGALO: envoltura y decoración ══ */
+      function selectWrap(el, val) {
+        document.querySelectorAll('#giftMsgBox .wrap-opt[data-val]').forEach(o => {
+          // solo deselectar los del mismo grupo (envoltura = primeros 3)
+          const isWrap = ['bolsa_papel', 'bolsa_tela', 'caja'].includes(o.dataset.val);
+          if (isWrap) o.classList.remove('sel');
+        });
+        el.classList.add('sel');
+        window._giftWrap = val;
       }
 
-      document.getElementById('qvBrand').textContent = prod.brand;
-      document.getElementById('qvName').textContent = prod.name;
-      document.getElementById('qvPrice').textContent = prod.price;
+      function selectDeco(el, val) {
+        document.querySelectorAll('#giftMsgBox .wrap-opt[data-val]').forEach(o => {
+          const isDeco = ['corazon', 'globos', 'navidad', 'halloween'].includes(o.dataset.val);
+          if (isDeco) o.classList.remove('sel');
+        });
+        el.classList.add('sel');
+        window._giftDeco = val;
+      }
 
-      const oldEl = document.getElementById('qvOld');
-      oldEl.textContent = prod.old || '';
-      oldEl.style.display = prod.old ? 'inline' : 'none';
 
-      const badges = document.getElementById('qvBadges');
-      let bHTML = '';
-      if (prod.stock === 'low') bHTML = `<span class="sbdg slow">${prod.cnt} disponibles</span>`;
-      if (prod.stock === 'ok') bHTML = `<span class="sbdg sok">${prod.cnt} disponibles</span>`;
-      if (prod.stock === 'out') bHTML = `<span class="sbdg sout">Agotado</span>`;
-      badges.innerHTML = bHTML;
+      /* ══ DATA ══ */
+      const TICK_MSGS = [
+        "🚚 Envíos gratis en toda Colombia", "✨ Más de 200 tiendas verificadas",
+        "🎁 Nuevos productos cada semana", "🔐 Pago 100% seguro",
+        "🇨🇴 Apoya las microempresas colombianas", "⭐ Productos únicos y auténticos"
+      ];
 
-      document.getElementById('qvDesc').textContent = prod.desc || 'Producto artesanal colombiano de alta calidad.';
-      document.getElementById('qvQty').textContent = '1';
+      const NEW_PRODS = [
+        { ico: '🌸', name: 'Perfume Dulce Miel 50ml', brand: 'Essence CO', price: '$95.000', old: '', stock: 'ok', cnt: 14, store: 'Essence CO', storeLoc: 'Bucaramanga · Perfumería', desc: 'Fragancia dulce y envolvente, elaborada con ingredientes naturales del Caribe colombiano. Presentación 50ml ideal para uso diario.', img: '/static/images/image1.jpg' },
+        { ico: '👗', name: 'Vestido Maxi Floral', brand: 'Moda Propia', price: '$138.000', old: '', stock: 'ok', cnt: 8, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Diseño exclusivo inspirado en los jardines del Pacífico. Tela liviana y fresca, perfecta para el clima tropical colombiano.', img: '/static/images/image2.jpg' },
+        { ico: '👟', name: 'Zapatos Plataforma Beige', brand: 'Paso Firme', price: '$162.000', old: '$195.000', stock: 'low', cnt: 3, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Calzado artesanal de cuero genuino con plataforma de 4cm. Cómodo para largas jornadas y elegante para cualquier ocasión.', img: '/static/images/image3.jpg' },
+        { ico: '👜', name: 'Mini Bag Cadena Dorada', brand: 'Studio BH', price: '$118.000', old: '', stock: 'ok', cnt: 20, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Bolso mini en cuero sintético de alta calidad con cadena dorada ajustable. Capacidad para esenciales con diseño sofisticado.', img: '/static/images/image4.jpg' },
+        { ico: '📓', name: 'Box Organizador Escritorio', brand: 'Papel y Arte', price: '$48.000', old: '', stock: 'ok', cnt: 35, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Set organizador de escritorio con 4 compartimentos, fabricado en cartón premium reciclado.', img: '/static/images/image5.jpg' },
+        { ico: '💄', name: 'Sérum Vitamina C 30ml', brand: 'Glam Medellín', price: '$62.000', old: '', stock: 'ok', cnt: 22, store: 'Glam Medellín', storeLoc: 'Medellín · Skincare', desc: 'Sérum antioxidante con 15% de Vitamina C pura. Ilumina el tono de la piel y reduce manchas con uso diario de 30 días.', img: '/static/images/image6.jpg' },
+      ];
 
-      const addBtn = document.getElementById('qvAddBtn');
-      addBtn.disabled = prod.stock === 'out';
-      addBtn.innerHTML = prod.stock === 'out'
-        ? 'Sin stock disponible'
-        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      const SELLERS = [
+        { ico: '🌸', name: 'Yours Truly Set Edición Limitada', brand: 'r.e.m. beauty', price: '$189.900', old: '$230.000', stock: 'low', cnt: 5, store: 'r.e.m. beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Set de edición limitada con base, rubor y labial en tonos cálidos. Presentación de lujo con empaque biodegradable.', img: '/static/images/image7.jpg' },
+        { ico: '👜', name: 'Sombrero Vueltiao Tricolor', brand: 'Artesanías La Fuente', price: '$245.000', old: '', stock: 'ok', cnt: 23, store: 'Artesanías La Fuente', storeLoc: 'Bogotá · Artesanías', desc: 'Sombrero vueltiao fabricado en caña flecha por artesanos de la comunidad Zenú. Diseño tradicional con banda tricolor. Tallas S, M, L.', img: '/static/images/image8.jpg' },
+        { ico: '👟', name: 'Sneakers Blancas Premium', brand: 'Paso Firme', price: '$185.000', old: '$210.000', stock: 'ok', cnt: 11, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Sneakers en cuero genuino blanco con suela de goma vulcanizada. Plantilla anatómica para máxima comodidad.', img: '/static/images/image9.jpg' },
+        { ico: '📻', name: 'Parlante Bluetooth Portátil', brand: 'TechPyme', price: '$92.000', old: '', stock: 'out', cnt: 0, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Parlante inalámbrico con 12h de batería, resistencia al agua IPX5 y sonido 360°.', img: '/static/images/parlante.png' },
+        { ico: '📓', name: 'Kit Planner Mensual + Stickers', brand: 'Papel y Arte', price: '$38.500', old: '', stock: 'ok', cnt: 34, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Kit completo con planner A5 mensual, 120 stickers decorativos y 3 marcadores brush.', img: '/static/images/image11.jpg' },
+        { ico: '💄', name: 'Paleta Sombras 12 Tonos Nude', brand: 'Glam Medellín', price: '$67.000', old: '', stock: 'low', cnt: 3, store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Paleta de 12 sombras en tonos nude y marrón, fórmula larga duración 24h.', img: '/static/images/image12.jpg' },
+      ];
+
+      const STORES_DATA = [
+        { name: 'Luxedrop Beauty', img: '/static/images/logo1.jpg', tag: 'Maquillaje · Bogotá', stars: 5, reviews: 128, prods: 47, featured: [{ ico: '🌸', name: 'Set Glow Total', price: '$125.000', img: '/static/images/image1.jpg' }, { ico: '💋', name: 'Labial Set x3', price: '$68.000', img: '/static/images/image14.jpg' }, { ico: '✨', name: 'Iluminador Duo', price: '$54.000', img: '/static/images/image15.jpg' }] },
+        { name: 'Studio BH', img: '/static/images/logo2.jpg', tag: 'Carteras · Medellín', stars: 5, reviews: 95, prods: 32, featured: [{ ico: '👜', name: 'Bolso Tote Canvas', price: '$120.000', img: '/static/images/image25.jpg' }, { ico: '👛', name: 'Clutch Cuero', price: '$95.000', img: '/static/images/image26.jpg' }, { ico: '💼', name: 'Riñonera Mini', price: '$75.000', img: '/static/images/image28.jpg' }] },
+        { name: 'Moda Propia', img: '/static/images/logo3.jpg', tag: 'Ropa · Cali', stars: 4, reviews: 74, prods: 61, featured: [{ ico: '👗', name: 'Vestido Maxi', price: '$138.000', img: '/static/images/image2.jpg' }, { ico: '🧥', name: 'Chaqueta Bomber', price: '$145.000', img: '/static/images/image23.jpg' }, { ico: '👚', name: 'Blusa Floral', price: '$58.000', img: '/static/images/image22.jpg' }] },
+        { name: 'Papel y Arte', img: '/static/images/logo4.jpg', tag: 'Papelería · Barranquilla', stars: 5, reviews: 210, prods: 88, featured: [{ ico: '📓', name: 'Bullet Journal A5', price: '$28.000', img: '/static/images/image34.jpg' }, { ico: '📅', name: 'Planner Semanal', price: '$35.000', img: '/static/images/image37.jpg' }, { ico: '🎀', name: 'Washi Tape x10', price: '$18.000', img: '/static/images/image36.jpg' }] },
+        { name: 'TechPyme', img: '/static/images/logo5.jpg', tag: 'Tecnología · Bogotá', stars: 4, reviews: 53, prods: 24, featured: [{ ico: '🔌', name: 'Hub USB-C 7P', price: '$85.000', img: '/static/images/image39.jpg' }, { ico: '🖱', name: 'Mouse Slim', price: '$65.000', img: '/static/images/image41.jpg' }, { ico: '🎧', name: 'Auriculares BT', price: '$98.000', img: '/static/images/audiculare.png' }] },
+        { name: 'Paso Firme', img: '/static/images/logo4.jpg', tag: 'Calzado · Bucaramanga', stars: 5, reviews: 162, prods: 55, featured: [{ ico: '👢', name: 'Botas Chelsea', price: '$210.000', img: '/static/images/image29.jpg' }, { ico: '🩴', name: 'Sandalias Nude', price: '$88.000', img: '/static/images/image30.jpg' }, { ico: '👟', name: 'Sneakers White', price: '$185.000', img: '/static/images/image9.jpg' }] },
+      ];
+
+      const CATS = {
+        maquillaje: [
+          { ico: '💄', name: 'Base de Maquillaje SPF30', brand: 'Glam Medellín', price: '$55.000', stock: 'ok', cnt: 22, store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Base de cobertura media-alta con SPF30.', img: '/static/images/image13.jpg' },
+          { ico: '💋', name: 'Labial Líquido Matte Rojo', brand: 'r.e.m. beauty', price: '$38.000', stock: 'ok', cnt: 40, store: 'r.e.m. beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Labial líquido de alta pigmentación en rojo intenso.', img: '/static/images/image14.jpg' },
+          { ico: '✨', name: 'Paleta Iluminador 3 Tonos', brand: 'Luxedrop Beauty', price: '$78.000', stock: 'low', cnt: 6, store: 'Luxedrop Beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Paleta con 3 tonos iluminadores.', img: '/static/images/image15.jpg' },
+          { ico: '👁', name: 'Máscara de Pestañas Volume', brand: 'Glam Medellín', price: '$42.000', stock: 'ok', cnt: 15, store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Máscara de pestañas con fórmula volumizadora.', img: '/static/images/image16.jpg' },
+          { ico: '💄', name: 'Contorno en Polvo Bronze', brand: 'r.e.m. beauty', price: '$48.000', stock: 'ok', cnt: 19, store: 'r.e.m. beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Polvo de contorno bronze.', img: '/static/images/image17.jpg' },
+          { ico: '💧', name: 'Primer Poros Invisible', brand: 'Luxedrop Beauty', price: '$52.000', stock: 'out', cnt: 0, store: 'Luxedrop Beauty', storeLoc: 'Bogotá · Maquillaje', desc: 'Primer de base silicona.', img: '/static/images/image18.jpg' },
+        ],
+        ropa: [
+          { ico: '👗', name: 'Suéter Oversize Tejido', brand: 'Moda Propia', price: '$89.000', stock: 'ok', cnt: 18, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Suéter oversize en hilo tejido artesanalmente.', img: '/static/images/image19.jpg' },
+          { ico: '👗', name: 'Camisa Lino Manga Larga', brand: 'Moda Propia', price: '$72.000', stock: 'ok', cnt: 24, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Camisa 100% lino lavado.', img: '/static/images/image20.jpg' },
+          { ico: '👖', name: 'Pantalón Baggy Denim', brand: 'Denim CO', price: '$115.000', stock: 'low', cnt: 4, store: 'Denim CO', storeLoc: 'Bogotá · Denim', desc: 'Pantalón baggy en denim premium.', img: '/static/images/image21.jpg' },
+          { ico: '👚', name: 'Blusa Floral Manga Corta', brand: 'Moda Propia', price: '$58.000', stock: 'ok', cnt: 30, store: 'Moda Propia', storeLoc: 'Cali · Moda', desc: 'Blusa en tela viscosa con estampado floral.', img: '/static/images/image22.jpg' },
+          { ico: '🧥', name: 'Chaqueta Bomber Negra', brand: 'Urban Style', price: '$145.000', stock: 'ok', cnt: 9, store: 'Urban Style', storeLoc: 'Bogotá · Streetwear', desc: 'Chaqueta bomber en nylon ripstop.', img: '/static/images/image23.jpg' },
+          { ico: '🩳', name: 'Short Cargo Verde', brand: 'Denim CO', price: '$68.000', stock: 'low', cnt: 3, store: 'Denim CO', storeLoc: 'Bogotá · Denim', desc: 'Short cargo en gabardina verde militar.', img: '/static/images/image24.jpg' },
+        ],
+        carteras: [
+          { ico: '👜', name: 'Bolso Tote Canvas Natural', brand: 'Studio BH', price: '$120.000', stock: 'ok', cnt: 12, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Bolso tote en canvas 100% algodón natural.', img: '/static/images/image25.jpg' },
+          { ico: '👛', name: 'Clutch Cuero Dorado', brand: 'Studio BH', price: '$95.000', stock: 'low', cnt: 5, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Clutch en cuero sintético metalizado dorado.', img: '/static/images/image26.jpg' },
+          { ico: '🎒', name: 'Mochila Urbana Negra', brand: 'BagCo', price: '$135.000', stock: 'ok', cnt: 8, store: 'BagCo', storeLoc: 'Cali · Carteras', desc: 'Mochila urban con compartimento para laptop.', img: '/static/images/image43.jpg' },
+          { ico: '👜', name: 'Cartera Baguette Beige', brand: 'Studio BH', price: '$145.000', stock: 'ok', cnt: 16, store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Cartera estilo baguette en piel beige.', img: '/static/images/image27.jpg' },
+          { ico: '💼', name: 'Riñonera Mini Rosa', brand: 'BagCo', price: '$75.000', stock: 'ok', cnt: 25, store: 'BagCo', storeLoc: 'Cali · Carteras', desc: 'Riñonera compacta en rosa nude.', img: '/static/images/image28.jpg' },
+        ],
+        calzado: [
+          { ico: '👢', name: 'Botas Chelsea Café', brand: 'Paso Firme', price: '$210.000', stock: 'ok', cnt: 10, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Botas Chelsea en cuero genuino café.', img: '/static/images/image29.jpg' },
+          { ico: '🩴', name: 'Sandalias Planas Nude', brand: 'Paso Firme', price: '$88.000', stock: 'ok', cnt: 20, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Sandalias en tiras de cuero nude tejido.', img: '/static/images/image30.jpg' },
+          { ico: '👞', name: 'Zapatos Oxford Negros', brand: 'Cuero MX', price: '$175.000', stock: 'low', cnt: 3, store: 'Cuero MX', storeLoc: 'Manizales · Calzado', desc: 'Oxford clásico en cuero negro pulido.', img: '/static/images/image31.jpg' },
+          { ico: '👠', name: 'Tacones Stiletto Rojo', brand: 'Cuero MX', price: '$145.000', stock: 'ok', cnt: 11, store: 'Cuero MX', storeLoc: 'Manizales · Calzado', desc: 'Stiletto en charol rojo con tacón de 10cm.', img: '/static/images/image32.jpg' },
+          { ico: '🩴', name: 'Alpargatas Trenzadas', brand: 'Paso Firme', price: '$65.000', stock: 'ok', cnt: 35, store: 'Paso Firme', storeLoc: 'Bucaramanga · Calzado', desc: 'Alpargatas artesanales tejidas en fique natural.', img: '/static/images/image33.jpg' },
+        ],
+        papeleria: [
+          { ico: '📓', name: 'Cuaderno Bullet Journal A5', brand: 'Papel y Arte', price: '$28.000', stock: 'ok', cnt: 50, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Bullet journal A5 con 200 páginas punteadas.', img: '/static/images/image34.jpg' },
+          { ico: '🖍', name: 'Set Lápices de Colores 24u', brand: 'Papel y Arte', price: '$22.000', stock: 'ok', cnt: 60, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Set 24 lápices de colores solubles en agua.', img: '/static/images/image35.jpg' },
+          { ico: '🎀', name: 'Washi Tape Pack x10', brand: 'Craft Studio', price: '$18.000', stock: 'ok', cnt: 80, store: 'Craft Studio', storeLoc: 'Bogotá · Craft', desc: 'Pack 10 washi tapes de 15mm, diseños florales.', img: '/static/images/image36.jpg' },
+          { ico: '📅', name: 'Planner Semanal Premium', brand: 'Papel y Arte', price: '$35.000', stock: 'low', cnt: 8, store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Planner semanal A5 sin fechas, 52 semanas.', img: '/static/images/image37.jpg' },
+          { ico: '⭐', name: 'Stickers Decorativos 200u', brand: 'Craft Studio', price: '$12.000', stock: 'ok', cnt: 120, store: 'Craft Studio', storeLoc: 'Bogotá · Craft', desc: '200 stickers impresos en papel adhesivo matte.', img: '/static/images/image38.jpg' },
+        ],
+        tecnologia: [
+          { ico: '🔌', name: 'Hub USB-C 7 Puertos', brand: 'TechPyme', price: '$85.000', stock: 'ok', cnt: 14, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Hub USB-C con 7 puertos.', img: '/static/images/image39.jpg' },
+          { ico: '💻', name: 'Soporte Laptop Aluminio', brand: 'TechPyme', price: '$72.000', stock: 'ok', cnt: 18, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Soporte ergonómico de aluminio.', img: '/static/images/image40.jpg' },
+          { ico: '🖱', name: 'Mouse Inalámbrico Slim', brand: 'PixelTech', price: '$65.000', stock: 'low', cnt: 5, store: 'PixelTech', storeLoc: 'Medellín · Tecnología', desc: 'Mouse inalámbrico 2.4GHz ultra-delgado.', img: '/static/images/image41.jpg' },
+          { ico: '🔋', name: 'Cable USB-C Trenzado 2m', brand: 'TechPyme', price: '$28.000', stock: 'ok', cnt: 45, store: 'TechPyme', storeLoc: 'Bogotá · Tecnología', desc: 'Cable USB-C trenzado en nylon de 2 metros.', img: '/static/images/image42.jpg' },
+        ],
+        joyeria: [
+          { ico: '💛', name: 'Aretes de Filigrana Dorados', brand: 'Joyas Mompox', price: '$85.000', stock: 'ok', cnt: 15, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes elaborados a mano en filigrana de oro 18k por artesanos de Mompox.', img: '/static/images/aretes_dorados.jpg' },
+          { ico: '🤍', name: 'Aretes Filigrana Plateados Orquídea', brand: 'Joyas Mompox', price: '$72.000', stock: 'ok', cnt: 12, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes en filigrana de plata 950 con diseño inspirado en la orquídea, flor nacional de Colombia.', img: '/static/images/aretes_plateados.jpg' },
+          { ico: '💎', name: 'Brazalete de Filigrana', brand: 'Joyas Mompox', price: '$95.000', stock: 'ok', cnt: 8, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Brazalete elaborado a mano en filigrana de plata 950 por artesanos de Mompox.', img: '/static/images/brazalete.jpg' },
+          { ico: '💍', name: 'Set Accesorios Dorados', brand: 'Joyas Zenú', price: '$75.000', stock: 'ok', cnt: 22, store: 'Joyas Zenú', storeLoc: 'Montería · Joyería', desc: 'Set con collar, aretes y pulsera bañados en oro 18k. Hipoalergénicos, presentación caja de terciopelo.', img: '/static/images/set_accesorios.png' },
+        ],
+        artesanias: [
+          { ico: '🌴', name: 'Hamaca Sanjacintana', brand: 'Artesanías San Jacinto', price: '$180.000', stock: 'low', cnt: 6, store: 'Artesanías San Jacinto', storeLoc: 'San Jacinto · Artesanías', desc: 'Hamaca tejida a mano en algodón 100% natural por tejedoras de San Jacinto, Bolívar.', img: '/static/images/hamaca.jpg' },
+          { ico: '🎩', name: 'Sombrero Vueltiao', brand: 'Artesanías La Fuente', price: '$245.000', stock: 'ok', cnt: 10, store: 'Artesanías La Fuente', storeLoc: 'Tuchín · Artesanías', desc: 'Sombrero vueltiao 21 vueltas fabricado en caña flecha por artesanos de la comunidad Zenú de Tuchín, Córdoba.', img: '/static/images/vueltiao.jpg' },
+          { ico: '🌈', name: 'Mochila Wayuu', brand: 'Wayuu Taya', price: '$135.000', stock: 'ok', cnt: 20, store: 'Wayuu Taya', storeLoc: 'Riohacha · Artesanías', desc: 'Mochila auténtica tejida a crochet por mujeres Wayuu de La Guajira. Cada mochila tarda entre 3 y 5 días en tejerse.', img: '/static/images/mochila_wayuu.jpg' },
+          { ico: '👕', name: 'Camiseta blanca CARIBE', brand: 'Tshirts', price: '$95.000', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Camiseta 100% algodón con diseño caribeño impreso.', img: '/static/images/tshirt.jpg' },
+        ]
+      };
+
+      const GIFT_PRODS = [
+        { ico: '🌸', name: 'Set Bienestar Mujer', price: '$120.000', old: '', stock: 'ok', cnt: 12, brand: 'Essence CO', store: 'Essence CO', storeLoc: 'Bucaramanga · Bienestar', desc: 'Set de bienestar con crema corporal, sales de baño y vela aromática. Presentación caja regalo biodegradable.', img: '/static/images/set_bienestar.jpeg' },
+        { ico: '📓', name: 'Kit Papelería Creativa', price: '$55.000', old: '', stock: 'ok', cnt: 30, brand: 'Papel y Arte', store: 'Papel y Arte', storeLoc: 'Barranquilla · Papelería', desc: 'Kit con cuaderno A5, 10 stickers decorativos, 3 marcadores brush y washi tape. Ideal para amantes del lettering.', img: '/static/images/kit_papeleria.png' },
+        { ico: '💄', name: 'Set Maquillaje Básico', price: '$89.000', old: '', stock: 'ok', cnt: 18, brand: 'Glam Medellín', store: 'Glam Medellín', storeLoc: 'Medellín · Maquillaje', desc: 'Set básico con labial matte, máscara de pestañas y rubor en polvo. Perfecto para regalo de cumpleaños.', img: '/static/images/set_maquillaje.jpg' },
+        { ico: '👜', name: 'Mini Bolso de Fiesta', price: '$95.000', old: '', stock: 'low', cnt: 5, brand: 'Studio BH', store: 'Studio BH', storeLoc: 'Medellín · Carteras', desc: 'Mini bolso clutch con cadena dorada desmontable. Interior forrado con espejo. Disponible en negro y nude.', img: '/static/images/mini_bolso.png' },
+        { ico: '🕯', name: 'Velas Aromáticas x3', price: '$48.000', old: '', stock: 'ok', cnt: 40, brand: 'Aroma Casa', store: 'Aroma Casa', storeLoc: 'Bogotá · Hogar', desc: 'Pack de 3 velas de soya con fragancias: lavanda, vainilla y coco. Tiempo de quema: 25h cada una.', img: '/static/images/velas.png' },
+        { ico: '💍', name: 'Set Accesorios Dorados', price: '$75.000', old: '', stock: 'ok', cnt: 22, brand: 'Joyas Zenú', store: 'Joyas Zenú', storeLoc: 'Montería · Joyería', desc: 'Set con collar, aretes y pulsera bañados en oro 18k. Hipoalergénicos, presentación caja de terciopelo.', img: '/static/images/set_accesorios.png' },
+      ];
+
+      const REGION_PRODS = [
+        { ico: '💛', name: 'Aretes de Filigrana Dorados', brand: 'Joyas Mompox', price: '$85.000', old: '', stock: 'ok', cnt: 15, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes elaborados a mano en filigrana de oro 18k por artesanos de Mompox.', img: '/static/images/aretes_dorados.jpg' },
+        { ico: '🤍', name: 'Aretes Filigrana Plateados Orquídea', brand: 'Joyas Mompox', price: '$72.000', old: '', stock: 'ok', cnt: 12, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Aretes en filigrana de plata 950 con diseño inspirado en la orquídea, flor nacional de Colombia.', img: '/static/images/aretes_plateados.jpg' },
+        { ico: '🌴', name: 'Hamaca Sanjacintana', brand: 'Artesanías San Jacinto', price: '$180.000', old: '$220.000', stock: 'low', cnt: 6, store: 'Artesanías San Jacinto', storeLoc: 'San Jacinto · Artesanías', desc: 'Hamaca tejida a mano en algodón 100% natural por tejedoras de San Jacinto, Bolívar.', img: '/static/images/hamaca.jpg' },
+        { ico: '🎩', name: 'Sombrero Vueltiao', brand: 'Artesanías La Fuente', price: '$245.000', old: '', stock: 'ok', cnt: 10, store: 'Artesanías La Fuente', storeLoc: 'Tuchín · Artesanías', desc: 'Sombrero vueltiao 21 vueltas fabricado en caña flecha por artesanos de la comunidad Zenú de Tuchín, Córdoba.', img: '/static/images/vueltiao.jpg' },
+        { ico: '🌈', name: 'Mochila Wayuu', brand: 'Wayuu Taya', price: '$135.000', old: '', stock: 'ok', cnt: 20, store: 'Wayuu Taya', storeLoc: 'Riohacha · Artesanías', desc: 'Mochila auténtica tejida a crochet por mujeres Wayuu de La Guajira. Cada mochila tarda entre 3 y 5 días en tejerse.', img: '/static/images/mochila_wayuu.jpg' },
+        { ico: '💎', name: 'Brazalete de Filigrana', brand: 'Joyas Mompox', price: '$95.000', old: '', stock: 'ok', cnt: 8, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Brazalete elaborado a mano en filigrana de plata 950 por artesanos de Mompox.', img: '/static/images/brazalete.jpg' },
+        { ico: '📱', name: 'Funda S26 Ultra CARIBE', brand: 'Joyas Mompox', price: '$95.000', old: '', stock: 'ok', cnt: 8, store: 'Joyas Mompox', storeLoc: 'Mompox · Joyería', desc: 'Funda artesanal para Samsung S26 Ultra con diseños del Caribe colombiano.', img: '/static/images/casephone.jpg' },
+        { ico: '👕', name: 'Camiseta blanca CARIBE', brand: 'Tshirts', price: '$95.000', old: '', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Camiseta 100% algodón con diseño caribeño impreso.', img: '/static/images/tshirt.jpg' },
+        { ico: '💼', name: 'Funda GalaxyBooks 3 CARIBE', brand: 'Tshirts', price: '$54.900', old: '', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Funda protectora para Samsung Galaxy Book 3 con diseños del Caribe.', img: '/static/images/funda_auds.png' },
+        { ico: '☕', name: 'Pocillo Blanco CARIBE', brand: 'Tshirts', price: '$19.900', old: '', stock: 'ok', cnt: 8, store: 'Tshirts', storeLoc: 'Barranquilla · Moda', desc: 'Pocillo blanco 350ml con diseño caribeño impreso a alta temperatura.', img: '/static/images/pocillo.png' },
+      ];
+
+      /* ══ ÍNDICE GLOBAL DE PRODUCTOS ══ */
+      const ALL_PRODUCTS = [];
+      function registerProduct(p) {
+        const exists = ALL_PRODUCTS.find(x => x.name === p.name && x.brand === p.brand);
+        if (exists) {
+          if (p.img && !exists.img) exists.img = p.img;
+          return ALL_PRODUCTS.indexOf(exists);
+        }
+        ALL_PRODUCTS.push(p);
+        return ALL_PRODUCTS.length - 1;
+      }
+
+      /* Pre-cargar todos los productos al inicio */
+      (function preloadProducts() {
+        Object.values(CATS).forEach(arr => arr.forEach(p => registerProduct(p)));
+        REGION_PRODS.forEach(p => registerProduct(p));
+        GIFT_PRODS.forEach(p => registerProduct(p));
+      })();
+
+      /* ══ HELPERS ══ */
+      function starsStr(n) { return '⭐'.repeat(n); }
+
+      /* ══ TICKER ══ */
+      (function () {
+        const items = [...TICK_MSGS, ...TICK_MSGS];
+        document.getElementById('tickTrack').innerHTML =
+          items.map(m => `<span class="tick-item">${m}<span class="tick-sep">✦</span></span>`).join('');
+      })();
+
+      /* ══ SLIDER ══ */
+      let cur = 0, tot = 3, slTimer;
+      const SDUR = 5000;
+      function goSlide(n) {
+        cur = n;
+        document.getElementById('slidesTrack').style.transform = `translateX(-${cur * 100}%)`;
+        document.querySelectorAll('.sdot').forEach((d, i) => d.classList.toggle('active', i === cur));
+        resetProg();
+      }
+      function slideMove(d) { goSlide((cur + d + tot) % tot); resetTimer(); }
+      function resetTimer() { clearInterval(slTimer); slTimer = setInterval(() => slideMove(1), SDUR); }
+      function resetProg() {
+        const p = document.getElementById('sprog');
+        p.style.transition = 'none'; p.style.width = '0';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          p.style.transition = `width ${SDUR}ms linear`; p.style.width = '100%';
+        }));
+      }
+      resetTimer(); resetProg();
+
+      /* ══ QUICK VIEW — Producto ══ */
+      let qvCurrentProduct = null;
+
+      function openProductQV(idx) {
+        const prod = ALL_PRODUCTS[idx];
+        if (!prod) return;
+        qvCurrentProduct = prod;
+
+        document.getElementById('qvTag').textContent = prod.brand;
+
+        const qvImg = document.getElementById('qvImg');
+        if (prod.img) {
+          qvImg.style.cssText = [
+            'position:absolute', 'inset:0', 'background-size:cover',
+            'background-position:center center', 'background-repeat:no-repeat',
+            `background-image:url('${prod.img}')`, 'font-size:0'
+          ].join(';');
+          qvImg.textContent = '';
+        } else {
+          qvImg.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;background-image:none;';
+          qvImg.textContent = prod.ico;
+        }
+
+        document.getElementById('qvBrand').textContent = prod.brand;
+        document.getElementById('qvName').textContent = prod.name;
+        document.getElementById('qvPrice').textContent = prod.price;
+
+        const oldEl = document.getElementById('qvOld');
+        oldEl.textContent = prod.old || '';
+        oldEl.style.display = prod.old ? 'inline' : 'none';
+
+        const badges = document.getElementById('qvBadges');
+        let bHTML = '';
+        if (prod.stock === 'low') bHTML = `<span class="sbdg slow">${prod.cnt} disponibles</span>`;
+        if (prod.stock === 'ok') bHTML = `<span class="sbdg sok">${prod.cnt} disponibles</span>`;
+        if (prod.stock === 'out') bHTML = `<span class="sbdg sout">Agotado</span>`;
+        badges.innerHTML = bHTML;
+
+        document.getElementById('qvDesc').textContent = prod.descripcion || 'Producto artesanal colombiano de alta calidad.';
+        document.getElementById('qvQty').textContent = '1';
+
+        const addBtn = document.getElementById('qvAddBtn');
+        addBtn.disabled = prod.stock === 'out';
+        addBtn.innerHTML = prod.stock === 'out'
+          ? 'Sin stock disponible'
+          : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
            <line x1="3" y1="6" x2="21" y2="6"/>
            <path d="M16 10a4 4 0 0 1-8 0"/>
          </svg> Agregar al carrito`;
 
-      document.getElementById('qvStoreIco').textContent = prod.ico;
-      document.getElementById('qvStoreName').textContent = prod.store || prod.brand;
-      document.getElementById('qvStoreLoc').textContent = prod.storeLoc || 'Colombia';
-      document.getElementById('qvWishBtn').classList.remove('wished');
-      document.getElementById('qvWishBtn').textContent = '♡';
+        document.getElementById('qvStoreIco').textContent = prod.ico;
+        document.getElementById('qvStoreName').textContent = prod.store || prod.brand;
+        document.getElementById('qvStoreLoc').textContent = prod.storeLoc || 'Colombia';
+        document.getElementById('qvWishBtn').classList.remove('wished');
+        document.getElementById('qvWishBtn').textContent = '♡';
 
-      document.getElementById('qvModalBox').scrollTop = 0;
-      openModal('quickViewModal');
-    }
+        document.getElementById('qvModalBox').scrollTop = 0;
+        openModal('quickViewModal');
+      }
 
-    function handleQVOverlayClick(e) { if (e.target === document.getElementById('quickViewModal')) closeModal('quickViewModal'); }
-    function handleSQVOverlayClick(e) { if (e.target === document.getElementById('storeQuickViewModal')) closeModal('storeQuickViewModal'); }
+      function handleQVOverlayClick(e) { if (e.target === document.getElementById('quickViewModal')) closeModal('quickViewModal'); }
+      function handleSQVOverlayClick(e) { if (e.target === document.getElementById('storeQuickViewModal')) closeModal('storeQuickViewModal'); }
 
-    function qvChangeQty(d) {
-      const n = document.getElementById('qvQty');
-      const max = qvCurrentProduct ? (qvCurrentProduct.cnt || 99) : 99;
-      n.textContent = Math.max(1, Math.min(parseInt(n.textContent) + d, max));
-    }
+      function qvChangeQty(d) {
+        const n = document.getElementById('qvQty');
+        const max = qvCurrentProduct ? (qvCurrentProduct.cnt || 99) : 99;
+        n.textContent = Math.max(1, Math.min(parseInt(n.textContent) + d, max));
+      }
 
-    async function qvAddToCart() {
-      if (!qvCurrentProduct || qvCurrentProduct.stock === 'out') return;
-      const qty = parseInt(document.getElementById('qvQty').textContent);
-      for (let i = 0; i < qty; i++) { await addToCart(qvCurrentProduct); }
-      const btn = document.getElementById('qvAddBtn');
-      const orig = btn.innerHTML;
-      btn.textContent = '✓ ¡Agregado!';
-      btn.style.background = '#2E7D32'; btn.style.color = '#fff';
-      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; }, 1800);
-    }
+      async function qvAddToCart() {
+        if (!qvCurrentProduct || qvCurrentProduct.stock === 'out') return;
+        const qty = parseInt(document.getElementById('qvQty').textContent);
+        for (let i = 0; i < qty; i++) { await addToCart(qvCurrentProduct); }
+        const btn = document.getElementById('qvAddBtn');
+        const orig = btn.innerHTML;
+        btn.textContent = '✓ ¡Agregado!';
+        btn.style.background = '#2E7D32'; btn.style.color = '#fff';
+        setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; }, 1800);
+      }
 
-    function qvToggleWish(btn) {
-      const wished = btn.classList.toggle('wished');
-      btn.textContent = wished ? '♥' : '♡';
-    }
+      function qvToggleWish(btn) {
+        const wished = btn.classList.toggle('wished');
+        btn.textContent = wished ? '♥' : '♡';
+      }
 
-    /* ══ CART API ══ */
-    async function addToCart(producto) {
-      if (!producto) return;
-      if (!producto.id) producto.id = producto.name;
-      try {
-        await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ producto })
-        });
-        await actualizarBadge();
-      } catch (e) { console.error('addToCart error', e); }
-    }
+      /* ══ CART API ══ */
+      async function addToCart(producto) {
+        if (!producto) return;
+        if (!producto.id) producto.id = producto.name;
+        try {
+          await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ producto })
+          });
+          await actualizarBadge();
+        } catch (e) { console.error('addToCart error', e); }
+      }
 
-    async function actualizarBadge() {
-      try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
-        const items = await res.json();
-        const total = items.reduce((sum, p) => sum + p.cantidad, 0);
-        const b = document.getElementById('cartBadge');
-        b.textContent = total;
-        b.animate([{ transform: 'scale(1.6)', background: '#F5C518' }, { transform: 'scale(1)' }], { duration: 300 });
-      } catch (e) { /* servidor no disponible */ }
-    }
+      async function actualizarBadge() {
+        try {
+          const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+          const items = await res.json();
+          const total = items.reduce((sum, p) => sum + p.cantidad, 0);
+          const b = document.getElementById('cartBadge');
+          b.textContent = total;
+          b.animate([{ transform: 'scale(1.6)', background: '#F5C518' }, { transform: 'scale(1)' }], { duration: 300 });
+        } catch (e) { /* servidor no disponible */ }
+      }
 
-    async function openCart() {
-      document.getElementById('cartOv').classList.add('open');
-      document.getElementById('cartDrawer').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      await renderCart();
-    }
+      async function openCart() {
+        document.getElementById('cartOv').classList.add('open');
+        document.getElementById('cartDrawer').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        await renderCart();
+      }
 
-    function closeCart() {
-      document.getElementById('cartOv').classList.remove('open');
-      document.getElementById('cartDrawer').classList.remove('open');
-      document.body.style.overflow = '';
-    }
+      function closeCart() {
+        document.getElementById('cartOv').classList.remove('open');
+        document.getElementById('cartDrawer').classList.remove('open');
+        document.body.style.overflow = '';
+      }
 
-    async function renderCart() {
-      try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
-        const items = await res.json();
-        const container = document.getElementById('cartItems');
-        const cnt = document.getElementById('drawerCnt');
+      async function renderCart() {
+        try {
+          const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+          const items = await res.json();
+          const container = document.getElementById('cartItems');
+          const cnt = document.getElementById('drawerCnt');
 
-        if (items.length === 0) {
-          container.innerHTML = `<div class="cempty"><div class="cempty-ico">🛒</div><p>Tu carrito está vacío.<br/>¡Explora y encuentra algo que te encante!</p></div>`;
-          cnt.textContent = '0 productos';
-          document.getElementById('subtotal').textContent = '$0';
-          document.getElementById('totalPagar').textContent = '$0';
-          return;
-        }
+          if (items.length === 0) {
+            container.innerHTML = `<div class="cempty"><div class="cempty-ico">🛒</div><p>Tu carrito está vacío.<br/>¡Explora y encuentra algo que te encante!</p></div>`;
+            cnt.textContent = '0 productos';
+            document.getElementById('subtotal').textContent = '$0';
+            document.getElementById('totalPagar').textContent = '$0';
+            return;
+          }
 
-        cnt.textContent = `${items.length} producto${items.length !== 1 ? 's' : ''}`;
-        container.innerHTML = items.map(p => `
+          cnt.textContent = `${items.length} producto${items.length !== 1 ? 's' : ''}`;
+          container.innerHTML = items.map(p => `
         <div class="citem">
           <div class="cimg" style="background-image:url('${p.img}');background-size:cover;background-position:center;"></div>
           <div class="cinfo">
@@ -4617,100 +4721,100 @@
           </div>
         </div>`).join('');
 
-        const fmt = n => '$' + n.toLocaleString('es-CO');
-        const subtotal = items.reduce((sum, p) => {
-          const precio = parseInt(p.price.replace(/\D/g, ''));
-          return sum + (precio * p.cantidad);
-        }, 0);
-        document.getElementById('subtotal').textContent = fmt(subtotal);
-        document.getElementById('totalPagar').textContent = fmt(subtotal);
-      } catch (e) {
-        document.getElementById('cartItems').innerHTML = `<div class="cempty"><div class="cempty-ico">⚠️</div><p>No se pudo conectar al servidor del carrito.</p></div>`;
-      }
-    }
-
-    async function eliminarItem(id) {
-      await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, { method: 'DELETE' });
-      await renderCart(); await actualizarBadge();
-    }
-
-    async function cambiarCantidad(id, delta) {
-      try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
-        const items = await res.json();
-        const item = items.find(p => p.id === id);
-        if (!item) return;
-        if (item.cantidad + delta <= 0) {
-          await eliminarItem(id);
-        } else {
-          const maxStock = item.cnt || 99;
-          const nuevaCantidad = Math.min(item.cantidad + delta, maxStock);
-          if (nuevaCantidad === item.cantidad) return;
-          await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cantidad: nuevaCantidad })
-          });
-          await renderCart(); await actualizarBadge();
+          const fmt = n => '$' + n.toLocaleString('es-CO');
+          const subtotal = items.reduce((sum, p) => {
+            const precio = parseInt(p.price.replace(/\D/g, ''));
+            return sum + (precio * p.cantidad);
+          }, 0);
+          document.getElementById('subtotal').textContent = fmt(subtotal);
+          document.getElementById('totalPagar').textContent = fmt(subtotal);
+        } catch (e) {
+          document.getElementById('cartItems').innerHTML = `<div class="cempty"><div class="cempty-ico">⚠️</div><p>No se pudo conectar al servidor del carrito.</p></div>`;
         }
-      } catch (e) { console.error('cambiarCantidad error', e); }
-    }
+      }
 
-    /* ══ STORE SEARCH FILTER ══ */
-    function sqvFilterProducts(input) {
-      const q = input.value.trim().toLowerCase();
-      const clear = document.getElementById('sqvSearchClear');
-      const items = document.querySelectorAll('#sqvProdGrid .sqv-prod-item');
-      const noRes = document.getElementById('sqvNoResults');
-      const title = document.getElementById('sqvSectionTitle');
-      clear.style.display = q ? 'block' : 'none';
-      let visible = 0;
-      items.forEach(item => {
-        const name = item.querySelector('.sqv-prod-name').textContent.toLowerCase();
-        const show = !q || name.includes(q);
-        item.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      noRes.style.display = visible === 0 ? 'block' : 'none';
-      title.textContent = q ? `Resultados (${visible})` : 'Productos destacados';
-    }
+      async function eliminarItem(id) {
+        await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, { method: 'DELETE' });
+        await renderCart(); await actualizarBadge();
+      }
 
-    function sqvClearSearch() {
-      const input = document.getElementById('sqvSearchInput');
-      input.value = '';
-      sqvFilterProducts(input);
-      input.focus();
-    }
+      async function cambiarCantidad(id, delta) {
+        try {
+          const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+          const items = await res.json();
+          const item = items.find(p => p.id === id);
+          if (!item) return;
+          if (item.cantidad + delta <= 0) {
+            await eliminarItem(id);
+          } else {
+            const maxStock = item.cnt || 99;
+            const nuevaCantidad = Math.min(item.cantidad + delta, maxStock);
+            if (nuevaCantidad === item.cantidad) return;
+            await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ cantidad: nuevaCantidad })
+            });
+            await renderCart(); await actualizarBadge();
+          }
+        } catch (e) { console.error('cambiarCantidad error', e); }
+      }
 
-    /* ══ BUSCADOR PRINCIPAL ══ */
+      /* ══ STORE SEARCH FILTER ══ */
+      function sqvFilterProducts(input) {
+        const q = input.value.trim().toLowerCase();
+        const clear = document.getElementById('sqvSearchClear');
+        const items = document.querySelectorAll('#sqvProdGrid .sqv-prod-item');
+        const noRes = document.getElementById('sqvNoResults');
+        const title = document.getElementById('sqvSectionTitle');
+        clear.style.display = q ? 'block' : 'none';
+        let visible = 0;
+        items.forEach(item => {
+          const name = item.querySelector('.sqv-prod-name').textContent.toLowerCase();
+          const show = !q || name.includes(q);
+          item.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        noRes.style.display = visible === 0 ? 'block' : 'none';
+        title.textContent = q ? `Resultados (${visible})` : 'Productos destacados';
+      }
 
-    function mainSearch(q) {
-      q = q.trim().toLowerCase();
-      if (!q) { clearMainSearch(); return; }
+      function sqvClearSearch() {
+        const input = document.getElementById('sqvSearchInput');
+        input.value = '';
+        sqvFilterProducts(input);
+        input.focus();
+      }
 
-      ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-      });
+      /* ══ BUSCADOR PRINCIPAL ══ */
 
-      const results = ALL_PRODUCTS.filter(p =>
-        (p.name && p.name.toLowerCase().includes(q)) ||
-        (p.store && p.store.toLowerCase().includes(q)) ||
-        (p.brand && p.brand.toLowerCase().includes(q))
-      );
+      function mainSearch(q) {
+        q = q.trim().toLowerCase();
+        if (!q) { clearMainSearch(); return; }
 
-      document.getElementById('catTitle').textContent =
-        results.length > 0 ? `Resultados para "${q}"` : `Sin resultados para "${q}"`;
+        ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
 
-      const g = document.getElementById('catGrid');
-      if (results.length === 0) {
-        g.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#718096;font-size:1rem;">
+        const results = ALL_PRODUCTS.filter(p =>
+          (p.name && p.name.toLowerCase().includes(q)) ||
+          (p.store && p.store.toLowerCase().includes(q)) ||
+          (p.brand && p.brand.toLowerCase().includes(q))
+        );
+
+        document.getElementById('catTitle').textContent =
+          results.length > 0 ? `Resultados para "${q}"` : `Sin resultados para "${q}"`;
+
+        const g = document.getElementById('catGrid');
+        if (results.length === 0) {
+          g.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#718096;font-size:1rem;">
               😕 No encontramos productos que coincidan con "<strong>${q}</strong>"
             </div>`;
-      } else {
-        g.innerHTML = results.map(p => {
-          const idx = ALL_PRODUCTS.indexOf(p);
-          return `
+        } else {
+          g.innerHTML = results.map(p => {
+            const idx = ALL_PRODUCTS.indexOf(p);
+            return `
                 <div class="ncard" onclick="openProductQV(${idx})">
                   <div class="qv-chip">👁 Vista rápida</div>
                   <div class="nbadge">Nuevo</div>
@@ -4725,80 +4829,80 @@
                     </button>
                   </div>
                 </div>`;
-        }).join('');
-      }
+          }).join('');
+        }
 
-      const sec = document.getElementById('catprods');
-      sec.style.display = 'block';
-      // Ocultar botón "← Volver" durante búsqueda
-      const backBtn = sec.querySelector('.mbtn-out');
-      if (backBtn) backBtn.style.display = 'none';
-    }
-
-    function clearMainSearch() {
-      const inp = document.getElementById('mainSearchInput');
-      if (inp) inp.value = '';
-      // Ocultar catprods y restaurar secciones
-      const sec = document.getElementById('catprods');
-      if (sec) {
-        sec.style.display = 'none';
+        const sec = document.getElementById('catprods');
+        sec.style.display = 'block';
+        // Ocultar botón "← Volver" durante búsqueda
         const backBtn = sec.querySelector('.mbtn-out');
-        if (backBtn) backBtn.style.display = '';
-      }
-      ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = '';
-      });
-    }
-
-    /* ══ STORE QUICK VIEW ══ */
-    function openStoreQV(store) {
-      const searchInput = document.getElementById('sqvSearchInput');
-      if (searchInput) searchInput.value = '';
-      const clearBtn = document.getElementById('sqvSearchClear');
-      if (clearBtn) clearBtn.style.display = 'none';
-      const noRes = document.getElementById('sqvNoResults');
-      if (noRes) noRes.style.display = 'none';
-      const titleEl = document.getElementById('sqvSectionTitle');
-      if (titleEl) titleEl.textContent = 'Productos destacados';
-
-      const sqvLogo = document.getElementById('sqvLogo');
-      if (store.img) {
-        sqvLogo.style.cssText = `background-image:url('${store.img}');background-size:cover;background-position:center;font-size:0;`;
-        sqvLogo.textContent = '';
-      } else {
-        sqvLogo.style.cssText = '';
-        sqvLogo.textContent = store.ico || '🏪';
+        if (backBtn) backBtn.style.display = 'none';
       }
 
-      document.getElementById('sqvName').textContent = store.name;
-      document.getElementById('sqvTagTxt').textContent = store.tag;
-      document.getElementById('sqvStars').textContent = starsStr(store.stars) + ` (${store.reviews})`;
-      document.getElementById('sqvReviews').textContent = store.reviews;
-      document.getElementById('sqvProds').textContent = store.prods;
+      function clearMainSearch() {
+        const inp = document.getElementById('mainSearchInput');
+        if (inp) inp.value = '';
+        // Ocultar catprods y restaurar secciones
+        const sec = document.getElementById('catprods');
+        if (sec) {
+          sec.style.display = 'none';
+          const backBtn = sec.querySelector('.mbtn-out');
+          if (backBtn) backBtn.style.display = '';
+        }
+        ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = '';
+        });
+      }
 
-      const grid = document.getElementById('sqvProdGrid');
-      grid.innerHTML = (store.featured || []).map(p => {
-        const tempProd = { ...p, brand: store.name, store: store.name, storeLoc: store.tag, stock: 'ok', cnt: 10, desc: '' };
-        const idx = registerProduct(tempProd);
-        const imgStyle = p.img ? `background-image:url('${p.img}');background-size:cover;background-position:center;font-size:0;` : '';
-        return `<div class="sqv-prod-item" onclick="closeModal('storeQuickViewModal');openProductQV(${idx})">
+      /* ══ STORE QUICK VIEW ══ */
+      function openStoreQV(store) {
+        const searchInput = document.getElementById('sqvSearchInput');
+        if (searchInput) searchInput.value = '';
+        const clearBtn = document.getElementById('sqvSearchClear');
+        if (clearBtn) clearBtn.style.display = 'none';
+        const noRes = document.getElementById('sqvNoResults');
+        if (noRes) noRes.style.display = 'none';
+        const titleEl = document.getElementById('sqvSectionTitle');
+        if (titleEl) titleEl.textContent = 'Productos destacados';
+
+        const sqvLogo = document.getElementById('sqvLogo');
+        if (store.img) {
+          sqvLogo.style.cssText = `background-image:url('${store.img}');background-size:cover;background-position:center;font-size:0;`;
+          sqvLogo.textContent = '';
+        } else {
+          sqvLogo.style.cssText = '';
+          sqvLogo.textContent = store.ico || '🏪';
+        }
+
+        document.getElementById('sqvName').textContent = store.name;
+        document.getElementById('sqvTagTxt').textContent = store.tag;
+        document.getElementById('sqvStars').textContent = starsStr(store.stars) + ` (${store.reviews})`;
+        document.getElementById('sqvReviews').textContent = store.reviews;
+        document.getElementById('sqvProds').textContent = store.prods;
+
+        const grid = document.getElementById('sqvProdGrid');
+        grid.innerHTML = (store.featured || []).map(p => {
+          const tempProd = { ...p, brand: store.name, store: store.name, storeLoc: store.tag, stock: 'ok', cnt: 10, desc: '' };
+          const idx = registerProduct(tempProd);
+          const imgStyle = p.img ? `background-image:url('${p.img}');background-size:cover;background-position:center;font-size:0;` : '';
+          return `<div class="sqv-prod-item" onclick="closeModal('storeQuickViewModal');openProductQV(${idx})">
         <div class="sqv-prod-ico" style="${imgStyle}">${p.img ? '' : p.ico}</div>
         <div class="sqv-prod-name">${p.name}</div>
         <div class="sqv-prod-price">${p.price}</div>
       </div>`;
-      }).join('');
+        }).join('');
 
-      document.getElementById('sqvModalBox').scrollTop = 0;
-      openModal('storeQuickViewModal');
-    }
+        document.getElementById('sqvModalBox').scrollTop = 0;
+        openModal('storeQuickViewModal');
+      }
 
-    /* ══ RENDER REGIONS ══ */
-    (function () {
-      const g = document.getElementById('regGrid'); if (!g) return;
-      g.innerHTML = REGION_PRODS.map(p => {
-        const idx = registerProduct(p);
-        return `
+      /* ══ RENDER REGIONS ══ */
+      (function () {
+        const g = document.getElementById('regGrid'); if (!g) return;
+        g.innerHTML = REGION_PRODS.map(p => {
+          const idx = registerProduct(p);
+          return `
       <div class="regcard" onclick="openProductQV(${idx})">
         <div class="regcard-inner">
           <div class="regbg-wrap">
@@ -4812,15 +4916,15 @@
           </div>
         </div>
       </div>`;
-      }).join('');
-    })();
+        }).join('');
+      })();
 
-    /* ══ RENDER NEW PRODUCTS ══ */
-    (function () {
-      const g = document.getElementById('newGrid'); if (!g) return;
-      g.innerHTML = NEW_PRODS.map(p => {
-        const idx = registerProduct(p);
-        return `
+      /* ══ RENDER NEW PRODUCTS ══ */
+      (function () {
+        const g = document.getElementById('newGrid'); if (!g) return;
+        g.innerHTML = NEW_PRODS.map(p => {
+          const idx = registerProduct(p);
+          return `
       <div class="ncard" onclick="openProductQV(${idx})">
         <div class="qv-chip">👁 Vista rápida</div>
         <div class="nbadge">Nuevo</div>
@@ -4833,21 +4937,21 @@
           <button class="nadd" onclick="event.stopPropagation();addToCart(ALL_PRODUCTS[${idx}])">+ Agregar</button>
         </div>
       </div>`;
-      }).join('');
-    })();
+        }).join('');
+      })();
 
-    /* ══ RENDER BEST SELLERS ══ */
-    (function () {
-      const g = document.getElementById('sellersGrid'); if (!g) return;
-      const medals = [
-        `<div class="rbadge r1"><img src="https://cdn-icons-png.flaticon.com/512/2374/2374851.png" alt="🥇" width="52" height="52"></div>`,
-        `<div class="rbadge r2"><img src="https://cdn-icons-png.flaticon.com/512/2374/2374861.png" alt="🥈" width="52" height="52"></div>`,
-        `<div class="rbadge r3"><img src="https://cdn-icons-png.flaticon.com/512/2374/2374864.png" alt="🥉" width="52" height="52"></div>`
-      ];
-      g.innerHTML = SELLERS.map((p, i) => {
-        const idx = registerProduct(p);
-        const rank = i < 3 ? medals[i] : '';
-        return `
+      /* ══ RENDER BEST SELLERS ══ */
+      (function () {
+        const g = document.getElementById('sellersGrid'); if (!g) return;
+        const medals = [
+          `<div class="rbadge r1"><img src="https://cdn-icons-png.flaticon.com/512/2374/2374851.png" alt="🥇" width="52" height="52"></div>`,
+          `<div class="rbadge r2"><img src="https://cdn-icons-png.flaticon.com/512/2374/2374861.png" alt="🥈" width="52" height="52"></div>`,
+          `<div class="rbadge r3"><img src="https://cdn-icons-png.flaticon.com/512/2374/2374864.png" alt="🥉" width="52" height="52"></div>`
+        ];
+        g.innerHTML = SELLERS.map((p, i) => {
+          const idx = registerProduct(p);
+          const rank = i < 3 ? medals[i] : '';
+          return `
       <div class="ncard" onclick="openProductQV(${idx})">
         ${rank}
         <div class="qv-chip">👁 Vista rápida</div>
@@ -4862,13 +4966,13 @@
           </button>
         </div>
       </div>`;
-      }).join('');
-    })();
+        }).join('');
+      })();
 
-    /* ══ RENDER STORES ══ */
-    (function () {
-      const g = document.getElementById('storesGrid'); if (!g) return;
-      g.innerHTML = STORES_DATA.map((s, si) => `
+      /* ══ RENDER STORES ══ */
+      (function () {
+        const g = document.getElementById('storesGrid'); if (!g) return;
+        g.innerHTML = STORES_DATA.map((s, si) => `
       <div class="stcard" onclick="openStoreQV(STORES_DATA[${si}])">
         <div class="qv-chip">👁 Ver tienda</div>
         <div class="stlogo" style="${s.img ? `background-image:url('${s.img}');background-size:cover;background-position:center;font-size:0;border:none;` : ''}"></div>
@@ -4878,70 +4982,98 @@
         <div class="stcnt">${s.prods} productos</div>
         <button class="stbtn" onclick="event.stopPropagation();openStoreQV(STORES_DATA[${si}])">Visitar tienda</button>
       </div>`).join('');
-    })();
+      })();
 
-    /* ══ RENDER GIFTS ══ */
-    (function () {
-      const g = document.getElementById('giftsGrid'); if (!g) return;
-      g.innerHTML = GIFT_PRODS.map(p => {
-        const idx = registerProduct(p);
-        const imgStyle = p.img ? `background-image:url('${p.img}');` : '';
-        const imgContent = p.img ? '' : p.ico;
-        return `
-      <div class="gcard" onclick="openProductQV(${idx})">
-        <div class="gimg" style="${imgStyle}">${imgContent}</div>
-        <div class="ginfo">
-          <div class="gname">${p.name}</div>
-          <div class="gprice">${p.price}</div>
-          <button class="gbtn" onclick="event.stopPropagation();openProductQV(${idx})">🔍 Ver detalle</button>
-        </div>
-      </div>`;
-      }).join('');
-    })();
+      /* ══ RENDER GIFTS ══ */
+      async function filtrarRegalos() {
+        const ocasion = document.getElementById('giftOcasionFilter')?.value || 'todos';
+        const precio = document.getElementById('giftPrecioFilter')?.value || 'todos';
+        const grid = document.getElementById('giftsGrid');
+        if (!grid) return;
 
-    /* ══ CATEGORY FILTER ══ */
-    function showCat(cat, el) {
-      // Limpiar búsqueda activa si hay
-      const inp = document.getElementById('mainSearchInput');
-      if (inp) inp.value = '';
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⏳ Cargando...</div>';
 
-      document.querySelectorAll('.clink').forEach(l => l.classList.remove('active'));
-      if (el) el.classList.add('active');
+        try {
+          const res = await fetch(`/api/regalos/?ocasion=${ocasion}&precio=${precio}`);
+          const data = await res.json();
 
-      if (cat === 'todos') { hideCat(); return; }
+          if (data.length === 0) {
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#718096;font-size:.9rem;">😕 No encontramos regalos con esos filtros.<br><small>Prueba otra combinación.</small></div>';
+            return;
+          }
 
-      if (cat === 'regalos') {
-        hideCat();
-        // Restaurar todas las secciones
-        ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
-          const s = document.getElementById(id);
-          if (s) s.style.display = '';
-        });
-        document.getElementById('gifts').scrollIntoView({ behavior: 'smooth' });
-        return;
+          grid.innerHTML = data.map(p => {
+            const prod = {
+              name: p.nombre, brand: '', price: p.precio,
+              stock: p.stock, img: p.imagen, ico: '🎁',
+              store: '', storeLoc: '', desc: '', cnt: 10,
+            };
+            const idx = registerProduct(prod);
+            return `
+            <div class="gcard" onclick="openProductQV(${idx})">
+                <div class="gimg" style="${p.imagen ? `background-image:url('${p.imagen}');background-size:cover;background-position:center;` : ''}">
+                    ${p.imagen ? '' : '🎁'}
+                </div>
+                <div class="ginfo">
+                    <div class="gname">${p.nombre}</div>
+                    <div class="gprice">${p.precio}</div>
+                    <button class="gbtn" onclick="event.stopPropagation();openProductQV(${idx})">🔍 Ver detalle</button>
+                </div>
+            </div>`;
+          }).join('');
+
+        } catch (e) {
+          grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⚠️ Error al cargar los regalos.</div>';
+          console.error('filtrarRegalos error:', e);
+        }
       }
 
-      const data = CATS[cat];
-      if (!data) { hideCat(); return; }
+      // Carga inicial
+      filtrarRegalos();
 
-      // Ocultar hero y secciones, mostrar solo catprods
-      ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
-        const s = document.getElementById(id);
-        if (s) s.style.display = 'none';
-      });
+      /* ══ CATEGORY FILTER ══ */
+      function showCat(cat, el) {
+        // Limpiar búsqueda activa si hay
+        const inp = document.getElementById('mainSearchInput');
+        if (inp) inp.value = '';
 
-      // Restaurar botón volver
-      const sec = document.getElementById('catprods');
-      const backBtn = sec.querySelector('.mbtn-out');
-      if (backBtn) backBtn.style.display = '';
+        document.querySelectorAll('.clink').forEach(l => l.classList.remove('active'));
+        if (el) el.classList.add('active');
 
-      const names = { ropa: 'Ropa y Accesorios', maquillaje: 'Maquillaje', carteras: 'Carteras y Bolsos', calzado: 'Calzado', papeleria: 'Papelería', tecnologia: 'Tecnología', joyeria: 'Joyería', artesanias: 'Artesanías' };
-      document.getElementById('catTitle').textContent = names[cat] || cat;
+        if (cat === 'todos') { hideCat(); return; }
 
-      const g = document.getElementById('catGrid');
-      g.innerHTML = data.map(p => {
-        const idx = registerProduct(p);
-        return `
+        if (cat === 'regalos') {
+          hideCat();
+          // Restaurar todas las secciones
+          ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
+            const s = document.getElementById(id);
+            if (s) s.style.display = '';
+          });
+          document.getElementById('gifts').scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+
+        const data = CATS[cat];
+        if (!data) { hideCat(); return; }
+
+        // Ocultar hero y secciones, mostrar solo catprods
+        ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
+          const s = document.getElementById(id);
+          if (s) s.style.display = 'none';
+        });
+
+        // Restaurar botón volver
+        const sec = document.getElementById('catprods');
+        const backBtn = sec.querySelector('.mbtn-out');
+        if (backBtn) backBtn.style.display = '';
+
+        const names = { ropa: 'Ropa y Accesorios', maquillaje: 'Maquillaje', carteras: 'Carteras y Bolsos', calzado: 'Calzado', papeleria: 'Papelería', tecnologia: 'Tecnología', joyeria: 'Joyería', artesanias: 'Artesanías' };
+        document.getElementById('catTitle').textContent = names[cat] || cat;
+
+        const g = document.getElementById('catGrid');
+        g.innerHTML = data.map(p => {
+          const idx = registerProduct(p);
+          return `
       <div class="ncard" onclick="openProductQV(${idx})">
         <div class="qv-chip">👁 Vista rápida</div>
         <div class="nbadge">Nuevo</div>
@@ -4956,385 +5088,385 @@
           </button>
         </div>
       </div>`;
-      }).join('');
+        }).join('');
 
-      sec.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function hideCat() {
-      document.getElementById('catprods').style.display = 'none';
-      // Restaurar todas las secciones
-      ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
-        const s = document.getElementById(id);
-        if (s) s.style.display = '';
-      });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function pQty(btn, d, max) {
-      const r = btn.parentElement, n = r.querySelector('.qnum');
-      n.textContent = Math.max(1, Math.min(parseInt(n.textContent) + d, max));
-    }
-
-    /* ══ MODALS ══ */
-    function openModal(id) {
-      document.getElementById(id).classList.add('open');
-      document.body.style.overflow = 'hidden';
-
-      if (id === 'accountModal') {
-        if (USER_AUTH === "True") {
-          // Usuario ya logueado → mostrar dashboard con sus datos reales
-          document.getElementById('authView').style.display = 'none';
-          document.getElementById('dashView').style.display = 'block';
-
-          // Inyectar datos desde Django (ya vienen en el HTML renderizado)
-          // Si prefieres manejarlos 100% en JS, descomenta las líneas siguientes:
-          // document.getElementById('profName').textContent  = 'Hola, ' + USER_NAME;
-          // document.getElementById('profEmail').textContent = USER_EMAIL;
-          // document.getElementById('secEmail').textContent  = USER_EMAIL;
-          // document.getElementById('dashAvatar').textContent = USER_INIT;
-
-          startClock();
-        } else {
-          // Sin sesión → mostrar login/registro
-          document.getElementById('authView').style.display = 'block';
-          document.getElementById('dashView').style.display = 'none';
-          switchTab('login');
-          startClock();
-        }
+        sec.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      if (id === 'payModal') renderPayModal();
-    }
-
-
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function closeOnOv(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
-
-    /* ══ AUTH ══ */
-    function switchTab(t) {
-      document.querySelectorAll('.mtab').forEach((el, i) => el.classList.toggle('active', i === (t === 'login' ? 0 : 1)));
-      document.getElementById('tabLogin').style.display = t === 'login' ? 'block' : 'none';
-      document.getElementById('tabReg').style.display = t === 'register' ? 'block' : 'none';
-    }
-    function setRole(r, btn) {
-      document.querySelectorAll('.rtbtn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('buyerForm').style.display = r === 'comprador' ? 'block' : 'none';
-      document.getElementById('sellerForm').style.display = r === 'vendedor' ? 'block' : 'none';
-      if (r === 'vendedor') selStep(1);
-    }
-    function selStep(n) {
-      [1, 2, 3].forEach(i => {
-        document.getElementById(`ss${i}`).style.display = i === n ? 'block' : 'none';
-        const el = document.getElementById(`st${i}`);
-        el.className = 'step';
-        if (i < n) el.classList.add('done');
-        if (i === n) el.classList.add('active');
-      });
-    }
-    function getCookie(name) {
-      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(name + '='))?.split('=')[1];
-    }
-    async function doLogin() {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      try {
-        const res = await fetch('/auth/login/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
-          body: JSON.stringify({ email, password })
+      function hideCat() {
+        document.getElementById('catprods').style.display = 'none';
+        // Restaurar todas las secciones
+        ['heroSlider', 'regions', 'newprods', 'bestsellers', 'stores', 'gifts'].forEach(id => {
+          const s = document.getElementById(id);
+          if (s) s.style.display = '';
         });
-        const data = await res.json();
-        if (data.ok) { window.location.href = data.redirect; } else { alert(data.error); }
-      } catch (e) { alert('Error al conectar con el servidor.'); }
-    }
-
-    /* FIX: doLogout ahora está definida */
-    function doLogout() {
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = '/auth/logout/';
-      const csrf = document.createElement('input');
-      csrf.type = 'hidden';
-      csrf.name = 'csrfmiddlewaretoken';
-      csrf.value = getCookie('csrftoken');
-      form.appendChild(csrf);
-      document.body.appendChild(form);
-      form.submit();
-    }
-
-    async function submitSeller() {
-      if (!document.getElementById('tcheck').checked) { showToast('❌ Acepta los Términos'); return; }
-
-      const nombre = (document.getElementById('vNombre')?.value || '').trim();
-      const email = (document.getElementById('vEmail')?.value || '').trim();
-      const telefono = (document.getElementById('vTelefono')?.value || '').trim();
-      const tienda_nombre = (document.getElementById('vTiendaNombre')?.value || '').trim();
-      const tienda_desc = (document.getElementById('vTiendaDesc')?.value || '').trim();
-      const ciudad = (document.getElementById('vCiudad')?.value || '').trim();
-      const categoria = (document.getElementById('vCategoria')?.value || '').trim();
-      const password = document.getElementById('vPassword')?.value || '';
-      const password2 = document.getElementById('vPassword2')?.value || '';
-
-      if (!nombre || !email || !password) { showToast('❌ Completa todos los campos'); return; }
-      if (password.length < 8) { showToast('❌ Mínimo 8 caracteres'); return; }
-      if (password !== password2) { showToast('❌ Las contraseñas no coinciden'); return; }
-
-      try {
-        const res = await fetch('/auth/register/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
-          body: JSON.stringify({ rol: 'vendedor', nombre, email, telefono, tienda_nombre, tienda_desc, ciudad, categoria, password })
-        });
-        const data = await res.json();
-        if (data.ok && data.pendiente) {
-          window.location.href = '/pendiente/';
-        } else {
-          showToast('❌ ' + (data.error || 'Error'));
-        }
-      } catch (e) { showToast('❌ Error de conexión'); }
-    }
-
-    async function doRegister() {
-      const nombre = (document.getElementById('regNombre')?.value || '').trim();
-      const email = (document.getElementById('regEmail')?.value || '').trim();
-      const telefono = (document.getElementById('regTelefono')?.value || '').trim();
-      const password = document.getElementById('regPassword')?.value || '';
-      const password2 = document.getElementById('regPassword2')?.value || '';
-
-      if (!nombre || !email || !password) { showToast('❌ Completa todos los campos'); return; }
-      if (!email.includes('@')) { showToast('❌ Correo inválido'); return; }
-      if (password.length < 8) { showToast('❌ Mínimo 8 caracteres'); return; }
-      if (password !== password2) { showToast('❌ Las contraseñas no coinciden'); return; }
-
-      try {
-        const res = await fetch('/auth/register/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
-          body: JSON.stringify({ rol: 'comprador', nombre, email, telefono, password })
-        });
-        const data = await res.json();
-        if (data.ok) { window.location.href = data.redirect; }
-        else { showToast('❌ ' + data.error); }
-      } catch (e) { showToast('❌ Error de conexión'); }
-    }
-
-    /* ══ PAYMENT ══ */
-    function selectPay(el, type) {
-      document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('sel'));
-      el.classList.add('sel');
-      ['payCard', 'payNequi', 'payDaviplata', 'payPse'].forEach(id => {
-        const f = document.getElementById(id); if (f) f.classList.remove('show');
-      });
-      const map = { card: 'payCard', nequi: 'payNequi', daviplata: 'payDaviplata', pse: 'payPse' };
-      const t = document.getElementById(map[type]);
-      if (t) t.classList.add('show');
-    }
-    function toggleGiftMsg() {
-      const box = document.getElementById('giftMsgBox');
-      if (box) box.classList.toggle('show', document.getElementById('giftCheck').checked);
-    }
-
-    /* ══ CHATBOT ══ */
-    let cbCur = 1;
-    function openChatbot() { document.getElementById('chatbot-win').classList.add('open'); cbCur = 1; showCbStep(1); }
-    function closeChatbot() { document.getElementById('chatbot-win').classList.remove('open'); }
-    function showCbStep(n) {
-      document.querySelectorAll('.cb-step').forEach((s, i) => s.classList.toggle('active', i === n - 1));
-      document.getElementById('cbRecs').classList.remove('show');
-    }
-    function cbSelect(btn, step) {
-      btn.closest('.cb-opts').querySelectorAll('.cb-opt').forEach(b => b.classList.remove('sel'));
-      btn.classList.add('sel');
-      setTimeout(() => {
-        if (step < 3) { cbCur = step + 1; showCbStep(cbCur); }
-        else { document.querySelectorAll('.cb-step').forEach(s => s.classList.remove('active')); document.getElementById('cbRecs').classList.add('show'); }
-      }, 400);
-    }
-
-    /* FIX: startClock ahora se llama correctamente */
-    let clockTimer;
-    function startClock() {
-      clearInterval(clockTimer);
-      function tick() {
-        const now = new Date();
-        const h = String(now.getHours()).padStart(2, '0');
-        const m = String(now.getMinutes()).padStart(2, '0');
-        const el = document.getElementById('profTime');
-        if (el) el.textContent = `${h}:${m}`;
-        const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-        const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-        const de = document.getElementById('profDate');
-        if (de) de.textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      tick();
-      clockTimer = setInterval(tick, 1000);
-    }
 
-    /* ══ SWIPE TO CLOSE ══ */
-    (function () {
-      let startY = 0;
-      ['qvModalBox', 'sqvModalBox'].forEach(id => {
-        const el = document.getElementById(id); if (!el) return;
-        el.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
-        el.addEventListener('touchmove', e => {
-          const dy = e.touches[0].clientY - startY;
-          if (dy > 60 && el.scrollTop === 0) {
-            const overlay = el.closest('.qv-overlay,.sqv-overlay');
-            if (overlay) closeModal(overlay.id);
+      function pQty(btn, d, max) {
+        const r = btn.parentElement, n = r.querySelector('.qnum');
+        n.textContent = Math.max(1, Math.min(parseInt(n.textContent) + d, max));
+      }
+
+      /* ══ MODALS ══ */
+      function openModal(id) {
+        document.getElementById(id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        if (id === 'accountModal') {
+          if (USER_AUTH === "True") {
+            // Usuario ya logueado → mostrar dashboard con sus datos reales
+            document.getElementById('authView').style.display = 'none';
+            document.getElementById('dashView').style.display = 'block';
+
+            // Inyectar datos desde Django (ya vienen en el HTML renderizado)
+            // Si prefieres manejarlos 100% en JS, descomenta las líneas siguientes:
+            // document.getElementById('profName').textContent  = 'Hola, ' + USER_NAME;
+            // document.getElementById('profEmail').textContent = USER_EMAIL;
+            // document.getElementById('secEmail').textContent  = USER_EMAIL;
+            // document.getElementById('dashAvatar').textContent = USER_INIT;
+
+            startClock();
+          } else {
+            // Sin sesión → mostrar login/registro
+            document.getElementById('authView').style.display = 'block';
+            document.getElementById('dashView').style.display = 'none';
+            switchTab('login');
+            startClock();
           }
-        }, { passive: true });
+        }
+
+        if (id === 'payModal') renderPayModal();
+      }
+
+
+
+      function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function closeOnOv(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+      /* ══ AUTH ══ */
+      function switchTab(t) {
+        document.querySelectorAll('.mtab').forEach((el, i) => el.classList.toggle('active', i === (t === 'login' ? 0 : 1)));
+        document.getElementById('tabLogin').style.display = t === 'login' ? 'block' : 'none';
+        document.getElementById('tabReg').style.display = t === 'register' ? 'block' : 'none';
+      }
+      function setRole(r, btn) {
+        document.querySelectorAll('.rtbtn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('buyerForm').style.display = r === 'comprador' ? 'block' : 'none';
+        document.getElementById('sellerForm').style.display = r === 'vendedor' ? 'block' : 'none';
+        if (r === 'vendedor') selStep(1);
+      }
+      function selStep(n) {
+        [1, 2, 3].forEach(i => {
+          document.getElementById(`ss${i}`).style.display = i === n ? 'block' : 'none';
+          const el = document.getElementById(`st${i}`);
+          el.className = 'step';
+          if (i < n) el.classList.add('done');
+          if (i === n) el.classList.add('active');
+        });
+      }
+      function getCookie(name) {
+        return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(name + '='))?.split('=')[1];
+      }
+      async function doLogin() {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        try {
+          const res = await fetch('/auth/login/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+            body: JSON.stringify({ email, password })
+          });
+          const data = await res.json();
+          if (data.ok) { window.location.href = data.redirect; } else { alert(data.error); }
+        } catch (e) { alert('Error al conectar con el servidor.'); }
+      }
+
+      /* FIX: doLogout ahora está definida */
+      function doLogout() {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/auth/logout/';
+        const csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrfmiddlewaretoken';
+        csrf.value = getCookie('csrftoken');
+        form.appendChild(csrf);
+        document.body.appendChild(form);
+        form.submit();
+      }
+
+      async function submitSeller() {
+        if (!document.getElementById('tcheck').checked) { showToast('❌ Acepta los Términos'); return; }
+
+        const nombre = (document.getElementById('vNombre')?.value || '').trim();
+        const email = (document.getElementById('vEmail')?.value || '').trim();
+        const telefono = (document.getElementById('vTelefono')?.value || '').trim();
+        const tienda_nombre = (document.getElementById('vTiendaNombre')?.value || '').trim();
+        const tienda_desc = (document.getElementById('vTiendaDesc')?.value || '').trim();
+        const ciudad = (document.getElementById('vCiudad')?.value || '').trim();
+        const categoria = (document.getElementById('vCategoria')?.value || '').trim();
+        const password = document.getElementById('vPassword')?.value || '';
+        const password2 = document.getElementById('vPassword2')?.value || '';
+
+        if (!nombre || !email || !password) { showToast('❌ Completa todos los campos'); return; }
+        if (password.length < 8) { showToast('❌ Mínimo 8 caracteres'); return; }
+        if (password !== password2) { showToast('❌ Las contraseñas no coinciden'); return; }
+
+        try {
+          const res = await fetch('/auth/register/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+            body: JSON.stringify({ rol: 'vendedor', nombre, email, telefono, tienda_nombre, tienda_desc, ciudad, categoria, password })
+          });
+          const data = await res.json();
+          if (data.ok && data.pendiente) {
+            window.location.href = '/pendiente/';
+          } else {
+            showToast('❌ ' + (data.error || 'Error'));
+          }
+        } catch (e) { showToast('❌ Error de conexión'); }
+      }
+
+      async function doRegister() {
+        const nombre = (document.getElementById('regNombre')?.value || '').trim();
+        const email = (document.getElementById('regEmail')?.value || '').trim();
+        const telefono = (document.getElementById('regTelefono')?.value || '').trim();
+        const password = document.getElementById('regPassword')?.value || '';
+        const password2 = document.getElementById('regPassword2')?.value || '';
+
+        if (!nombre || !email || !password) { showToast('❌ Completa todos los campos'); return; }
+        if (!email.includes('@')) { showToast('❌ Correo inválido'); return; }
+        if (password.length < 8) { showToast('❌ Mínimo 8 caracteres'); return; }
+        if (password !== password2) { showToast('❌ Las contraseñas no coinciden'); return; }
+
+        try {
+          const res = await fetch('/auth/register/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+            body: JSON.stringify({ rol: 'comprador', nombre, email, telefono, password })
+          });
+          const data = await res.json();
+          if (data.ok) { window.location.href = data.redirect; }
+          else { showToast('❌ ' + data.error); }
+        } catch (e) { showToast('❌ Error de conexión'); }
+      }
+
+      /* ══ PAYMENT ══ */
+      function selectPay(el, type) {
+        document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('sel'));
+        el.classList.add('sel');
+        ['payCard', 'payNequi', 'payDaviplata', 'payPse'].forEach(id => {
+          const f = document.getElementById(id); if (f) f.classList.remove('show');
+        });
+        const map = { card: 'payCard', nequi: 'payNequi', daviplata: 'payDaviplata', pse: 'payPse' };
+        const t = document.getElementById(map[type]);
+        if (t) t.classList.add('show');
+      }
+      function toggleGiftMsg() {
+        const box = document.getElementById('giftMsgBox');
+        if (box) box.classList.toggle('show', document.getElementById('giftCheck').checked);
+      }
+
+      /* ══ CHATBOT ══ */
+      let cbCur = 1;
+      function openChatbot() { document.getElementById('chatbot-win').classList.add('open'); cbCur = 1; showCbStep(1); }
+      function closeChatbot() { document.getElementById('chatbot-win').classList.remove('open'); }
+      function showCbStep(n) {
+        document.querySelectorAll('.cb-step').forEach((s, i) => s.classList.toggle('active', i === n - 1));
+        document.getElementById('cbRecs').classList.remove('show');
+      }
+      function cbSelect(btn, step) {
+        btn.closest('.cb-opts').querySelectorAll('.cb-opt').forEach(b => b.classList.remove('sel'));
+        btn.classList.add('sel');
+        setTimeout(() => {
+          if (step < 3) { cbCur = step + 1; showCbStep(cbCur); }
+          else { document.querySelectorAll('.cb-step').forEach(s => s.classList.remove('active')); document.getElementById('cbRecs').classList.add('show'); }
+        }, 400);
+      }
+
+      /* FIX: startClock ahora se llama correctamente */
+      let clockTimer;
+      function startClock() {
+        clearInterval(clockTimer);
+        function tick() {
+          const now = new Date();
+          const h = String(now.getHours()).padStart(2, '0');
+          const m = String(now.getMinutes()).padStart(2, '0');
+          const el = document.getElementById('profTime');
+          if (el) el.textContent = `${h}:${m}`;
+          const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+          const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+          const de = document.getElementById('profDate');
+          if (de) de.textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+        }
+        tick();
+        clockTimer = setInterval(tick, 1000);
+      }
+
+      /* ══ SWIPE TO CLOSE ══ */
+      (function () {
+        let startY = 0;
+        ['qvModalBox', 'sqvModalBox'].forEach(id => {
+          const el = document.getElementById(id); if (!el) return;
+          el.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+          el.addEventListener('touchmove', e => {
+            const dy = e.touches[0].clientY - startY;
+            if (dy > 60 && el.scrollTop === 0) {
+              const overlay = el.closest('.qv-overlay,.sqv-overlay');
+              if (overlay) closeModal(overlay.id);
+            }
+          }, { passive: true });
+        });
+      })();
+
+      /* ══ DROPDOWN ══ */
+      function toggleDropdown() {
+        const menu = document.getElementById('dropdownMenu');
+        if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+      }
+      document.addEventListener('click', function (e) {
+        const dropdown = document.querySelector('.user-dropdown');
+        const menu = document.getElementById('dropdownMenu');
+        if (dropdown && menu && !dropdown.contains(e.target)) {
+          menu.style.display = 'none';
+        }
       });
-    })();
 
-    /* ══ DROPDOWN ══ */
-    function toggleDropdown() {
-      const menu = document.getElementById('dropdownMenu');
-      if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-    }
-    document.addEventListener('click', function (e) {
-      const dropdown = document.querySelector('.user-dropdown');
-      const menu = document.getElementById('dropdownMenu');
-      if (dropdown && menu && !dropdown.contains(e.target)) {
-        menu.style.display = 'none';
-      }
-    });
-
-    /* Inicializar badge al cargar */
-    setTimeout(() => actualizarBadge(), 500);
-    async function renderPayModal() {
-      if (USER_AUTH !== "True") {
-        closeModal('payModal');
-        openModal('accountModal');
-        alert('Debes iniciar sesión para finalizar tu compra.');
-        return;
-      }
-      try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
-        const items = await res.json();
-        const payItems = document.getElementById('payItems');
-        const payTotal = document.getElementById('payTotal');
-        const payConfirmBtn = document.getElementById('payConfirmBtn');
-
-        if (items.length === 0) {
-          payItems.innerHTML = '<p style="font-size:.74rem;color:var(--mut);text-align:center;padding:8px 0;">Tu carrito está vacío.</p>';
-          payTotal.textContent = '$0';
-          payConfirmBtn.textContent = 'Confirmar pago — $0';
-          payConfirmBtn.disabled = true;
+      /* Inicializar badge al cargar */
+      setTimeout(() => actualizarBadge(), 500);
+      async function renderPayModal() {
+        if (USER_AUTH !== "True") {
+          closeModal('payModal');
+          openModal('accountModal');
+          alert('Debes iniciar sesión para finalizar tu compra.');
           return;
         }
+        try {
+          const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+          const items = await res.json();
+          const payItems = document.getElementById('payItems');
+          const payTotal = document.getElementById('payTotal');
+          const payConfirmBtn = document.getElementById('payConfirmBtn');
 
-        payConfirmBtn.disabled = false;
+          if (items.length === 0) {
+            payItems.innerHTML = '<p style="font-size:.74rem;color:var(--mut);text-align:center;padding:8px 0;">Tu carrito está vacío.</p>';
+            payTotal.textContent = '$0';
+            payConfirmBtn.textContent = 'Confirmar pago — $0';
+            payConfirmBtn.disabled = true;
+            return;
+          }
 
-        const fmt = n => '$' + n.toLocaleString('es-CO');
-        const subtotal = items.reduce((sum, p) => {
-          return sum + (parseInt(p.price.replace(/\D/g, '')) * p.cantidad);
-        }, 0);
+          payConfirmBtn.disabled = false;
 
-        payItems.innerHTML = items.map(p => `
+          const fmt = n => '$' + n.toLocaleString('es-CO');
+          const subtotal = items.reduce((sum, p) => {
+            return sum + (parseInt(p.price.replace(/\D/g, '')) * p.cantidad);
+          }, 0);
+
+          payItems.innerHTML = items.map(p => `
             <div class="pay-row">
                 <span>${p.name} × ${p.cantidad}</span>
                 <span>${p.price}</span>
             </div>
         `).join('');
 
-        payTotal.textContent = fmt(subtotal);
-        payConfirmBtn.textContent = `Confirmar pago — ${fmt(subtotal)}`;
+          payTotal.textContent = fmt(subtotal);
+          payConfirmBtn.textContent = `Confirmar pago — ${fmt(subtotal)}`;
 
-        // Guarda los items en un atributo para usarlos al confirmar
-        payConfirmBtn.dataset.items = JSON.stringify(items);
+          // Guarda los items en un atributo para usarlos al confirmar
+          payConfirmBtn.dataset.items = JSON.stringify(items);
 
-      } catch (e) {
-        document.getElementById('payItems').innerHTML =
-          '<p style="font-size:.74rem;color:var(--mut);">Error al cargar el carrito.</p>';
+        } catch (e) {
+          document.getElementById('payItems').innerHTML =
+            '<p style="font-size:.74rem;color:var(--mut);">Error al cargar el carrito.</p>';
+        }
       }
-    }
 
 
-    /* ── 2. FUNCIÓN NUEVA: confirmarPago() ─────────────────────── */
+      /* ── 2. FUNCIÓN NUEVA: confirmarPago() ─────────────────────── */
 
-    async function confirmarPago() {
-      const btn = document.getElementById('payConfirmBtn');
-      if (btn.disabled) return;
+      async function confirmarPago() {
+        const btn = document.getElementById('payConfirmBtn');
+        if (btn.disabled) return;
 
-      // Obtener método de pago seleccionado
-      const payOptSel = document.querySelector('.pay-opt.sel .pay-opt-name');
-      const metodoPago = payOptSel ? payOptSel.textContent : 'card';
+        // Obtener método de pago seleccionado
+        const payOptSel = document.querySelector('.pay-opt.sel .pay-opt-name');
+        const metodoPago = payOptSel ? payOptSel.textContent : 'card';
 
-      // Obtener items guardados
-      let items = [];
-      try { items = JSON.parse(btn.dataset.items || '[]'); } catch (e) { }
-      if (!items.length) { showToast('❌ Tu carrito está vacío'); return; }
+        // Obtener items guardados
+        let items = [];
+        try { items = JSON.parse(btn.dataset.items || '[]'); } catch (e) { }
+        if (!items.length) { showToast('❌ Tu carrito está vacío'); return; }
 
-      btn.disabled = true;
-      btn.textContent = '⏳ Procesando pago...';
+        btn.disabled = true;
+        btn.textContent = '⏳ Procesando pago...';
 
-      try {
-        // 1️⃣  Crear pedidos en Django
-        const csrfToken = document.cookie.split(';')
-          .map(c => c.trim())
-          .find(c => c.startsWith('csrftoken='))
-          ?.split('=')[1] || '';
+        try {
+          // 1️⃣  Crear pedidos en Django
+          const csrfToken = document.cookie.split(';')
+            .map(c => c.trim())
+            .find(c => c.startsWith('csrftoken='))
+            ?.split('=')[1] || '';
 
-        const res = await fetch('/pedidos/crear/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-          },
-          body: JSON.stringify({ items, metodo_pago: metodoPago }),
-        });
+          const res = await fetch('/pedidos/crear/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({ items, metodo_pago: metodoPago }),
+          });
 
-        const data = await res.json();
+          const data = await res.json();
 
-        if (!data.ok) {
-          showToast('❌ Error al procesar: ' + (data.error || 'intenta de nuevo'));
+          if (!data.ok) {
+            showToast('❌ Error al procesar: ' + (data.error || 'intenta de nuevo'));
+            btn.disabled = false;
+            btn.textContent = 'Confirmar pago';
+            return;
+          }
+
+          // 2️⃣  Vaciar carrito en Node.js
+          await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, { method: 'DELETE' });
+          await actualizarBadge();
+
+          // 3️⃣  Cerrar modal y mostrar confirmación
+          closeModal('payModal');
+          mostrarModalExito(data.pedidos);
+
+        } catch (e) {
+          showToast('❌ Error de conexión. Intenta de nuevo.');
           btn.disabled = false;
           btn.textContent = 'Confirmar pago';
-          return;
+        }
+      }
+
+
+      /* ── 3. MODAL DE ÉXITO TRAS PAGO ───────────────────────────── */
+
+      function mostrarModalExito(pedidos) {
+        // Crear overlay si no existe
+        let ov = document.getElementById('successPayModal');
+        if (!ov) {
+          ov = document.createElement('div');
+          ov.id = 'successPayModal';
+          ov.style.cssText = [
+            'position:fixed', 'inset:0', 'background:rgba(10,15,30,.7)',
+            'backdrop-filter:blur(6px)', 'z-index:3000',
+            'display:flex', 'align-items:center', 'justify-content:center', 'padding:20px'
+          ].join(';');
+          document.body.appendChild(ov);
         }
 
-        // 2️⃣  Vaciar carrito en Node.js
-        await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, { method: 'DELETE' });
-        await actualizarBadge();
+        const ids = pedidos.map(p => `#${p.id}`).join(', ');
 
-        // 3️⃣  Cerrar modal y mostrar confirmación
-        closeModal('payModal');
-        mostrarModalExito(data.pedidos);
-
-      } catch (e) {
-        showToast('❌ Error de conexión. Intenta de nuevo.');
-        btn.disabled = false;
-        btn.textContent = 'Confirmar pago';
-      }
-    }
-
-
-    /* ── 3. MODAL DE ÉXITO TRAS PAGO ───────────────────────────── */
-
-    function mostrarModalExito(pedidos) {
-      // Crear overlay si no existe
-      let ov = document.getElementById('successPayModal');
-      if (!ov) {
-        ov = document.createElement('div');
-        ov.id = 'successPayModal';
-        ov.style.cssText = [
-          'position:fixed', 'inset:0', 'background:rgba(10,15,30,.7)',
-          'backdrop-filter:blur(6px)', 'z-index:3000',
-          'display:flex', 'align-items:center', 'justify-content:center', 'padding:20px'
-        ].join(';');
-        document.body.appendChild(ov);
-      }
-
-      const ids = pedidos.map(p => `#${p.id}`).join(', ');
-
-      ov.innerHTML = `
+        ov.innerHTML = `
         <div style="
             background:#fff; border-radius:20px; padding:36px 32px;
             max-width:420px; width:100%; text-align:center;
@@ -5368,34 +5500,34 @@
         </div>
     `;
 
-      ov.onclick = e => { if (e.target === ov) ov.remove(); };
-    }
-
-    function showToast(msg) {
-      let toast = document.getElementById('globalToast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'globalToast';
-        toast.style.cssText = [
-          'position:fixed', 'bottom:24px', 'left:50%',
-          'transform:translateX(-50%)',
-          'background:#1A1A2E', 'color:#fff',
-          'padding:10px 22px', 'border-radius:50px',
-          'font-size:.78rem', 'font-weight:600',
-          'z-index:9999', 'box-shadow:0 8px 24px rgba(0,0,0,.25)',
-          'transition:opacity .3s', 'opacity:0',
-          'font-family:Poppins,sans-serif'
-        ].join(';');
-        document.body.appendChild(toast);
+        ov.onclick = e => { if (e.target === ov) ov.remove(); };
       }
-      toast.textContent = msg;
-      toast.style.opacity = '1';
-      clearTimeout(toast._t);
-      toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 3000);
-    }
+
+      function showToast(msg) {
+        let toast = document.getElementById('globalToast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'globalToast';
+          toast.style.cssText = [
+            'position:fixed', 'bottom:24px', 'left:50%',
+            'transform:translateX(-50%)',
+            'background:#1A1A2E', 'color:#fff',
+            'padding:10px 22px', 'border-radius:50px',
+            'font-size:.78rem', 'font-weight:600',
+            'z-index:9999', 'box-shadow:0 8px 24px rgba(0,0,0,.25)',
+            'transition:opacity .3s', 'opacity:0',
+            'font-family:Poppins,sans-serif'
+          ].join(';');
+          document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        clearTimeout(toast._t);
+        toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+      }
 
 
-  </script>
+    </script>
 </body>
 
 </html>

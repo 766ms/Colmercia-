@@ -17,6 +17,36 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Importaciones de tus modelos locales de la app
 from .models import Pedido, Tienda, Usuario  # Asegúrate de que 'Usuario' exista en tu models.py
+from django.http import JsonResponse
+from .models import Producto
+
+def productos_regalo(request):
+    ocasion = request.GET.get('ocasion', 'todos')
+    precio  = request.GET.get('precio', 'todos')
+
+    qs = Producto.objects.exclude(ocasion_regalo='ninguno').exclude(ocasion_regalo='')
+
+    if ocasion != 'todos':
+        qs = qs.filter(ocasion_regalo=ocasion)
+
+    if precio == '50':
+        qs = qs.filter(precio__lt=50000)
+    elif precio == '50-100':
+        qs = qs.filter(precio__gte=50000, precio__lte=100000)
+    elif precio == '100':
+        qs = qs.filter(precio__gt=100000)
+
+    data = [{
+        'id':       p.id,
+        'nombre':   p.nombre,
+        'precio':   p.precio_formateado(),
+        'precio_num': float(p.precio),
+        'ocasion':  p.ocasion_regalo,
+        'imagen':   p.imagen.url if p.imagen else '',
+        'stock':    p.stock,
+    } for p in qs]
+
+    return JsonResponse(data, safe=False)
 
 # ─────────────────────────────────────────────
 #  LANDING
