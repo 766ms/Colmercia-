@@ -3088,187 +3088,75 @@
       bottom: 20px;
       right: 16px;
       z-index: 900;
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--mer), var(--cia));
+      background: linear-gradient(135deg, var(--mer), #0050C8);
       color: #fff;
       border: none;
-      font-size: 1.3rem;
-      box-shadow: 0 6px 24px rgba(0, 48, 135, .4);
+      font-size: 1.5rem;
+      box-shadow: 0 6px 24px rgba(0, 48, 135, .45);
       transition: all var(--tr);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
+      text-decoration: none;
+      animation: fabPulse 2.8s ease-in-out infinite;
+      cursor: pointer;
     }
-
+ 
     #chatbot-btn:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0, 48, 135, .6);
     }
-
-    #chatbot-win {
-      position: fixed;
-      bottom: 80px;
-      right: 12px;
-      z-index: 901;
-      width: calc(100vw - 24px);
-      max-width: 320px;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
-      overflow: hidden;
-      display: none;
-      animation: qvSlideUp .28s cubic-bezier(.34, 1.2, .64, 1);
+ 
+    @keyframes fabPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(0,48,135,.45); }
+      50%       { box-shadow: 0 6px 24px rgba(0,48,135,.45), 0 0 0 10px rgba(0,48,135,.08); }
     }
-
-    #chatbot-win.open {
-      display: block;
-    }
-
-    .cb-hdr {
-      background: linear-gradient(135deg, var(--mer), #002060);
-      color: #fff;
-      padding: 13px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .cb-title {
-      font-size: .9rem;
-      font-weight: 700;
-    }
-
-    .cb-sub {
-      font-size: .63rem;
-      opacity: .7;
-      margin-top: 1px;
-    }
-
-    .cb-close {
-      background: rgba(255, 255, 255, .15);
-      border: none;
-      width: 24px;
-      height: 24px;
+ 
+    .chatbot-fab-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 20px;
+      height: 20px;
+      background: var(--cia);
       border-radius: 50%;
+      border: 2px solid #fff;
+      font-size: .48rem;
+      font-weight: 800;
       color: #fff;
-      font-size: .68rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      letter-spacing: -.5px;
     }
-
-    .cb-body {
-      padding: 14px;
-      max-height: 340px;
-      overflow-y: auto;
-    }
-
-    .cb-step {
-      display: none;
-    }
-
-    .cb-step.active {
-      display: block;
-    }
-
-    .cb-q {
-      font-size: .76rem;
-      font-weight: 600;
-      margin-bottom: 11px;
-      line-height: 1.4;
-    }
-
-    .cb-opts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .cb-opt {
-      background: #F3F4F6;
-      border: 1.5px solid var(--bd);
-      border-radius: 50px;
-      font-size: .68rem;
-      font-weight: 500;
-      padding: 6px 12px;
-      cursor: pointer;
-      transition: all var(--tr);
-    }
-
-    .cb-opt:hover,
-    .cb-opt.sel {
-      background: var(--col);
-      border-color: var(--col);
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .cb-recs {
-      display: none;
-    }
-
-    .cb-recs.show {
-      display: block;
-    }
-
-    .cb-rec-title {
-      font-size: .72rem;
-      font-weight: 700;
-      margin-bottom: 9px;
-      color: var(--mer);
-    }
-
-    .cb-rec-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 7px;
-    }
-
-    .cb-prod {
-      background: var(--bg);
-      border-radius: var(--rs);
-      border: 1px solid var(--bd);
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .cb-prod-img {
-      font-size: 1.8rem;
-      padding: 9px;
-      background: linear-gradient(135deg, #FFF9E6, #FFF3CD);
-    }
-
-    .cb-prod-name {
-      font-size: .62rem;
-      font-weight: 600;
-      padding: 3px 5px 2px;
-      line-height: 1.3;
-    }
-
-    .cb-prod-price {
-      font-size: .64rem;
-      font-weight: 700;
-      color: var(--mer);
-      padding: 0 5px 4px;
-    }
-
-    .cb-see-btn {
-      display: block;
-      width: 100%;
-      margin-top: 9px;
-      background: var(--mer);
+ 
+    .chatbot-fab-tooltip {
+      position: absolute;
+      right: 64px;
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      background: #1A1A2E;
       color: #fff;
-      border: none;
-      border-radius: 50px;
-      font-size: .72rem;
+      font-size: .68rem;
       font-weight: 600;
-      padding: 8px;
+      padding: 5px 12px;
+      border-radius: 50px;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0,0,0,.2);
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
     }
+ 
+    #chatbot-btn:hover .chatbot-fab-tooltip {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
 
     /* RESPONSIVE */
     @media(min-width:640px) {
@@ -3697,7 +3585,7 @@
           <div>
             <p>¿No sabes qué regalar?</p><small>Nuestro asistente te ayuda a encontrar el regalo ideal</small>
           </div>
-          <button class="gift-ai-btn" onclick="openChatbot()">✨ Usar asistente</button>
+          <a href="{% url 'chatbot' %}" class="gift-ai-btn">✨ Usar asistente</a>
         </div>
         <div class="ggrid" id="giftsGrid"></div>
       </div>
@@ -3733,73 +3621,11 @@
     </div>
 
     <!-- CHATBOT -->
-    <button id="chatbot-btn" onclick="openChatbot()" title="Asistente de regalos">🤖</button>
-    <div id="chatbot-win">
-      <div class="cb-hdr">
-        <div>
-          <div class="cb-title">🤖 Asistente de Regalos</div>
-          <div class="cb-sub">Te ayudo a encontrar el regalo ideal</div>
-        </div>
-        <button class="cb-close" onclick="closeChatbot()">✕</button>
-      </div>
-      <div class="cb-body">
-        <div class="cb-step active" id="cbStep1">
-          <div class="cb-q">¿Qué le gusta hacer a la persona?</div>
-          <div class="cb-opts">
-            <button class="cb-opt" onclick="cbSelect(this,1)">Arte y Diseño</button>
-            <button class="cb-opt" onclick="cbSelect(this,1)">Leer</button>
-            <button class="cb-opt" onclick="cbSelect(this,1)">Gaming</button>
-            <button class="cb-opt" onclick="cbSelect(this,1)">Bailar</button>
-            <button class="cb-opt" onclick="cbSelect(this,1)">Naturaleza</button>
-            <button class="cb-opt" onclick="cbSelect(this,1)">Tecnología</button>
-          </div>
-        </div>
-        <div class="cb-step" id="cbStep2">
-          <div class="cb-q">¿Cuál es su color favorito?</div>
-          <div class="cb-opts">
-            <button class="cb-opt" onclick="cbSelect(this,2)">🔴 Rojo</button>
-            <button class="cb-opt" onclick="cbSelect(this,2)">🔵 Azul</button>
-            <button class="cb-opt" onclick="cbSelect(this,2)">🟡 Amarillo</button>
-            <button class="cb-opt" onclick="cbSelect(this,2)">🟢 Verde</button>
-            <button class="cb-opt" onclick="cbSelect(this,2)">🖤 Negro</button>
-            <button class="cb-opt" onclick="cbSelect(this,2)">🤍 Blanco</button>
-          </div>
-        </div>
-        <div class="cb-step" id="cbStep3">
-          <div class="cb-q">¿Cuánto quieres gastar?</div>
-          <div class="cb-opts">
-            <button class="cb-opt" onclick="cbSelect(this,3)">Menos de $50K</button>
-            <button class="cb-opt" onclick="cbSelect(this,3)">$50K – $100K</button>
-            <button class="cb-opt" onclick="cbSelect(this,3)">$100K – $200K</button>
-            <button class="cb-opt" onclick="cbSelect(this,3)">Más de $200K</button>
-          </div>
-        </div>
-        <div class="cb-recs" id="cbRecs">
-          <div class="cb-rec-title">✨ Recomendaciones para ti</div>
-          <div class="cb-rec-grid">
-            <div class="cb-prod">
-              <div class="cb-prod-img">🌸</div>
-              <div class="cb-prod-name">Set Belleza</div>
-              <div class="cb-prod-price">$89.900</div>
-            </div>
-            <div class="cb-prod">
-              <div class="cb-prod-img">📓</div>
-              <div class="cb-prod-name">Kit Papelería</div>
-              <div class="cb-prod-price">$38.500</div>
-            </div>
-            <div class="cb-prod">
-              <div class="cb-prod-img">💍</div>
-              <div class="cb-prod-name">Accesorios</div>
-              <div class="cb-prod-price">$65.000</div>
-            </div>
-          </div>
-          <button class="cb-see-btn"
-            onclick="closeChatbot();document.getElementById('gifts').scrollIntoView({behavior:'smooth'})">Ver más
-            regalos
-            →</button>
-        </div>
-      </div>
-    </div>
+    <a id="chatbot-btn" href="{% url 'chatbot' %}" title="Asistente de Regalos IA">
+      🎁
+      <span class="chatbot-fab-badge">IA</span>
+      <span class="chatbot-fab-tooltip">🎁 Asistente de regalos</span>
+    </a>
 
     <!-- QUICK VIEW — PRODUCT MODAL -->
     <div class="qv-overlay" id="quickViewModal" onclick="handleQVOverlayClick(event)">

@@ -50,5 +50,15 @@ urlpatterns = [
     path("productos/<int:producto_id>/eliminar/",
          views.EliminarProductoView.as_view(), name="eliminar_producto"),
     path("productos/<int:producto_id>/ocasion/",
+<<<<<<< HEAD
      views.ActualizarOcasionRegaloView.as_view(), name="actualizar_ocasion_regalo"),
+=======
+         views.ActualizarOcasionRegaloView.as_view(), name="actualizar_ocasion_regalo"),
+
+    # ── Chatbot ───────────────────────────────────────────
+path("chatbot/",       views.ChatbotView.as_view(),    name="chatbot"),
+path("chatbot/api/",   views.ChatbotAPIView.as_view(), name="chatbot_api"),
+path("chatbot/stats/", views.chatbot_stats,            name="chatbot_stats"),
+
+>>>>>>> c6f6ccf (adelanto del chatbot)
 ]
