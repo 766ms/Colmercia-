@@ -50,46 +50,46 @@ const SELLERS = [
 
 const STORES_DATA = [
   {
-    ico: '🌸', name: 'Luxedrop Beauty', tag: 'Maquillaje · Bogotá', stars: 5, reviews: 128, prods: 47, featured: [
-      { ico: '🌸', name: 'Set Glow Total', price: '$125.000' },
-      { ico: '💋', name: 'Labial Set x3', price: '$68.000' },
-      { ico: '✨', name: 'Iluminador Duo', price: '$54.000' },
-    ]
+    img: '/static/images/logo1.jpg',
+    name: 'Luxedrop Beauty',
+    tag: 'Maquillaje · Bogotá',
+    stars: 5, reviews: 128, prods: 47,
+    featured: CATS.maquillaje.filter(p => p.store === 'Luxedrop Beauty')
   },
   {
-    ico: '👜', name: 'Studio BH', tag: 'Carteras · Medellín', stars: 5, reviews: 95, prods: 32, featured: [
-      { ico: '👜', name: 'Bolso Tote Canvas', price: '$120.000' },
-      { ico: '👛', name: 'Clutch Cuero', price: '$95.000' },
-      { ico: '💼', name: 'Riñonera Mini', price: '$75.000' },
-    ]
+    img: '/static/images/logo2.jpg',
+    name: 'Studio BH',
+    tag: 'Carteras · Medellín',
+    stars: 5, reviews: 95, prods: 32,
+    featured: CATS.carteras.filter(p => p.store === 'Studio BH')
   },
   {
-    ico: '👗', name: 'Moda Propia', tag: 'Ropa · Cali', stars: 4, reviews: 74, prods: 61, featured: [
-      { ico: '👗', name: 'Vestido Maxi', price: '$138.000' },
-      { ico: '🧥', name: 'Chaqueta Bomber', price: '$145.000' },
-      { ico: '👚', name: 'Blusa Floral', price: '$58.000' },
-    ]
+    img: '/static/images/logo3.jpg',
+    name: 'Moda Propia',
+    tag: 'Ropa · Cali',
+    stars: 4, reviews: 74, prods: 61,
+    featured: CATS.ropa.filter(p => p.store === 'Moda Propia')
   },
   {
-    ico: '📓', name: 'Papel y Arte', tag: 'Papelería · Barranquilla', stars: 5, reviews: 210, prods: 88, featured: [
-      { ico: '📓', name: 'Bullet Journal A5', price: '$28.000' },
-      { ico: '📅', name: 'Planner Semanal', price: '$35.000' },
-      { ico: '🎀', name: 'Washi Tape x10', price: '$18.000' },
-    ]
+    img: '/static/images/logo4.jpg',
+    name: 'Papel y Arte',
+    tag: 'Papelería · Barranquilla',
+    stars: 5, reviews: 210, prods: 88,
+    featured: CATS.papeleria.filter(p => p.store === 'Papel y Arte')
   },
   {
-    ico: '💻', name: 'TechPyme', tag: 'Tecnología · Bogotá', stars: 4, reviews: 53, prods: 24, featured: [
-      { ico: '🔌', name: 'Hub USB-C 7P', price: '$85.000' },
-      { ico: '🖱', name: 'Mouse Slim', price: '$65.000' },
-      { ico: '🎧', name: 'Auriculares BT', price: '$98.000' },
-    ]
+    img: '/static/images/logo5.jpg',
+    name: 'TechPyme',
+    tag: 'Tecnología · Bogotá',
+    stars: 4, reviews: 53, prods: 24,
+    featured: CATS.tecnologia.filter(p => p.store === 'TechPyme')
   },
   {
-    ico: '👟', name: 'Paso Firme', tag: 'Calzado · Bucaramanga', stars: 5, reviews: 162, prods: 55, featured: [
-      { ico: '👢', name: 'Botas Chelsea', price: '$210.000' },
-      { ico: '🩴', name: 'Sandalias Nude', price: '$88.000' },
-      { ico: '👟', name: 'Sneakers White', price: '$185.000' },
-    ]
+    img: '/static/images/logo4.jpg',
+    name: 'Paso Firme',
+    tag: 'Calzado · Bucaramanga',
+    stars: 5, reviews: 162, prods: 55,
+    featured: CATS.calzado.filter(p => p.store === 'Paso Firme')
   },
 ];
 

@@ -99,6 +99,7 @@ class CompradorView(LoginRequiredMixin, TemplateView):
             usuario=self.request.user
         ).select_related("producto", "producto__tienda").order_by("-fecha")
         return context
+    
 
 
 # ─────────────────────────────────────────────
@@ -128,15 +129,37 @@ class VendedorView(LoginRequiredMixin, TemplateView):
 
         context["tienda"] = tienda
 
+        LABELS = {
+            'procesando': 'Procesando',
+            'preparando': 'Preparando',
+            'en_camino':  'En camino',
+            'entregado':  'Entregado',
+            'cancelado':  'Cancelado',
+        }
+        estados_config = list(LABELS.items())
+
         if tienda:
             from .models import Producto
             context["productos"] = tienda.producto_set.all()
-            context["pedidos"] = Pedido.objects.filter(
+            pedidos = Pedido.objects.filter(
                 producto__tienda=tienda
             ).select_related("usuario", "producto").order_by("-fecha")
+
+            for pedido in pedidos:
+                pedido.opciones_estado = [
+                    {
+                        'valor':    valor,
+                        'label':    label,
+                        'selected': 'selected' if pedido.estado == valor else '',
+                    }
+                    for valor, label in estados_config
+                ]
+                pedido.estado_label_txt = LABELS.get(pedido.estado, pedido.estado)
+
+            context["pedidos"] = pedidos
         else:
             context["productos"] = []
-            context["pedidos"] = []
+            context["pedidos"]   = []
 
         return context
 

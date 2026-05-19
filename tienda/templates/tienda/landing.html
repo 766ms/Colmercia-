@@ -3741,8 +3741,7 @@
           <div class="cb-sub">Te ayudo a encontrar el regalo ideal</div>
         </div>
         <button class="cb-close" onclick="closeChatbot()">✕</button>
-        <div class="cb-body">
-        </div><!-- cierra cb-body -->
+
       </div>
 
       <div class="cb-body">
@@ -4578,17 +4577,22 @@
 
       const qvImg = document.getElementById('qvImg');
       if (prod.img) {
-        qvImg.style.cssText = [
-          'position:absolute', 'inset:0', 'background-size:cover',
-          'background-position:center center', 'background-repeat:no-repeat',
-          `background-image:url('${prod.img}')`, 'font-size:0'
-        ].join(';');
-        qvImg.textContent = '';
+        qvImg.style.backgroundImage = `url('${prod.img}')`;
+        qvImg.style.backgroundSize = 'cover';
+        qvImg.style.backgroundPosition = 'center center';
+        qvImg.style.backgroundRepeat = 'no-repeat';
+        qvImg.style.fontSize = '0';
       } else {
-        qvImg.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;background-image:none;';
-        qvImg.textContent = prod.ico;
+        qvImg.style.backgroundImage = 'none';
+        qvImg.style.fontSize = '5rem';
+        let icoSpan = qvImg.querySelector('.qv-ico-span');
+        if (!icoSpan) {
+          icoSpan = document.createElement('span');
+          icoSpan.className = 'qv-ico-span';
+          qvImg.insertBefore(icoSpan, qvImg.firstChild);
+        }
+        icoSpan.textContent = prod.ico;
       }
-
       document.getElementById('qvBrand').textContent = prod.brand;
       document.getElementById('qvName').textContent = prod.name;
       document.getElementById('qvPrice').textContent = prod.price;
@@ -4604,7 +4608,7 @@
       if (prod.stock === 'out') bHTML = `<span class="sbdg sout">Agotado</span>`;
       badges.innerHTML = bHTML;
 
-      document.getElementById('qvDesc').textContent = prod.desc || 'Producto artesanal colombiano de alta calidad.';
+      document.getElementById('qvDesc').textContent = prod.desc || 'Producto especial, de nuestra sección de regalos para esa persona especial<3';
       document.getElementById('qvQty').textContent = '1';
 
       const addBtn = document.getElementById('qvAddBtn');
@@ -4619,7 +4623,7 @@
 
       document.getElementById('qvStoreIco').textContent = prod.ico;
       document.getElementById('qvStoreName').textContent = prod.store || prod.brand;
-      document.getElementById('qvStoreLoc').textContent = prod.storeLoc || 'Colombia';
+      document.getElementById('qvStoreLoc').textContent = prod.storeLoc || 'Regalos Colmercia';
       document.getElementById('qvWishBtn').classList.remove('wished');
       document.getElementById('qvWishBtn').textContent = '♡';
 
@@ -4880,9 +4884,9 @@
 
       document.getElementById('sqvName').textContent = store.name;
       document.getElementById('sqvTagTxt').textContent = store.tag;
-      document.getElementById('sqvStars').textContent = starsStr(store.stars) + ` (${store.reviews})`;
-      document.getElementById('sqvReviews').textContent = store.reviews;
-      document.getElementById('sqvProds').textContent = store.prods;
+      document.getElementById('sqvStars').innerHTML = '✅ Tienda verificada por ColMercia';
+      document.getElementById('sqvReviews').closest('.sqv-stat').style.display = 'none';
+      document.getElementById('sqvProds').textContent = store.featured ? store.featured.length : store.prods;
 
       const grid = document.getElementById('sqvProdGrid');
       grid.innerHTML = (store.featured || []).map(p => {
@@ -4981,8 +4985,8 @@
         <div class="stlogo" style="${s.img ? `background-image:url('${s.img}');background-size:cover;background-position:center;font-size:0;border:none;` : ''}"></div>
         <div class="stname">${s.name}</div>
         <div class="sttag">${s.tag}</div>
-        <div class="strate"><span class="stars">${starsStr(s.stars)}</span><span class="rcount">(${s.reviews})</span></div>
-        <div class="stcnt">${s.prods} productos</div>
+        <div class="strate" style="font-size:.65rem;color:#2E7D32;font-weight:600;">✅ Verificada por ColMercia</div>
+        <div class="stcnt">${s.featured ? s.featured.length : s.prods} productos</div>
         <button class="stbtn" onclick="event.stopPropagation();openStoreQV(STORES_DATA[${si}])">Visitar tienda</button>
       </div>`).join('');
     })();
