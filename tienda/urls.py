@@ -35,4 +35,7 @@ urlpatterns = [
         views.RechazarVendedorView.as_view(),
         name="rechazar_vendedor",
     ),
+
+    # ── API Regalos ───────────────────────────────────────
+    path("api/regalos/", views.productos_regalo, name="productos_regalo"),
 ]
