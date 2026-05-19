@@ -14,7 +14,7 @@
     *::after {
       box-sizing: border-box;
       margin: 0;
-      padding: 0;
+      padding: 0
     }
 
     html,
@@ -22,18 +22,18 @@
       font-family: 'Poppins', sans-serif;
       background: #0D1117;
       color: #E2E8F0;
-      min-height: 100vh;
+      min-height: 100vh
     }
 
     a {
       text-decoration: none;
-      color: inherit;
+      color: inherit
     }
 
     button {
       font-family: 'Poppins', sans-serif;
       cursor: pointer;
-      border: none;
+      border: none
     }
 
     :root {
@@ -47,7 +47,7 @@
       --wht: #fff;
       --r: 14px;
       --rs: 10px;
-      --tr: .2s ease;
+      --tr: .2s ease
     }
 
     #loginOverlay {
@@ -58,11 +58,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 24px
     }
 
     #loginOverlay.hidden {
-      display: none;
+      display: none
     }
 
     .lo-box {
@@ -74,7 +74,7 @@
       width: 100%;
       text-align: center;
       box-shadow: 0 32px 80px rgba(0, 0, 0, .6);
-      animation: fadeUp .4s ease;
+      animation: fadeUp .4s ease
     }
 
     @keyframes fadeUp {
@@ -92,46 +92,46 @@
     .lo-logo {
       font-size: 2rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 6px
     }
 
     .lo-logo .lc {
-      color: var(--col);
+      color: var(--col)
     }
 
     .lo-logo .lm {
-      color: #90B8FF;
+      color: #90B8FF
     }
 
     .lo-logo .lr {
-      color: var(--cia);
+      color: var(--cia)
     }
 
     .lo-sub {
       font-size: .78rem;
       color: var(--mut);
-      margin-bottom: 32px;
+      margin-bottom: 32px
     }
 
     .lo-title {
       font-size: 1.1rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 6px;
+      margin-bottom: 6px
     }
 
     .lo-desc {
       font-size: .75rem;
       color: var(--mut);
       margin-bottom: 28px;
-      line-height: 1.6;
+      line-height: 1.6
     }
 
     .lo-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 20px
     }
 
     .admin-card {
@@ -142,14 +142,14 @@
       cursor: pointer;
       transition: all var(--tr);
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .admin-card:hover {
       border-color: var(--col);
       background: #161B27;
       transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(245, 197, 24, .15);
+      box-shadow: 0 12px 32px rgba(245, 197, 24, .15)
     }
 
     .admin-card::before {
@@ -161,11 +161,11 @@
       height: 3px;
       background: linear-gradient(90deg, var(--col), #e6aa00);
       transform: scaleX(0);
-      transition: transform var(--tr);
+      transition: transform var(--tr)
     }
 
     .admin-card:hover::before {
-      transform: scaleX(1);
+      transform: scaleX(1)
     }
 
     .ac-ava {
@@ -180,23 +180,23 @@
       font-weight: 700;
       border: 3px solid #2D3748;
       overflow: hidden;
-      transition: border-color var(--tr);
+      transition: border-color var(--tr)
     }
 
     .admin-card:hover .ac-ava {
-      border-color: var(--col);
+      border-color: var(--col)
     }
 
     .ac-name {
       font-size: .95rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 3px;
+      margin-bottom: 3px
     }
 
     .ac-role {
       font-size: .68rem;
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .ac-badge {
@@ -210,12 +210,12 @@
       border-radius: 50px;
       font-size: .62rem;
       font-weight: 700;
-      margin-top: 8px;
+      margin-top: 8px
     }
 
     .lo-note {
       font-size: .68rem;
-      color: #4A5568;
+      color: #4A5568
     }
 
     nav {
@@ -229,30 +229,30 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .5)
     }
 
     .nav-logo {
       font-size: 1.5rem;
-      font-weight: 800;
+      font-weight: 800
     }
 
     .nav-logo .lc {
-      color: var(--col);
+      color: var(--col)
     }
 
     .nav-logo .lm {
-      color: #90B8FF;
+      color: #90B8FF
     }
 
     .nav-logo .lr {
-      color: var(--cia);
+      color: var(--cia)
     }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 10px
     }
 
     .nlink {
@@ -261,18 +261,18 @@
       color: var(--mut);
       padding: 8px 18px;
       border-radius: 50px;
-      transition: all var(--tr);
+      transition: all var(--tr)
     }
 
     .nlink:hover {
       background: #1E2535;
-      color: #fff;
+      color: #fff
     }
 
     .nlink.act {
       background: var(--col);
       color: #1A1A2E;
-      font-weight: 700;
+      font-weight: 700
     }
 
     .nalert {
@@ -282,7 +282,7 @@
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 50px;
-      margin-left: 4px;
+      margin-left: 4px
     }
 
     .wrapper {
@@ -292,21 +292,21 @@
       display: grid;
       grid-template-columns: 290px 1fr;
       gap: 28px;
-      align-items: start;
+      align-items: start
     }
 
     .sidebar {
       background: var(--card);
       border-radius: var(--r);
       overflow: hidden;
-      border: 1px solid var(--bd);
+      border: 1px solid var(--bd)
     }
 
     .s-top {
       background: linear-gradient(145deg, #060B14, #0A1628);
       padding: 28px 24px;
       text-align: center;
-      border-bottom: 1px solid var(--bd);
+      border-bottom: 1px solid var(--bd)
     }
 
     .admin-ava {
@@ -324,14 +324,14 @@
       position: relative;
       overflow: hidden;
       border: 3px solid rgba(245, 197, 24, .3);
-      cursor: pointer;
+      cursor: pointer
     }
 
     .admin-ava img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
+      display: none
     }
 
     .ava-edit-overlay {
@@ -347,18 +347,18 @@
       font-weight: 700;
       color: #fff;
       flex-direction: column;
-      gap: 2px;
+      gap: 2px
     }
 
     .admin-ava:hover .ava-edit-overlay {
-      opacity: 1;
+      opacity: 1
     }
 
     .admin-name {
       font-size: 1rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 3px;
+      margin-bottom: 3px
     }
 
     .admin-role-badge {
@@ -372,14 +372,14 @@
       border-radius: 50px;
       font-size: .7rem;
       font-weight: 700;
-      margin-top: 6px;
+      margin-top: 6px
     }
 
     .clock-box {
       background: #060B14;
       padding: 18px 24px;
       text-align: center;
-      border-bottom: 1px solid var(--bd);
+      border-bottom: 1px solid var(--bd)
     }
 
     .clock-time {
@@ -387,23 +387,23 @@
       font-weight: 700;
       color: #fff;
       letter-spacing: 3px;
-      line-height: 1;
+      line-height: 1
     }
 
     .clock-date {
       font-size: .73rem;
       color: rgba(255, 255, 255, .4);
-      margin-top: 6px;
+      margin-top: 6px
     }
 
     .clock-tz {
       font-size: .63rem;
       color: rgba(255, 255, 255, .2);
-      margin-top: 2px;
+      margin-top: 2px
     }
 
     .smenu {
-      padding: 12px;
+      padding: 12px
     }
 
     .smenu-lbl {
@@ -412,7 +412,7 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: var(--mut);
-      padding: 7px 13px 3px;
+      padding: 7px 13px 3px
     }
 
     .sitem {
@@ -430,45 +430,45 @@
       width: 100%;
       text-align: left;
       border: none;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', sans-serif
     }
 
     .sitem:hover {
       background: rgba(255, 255, 255, .05);
-      color: #fff;
+      color: #fff
     }
 
     .sitem.act {
       background: rgba(245, 197, 24, .1);
       color: var(--col);
-      font-weight: 600;
+      font-weight: 600
     }
 
     .si-bar {
       width: 3px;
       height: 18px;
       border-radius: 2px;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .si-col {
-      background: var(--col);
+      background: var(--col)
     }
 
     .si-mer {
-      background: #3B82F6;
+      background: #3B82F6
     }
 
     .si-grn {
-      background: #22C55E;
+      background: #22C55E
     }
 
     .si-red {
-      background: var(--cia);
+      background: var(--cia)
     }
 
     .si-pur {
-      background: #A78BFA;
+      background: #A78BFA
     }
 
     .sitem-badge {
@@ -478,33 +478,33 @@
       font-size: .6rem;
       font-weight: 700;
       padding: 2px 8px;
-      border-radius: 50px;
+      border-radius: 50px
     }
 
     .sdiv {
       height: 1px;
       background: var(--bd);
-      margin: 8px 0;
+      margin: 8px 0
     }
 
     .sitem.danger {
-      color: #FC8181;
+      color: #FC8181
     }
 
     .sitem.danger:hover {
-      background: rgba(206, 17, 38, .1);
+      background: rgba(206, 17, 38, .1)
     }
 
     .main {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 22px
     }
 
     .card {
       background: var(--card);
       border-radius: var(--r);
-      border: 1px solid var(--bd);
+      border: 1px solid var(--bd)
     }
 
     .card-hdr {
@@ -514,29 +514,29 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 10px
     }
 
     .card-title {
       font-size: 1rem;
       font-weight: 700;
-      color: #fff;
+      color: #fff
     }
 
     .card-sub {
       font-size: .76rem;
       color: var(--mut);
-      margin-top: 3px;
+      margin-top: 3px
     }
 
     .card-body {
-      padding: 24px 28px;
+      padding: 24px 28px
     }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      gap: 14px
     }
 
     .stat {
@@ -545,7 +545,7 @@
       border: 1px solid var(--bd);
       padding: 20px;
       position: relative;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .stat-stripe {
@@ -553,50 +553,50 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
+      height: 3px
     }
 
     .stat-val {
       font-size: 1.9rem;
       font-weight: 800;
       line-height: 1;
-      margin-bottom: 4px;
+      margin-bottom: 4px
     }
 
     .sv-col {
-      color: var(--col);
+      color: var(--col)
     }
 
     .sv-blu {
-      color: #60A5FA;
+      color: #60A5FA
     }
 
     .sv-grn {
-      color: #34D399;
+      color: #34D399
     }
 
     .sv-red {
-      color: #F87171;
+      color: #F87171
     }
 
     .stat-lbl {
       font-size: .73rem;
       color: var(--mut);
-      font-weight: 500;
+      font-weight: 500
     }
 
     .stat-delta {
       font-size: .7rem;
       font-weight: 600;
-      margin-top: 7px;
+      margin-top: 7px
     }
 
     .dUp {
-      color: #34D399;
+      color: #34D399
     }
 
     .dDn {
-      color: #F87171;
+      color: #F87171
     }
 
     .chart-wrap {
@@ -604,21 +604,21 @@
       border-radius: var(--rs);
       border: 1px solid var(--bd);
       padding: 20px;
-      margin-top: 18px;
+      margin-top: 18px
     }
 
     .chart-title {
       font-size: .84rem;
       font-weight: 600;
       color: #fff;
-      margin-bottom: 14px;
+      margin-bottom: 14px
     }
 
     .bars {
       display: flex;
       align-items: flex-end;
       gap: 10px;
-      height: 100px;
+      height: 100px
     }
 
     .bw {
@@ -626,28 +626,28 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
+      gap: 5px
     }
 
     .bv {
       font-size: .65rem;
       font-weight: 600;
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .bf {
       width: 100%;
       border-radius: 6px 6px 0 0;
-      min-height: 4px;
+      min-height: 4px
     }
 
     .bf-col {
-      background: linear-gradient(180deg, var(--col), #c8900a);
+      background: linear-gradient(180deg, var(--col), #c8900a)
     }
 
     .bl {
       font-size: .63rem;
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .vreq-item {
@@ -656,22 +656,22 @@
       border-radius: var(--rs);
       padding: 18px 20px;
       margin-bottom: 12px;
-      transition: border-color var(--tr);
+      transition: border-color var(--tr)
     }
 
     .vreq-item:last-child {
-      margin-bottom: 0;
+      margin-bottom: 0
     }
 
     .vreq-item:hover {
-      border-color: #4A5568;
+      border-color: #4A5568
     }
 
     .vreq-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 14px;
+      gap: 14px
     }
 
     .vreq-ava {
@@ -685,53 +685,53 @@
       font-size: 1rem;
       font-weight: 700;
       flex-shrink: 0;
-      color: #fff;
+      color: #fff
     }
 
     .vreq-info {
-      flex: 1;
+      flex: 1
     }
 
     .vreq-name {
       font-size: .9rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 3px;
+      margin-bottom: 3px
     }
 
     .vreq-meta {
       font-size: .73rem;
       color: var(--mut);
-      line-height: 1.55;
+      line-height: 1.55
     }
 
     .vreq-tags {
       display: flex;
       gap: 6px;
       margin-top: 8px;
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
     .vtag {
       font-size: .65rem;
       font-weight: 600;
       padding: 3px 10px;
-      border-radius: 50px;
+      border-radius: 50px
     }
 
     .vt-cat {
       background: rgba(245, 197, 24, .1);
-      color: var(--col);
+      color: var(--col)
     }
 
     .vt-reg {
       background: rgba(96, 165, 250, .1);
-      color: #60A5FA;
+      color: #60A5FA
     }
 
     .vt-date {
       background: rgba(148, 163, 184, .08);
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .vreq-actions {
@@ -740,7 +740,7 @@
       margin-top: 14px;
       padding-top: 14px;
       border-top: 1px solid var(--bd);
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
     .vbtn {
@@ -751,32 +751,32 @@
       border: 1px solid transparent;
       transition: all var(--tr);
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .vb-ok {
       background: rgba(52, 211, 153, .1);
       color: #34D399;
-      border-color: rgba(52, 211, 153, .25);
+      border-color: rgba(52, 211, 153, .25)
     }
 
     .vb-ok:hover {
-      background: rgba(52, 211, 153, .2);
+      background: rgba(52, 211, 153, .2)
     }
 
     .vb-no {
       background: rgba(248, 113, 113, .1);
       color: #F87171;
-      border-color: rgba(248, 113, 113, .25);
+      border-color: rgba(248, 113, 113, .25)
     }
 
     .vb-no:hover {
-      background: rgba(248, 113, 113, .2);
+      background: rgba(248, 113, 113, .2)
     }
 
     .u-table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: collapse
     }
 
     .u-table th {
@@ -787,7 +787,7 @@
       padding: 10px 12px;
       border-bottom: 1px solid var(--bd);
       text-transform: uppercase;
-      letter-spacing: .5px;
+      letter-spacing: .5px
     }
 
     .u-table td {
@@ -795,15 +795,15 @@
       padding: 12px;
       border-bottom: 1px solid rgba(45, 55, 72, .5);
       color: #CBD5E0;
-      vertical-align: top;
+      vertical-align: top
     }
 
     .u-table tr:last-child td {
-      border-bottom: none;
+      border-bottom: none
     }
 
     .u-table tbody tr:hover td {
-      background: rgba(255, 255, 255, .02);
+      background: rgba(255, 255, 255, .02)
     }
 
     .u-ava {
@@ -815,56 +815,56 @@
       justify-content: center;
       font-size: .85rem;
       font-weight: 700;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .u-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 10px
     }
 
     .u-name {
       font-weight: 600;
-      color: #fff;
+      color: #fff
     }
 
     .u-email {
       font-size: .68rem;
       color: var(--mut);
-      margin-top: 1px;
+      margin-top: 1px
     }
 
     .badge {
       font-size: .65rem;
       font-weight: 700;
       padding: 3px 10px;
-      border-radius: 50px;
+      border-radius: 50px
     }
 
     .b-buyer {
       background: rgba(96, 165, 250, .12);
-      color: #60A5FA;
+      color: #60A5FA
     }
 
     .b-seller {
       background: rgba(245, 197, 24, .12);
-      color: var(--col);
+      color: var(--col)
     }
 
     .b-admin {
       background: rgba(248, 113, 113, .12);
-      color: #F87171;
+      color: #F87171
     }
 
     .b-ok {
       background: rgba(52, 211, 153, .12);
-      color: #34D399;
+      color: #34D399
     }
 
     .b-pend {
       background: rgba(251, 191, 36, .12);
-      color: #FCD34D;
+      color: #FCD34D
     }
 
     .act-btn {
@@ -876,12 +876,12 @@
       padding: 4px 12px;
       transition: all var(--tr);
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .act-btn:hover {
       border-color: var(--col);
-      color: var(--col);
+      color: var(--col)
     }
 
     .user-detail {
@@ -890,15 +890,15 @@
       border: 1px solid var(--bd);
       border-radius: var(--rs);
       padding: 16px;
-      margin-top: 8px;
+      margin-top: 8px
     }
 
     .user-detail.open {
-      display: block;
+      display: block
     }
 
     .ud-section {
-      margin-bottom: 12px;
+      margin-bottom: 12px
     }
 
     .ud-title {
@@ -907,7 +907,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--col);
-      margin-bottom: 8px;
+      margin-bottom: 8px
     }
 
     .ud-item {
@@ -917,15 +917,15 @@
       padding: 6px 0;
       border-bottom: 1px solid rgba(45, 55, 72, .4);
       font-size: .75rem;
-      color: #94A3B8;
+      color: #94A3B8
     }
 
     .ud-item:last-child {
-      border-bottom: none;
+      border-bottom: none
     }
 
     .ud-item strong {
-      color: #fff;
+      color: #fff
     }
 
     .seller-card {
@@ -934,17 +934,17 @@
       border-radius: var(--rs);
       padding: 16px 18px;
       margin-bottom: 12px;
-      transition: border-color var(--tr);
+      transition: border-color var(--tr)
     }
 
     .seller-card:hover {
-      border-color: #4A5568;
+      border-color: #4A5568
     }
 
     .seller-card-top {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 12px
     }
 
     .sc-ava {
@@ -956,40 +956,40 @@
       justify-content: center;
       font-size: 1.1rem;
       font-weight: 700;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .sc-info {
-      flex: 1;
+      flex: 1
     }
 
     .sc-name {
       font-size: .9rem;
       font-weight: 700;
-      color: #fff;
+      color: #fff
     }
 
     .sc-meta {
       font-size: .72rem;
       color: var(--mut);
-      margin-top: 2px;
+      margin-top: 2px
     }
 
     .sc-stats {
       display: flex;
       gap: 16px;
-      margin-top: 10px;
+      margin-top: 10px
     }
 
     .sc-stat {
       font-size: .72rem;
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .sc-stat strong {
       color: #fff;
       display: block;
-      font-size: .85rem;
+      font-size: .85rem
     }
 
     .sc-actions {
@@ -998,7 +998,7 @@
       margin-top: 12px;
       padding-top: 12px;
       border-top: 1px solid var(--bd);
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
     .sc-btn {
@@ -1009,46 +1009,46 @@
       border: 1px solid transparent;
       transition: all var(--tr);
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .sb-view {
       background: rgba(96, 165, 250, .1);
       color: #60A5FA;
-      border-color: rgba(96, 165, 250, .25);
+      border-color: rgba(96, 165, 250, .25)
     }
 
     .sb-view:hover {
-      background: rgba(96, 165, 250, .2);
+      background: rgba(96, 165, 250, .2)
     }
 
     .sb-close {
       background: rgba(248, 113, 113, .1);
       color: #F87171;
-      border-color: rgba(248, 113, 113, .25);
+      border-color: rgba(248, 113, 113, .25)
     }
 
     .sb-close:hover {
-      background: rgba(248, 113, 113, .2);
+      background: rgba(248, 113, 113, .2)
     }
 
     .sb-open {
       background: rgba(52, 211, 153, .1);
       color: #34D399;
-      border-color: rgba(52, 211, 153, .25);
+      border-color: rgba(52, 211, 153, .25)
     }
 
     .sb-open:hover {
-      background: rgba(52, 211, 153, .2);
+      background: rgba(52, 211, 153, .2)
     }
 
     .prod-list {
       margin-top: 12px;
-      display: none;
+      display: none
     }
 
     .prod-list.open {
-      display: block;
+      display: block
     }
 
     .prod-row-s {
@@ -1056,43 +1056,43 @@
       align-items: center;
       gap: 12px;
       padding: 10px 0;
-      border-bottom: 1px solid rgba(45, 55, 72, .4);
+      border-bottom: 1px solid rgba(45, 55, 72, .4)
     }
 
     .prod-row-s:last-child {
-      border-bottom: none;
+      border-bottom: none
     }
 
     .pr-ico {
       font-size: 1.3rem;
       width: 36px;
-      text-align: center;
+      text-align: center
     }
 
     .pr-info {
-      flex: 1;
+      flex: 1
     }
 
     .pr-name {
       font-size: .8rem;
       font-weight: 600;
-      color: #fff;
+      color: #fff
     }
 
     .pr-meta {
       font-size: .68rem;
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .pr-price {
       font-size: .82rem;
       font-weight: 700;
-      color: var(--col);
+      color: var(--col)
     }
 
     .pr-act {
       display: flex;
-      gap: 5px;
+      gap: 5px
     }
 
     .pr-btn {
@@ -1103,27 +1103,27 @@
       border: 1px solid transparent;
       transition: all var(--tr);
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .prb-del {
       background: rgba(248, 113, 113, .1);
       color: #F87171;
-      border-color: rgba(248, 113, 113, .2);
+      border-color: rgba(248, 113, 113, .2)
     }
 
     .prb-del:hover {
-      background: rgba(248, 113, 113, .2);
+      background: rgba(248, 113, 113, .2)
     }
 
     .prb-hide {
       background: rgba(148, 163, 184, .08);
       color: var(--mut);
-      border-color: rgba(148, 163, 184, .15);
+      border-color: rgba(148, 163, 184, .15)
     }
 
     .prb-hide:hover {
-      background: rgba(148, 163, 184, .12);
+      background: rgba(148, 163, 184, .12)
     }
 
     .edit-block {
@@ -1131,7 +1131,7 @@
       border-radius: var(--rs);
       border: 1px solid var(--bd);
       padding: 20px;
-      margin-bottom: 14px;
+      margin-bottom: 14px
     }
 
     .edit-block-title {
@@ -1140,47 +1140,7 @@
       color: #fff;
       margin-bottom: 16px;
       padding-bottom: 10px;
-      border-bottom: 1px solid var(--bd);
-    }
-
-    .erow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 11px;
-    }
-
-    .erow:last-child {
-      margin-bottom: 0;
-    }
-
-    .elbl {
-      font-size: .72rem;
-      color: var(--mut);
-      width: 120px;
-      flex-shrink: 0;
-      font-weight: 500;
-    }
-
-    .einp {
-      flex: 1;
-      padding: 9px 13px;
-      border-radius: var(--rs);
-      border: 1px solid var(--bd);
-      font-size: .78rem;
-      font-family: 'Poppins', sans-serif;
-      outline: none;
-      background: #0D1117;
-      color: #fff;
-      transition: border-color var(--tr);
-    }
-
-    .einp:focus {
-      border-color: var(--col);
-    }
-
-    select.einp {
-      appearance: none;
+      border-bottom: 1px solid var(--bd)
     }
 
     .notif-item {
@@ -1188,11 +1148,11 @@
       align-items: flex-start;
       gap: 14px;
       padding: 14px 0;
-      border-bottom: 1px solid rgba(45, 55, 72, .5);
+      border-bottom: 1px solid rgba(45, 55, 72, .5)
     }
 
     .notif-item:last-child {
-      border-bottom: none;
+      border-bottom: none
     }
 
     .notif-dot {
@@ -1200,40 +1160,40 @@
       height: 10px;
       border-radius: 50%;
       flex-shrink: 0;
-      margin-top: 4px;
+      margin-top: 4px
     }
 
     .nd-col {
-      background: var(--col);
+      background: var(--col)
     }
 
     .nd-blu {
-      background: #3B82F6;
+      background: #3B82F6
     }
 
     .nd-grn {
-      background: #22C55E;
+      background: #22C55E
     }
 
     .nd-red {
-      background: var(--cia);
+      background: var(--cia)
     }
 
     .notif-txt {
       font-size: .82rem;
       color: #CBD5E0;
       line-height: 1.6;
-      flex: 1;
+      flex: 1
     }
 
     .notif-txt strong {
-      color: #fff;
+      color: #fff
     }
 
     .notif-time {
       font-size: .68rem;
       color: var(--mut);
-      margin-top: 3px;
+      margin-top: 3px
     }
 
     .audit-row {
@@ -1241,11 +1201,11 @@
       align-items: flex-start;
       gap: 14px;
       padding: 12px 0;
-      border-bottom: 1px solid rgba(45, 55, 72, .4);
+      border-bottom: 1px solid rgba(45, 55, 72, .4)
     }
 
     .audit-row:last-child {
-      border-bottom: none;
+      border-bottom: none
     }
 
     .audit-icon {
@@ -1257,54 +1217,54 @@
       justify-content: center;
       font-size: .75rem;
       font-weight: 700;
-      flex-shrink: 0;
+      flex-shrink: 0
     }
 
     .ai-sara {
       background: linear-gradient(135deg, var(--col), #e6aa00);
-      color: #1A1A2E;
+      color: #1A1A2E
     }
 
     .ai-yudis {
       background: linear-gradient(135deg, #818CF8, #4F46E5);
-      color: #fff;
+      color: #fff
     }
 
     .ai-user {
       background: linear-gradient(135deg, #34D399, #059669);
-      color: #fff;
+      color: #fff
     }
 
     .ai-sys {
       background: linear-gradient(135deg, #60A5FA, #2563EB);
-      color: #fff;
+      color: #fff
     }
 
     .audit-body {
-      flex: 1;
+      flex: 1
     }
 
     .audit-actor {
       font-size: .75rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 2px;
+      margin-bottom: 2px
     }
 
     .audit-action {
       font-size: .78rem;
       color: #94A3B8;
-      line-height: 1.5;
+      line-height: 1.5
     }
 
     .audit-action .hl {
-      color: var(--col);
+      color: var(--col)
     }
 
     .audit-time {
       font-size: .66rem;
       color: var(--mut);
-      margin-top: 3px;
+      margin-top: 3px
     }
 
     .audit-type-badge {
@@ -1312,22 +1272,22 @@
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 50px;
-      margin-left: 6px;
+      margin-left: 6px
     }
 
     .at-admin {
       background: rgba(248, 113, 113, .12);
-      color: #F87171;
+      color: #F87171
     }
 
     .at-user {
       background: rgba(52, 211, 153, .12);
-      color: #34D399;
+      color: #34D399
     }
 
     .at-system {
       background: rgba(96, 165, 250, .12);
-      color: #60A5FA;
+      color: #60A5FA
     }
 
     .filter-bar {
@@ -1335,7 +1295,7 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 18px;
-      flex-wrap: wrap;
+      flex-wrap: wrap
     }
 
     .filter-inp {
@@ -1348,15 +1308,15 @@
       font-family: 'Poppins', sans-serif;
       outline: none;
       flex: 1;
-      min-width: 180px;
+      min-width: 180px
     }
 
     .filter-inp:focus {
-      border-color: var(--col);
+      border-color: var(--col)
     }
 
     .filter-inp::placeholder {
-      color: var(--mut);
+      color: var(--mut)
     }
 
     .filter-sel {
@@ -1367,7 +1327,7 @@
       font-size: .75rem;
       color: #CBD5E0;
       font-family: 'Poppins', sans-serif;
-      outline: none;
+      outline: none
     }
 
     .btn {
@@ -1383,12 +1343,12 @@
       border: none;
       transition: all var(--tr);
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .btn:hover {
       filter: brightness(.92);
-      transform: translateY(-1px);
+      transform: translateY(-1px)
     }
 
     .btn-out {
@@ -1401,30 +1361,30 @@
       font-weight: 500;
       transition: all var(--tr);
       font-family: 'Poppins', sans-serif;
-      cursor: pointer;
+      cursor: pointer
     }
 
     .btn-out:hover {
       border-color: var(--col);
-      color: var(--col);
+      color: var(--col)
     }
 
     .btn-sm {
       font-size: .76rem;
-      padding: 7px 16px;
+      padding: 7px 16px
     }
 
     input[type=file] {
-      display: none;
+      display: none
     }
 
     @media(max-width:960px) {
       .wrapper {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr
       }
 
       .stats {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr
       }
     }
   </style>
@@ -1516,34 +1476,6 @@
 
     <div class="main">
 
-      <!-- ══ GESTIÓN DE REGALOS ══ -->
-      <div class="card" id="secRegalos" style="display:none;">
-        <div class="card-hdr">
-          <div>
-            <div class="card-title">Gestión de Regalos</div>
-            <div class="card-sub">Marca productos para que aparezcan en la sección de regalos de la landing</div>
-          </div>
-          <button class="btn btn-sm" onclick="cargarProductosAdmin()">🔄 Recargar</button>
-        </div>
-        <div class="card-body">
-          <div class="filter-bar">
-            <input class="filter-inp" type="text" placeholder="Buscar producto..."
-              oninput="filtrarProductosAdmin(this.value)" />
-            <select class="filter-sel" id="filtroOcasionAdmin">
-              <option value="todos">Todas las ocasiones</option>
-              <option value="">Sin ocasión (no aparece)</option>
-              <option value="cumpleanos">🎂 Cumpleaños</option>
-              <option value="amor">💝 Amor y Amistad</option>
-              <option value="navidad">🎄 Navidad</option>
-              <option value="halloween">🎃 Halloween</option>
-            </select>
-          </div>
-          <div id="adminProdList">
-            <div style="text-align:center;padding:40px;color:var(--mut);">Haz clic en 🔄 Recargar para ver los
-              productos.</div>
-          </div>
-        </div>
-      </div>
       <!-- ══ OVERVIEW ══ -->
       <div id="secOverview">
         <div class="card">
@@ -1638,52 +1570,52 @@
         </div>
         <div class="card-body">
           {% if vendedores_pendientes %}
-          {% for v in vendedores_pendientes %}
-          <div class="vreq-item" id="vreq-{{ v.id }}">
-            <div class="vreq-top">
-              <div class="vreq-ava">
-                {{ v.first_name|slice:":1"|upper }}{{ v.last_name|slice:":1"|upper }}
+            {% for v in vendedores_pendientes %}
+            <div class="vreq-item" id="vreq-{{ v.id }}">
+              <div class="vreq-top">
+                <div class="vreq-ava">{{ v.first_name|slice:":1"|upper }}{{ v.last_name|slice:":1"|upper }}</div>
+                <div class="vreq-info">
+                  <div class="vreq-name">
+                    {% if v.tienda %}{{ v.tienda.nombre }}{% else %}Sin tienda{% endif %}
+                  </div>
+                  <div class="vreq-meta">
+                    {{ v.first_name }} {{ v.last_name }} · {{ v.email }}{% if v.telefono %} · {{ v.telefono }}{% endif %}
+                  </div>
+                  <div class="vreq-tags">
+                    {% if v.tienda %}
+                      {% if v.tienda.categoria %}
+                        <span class="vtag vt-cat">{{ v.tienda.categoria }}</span>
+                      {% endif %}
+                      {% if v.tienda.ubicacion %}
+                        <span class="vtag vt-reg">{{ v.tienda.ubicacion }}</span>
+                      {% endif %}
+                    {% endif %}
+                    <span class="vtag vt-date">{{ v.date_joined|date:"d M Y" }}</span>
+                  </div>
+                  {% if v.tienda %}
+                    {% if v.tienda.descripcion %}
+                      <div style="font-size:.72rem;color:var(--mut);margin-top:7px;line-height:1.5;">"{{ v.tienda.descripcion }}"</div>
+                    {% endif %}
+                  {% endif %}
+                </div>
               </div>
-              <div class="vreq-info">
-                <div class="vreq-name">
-                  {% if v.tienda %}{{ v.tienda.nombre }}{% else %}Sin tienda{% endif %}
-                </div>
-                <div class="vreq-meta">
-                  {{ v.first_name }} {{ v.last_name }} · {{ v.email }}
-                  {% if v.telefono %} · {{ v.telefono }}{% endif %}
-                </div>
-                <div class="vreq-tags">
-                  {% if v.tienda and v.tienda.categoria %}
-                  <span class="vtag vt-cat">{{ v.tienda.categoria }}</span>
-                  {% endif %}
-                  {% if v.tienda and v.tienda.ubicacion %}
-                  <span class="vtag vt-reg">{{ v.tienda.ubicacion }}</span>
-                  {% endif %}
-                  <span class="vtag vt-date">{{ v.date_joined|date:"d M Y" }}</span>
-                </div>
-                {% if v.tienda and v.tienda.descripcion %}
-                <div style="font-size:.72rem;color:var(--mut);margin-top:7px;line-height:1.5;">
-                  "{{ v.tienda.descripcion }}"
-                </div>
+              <div class="vreq-actions">
+                {% if v.tienda %}
+                  {% with nombre_tienda=v.tienda.nombre|escapejs %}
+                  <button class="vbtn vb-ok" onclick="aprobarVendedorReal({{ v.id }}, '{{ nombre_tienda }}')">Aprobar tienda</button>
+                  <button class="vbtn vb-no" onclick="rechazarVendedorReal({{ v.id }}, '{{ nombre_tienda }}')">Rechazar</button>
+                  {% endwith %}
+                {% else %}
+                  {% with nombre_vendedor=v.first_name|escapejs %}
+                  <button class="vbtn vb-ok" onclick="aprobarVendedorReal({{ v.id }}, '{{ nombre_vendedor }}')">Aprobar tienda</button>
+                  <button class="vbtn vb-no" onclick="rechazarVendedorReal({{ v.id }}, '{{ nombre_vendedor }}')">Rechazar</button>
+                  {% endwith %}
                 {% endif %}
               </div>
             </div>
-            <div class="vreq-actions">
-              <button class="vbtn vb-ok"
-                onclick="aprobarVendedorReal({{ v.id }}, '{% if v.tienda %}{{ v.tienda.nombre|escapejs }}{% else %}{{ v.first_name|escapejs }}{% endif %}')">
-                Aprobar tienda
-              </button>
-              <button class="vbtn vb-no"
-                onclick="rechazarVendedorReal({{ v.id }}, '{% if v.tienda %}{{ v.tienda.nombre|escapejs }}{% else %}{{ v.first_name|escapejs }}{% endif %}')">
-                Rechazar
-              </button>
-            </div>
-          </div>
-          {% endfor %}
+            {% endfor %}
           {% else %}
-          <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">
-            ✅ No hay solicitudes pendientes en este momento.
-          </div>
+            <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">✅ No hay solicitudes pendientes en este momento.</div>
           {% endif %}
         </div>
       </div>
@@ -1729,16 +1661,15 @@
                   </div>
                 </td>
                 <td>
-                  <span
-                    class="badge {% if u.rol == 'comprador' %}b-buyer{% elif u.rol == 'vendedor' %}b-seller{% else %}b-admin{% endif %}">
+                  <span class="badge {% if u.rol == 'comprador' %}b-buyer{% elif u.rol == 'vendedor' %}b-seller{% else %}b-admin{% endif %}">
                     {{ u.rol|capfirst }}
                   </span>
                 </td>
                 <td>{% if u.tienda %}{{ u.tienda.ubicacion|default:"—" }}{% else %}—{% endif %}</td>
                 <td style="color:var(--mut)">{{ u.date_joined|date:"d M Y" }}</td>
                 <td>
-                  <span class="badge {% if u.aprobado or u.rol == 'admin' %}b-ok{% else %}b-pend{% endif %}">
-                    {% if u.aprobado or u.rol == 'admin' %}Activo{% else %}Pendiente{% endif %}
+                  <span class="badge {% if u.aprobado %}b-ok{% elif u.rol == 'admin' %}b-ok{% else %}b-pend{% endif %}">
+                    {% if u.aprobado %}Activo{% elif u.rol == 'admin' %}Activo{% else %}Pendiente{% endif %}
                   </span>
                 </td>
                 <td>
@@ -1760,31 +1691,35 @@
                       <div class="ud-item">Teléfono: <strong>{{ u.telefono }}</strong></div>
                       {% endif %}
                       <div class="ud-item">Registrado: <strong>{{ u.date_joined|date:"d M Y, H:i" }}</strong></div>
-                      <div class="ud-item">Estado: <strong>{% if u.aprobado %}Aprobado{% else %}Pendiente de
-                          aprobación{% endif %}</strong></div>
+                      <div class="ud-item">Estado: <strong>{% if u.aprobado %}Aprobado{% else %}Pendiente de aprobación{% endif %}</strong></div>
                     </div>
-                    {% if u.rol == 'vendedor' and u.tienda %}
-                    <div class="ud-section">
-                      <div class="ud-title">🏪 Tienda</div>
-                      <div class="ud-item">Nombre: <strong>{{ u.tienda.nombre }}</strong></div>
-                      <div class="ud-item">Categoría: <strong>{{ u.tienda.categoria|default:"—" }}</strong></div>
-                      <div class="ud-item">Ciudad: <strong>{{ u.tienda.ubicacion|default:"—" }}</strong></div>
-                      {% if u.tienda.descripcion %}
-                      <div class="ud-item">Descripción: <strong>{{ u.tienda.descripcion }}</strong></div>
+                    {% if u.rol == 'vendedor' %}
+                      {% if u.tienda %}
+                      <div class="ud-section">
+                        <div class="ud-title">🏪 Tienda</div>
+                        <div class="ud-item">Nombre: <strong>{{ u.tienda.nombre }}</strong></div>
+                        <div class="ud-item">Categoría: <strong>{{ u.tienda.categoria|default:"—" }}</strong></div>
+                        <div class="ud-item">Ciudad: <strong>{{ u.tienda.ubicacion|default:"—" }}</strong></div>
+                        {% if u.tienda.descripcion %}
+                        <div class="ud-item">Descripción: <strong>{{ u.tienda.descripcion }}</strong></div>
+                        {% endif %}
+                      </div>
                       {% endif %}
-                    </div>
-                    {% endif %}
-                    {% if u.rol == 'vendedor' and not u.aprobado %}
-                    <div class="vreq-actions" style="padding-top:10px;border-top:none;">
-                      <button class="vbtn vb-ok"
-                        onclick="aprobarVendedorReal({{ u.id }}, '{% if u.tienda %}{{ u.tienda.nombre|escapejs }}{% else %}{{ u.first_name|escapejs }}{% endif %}')">
-                        Aprobar
-                      </button>
-                      <button class="vbtn vb-no"
-                        onclick="rechazarVendedorReal({{ u.id }}, '{% if u.tienda %}{{ u.tienda.nombre|escapejs }}{% else %}{{ u.first_name|escapejs }}{% endif %}')">
-                        Rechazar
-                      </button>
-                    </div>
+                      {% if not u.aprobado %}
+                      <div class="vreq-actions" style="padding-top:10px;border-top:none;">
+                        {% if u.tienda %}
+                          {% with unombre=u.tienda.nombre|escapejs %}
+                          <button class="vbtn vb-ok" onclick="aprobarVendedorReal({{ u.id }}, '{{ unombre }}')">Aprobar</button>
+                          <button class="vbtn vb-no" onclick="rechazarVendedorReal({{ u.id }}, '{{ unombre }}')">Rechazar</button>
+                          {% endwith %}
+                        {% else %}
+                          {% with unombre=u.first_name|escapejs %}
+                          <button class="vbtn vb-ok" onclick="aprobarVendedorReal({{ u.id }}, '{{ unombre }}')">Aprobar</button>
+                          <button class="vbtn vb-no" onclick="rechazarVendedorReal({{ u.id }}, '{{ unombre }}')">Rechazar</button>
+                          {% endwith %}
+                        {% endif %}
+                      </div>
+                      {% endif %}
                     {% endif %}
                   </div>
                 </td>
@@ -1822,62 +1757,61 @@
                   <span class="badge b-ok" style="font-size:.6rem;padding:2px 8px;margin-left:6px;">Activa</span>
                 </div>
                 <div class="sc-meta">
-                  {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif%}
-                  · {{ v.email }}
+                  {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif %} · {{ v.email }}
                 </div>
                 <div class="sc-stats">
                   <div class="sc-stat">
                     <strong>{% if v.tienda %}{{ v.tienda.producto_set.count }}{% else %}0{% endif %}</strong>Productos
                   </div>
-                  <div class="sc-stat">
-                    <strong>{{ v.date_joined|date:"d M Y" }}</strong>Registrado
-                  </div>
+                  <div class="sc-stat"><strong>{{ v.date_joined|date:"d M Y" }}</strong>Registrado</div>
                 </div>
               </div>
             </div>
             <div class="sc-actions">
-              <button class="sc-btn sb-view" onclick="toggleProdList('pl-{{ v.id }}', this)">Ver publicaciones
-                ▾</button>
-              <button class="sc-btn sb-close"
-                onclick="toggleStore('sc-{{ v.id }}', '{% if v.tienda %}{{ v.tienda.nombre|escapejs }}{% else %}{{ v.first_name|escapejs }}{% endif %}', 'cerrar')">
-                Cerrar tienda
-              </button>
+              <button class="sc-btn sb-view" onclick="toggleProdList('pl-{{ v.id }}', this)">Ver publicaciones ▾</button>
+              {% if v.tienda %}
+                {% with vnombre=v.tienda.nombre|escapejs %}
+                <button class="sc-btn sb-close" onclick="toggleStore('sc-{{ v.id }}', '{{ vnombre }}', 'cerrar')">Cerrar tienda</button>
+                {% endwith %}
+              {% else %}
+                {% with vnombre=v.first_name|escapejs %}
+                <button class="sc-btn sb-close" onclick="toggleStore('sc-{{ v.id }}', '{{ vnombre }}', 'cerrar')">Cerrar tienda</button>
+                {% endwith %}
+              {% endif %}
             </div>
             <div class="prod-list" id="pl-{{ v.id }}">
-              {% for prod in v.tienda.producto_set.all %}
-              <div class="prod-row-s">
-                <div class="pr-ico">📦</div>
-                <div class="pr-info">
-                  <div class="pr-name">{{ prod.nombre }}</div>
-                  <div class="pr-meta">
-                    {{ prod.cantidad }} disponibles
-                    {% if prod.stock == 'out' %}<span style="color:#F87171;"> · Agotado</span>{% endif %}
+              {% if v.tienda %}
+                {% for prod in v.tienda.producto_set.all %}
+                <div class="prod-row-s">
+                  <div class="pr-ico">📦</div>
+                  <div class="pr-info">
+                    <div class="pr-name">{{ prod.nombre }}</div>
+                    <div class="pr-meta">
+                      {{ prod.cantidad }} disponibles{% if prod.stock == 'out' %}<span style="color:#F87171;"> · Agotado</span>{% endif %}
+                    </div>
+                  </div>
+                  <div class="pr-price">{{ prod.precio_formateado }}</div>
+                  <div class="pr-act">
+                    <button class="pr-btn prb-hide" onclick="auditLog('ocultó producto', '{{ prod.nombre|escapejs }}')">Ocultar</button>
+                    <button class="pr-btn prb-del" onclick="auditLog('eliminó producto', '{{ prod.nombre|escapejs }}')">Eliminar</button>
                   </div>
                 </div>
-                <div class="pr-price">{{ prod.precio_formateado }}</div>
-                <div class="pr-act">
-                  <button class="pr-btn prb-hide"
-                    onclick="auditLog('ocultó producto', '{{ prod.nombre|escapejs }}')">Ocultar</button>
-                  <button class="pr-btn prb-del"
-                    onclick="auditLog('eliminó producto', '{{ prod.nombre|escapejs }}')">Eliminar</button>
-                </div>
-              </div>
-              {% endfor %}
+                {% endfor %}
+              {% endif %}
             </div>
           </div>
           {% empty %}
-          <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">
-            No hay vendedores aprobados aún.
-          </div>
+          <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">No hay vendedores aprobados aún.</div>
           {% endfor %}
         </div>
       </div>
+
       <!-- ══ AUDITORÍA ══ -->
       <div class="card" id="secAudit" style="display:none;">
         <div class="card-hdr">
           <div>
             <div class="card-title">Auditoría del Sistema</div>
-            <div class="card-sub">Registro completo de acciones de administradoras y usuarios</div>
+            <div class="card-sub">Registro completo de acciones</div>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <select class="filter-sel" id="auditFilter" onchange="filterAudit(this.value)">
@@ -1894,76 +1828,57 @@
         </div>
       </div>
 
-      <!-- ══ EDITOR ══ -->
+      <!-- ══ EDITOR DE LANDING ══ -->
       <div class="card" id="secEditor" style="display:none;">
         <div class="card-hdr">
           <div>
             <div class="card-title">Editor de Landing Page</div>
             <div class="card-sub">Los cambios se publican inmediatamente</div>
           </div>
-          <button class="btn" onclick="saveEditor()">Guardar y publicar</button>
+          <button class="btn btn-sm" onclick="cargarBannersAdmin()">🔄 Recargar</button>
         </div>
         <div class="card-body">
           <div class="edit-block">
-            <div class="edit-block-title">Banners del Hero Slider</div>
-            <div class="erow">
-              <div class="elbl">Banner 1 - Título</div><input class="einp"
-                value="Descubre los productos únicos de la región Caribe" />
+            <div class="edit-block-title" style="display:flex;align-items:center;justify-content:space-between;">
+              <span>🖼 Banners del Hero Slider</span>
+              <button class="btn btn-sm" onclick="document.getElementById('newBannerInput').click()">➕ Agregar banner</button>
+              <input type="file" id="newBannerInput" accept="image/*" onchange="subirNuevoBanner(this)" style="display:none;" />
             </div>
-            <div class="erow">
-              <div class="elbl">Banner 1 - Botón</div><input class="einp" value="Explorar región" />
-            </div>
-            <div class="erow">
-              <div class="elbl">Banner 2 - Título</div><input class="einp" value="Colección Belleza Total" />
-            </div>
-            <div class="erow">
-              <div class="elbl">Banner 3 - Título</div><input class="einp" value="Colección Primavera 2025" />
+            <div id="bannersList" style="margin-top:16px;">
+              <div style="text-align:center;padding:30px;color:var(--mut);">Haz clic en 🔄 Recargar para ver los banners.</div>
             </div>
           </div>
-          <div class="edit-block">
-            <div class="edit-block-title">Evento Activo de Región</div>
-            <div class="erow">
-              <div class="elbl">Región activa</div>
-              <select class="einp">
-                <option>Caribe</option>
-                <option>Andina</option>
-                <option>Pacífico</option>
-                <option>Amazonia</option>
-                <option>Orinoquía</option>
-              </select>
-            </div>
-            <div class="erow">
-              <div class="elbl">Mensaje principal</div><input class="einp"
-                value="Descubre los productos únicos de la región Caribe" />
-            </div>
-            <div class="erow">
-              <div class="elbl">Subtítulo</div><input class="einp"
-                value="Artesanías, moda y sabor caribeño de microempresas locales" />
-            </div>
+          <div style="background:#111827;border-radius:var(--rs);border:1px solid var(--bd);padding:16px 20px;font-size:.74rem;color:var(--mut);line-height:1.8;">
+            <strong style="color:#60A5FA;">💡 Instrucciones:</strong><br>
+            • <strong style="color:#fff;">Agregar:</strong> Haz clic en "➕ Agregar banner" y sube una imagen.<br>
+            • <strong style="color:#fff;">Cambiar imagen:</strong> Haz clic en 📷 sobre la miniatura del banner.<br>
+            • <strong style="color:#fff;">Ocultar/mostrar:</strong> Usa el botón 👁 sin eliminarlo.<br>
+            • <strong style="color:#fff;">Eliminar:</strong> Usa 🗑 — el cambio aplica inmediatamente en la landing.<br>
+            • <strong style="color:#fff;">Reordenar:</strong> Usa ↑ ↓ para cambiar el orden.<br>
+            • Tamaño recomendado: <strong style="color:#fff;">1400 × 500 px</strong>.
           </div>
-          <div class="edit-block">
-            <div class="edit-block-title">Tiendas Destacadas</div>
-            <div class="erow">
-              <div class="elbl">Tienda 1</div><select class="einp">
-                <option>Luxedrop Beauty</option>
-                <option>Studio BH</option>
-                <option>Moda Propia</option>
-              </select>
-            </div>
-            <div class="erow">
-              <div class="elbl">Tienda 2</div><select class="einp">
-                <option>Studio BH</option>
-                <option>Luxedrop Beauty</option>
-                <option>Papel y Arte</option>
-              </select>
-            </div>
-            <div class="erow">
-              <div class="elbl">Tienda 3</div><select class="einp">
-                <option>Moda Propia</option>
-                <option>TechPyme</option>
-                <option>Paso Firme</option>
-              </select>
-            </div>
+        </div>
+      </div>
+
+      <!-- ══ GESTIÓN DE REGALOS ══ -->
+      <div class="card" id="secRegalos" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Gestión de Regalos</div>
+            <div class="card-sub">Marca productos para que aparezcan en la sección de regalos de la landing</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-out btn-sm" onclick="abrirModalCrearProd()">➕ Nuevo producto</button>
+            <button class="btn btn-sm" onclick="cargarProductosAdmin()">🔄 Recargar</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="filter-bar">
+            <input class="filter-inp" type="text" placeholder="Buscar producto..."
+              oninput="filtrarProductosAdmin(this.value)" />
+          </div>
+          <div id="adminProdList">
+            <div style="text-align:center;padding:40px;color:var(--mut);">Haz clic en 🔄 Recargar para ver los productos.</div>
           </div>
         </div>
       </div>
@@ -1979,44 +1894,179 @@
         </div>
         <div class="card-body">
           {% if vendedores_pendientes %}
-          {% for v in vendedores_pendientes %}
-          <div class="notif-item">
-            <div class="notif-dot nd-red"></div>
-            <div>
-              <div class="notif-txt"><strong>Nueva solicitud de vendedor</strong> —
-                {% if v.tienda %}{{ v.tienda.nombre }}{% else %}{{ v.first_name }}{% endif %}
-                solicitó ser vendedor/a. Requiere revisión.
+            {% for v in vendedores_pendientes %}
+            <div class="notif-item">
+              <div class="notif-dot nd-red"></div>
+              <div>
+                <div class="notif-txt">
+                  <strong>Nueva solicitud de vendedor</strong> —
+                  {% if v.tienda %}{{ v.tienda.nombre }}{% else %}{{ v.first_name }}{% endif %}
+                  solicitó ser vendedor/a. Requiere revisión.
+                </div>
+                <div class="notif-time">{{ v.date_joined|date:"d M Y, H:i" }}</div>
               </div>
-              <div class="notif-time">{{ v.date_joined|date:"d M Y, H:i" }}</div>
             </div>
-          </div>
-          {% endfor %}
+            {% endfor %}
           {% else %}
-          <div class="notif-item">
-            <div class="notif-dot nd-grn"></div>
-            <div>
-              <div class="notif-txt"><strong>Sin solicitudes pendientes</strong> — Todo está al día.</div>
-              <div class="notif-time">Ahora</div>
+            <div class="notif-item">
+              <div class="notif-dot nd-grn"></div>
+              <div>
+                <div class="notif-txt"><strong>Sin solicitudes pendientes</strong> — Todo está al día.</div>
+                <div class="notif-time">Ahora</div>
+              </div>
             </div>
-          </div>
           {% endif %}
         </div>
+      </div>
+
+      <!-- ══ TIENDA SELECT PARA MODAL (oculto, usado por JS) ══ -->
+      <div style="display:none;" id="tiendaSelectData">
+        {% for v in vendedores_aprobados %}
+          {% if v.tienda %}
+          <option value="{{ v.tienda.id }}">{{ v.tienda.nombre }}</option>
+          {% endif %}
+        {% endfor %}
       </div>
 
     </div><!-- /main -->
   </div><!-- /wrapper -->
 
+  <!-- ══ MODAL PRODUCTO (ADMIN) ══ -->
+  <div id="adminProdModal"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:3000;align-items:center;justify-content:center;padding:20px;">
+    <div
+      style="background:#1E2535;border:1px solid #2D3748;border-radius:16px;padding:28px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div style="font-size:1rem;font-weight:700;color:#fff;" id="adminModalTitle">✏️ Editar Producto</div>
+        <button onclick="cerrarModalProd()"
+          style="background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;">✕</button>
+      </div>
+      <input type="hidden" id="ampId" />
+      <div style="margin-bottom:12px;">
+        <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Nombre *</label>
+        <input type="text" id="ampNombre"
+          style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;" />
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Descripción *</label>
+        <textarea id="ampDescripcion" rows="3"
+          style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;resize:vertical;"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Precio *</label>
+          <input type="text" id="ampPrecio" placeholder="55000"
+            style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;" />
+        </div>
+        <div>
+          <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Cantidad *</label>
+          <input type="number" id="ampCantidad" min="0"
+            style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;" />
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <div>
+          <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Categoría</label>
+          <select id="ampCategoria"
+            style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;appearance:none;">
+            <option value="">Sin categoría</option>
+            <option value="Maquillaje">Maquillaje</option>
+            <option value="Ropa y Accesorios">Ropa y Accesorios</option>
+            <option value="Carteras y Bolsos">Carteras y Bolsos</option>
+            <option value="Calzado">Calzado</option>
+            <option value="Papelería">Papelería</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Regalos">Regalos</option>
+            <option value="Joyería">Joyería</option>
+            <option value="Artesanías">Artesanías</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Ocasión regalo</label>
+          <select id="ampOcasion"
+            style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;appearance:none;">
+            <option value="">Sin ocasión</option>
+            <option value="todos">Todas las ocasiones</option>
+            <option value="cumpleanos">🎂 Cumpleaños</option>
+            <option value="amor">💝 Amor y Amistad</option>
+            <option value="navidad">🎄 Navidad</option>
+            <option value="halloween">🎃 Halloween</option>
+          </select>
+        </div>
+      </div>
+      <div id="ampTiendaRow" style="margin-bottom:12px;display:none;">
+        <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Tienda *</label>
+        <select id="ampTienda"
+          style="width:100%;background:#111827;border:1px solid #2D3748;border-radius:8px;padding:9px 13px;color:#fff;font-size:.82rem;font-family:Poppins,sans-serif;outline:none;appearance:none;">
+          <option value="">Selecciona una tienda...</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:.72rem;font-weight:600;color:#94A3B8;display:block;margin-bottom:4px;">Imagen (opcional)</label>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button onclick="document.getElementById('ampImgInput').click()"
+            style="background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);color:var(--col);padding:7px 14px;border-radius:50px;font-size:.72rem;font-weight:600;cursor:pointer;font-family:Poppins,sans-serif;">🖼 Subir imagen</button>
+          <input type="file" id="ampImgInput" accept="image/*" onchange="previewAmpImg(this)" />
+          <img id="ampImgPreview" alt=""
+            style="max-height:50px;border-radius:8px;display:none;border:1px solid #2D3748;" />
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button id="ampSaveBtn" onclick="guardarProductoAdmin()"
+          style="flex:1;background:var(--col);color:#1A1A2E;border:none;padding:11px;border-radius:50px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:Poppins,sans-serif;">💾 Guardar</button>
+        <button onclick="cerrarModalProd()"
+          style="background:transparent;border:1px solid #2D3748;color:#94A3B8;padding:11px 20px;border-radius:50px;font-size:.82rem;cursor:pointer;font-family:Poppins,sans-serif;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    /* ══ CONFIGURACIÓN ══ */
     let currentAdmin = null;
     const ADMINS = {
       sara: { name: 'Sara', fullName: 'Bienvenida, Sara', initials: 'S', color: 'linear-gradient(135deg,#F5C518,#e6aa00)', textColor: '#1A1A2E', avatarKey: 'avatar_sara' },
       yudis: { name: 'Yudis', fullName: 'Bienvenida, Yudis', initials: 'Y', color: 'linear-gradient(135deg,#818CF8,#4F46E5)', textColor: '#fff', avatarKey: 'avatar_yudis' }
     };
-
     let auditData = [
-      { type: 'system', actor: 'Sistema', action: 'Plataforma ColMercia iniciada correctamente.', time: '01 ene 2025, 00:00', tag: 'system' },
+      { type: 'system', actor: 'Sistema', action: 'Plataforma ColMercia iniciada correctamente.', time: '01 ene 2025, 00:00', tag: 'system' }
     ];
 
+    /* Poblar select de tiendas en el modal desde el bloque oculto del DOM */
+    (function poblarTiendasModal() {
+      const src = document.getElementById('tiendaSelectData');
+      const sel = document.getElementById('ampTienda');
+      if (src && sel) {
+        src.querySelectorAll('option').forEach(opt => {
+          sel.appendChild(opt.cloneNode(true));
+        });
+      }
+    })();
+
+    /* ══ HELPERS ══ */
+    function getCsrf() {
+      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
+    }
+    function now() {
+      const n = new Date(), pad = v => String(v).padStart(2, '0');
+      const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+      return `${pad(n.getDate())} ${months[n.getMonth()]} ${n.getFullYear()}, ${pad(n.getHours())}:${pad(n.getMinutes())}`;
+    }
+    function showAdminToast(msg) {
+      let t = document.getElementById('adminToast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'adminToast';
+        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1E2535;color:#fff;padding:12px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;transition:transform .3s,opacity .3s;opacity:0;border:1px solid #2D3748;white-space:nowrap;font-family:Poppins,sans-serif;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(80px)'; }, 2800);
+    }
+
+    /* ══ LOGIN / LOGOUT ══ */
     function loginAs(adminKey) {
       currentAdmin = adminKey;
       const admin = ADMINS[adminKey];
@@ -2030,18 +2080,16 @@
       if (saved) { aimg.src = saved; aimg.style.display = 'block'; atext.style.display = 'none'; }
       document.getElementById('adminNameSidebar').textContent = admin.fullName;
       document.getElementById('adminRoleSidebar').textContent = '⭐ Administradora del sistema';
-      addAuditEntry({ type: 'admin', actor: admin.name, action: `Inició sesión en el Panel de Administración`, time: now(), tag: 'admin' });
+      addAuditEntry({ type: 'admin', actor: admin.name, action: 'Inició sesión en el Panel de Administración', time: now(), tag: 'admin' });
       renderAudit('all');
     }
-
     function doLogout() {
-      if (currentAdmin) {
-        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Cerró sesión del Panel`, time: now(), tag: 'admin' });
-      }
+      if (currentAdmin) addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: 'Cerró sesión del Panel', time: now(), tag: 'admin' });
       document.getElementById('loginOverlay').classList.remove('hidden');
       currentAdmin = null;
     }
 
+    /* ══ RELOJ ══ */
     function tick() {
       const n = new Date(), pad = v => String(v).padStart(2, '0');
       const ctEl = document.getElementById('ct'), cdEl = document.getElementById('cd');
@@ -2052,21 +2100,21 @@
     }
     tick(); setInterval(tick, 1000);
 
+    /* ══ NAVEGACIÓN DE SECCIONES ══ */
     function sec(id, btn) {
       ['secOverview', 'secVendors', 'secUsers', 'secSellers', 'secAudit', 'secEditor', 'secNotifs', 'secRegalos']
         .forEach(s => { const el = document.getElementById(s); if (el) el.style.display = 'none'; });
-      const map = {
-        overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers',
-        audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs', regalos: 'secRegalos'
-      };
+      const map = { overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers', audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs', regalos: 'secRegalos' };
       const el = document.getElementById(map[id]);
       if (el) el.style.display = 'block';
       document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
       btn.classList.add('act');
       if (id === 'audit') renderAudit(document.getElementById('auditFilter').value);
       if (id === 'regalos') cargarProductosAdmin();
+      if (id === 'editor') cargarBannersAdmin();
     }
 
+    /* ══ AVATAR ══ */
     function changeAvatar(input) {
       if (!input.files[0]) return;
       const r = new FileReader();
@@ -2077,8 +2125,280 @@
       };
       r.readAsDataURL(input.files[0]);
     }
-    /* ══ GESTIÓN DE REGALOS ══ */
+
+    /* ══ USUARIOS ══ */
+    function toggleUserDetail(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.user-detail').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.act-btn').forEach(b => { if (b.textContent.includes('▴')) b.textContent = 'Ver detalle ▾'; });
+      if (!isOpen) { el.classList.add('open'); btn.textContent = 'Cerrar ▴'; }
+    }
+    function filterUsers(val) {
+      document.querySelectorAll('#usersTable tbody tr').forEach(tr => {
+        if (!tr.querySelector('.u-name')) return;
+        const name = tr.querySelector('.u-name').textContent.toLowerCase();
+        const email = tr.querySelector('.u-email')?.textContent.toLowerCase() || '';
+        tr.style.display = (name.includes(val.toLowerCase()) || email.includes(val.toLowerCase())) ? '' : 'none';
+      });
+    }
+
+    /* ══ VENDEDORES — APROBAR / RECHAZAR ══ */
+    async function aprobarVendedorReal(userId, nombre) {
+      try {
+        const res = await fetch(`/admin-pag/aprobar-vendedor/${userId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() }
+        });
+        const data = await res.json();
+        if (data.ok) {
+          const item = document.getElementById(`vreq-${userId}`);
+          if (item) { item.style.opacity = '.45'; item.querySelectorAll('button').forEach(b => b.disabled = true); item.querySelector('.vb-ok').textContent = '✓ Aprobado'; }
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Aprobó solicitud de vendedor: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
+          alert(`✅ "${nombre}" aprobada. El vendedor ya puede iniciar sesión.`);
+        } else { alert('❌ Error: ' + data.error); }
+      } catch (e) { alert('❌ Error de conexión.'); }
+    }
+    async function rechazarVendedorReal(userId, nombre) {
+      if (!confirm(`¿Rechazar y eliminar la solicitud de "${nombre}"?`)) return;
+      try {
+        const res = await fetch(`/admin-pag/rechazar-vendedor/${userId}/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() }
+        });
+        const data = await res.json();
+        if (data.ok) {
+          const item = document.getElementById(`vreq-${userId}`);
+          if (item) { item.style.opacity = '.45'; item.querySelectorAll('button').forEach(b => b.disabled = true); item.querySelector('.vb-no').textContent = '✗ Rechazado'; }
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Rechazó solicitud: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
+          alert(`✅ Solicitud de "${nombre}" rechazada.`);
+        } else { alert('❌ Error: ' + data.error); }
+      } catch (e) { alert('❌ Error de conexión.'); }
+    }
+
+    /* ══ CONTROL VENDEDORES ══ */
+    function toggleProdList(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.contains('open');
+      el.classList.toggle('open', !isOpen);
+      btn.textContent = isOpen ? 'Ver publicaciones ▾' : 'Ocultar publicaciones ▴';
+    }
+    function toggleStore(cardId, storeName, action) {
+      const card = document.getElementById(cardId);
+      const badge = card.querySelector('.sc-name .badge');
+      if (action === 'cerrar') {
+        if (!confirm(`¿Cerrar temporalmente "${storeName}"?`)) return;
+        badge.className = 'badge b-pend'; badge.textContent = 'Suspendida';
+        const btn = card.querySelector('.sb-close');
+        btn.className = 'sc-btn sb-open'; btn.textContent = 'Reabrir tienda';
+        btn.onclick = () => toggleStore(cardId, storeName, 'abrir');
+        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Cerró tienda: <span class="hl">${storeName}</span>`, time: now(), tag: 'admin' });
+      } else {
+        badge.className = 'badge b-ok'; badge.textContent = 'Activa';
+        const btn = card.querySelector('.sb-open');
+        btn.className = 'sc-btn sb-close'; btn.textContent = 'Cerrar tienda';
+        btn.onclick = () => toggleStore(cardId, storeName, 'cerrar');
+        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Reactivó tienda: <span class="hl">${storeName}</span>`, time: now(), tag: 'admin' });
+      }
+    }
+    function auditLog(action, target) {
+      if (!currentAdmin) return;
+      addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `${action}: <span class="hl">${target}</span>`, time: now(), tag: 'admin' });
+      alert(`Registrado: ${action} — ${target}`);
+    }
+
+    /* ══ AUDITORÍA ══ */
+    function addAuditEntry(entry) {
+      auditData.unshift(entry);
+      renderAudit(document.getElementById('auditFilter')?.value || 'all');
+    }
+    function renderAudit(filter) {
+      const list = document.getElementById('auditList'); if (!list) return;
+      const filtered = filter === 'all' ? auditData : auditData.filter(e => e.tag === filter);
+      if (!filtered.length) { list.innerHTML = '<div style="color:var(--mut);font-size:.82rem;padding:20px 0;text-align:center;">No hay registros con este filtro.</div>'; return; }
+      list.innerHTML = filtered.map(e => {
+        const iconClass = e.actor === 'Sara' ? 'ai-sara' : e.actor === 'Yudis' ? 'ai-yudis' : e.actor === 'Sistema' ? 'ai-sys' : 'ai-user';
+        const initials = e.actor.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+        const tagLabel = e.tag === 'admin' ? 'Admin' : e.tag === 'user' ? 'Usuario' : 'Sistema';
+        const tagClass = e.tag === 'admin' ? 'at-admin' : e.tag === 'user' ? 'at-user' : 'at-system';
+        return `<div class="audit-row">
+          <div class="audit-icon ${iconClass}">${initials}</div>
+          <div class="audit-body">
+            <div class="audit-actor">${e.actor} <span class="audit-type-badge ${tagClass}">${tagLabel}</span></div>
+            <div class="audit-action">${e.action}</div>
+            <div class="audit-time">${e.time}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+    function filterAudit(val) { renderAudit(val); }
+    function exportAuditCSV() {
+      const filter = document.getElementById('auditFilter').value;
+      const filtered = filter === 'all' ? auditData : auditData.filter(e => e.tag === filter);
+      let csv = 'Actor,Tipo,Acción,Fecha\n';
+      filtered.forEach(e => { const action = e.action.replace(/<[^>]+>/g, '').replace(/,/g, ';'); csv += `"${e.actor}","${e.tag}","${action}","${e.time}"\n`; });
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'colmercia_auditoria.csv'; a.click();
+      URL.revokeObjectURL(url);
+    }
+    function exportCSV(type) {
+      const rows = type === 'usuarios' ? 'Nombre,Correo,Rol,Región,Registro,Estado' : 'Tienda,Categoría,Ciudad,Productos,Estado';
+      const blob = new Blob(['\uFEFF' + rows], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = `colmercia_${type}.csv`; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    /* ══ BANNERS ══ */
+    let bannersData = [];
+
+    async function cargarBannersAdmin() {
+      const container = document.getElementById('bannersList');
+      container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--mut);">⏳ Cargando...</div>';
+      try {
+        const res = await fetch('/admin-pag/banners/', { headers: { 'X-CSRFToken': getCsrf() } });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        bannersData = await res.json();
+        renderBannersAdmin();
+      } catch (e) {
+        container.innerHTML = '<div style="text-align:center;padding:30px;color:#F87171;">❌ Error al cargar banners: ' + e.message + '</div>';
+      }
+    }
+
+    function renderBannersAdmin() {
+      const container = document.getElementById('bannersList');
+      if (!bannersData.length) {
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mut);">No hay banners. Haz clic en "➕ Agregar banner" para crear el primero.</div>';
+        return;
+      }
+      container.innerHTML = bannersData.map((b, idx) => `
+        <div id="banner-row-${b.id}" style="display:flex;align-items:center;gap:14px;background:#111827;border:1px solid var(--bd);border-radius:var(--rs);padding:14px;margin-bottom:10px;opacity:${b.activo ? '1' : '.5'};transition:opacity .2s;">
+          <div style="width:120px;height:68px;border-radius:8px;background:#0D1117;border:1px solid var(--bd);flex-shrink:0;overflow:hidden;position:relative;cursor:pointer;"
+               onclick="document.getElementById('editBannerInput-${b.id}').click()" title="Cambiar imagen">
+            ${b.imagen ? `<img src="${b.imagen}" style="width:100%;height:100%;object-fit:cover;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;">🖼</div>'}
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;opacity:0;transition:opacity .2s;"
+                 onmouseenter="this.style.opacity='1'" onmouseleave="this.style.opacity='0'">📷 Cambiar</div>
+          </div>
+          <input type="file" id="editBannerInput-${b.id}" accept="image/*" onchange="editarImagenBanner(${b.id}, this)" style="display:none;" />
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:.84rem;font-weight:700;color:#fff;margin-bottom:4px;">Banner #${idx + 1}</div>
+            <div style="font-size:.68rem;color:var(--mut);">
+              ${b.imagen ? b.imagen.split('/').pop() : 'Sin imagen'} ·
+              ${b.activo ? '<span style="color:#34D399;">● Visible</span>' : '<span style="color:#F87171;">● Oculto</span>'}
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <button onclick="toggleBannerActivo(${b.id}, ${!b.activo})"
+              style="font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid ${b.activo ? 'rgba(52,211,153,.25)' : 'rgba(248,113,113,.25)'};background:${b.activo ? 'rgba(52,211,153,.1)' : 'rgba(248,113,113,.1)'};color:${b.activo ? '#34D399' : '#F87171'};cursor:pointer;font-family:Poppins,sans-serif;">
+              ${b.activo ? '👁 Ocultar' : '👁 Mostrar'}
+            </button>
+            <button onclick="moverBanner(${idx}, -1)" ${idx === 0 ? 'disabled' : ''}
+              style="width:30px;height:30px;border-radius:50%;border:1px solid var(--bd);background:transparent;color:var(--mut);cursor:pointer;font-size:.8rem;${idx === 0 ? 'opacity:.3;cursor:not-allowed;' : ''}">↑</button>
+            <button onclick="moverBanner(${idx}, 1)" ${idx === bannersData.length - 1 ? 'disabled' : ''}
+              style="width:30px;height:30px;border-radius:50%;border:1px solid var(--bd);background:transparent;color:var(--mut);cursor:pointer;font-size:.8rem;${idx === bannersData.length - 1 ? 'opacity:.3;cursor:not-allowed;' : ''}">↓</button>
+            <button onclick="eliminarBanner(${b.id})"
+              style="font-size:.68rem;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid rgba(248,113,113,.25);background:rgba(248,113,113,.1);color:#F87171;cursor:pointer;font-family:Poppins,sans-serif;">
+              🗑 Eliminar
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function subirNuevoBanner(input) {
+      if (!input.files[0]) return;
+      const fd = new FormData();
+      fd.append('imagen', input.files[0]);
+      input.value = '';
+      showAdminToast('⏳ Subiendo banner...');
+      try {
+        const res = await fetch('/admin-pag/banners/crear/', {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getCsrf() },
+          body: fd,
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showAdminToast('✅ Banner agregado');
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: 'Agregó un nuevo banner a la landing page', time: now(), tag: 'admin' });
+          await cargarBannersAdmin();
+        } else { showAdminToast('❌ ' + (data.error || 'Error')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
+    }
+
+    async function editarImagenBanner(bannerId, input) {
+      if (!input.files[0]) return;
+      const fd = new FormData();
+      fd.append('imagen', input.files[0]);
+      input.value = '';
+      showAdminToast('⏳ Actualizando imagen...');
+      try {
+        const res = await fetch(`/admin-pag/banners/${bannerId}/editar/`, {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getCsrf() },
+          body: fd,
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showAdminToast('✅ Imagen actualizada');
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Cambió imagen del Banner #${bannerId}`, time: now(), tag: 'admin' });
+          await cargarBannersAdmin();
+        } else { showAdminToast('❌ ' + (data.error || 'Error')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
+    }
+
+    async function toggleBannerActivo(bannerId, nuevoEstado) {
+      const fd = new FormData();
+      fd.append('activo', nuevoEstado ? 'true' : 'false');
+      try {
+        const res = await fetch(`/admin-pag/banners/${bannerId}/editar/`, {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getCsrf() },
+          body: fd,
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showAdminToast(nuevoEstado ? '✅ Banner visible' : '🙈 Banner oculto');
+          await cargarBannersAdmin();
+        } else { showAdminToast('❌ ' + (data.error || 'Error')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
+    }
+
+    async function moverBanner(idx, delta) {
+      const nuevoOrden = [...bannersData];
+      const otroIdx = idx + delta;
+      if (otroIdx < 0 || otroIdx >= nuevoOrden.length) return;
+      [nuevoOrden[idx], nuevoOrden[otroIdx]] = [nuevoOrden[otroIdx], nuevoOrden[idx]];
+      try {
+        const res = await fetch('/admin-pag/banners/reordenar/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
+          body: JSON.stringify({ orden: nuevoOrden.map(b => b.id) }),
+        });
+        if ((await res.json()).ok) await cargarBannersAdmin();
+      } catch (e) { showAdminToast('❌ Error al reordenar'); }
+    }
+
+    async function eliminarBanner(bannerId) {
+      if (!confirm('¿Eliminar este banner? No se puede deshacer.')) return;
+      try {
+        const res = await fetch(`/admin-pag/banners/${bannerId}/eliminar/`, {
+          method: 'DELETE',
+          headers: { 'X-CSRFToken': getCsrf() },
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showAdminToast('🗑 Banner eliminado');
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Eliminó banner #${bannerId}`, time: now(), tag: 'admin' });
+          await cargarBannersAdmin();
+        } else { showAdminToast('❌ ' + (data.error || 'Error')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
+    }
+
+    /* ══ PRODUCTOS ADMIN ══ */
     let todosProductosAdmin = [];
+    let ampMode = 'edit';
 
     async function cargarProductosAdmin() {
       const container = document.getElementById('adminProdList');
@@ -2094,44 +2414,36 @@
 
     function renderProductosAdmin(prods) {
       const container = document.getElementById('adminProdList');
-      if (!prods.length) {
-        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mut);">No hay productos.</div>';
-        return;
-      }
-      const ocasionLabels = {
-        '': 'Sin ocasión',
-        'todos': 'Todas las ocasiones',
-        'cumpleanos': '🎂 Cumpleaños',
-        'amor': '💝 Amor y Amistad',
-        'navidad': '🎄 Navidad',
-        'halloween': '🎃 Halloween',
-      };
+      if (!prods.length) { container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mut);">No hay productos.</div>'; return; }
       container.innerHTML = prods.map(p => `
-    <div class="prod-row-s" id="apr-${p.id}" style="padding:14px 0;border-bottom:1px solid var(--bd);">
-      <div style="width:48px;height:48px;border-radius:8px;background:#111827;border:1px solid var(--bd);
-        flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-        ${p.imagen ? `<img src="${p.imagen}" style="width:100%;height:100%;object-fit:cover;">` : '<span style="font-size:1.4rem;">📦</span>'}
-      </div>
-      <div class="pr-info" style="flex:1;">
-        <div class="pr-name">${p.nombre}</div>
-        <div class="pr-meta">${p.tienda} · ${p.categoria || 'Sin categoría'} · ${p.precio}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <select class="filter-sel" id="ocasion-${p.id}" style="font-size:.72rem;padding:6px 10px;">
-          <option value="" ${!p.ocasion_regalo ? 'selected' : ''}>Sin ocasión</option>
-          <option value="todos" ${p.ocasion_regalo === 'todos' ? 'selected' : ''}>Todas las ocasiones</option>
-          <option value="cumpleanos" ${p.ocasion_regalo === 'cumpleanos' ? 'selected' : ''}>🎂 Cumpleaños</option>
-          <option value="amor" ${p.ocasion_regalo === 'amor' ? 'selected' : ''}>💝 Amor y Amistad</option>
-          <option value="navidad" ${p.ocasion_regalo === 'navidad' ? 'selected' : ''}>🎄 Navidad</option>
-          <option value="halloween" ${p.ocasion_regalo === 'halloween' ? 'selected' : ''}>🎃 Halloween</option>
-        </select>
-        <button class="pr-btn sb-open" onclick="guardarOcasionRegalo(${p.id})"
-          style="background:rgba(52,211,153,.1);color:#34D399;border-color:rgba(52,211,153,.25);">
-          💾 Guardar
-        </button>
-      </div>
-    </div>
-  `).join('');
+        <div class="prod-row-s" id="apr-${p.id}" style="padding:14px 0;border-bottom:1px solid var(--bd);">
+          <div style="width:48px;height:48px;border-radius:8px;background:#111827;border:1px solid var(--bd);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+            ${p.imagen ? `<img src="${p.imagen}" style="width:100%;height:100%;object-fit:cover;">` : '<span style="font-size:1.4rem;">📦</span>'}
+          </div>
+          <div class="pr-info" style="flex:1;">
+            <div class="pr-name">${p.nombre}</div>
+            <div class="pr-meta">${p.tienda} · ${p.categoria || 'Sin categoría'} · ${p.precio}</div>
+            <div style="margin-top:3px;">
+              ${p.ocasion_regalo
+          ? `<span style="font-size:.65rem;font-weight:600;background:rgba(245,197,24,.1);color:var(--col);border:1px solid rgba(245,197,24,.25);padding:2px 8px;border-radius:50px;">🎁 ${p.ocasion_regalo === 'todos' ? 'Todas' : p.ocasion_regalo === 'cumpleanos' ? 'Cumpleaños' : p.ocasion_regalo === 'amor' ? 'Amor' : p.ocasion_regalo === 'navidad' ? 'Navidad' : 'Halloween'}</span>`
+          : '<span style="font-size:.65rem;color:var(--mut);">Sin ocasión</span>'}
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <select class="filter-sel" id="ocasion-${p.id}" style="font-size:.72rem;padding:6px 10px;">
+              <option value=""       ${!p.ocasion_regalo ? 'selected' : ''}>Sin ocasión</option>
+              <option value="todos"      ${p.ocasion_regalo === 'todos' ? 'selected' : ''}>Todas las ocasiones</option>
+              <option value="cumpleanos" ${p.ocasion_regalo === 'cumpleanos' ? 'selected' : ''}>🎂 Cumpleaños</option>
+              <option value="amor"       ${p.ocasion_regalo === 'amor' ? 'selected' : ''}>💝 Amor y Amistad</option>
+              <option value="navidad"    ${p.ocasion_regalo === 'navidad' ? 'selected' : ''}>🎄 Navidad</option>
+              <option value="halloween"  ${p.ocasion_regalo === 'halloween' ? 'selected' : ''}>🎃 Halloween</option>
+            </select>
+            <button class="pr-btn" onclick="guardarOcasionRegalo(${p.id})" style="background:rgba(52,211,153,.1);color:#34D399;border-color:rgba(52,211,153,.25);">💾</button>
+            <button class="pr-btn" onclick="abrirModalEditarProd(${JSON.stringify(p).replace(/"/g, '&quot;')})" style="background:rgba(96,165,250,.1);color:#60A5FA;border-color:rgba(96,165,250,.25);">✏️</button>
+            <button class="pr-btn prb-del" onclick="eliminarProductoAdmin(${p.id},'${p.nombre.replace(/'/g, "\\'")}')">🗑</button>
+          </div>
+        </div>
+      `).join('');
     }
 
     function filtrarProductosAdmin(val) {
@@ -2154,194 +2466,97 @@
         const data = await res.json();
         if (data.ok) {
           showAdminToast(`✅ Ocasión actualizada para "${data.nombre}"`);
-          addAuditEntry({
-            type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin',
-            action: `Actualizó ocasión de regalo de <span class="hl">${data.nombre}</span> a <span class="hl">${nuevaOcasion || 'ninguna'}</span>`,
-            time: now(), tag: 'admin'
-          });
-        } else {
-          showAdminToast('❌ Error: ' + (data.error || 'intenta de nuevo'));
-        }
-      } catch (e) {
-        showAdminToast('❌ Error de conexión');
-      }
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Actualizó ocasión de regalo de <span class="hl">${data.nombre}</span> a <span class="hl">${nuevaOcasion || 'ninguna'}</span>`, time: now(), tag: 'admin' });
+        } else { showAdminToast('❌ Error: ' + (data.error || 'intenta de nuevo')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
     }
 
-    function showAdminToast(msg) {
-      let t = document.getElementById('adminToast');
-      if (!t) {
-        t = document.createElement('div');
-        t.id = 'adminToast';
-        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1E2535;color:#fff;padding:12px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;transition:transform .3s,opacity .3s;opacity:0;border:1px solid #2D3748;white-space:nowrap;font-family:Poppins,sans-serif;';
-        document.body.appendChild(t);
-      }
-      t.textContent = msg;
-      t.style.opacity = '1';
-      t.style.transform = 'translateX(-50%) translateY(0)';
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(80px)'; }, 2800);
+    function abrirModalEditarProd(prod) {
+      ampMode = 'edit';
+      document.getElementById('adminModalTitle').textContent = '✏️ Editar Producto';
+      document.getElementById('ampId').value = prod.id;
+      document.getElementById('ampNombre').value = prod.nombre || '';
+      document.getElementById('ampDescripcion').value = prod.descripcion || '';
+      document.getElementById('ampPrecio').value = prod.precio_num || '';
+      document.getElementById('ampCantidad').value = prod.cantidad || '';
+      document.getElementById('ampCategoria').value = prod.categoria || '';
+      document.getElementById('ampOcasion').value = prod.ocasion_regalo || '';
+      document.getElementById('ampTiendaRow').style.display = 'none';
+      document.getElementById('ampImgPreview').style.display = 'none';
+      document.getElementById('ampImgInput').value = '';
+      document.getElementById('adminProdModal').style.display = 'flex';
+    }
+    function abrirModalCrearProd() {
+      ampMode = 'create';
+      document.getElementById('adminModalTitle').textContent = '➕ Nuevo Producto';
+      ['ampId', 'ampNombre', 'ampDescripcion', 'ampPrecio', 'ampCantidad'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('ampCategoria').value = '';
+      document.getElementById('ampOcasion').value = '';
+      document.getElementById('ampTiendaRow').style.display = 'block';
+      document.getElementById('ampTienda').value = '';
+      document.getElementById('ampImgPreview').style.display = 'none';
+      document.getElementById('ampImgInput').value = '';
+      document.getElementById('adminProdModal').style.display = 'flex';
+    }
+    function cerrarModalProd() { document.getElementById('adminProdModal').style.display = 'none'; }
+    function previewAmpImg(input) {
+      if (!input.files[0]) return;
+      const r = new FileReader();
+      r.onload = e => { const prev = document.getElementById('ampImgPreview'); prev.src = e.target.result; prev.style.display = 'block'; };
+      r.readAsDataURL(input.files[0]);
     }
 
-    function toggleUserDetail(id, btn) {
-      const el = document.getElementById(id);
-      const isOpen = el.classList.contains('open');
-      document.querySelectorAll('.user-detail').forEach(d => d.classList.remove('open'));
-      document.querySelectorAll('.act-btn').forEach(b => { if (b.textContent.includes('▴')) b.textContent = 'Ver detalle ▾'; });
-      if (!isOpen) { el.classList.add('open'); btn.textContent = 'Cerrar ▴'; }
-    }
+    async function guardarProductoAdmin() {
+      const btn = document.getElementById('ampSaveBtn');
+      btn.disabled = true; btn.textContent = '⏳ Guardando...';
+      const fd = new FormData();
+      fd.append('nombre', document.getElementById('ampNombre').value.trim());
+      fd.append('descripcion', document.getElementById('ampDescripcion').value.trim());
+      fd.append('precio', document.getElementById('ampPrecio').value.trim().replace(/\$/g, '').replace(/\./g, ''));
+      fd.append('cantidad', document.getElementById('ampCantidad').value.trim());
+      fd.append('categoria', document.getElementById('ampCategoria').value);
+      fd.append('ocasion_regalo', document.getElementById('ampOcasion').value);
+      const imgInput = document.getElementById('ampImgInput');
+      if (imgInput.files[0]) fd.append('imagen', imgInput.files[0]);
 
-    function toggleProdList(id, btn) {
-      const el = document.getElementById(id);
-      const isOpen = el.classList.contains('open');
-      el.classList.toggle('open', !isOpen);
-      btn.textContent = isOpen ? 'Ver publicaciones ▾' : 'Ocultar publicaciones ▴';
-    }
-
-    function toggleStore(cardId, storeName, action) {
-      const card = document.getElementById(cardId);
-      const badge = card.querySelector('.sc-name .badge');
-      if (action === 'cerrar') {
-        if (!confirm(`¿Cerrar temporalmente "${storeName}"?`)) return;
-        badge.className = 'badge b-pend'; badge.textContent = 'Suspendida';
-        const btn = card.querySelector('.sb-close');
-        btn.className = 'sc-btn sb-open'; btn.textContent = 'Reabrir tienda';
-        btn.onclick = () => toggleStore(cardId, storeName, 'abrir');
-        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Cerró tienda: <span class="hl">${storeName}</span>`, time: now(), tag: 'admin' });
+      let url;
+      if (ampMode === 'edit') {
+        url = `/admin-pag/productos/${document.getElementById('ampId').value}/editar/`;
       } else {
-        badge.className = 'badge b-ok'; badge.textContent = 'Activa';
-        const btn = card.querySelector('.sb-open');
-        btn.className = 'sc-btn sb-close'; btn.textContent = 'Cerrar tienda';
-        btn.onclick = () => toggleStore(cardId, storeName, 'cerrar');
-        addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Reactivó tienda: <span class="hl">${storeName}</span>`, time: now(), tag: 'admin' });
+        fd.append('tienda_id', document.getElementById('ampTienda').value);
+        url = '/admin-pag/productos/crear/';
       }
-    }
 
-    function getCsrf() {
-      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1];
-    }
-
-    async function aprobarVendedorReal(userId, nombre) {
       try {
-        const res = await fetch(`/admin/aprobar-vendedor/${userId}/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() }
+        const res = await fetch(url, { method: 'POST', headers: { 'X-CSRFToken': getCsrf() }, body: fd });
+        const data = await res.json();
+        if (data.ok) {
+          showAdminToast(`✅ Producto ${ampMode === 'edit' ? 'actualizado' : 'creado'}: "${data.nombre}"`);
+          cerrarModalProd();
+          cargarProductosAdmin();
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `${ampMode === 'edit' ? 'Editó' : 'Creó'} producto: <span class="hl">${data.nombre}</span>`, time: now(), tag: 'admin' });
+        } else { showAdminToast('❌ ' + (data.error || 'Error al guardar')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
+      finally { btn.disabled = false; btn.textContent = '💾 Guardar'; }
+    }
+
+    async function eliminarProductoAdmin(prodId, nombre) {
+      if (!confirm(`¿Eliminar "${nombre}"? Esta acción no se puede deshacer.`)) return;
+      try {
+        const res = await fetch(`/admin-pag/productos/${prodId}/eliminar/`, {
+          method: 'DELETE',
+          headers: { 'X-CSRFToken': getCsrf() },
         });
         const data = await res.json();
         if (data.ok) {
-          const item = document.getElementById(`vreq-${userId}`);
-          if (item) {
-            item.style.opacity = '.45';
-            item.querySelectorAll('button').forEach(b => b.disabled = true);
-            item.querySelector('.vb-ok').textContent = '✓ Aprobado';
-          }
-          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Aprobó solicitud de vendedor: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
-          alert(`✅ "${nombre}" aprobada. El vendedor ya puede iniciar sesión.`);
-        } else { alert('❌ Error: ' + data.error); }
-      } catch (e) { alert('❌ Error de conexión.'); }
+          showAdminToast(`🗑 "${nombre}" eliminado`);
+          cargarProductosAdmin();
+          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Eliminó producto: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
+        } else { showAdminToast('❌ ' + (data.error || 'Error')); }
+      } catch (e) { showAdminToast('❌ Error de conexión'); }
     }
 
-    async function rechazarVendedorReal(userId, nombre) {
-      if (!confirm(`¿Rechazar y eliminar la solicitud de "${nombre}"?`)) return;
-      try {
-        const res = await fetch(`/admin/rechazar-vendedor/${userId}/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() }
-        });
-        const data = await res.json();
-        if (data.ok) {
-          const item = document.getElementById(`vreq-${userId}`);
-          if (item) {
-            item.style.opacity = '.45';
-            item.querySelectorAll('button').forEach(b => b.disabled = true);
-            item.querySelector('.vb-no').textContent = '✗ Rechazado';
-          }
-          addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin', action: `Rechazó solicitud: <span class="hl">${nombre}</span>`, time: now(), tag: 'admin' });
-          alert(`✅ Solicitud de "${nombre}" rechazada.`);
-        } else { alert('❌ Error: ' + data.error); }
-      } catch (e) { alert('❌ Error de conexión.'); }
-    }
-
-    function saveEditor() {
-      addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `Guardó cambios en la Landing Page`, time: now(), tag: 'admin' });
-      alert('Cambios guardados y publicados correctamente.');
-    }
-
-    function auditLog(action, target) {
-      if (!currentAdmin) return;
-      addAuditEntry({ type: 'admin', actor: ADMINS[currentAdmin].name, action: `${action}: <span class="hl">${target}</span>`, time: now(), tag: 'admin' });
-      alert(`Registrado: ${action} — ${target}`);
-    }
-
-    function addAuditEntry(entry) {
-      auditData.unshift(entry);
-      renderAudit(document.getElementById('auditFilter')?.value || 'all');
-    }
-
-    function renderAudit(filter) {
-      const list = document.getElementById('auditList');
-      if (!list) return;
-      const filtered = filter === 'all' ? auditData : auditData.filter(e => e.tag === filter);
-      if (!filtered.length) {
-        list.innerHTML = '<div style="color:var(--mut);font-size:.82rem;padding:20px 0;text-align:center;">No hay registros con este filtro.</div>';
-        return;
-      }
-      list.innerHTML = filtered.map(e => {
-        const iconClass = e.actor === 'Sara' ? 'ai-sara' : e.actor === 'Yudis' ? 'ai-yudis' : e.actor === 'Sistema' ? 'ai-sys' : 'ai-user';
-        const initials = e.actor.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-        const tagLabel = e.tag === 'admin' ? 'Admin' : e.tag === 'user' ? 'Usuario' : 'Sistema';
-        const tagClass = e.tag === 'admin' ? 'at-admin' : e.tag === 'user' ? 'at-user' : 'at-system';
-        return `<div class="audit-row">
-          <div class="audit-icon ${iconClass}">${initials}</div>
-          <div class="audit-body">
-            <div class="audit-actor">${e.actor} <span class="audit-type-badge ${tagClass}">${tagLabel}</span></div>
-            <div class="audit-action">${e.action}</div>
-            <div class="audit-time">${e.time}</div>
-          </div>
-        </div>`;
-      }).join('');
-    }
-
-    function filterAudit(val) { renderAudit(val); }
-
-    function exportAuditCSV() {
-      const filter = document.getElementById('auditFilter').value;
-      const filtered = filter === 'all' ? auditData : auditData.filter(e => e.tag === filter);
-      let csv = 'Actor,Tipo,Acción,Fecha\n';
-      filtered.forEach(e => {
-        const action = e.action.replace(/<[^>]+>/g, '').replace(/,/g, ';');
-        csv += `"${e.actor}","${e.tag}","${action}","${e.time}"\n`;
-      });
-      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'colmercia_auditoria.csv'; a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function exportCSV(type) {
-      const rows = type === 'usuarios'
-        ? 'Nombre,Correo,Rol,Región,Registro,Estado'
-        : 'Tienda,Categoría,Ciudad,Productos,Estado';
-      const blob = new Blob(['\uFEFF' + rows], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = `colmercia_${type}.csv`; a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function filterUsers(val) {
-      document.querySelectorAll('#usersTable tbody tr').forEach(tr => {
-        if (!tr.querySelector('.u-name')) return;
-        const name = tr.querySelector('.u-name').textContent.toLowerCase();
-        const email = tr.querySelector('.u-email')?.textContent.toLowerCase() || '';
-        tr.style.display = (name.includes(val.toLowerCase()) || email.includes(val.toLowerCase())) ? '' : 'none';
-      });
-    }
-
-    function now() {
-      const n = new Date(), pad = v => String(v).padStart(2, '0');
-      const months = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-      return `${pad(n.getDate())} ${months[n.getMonth()]} ${n.getFullYear()}, ${pad(n.getHours())}:${pad(n.getMinutes())}`;
-    }
-
+    /* ══ INIT ══ */
     renderAudit('all');
   </script>
 </body>

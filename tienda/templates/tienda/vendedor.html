@@ -768,113 +768,6 @@
       font-weight: 500
     }
 
-    .sizes-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px
-    }
-
-    .size-chip {
-      display: inline-flex;
-      align-items: center
-    }
-
-    .size-chip input[type=checkbox] {
-      display: none
-    }
-
-    .size-chip label {
-      border: 1.5px solid var(--bd);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: .78rem;
-      font-weight: 500;
-      color: var(--mut);
-      cursor: pointer;
-      transition: all var(--tr)
-    }
-
-    .size-chip input:checked+label {
-      border-color: var(--mer);
-      background: var(--mer);
-      color: #fff;
-      font-weight: 600
-    }
-
-    .prof-edit-zone {
-      border: 1px solid var(--bd);
-      border-radius: var(--rs);
-      overflow: hidden
-    }
-
-    .pez-current {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      background: var(--bg)
-    }
-
-    .pez-photo {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 2px solid var(--bd);
-      background: linear-gradient(135deg, #E8F0FD, #C3DAFE);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      overflow: hidden;
-      flex-shrink: 0
-    }
-
-    .pez-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none
-    }
-
-    .pez-info {
-      flex: 1
-    }
-
-    .pez-name {
-      font-size: .9rem;
-      font-weight: 700
-    }
-
-    .pez-pending {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: #FFFBEB;
-      border: 1px solid #F6D860;
-      color: #92400E;
-      font-size: .68rem;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 50px;
-      margin-top: 4px
-    }
-
-    .approval-notice {
-      background: #EBF8FF;
-      border: 1px solid #BEE3F8;
-      border-radius: var(--rs);
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      font-size: .78rem;
-      color: #1565C0;
-      line-height: 1.6
-    }
-
-    .approval-notice strong {
-      display: block;
-      margin-bottom: 3px
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -928,6 +821,77 @@
       padding: 7px 16px
     }
 
+    .gift-badge-v {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #FFFEF0, #FFF9CC);
+      border: 1.5px solid #F5C518;
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: .7rem;
+      font-weight: 700;
+      color: #7A6000;
+      cursor: pointer;
+      transition: all .2s;
+      flex-shrink: 0
+    }
+
+    .gift-badge-v:hover {
+      background: #F5C518;
+      color: #fff
+    }
+
+    .gift-panel-v {
+      display: none;
+      background: linear-gradient(135deg, #FFFEF0, #FFF9CC);
+      border: 1.5px solid #F5C518;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 8px;
+      font-size: .76rem;
+      color: #4A3800
+    }
+
+    .gift-panel-v.open {
+      display: block
+    }
+
+    .gpv-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px
+    }
+
+    .gpv-row:last-child {
+      margin-bottom: 0
+    }
+
+    .gpv-lbl {
+      font-weight: 700;
+      min-width: 85px
+    }
+
+    .gpv-chip {
+      background: rgba(245, 197, 24, .3);
+      border: 1px solid rgba(245, 197, 24, .5);
+      border-radius: 50px;
+      padding: 2px 10px;
+      font-size: .7rem;
+      font-weight: 600
+    }
+
+    .gpv-msg {
+      margin-top: 8px;
+      background: #fff;
+      border: 1px solid rgba(245, 197, 24, .4);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-style: italic;
+      line-height: 1.5
+    }
+
     @media(max-width:900px) {
       .wrapper {
         grid-template-columns: 1fr
@@ -942,86 +906,15 @@
         grid-template-columns: 1fr
       }
     }
-
-    /* GIFT BADGE & PANEL — vendedor */
-    .gift-badge-v {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: linear-gradient(135deg,#FFFEF0,#FFF9CC);
-      border: 1.5px solid #F5C518;
-      border-radius: 50px;
-      padding: 3px 12px;
-      font-size: .7rem;
-      font-weight: 700;
-      color: #7A6000;
-      cursor: pointer;
-      transition: all .2s;
-      flex-shrink: 0;
-    }
-
-    .gift-badge-v:hover {
-      background: #F5C518;
-      color: #fff;
-    }
-
-    .gift-panel-v {
-      display: none;
-      background: linear-gradient(135deg,#FFFEF0,#FFF9CC);
-      border: 1.5px solid #F5C518;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-top: 8px;
-      font-size: .76rem;
-      color: #4A3800;
-    }
-
-    .gift-panel-v.open {
-      display: block;
-    }
-
-    .gpv-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .gpv-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .gpv-lbl {
-      font-weight: 700;
-      min-width: 85px;
-    }
-
-    .gpv-chip {
-      background: rgba(245,197,24,.3);
-      border: 1px solid rgba(245,197,24,.5);
-      border-radius: 50px;
-      padding: 2px 10px;
-      font-size: .7rem;
-      font-weight: 600;
-    }
-
-    .gpv-msg {
-      margin-top: 8px;
-      background: #fff;
-      border: 1px solid rgba(245,197,24,.4);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-style: italic;
-      line-height: 1.5;
-    }
   </style>
 </head>
 
 <body>
 
   <nav>
-    <a href="{% url 'landing' %}" class="nav-logo"><span class="lc">Col</span><span class="lm">Mer</span><span
-        class="lr">cia</span></a>
+    <a href="{% url 'landing' %}" class="nav-logo">
+      <span class="lc">Col</span><span class="lm">Mer</span><span class="lr">cia</span>
+    </a>
     <div class="nav-right">
       <a href="{% url 'landing' %}" class="nlink">Marketplace</a>
       <a href="{% url 'vendedor' %}" class="nlink act">Panel Vendedor</a>
@@ -1032,38 +925,56 @@
     <aside class="sidebar">
       <div class="s-top">
         <div class="store-photo-wrap">
-          <div class="store-photo" id="storePhotoCircle">{{ user.first_name|slice:":1"|upper }}</div>
+          <div class="store-photo" id="storePhotoCircle">
+            {% if user.foto_perfil %}
+            <img src="{{ user.foto_perfil.url }}" alt="foto" style="display:block;" />
+            {% else %}
+            {{ user.first_name|slice:":1"|upper }}
+            {% endif %}
+          </div>
           <div class="photo-edit-btn" onclick="document.getElementById('sidePhotoInput').click()" title="Cambiar foto">+
           </div>
           <input type="file" id="sidePhotoInput" accept="image/*" style="display:none" onchange="setSidePhoto(this)" />
         </div>
-        <div class="store-name">{% if tienda %}{{ tienda.nombre }}{% else %}{{ user.first_name }}{% endif %}</div>
-        <div class="store-cat">{% if tienda %}{{ tienda.categoria|default:"Sin categoría" }}{% if tienda.ubicacion %} &middot; {{ tienda.ubicacion }}{% endif %}{% else %}Sin tienda aún{% endif %}</div>
+        <div class="store-name" id="sideStoreName">
+          {% if tienda %}{{ tienda.nombre }}{% else %}{{ user.first_name }}{% endif %}
+        </div>
+        <div class="store-cat">
+          {% if tienda %}
+          {{ tienda.categoria|default:"Sin categoría" }}
+          {% if tienda.ubicacion %}&middot; {{ tienda.ubicacion }}{% endif %}
+          {% else %}
+          Sin tienda aún
+          {% endif %}
+        </div>
         <div class="verified-badge">Tienda verificada</div>
       </div>
+
       <div class="clock-box">
         <div class="clock-time" id="ct">--:--:--</div>
         <div class="clock-date" id="cd">Cargando...</div>
         <div class="clock-tz">Colombia &middot; GMT-5</div>
       </div>
+
       <div class="smenu">
         <div class="smenu-lbl">Panel de control</div>
         <button class="sitem act" onclick="sec('overview',this)"><span class="si-dot blue"></span> Resumen</button>
-        <button class="sitem" onclick="sec('orders',this)"><span class="si-dot amber"></span> Pedidos <span
-            class="sitem-badge">{{ pedidos|length }}</span></button>
+        <button class="sitem" onclick="sec('orders',this)">
+          <span class="si-dot amber"></span> Pedidos
+          <span class="sitem-badge">{{ pedidos|length }}</span>
+        </button>
         <button class="sitem" onclick="sec('products',this)"><span class="si-dot green"></span> Mis productos</button>
-        <button class="sitem" onclick="sec('messages',this)"><span class="si-dot blue"></span> Mensajes <span
-            class="sitem-badge">5</span></button>
         <button class="sitem" onclick="sec('profile',this)"><span class="si-dot amber"></span> Editar perfil</button>
         <div class="sdiv"></div>
-        <a href="{% url 'logout' %}" class="sitem danger" style="text-decoration:none;"><span class="si-dot red"></span>
-          Cerrar sesión</a>
+        <a href="{% url 'logout' %}" class="sitem danger" style="text-decoration:none;">
+          <span class="si-dot red"></span> Cerrar sesión
+        </a>
       </div>
     </aside>
 
     <div class="main">
 
-      <!-- OVERVIEW -->
+      <!-- ── OVERVIEW ── -->
       <div id="secOverview">
         <div class="card">
           <div class="card-hdr">
@@ -1128,7 +1039,7 @@
         </div>
       </div>
 
-      <!-- ORDERS -->
+      <!-- ── ORDERS ── -->
       <div class="card" id="secOrders" style="display:none;">
         <div class="card-hdr">
           <div>
@@ -1150,13 +1061,15 @@
         </div>
         <div class="card-body" id="pedidosContainer">
           {% for pedido in pedidos %}
-          <div style="border-bottom:1px solid var(--bd);padding-bottom:{% if pedido.es_regalo %}0{% else %}0{% endif %};">
-            <div class="order-row pedido-item" data-estado="{{ pedido.estado }}" data-id="{{ pedido.id }}" style="border-bottom:none;">
+          <div style="border-bottom:1px solid var(--bd);">
+            <div class="order-row pedido-item" data-estado="{{ pedido.estado }}" data-id="{{ pedido.id }}"
+              style="border-bottom:none;">
               <div class="or-status {% if pedido.estado == 'procesando' %}or-new{% else %}or-prep{% endif %}"
                 id="dot-{{ pedido.id }}"></div>
               <div class="or-info">
                 <div class="or-name">
-                  {% if pedido.producto %}{{ pedido.producto.nombre }}{% else %}Producto externo{% endif %} &times; {{ pedido.cantidad }}
+                  {% if pedido.producto %}{{ pedido.producto.nombre }}{% else %}Producto externo{% endif %}
+                  &times; {{ pedido.cantidad }}
                 </div>
                 <div class="or-meta">
                   {{ pedido.usuario.first_name }} {{ pedido.usuario.last_name }}
@@ -1166,9 +1079,7 @@
               </div>
               <div class="or-right" style="gap:10px;flex-wrap:wrap;align-items:center;">
                 {% if pedido.es_regalo %}
-                <button class="gift-badge-v" onclick="toggleGiftPanel('gp-{{ pedido.id }}')">
-                  🎁 Empaque regalo
-                </button>
+                <button class="gift-badge-v" onclick="toggleGiftPanel('gp-{{ pedido.id }}')">🎁 Empaque regalo</button>
                 {% endif %}
                 <select class="estado-select" data-pedido="{{ pedido.id }}" data-estado-actual="{{ pedido.estado }}"
                   onchange="actualizarEstado(this)"
@@ -1179,11 +1090,11 @@
                   <option value="entregado">Entregado</option>
                   <option value="cancelado">Cancelado</option>
                 </select>
-                <span class="status-pill {{ pedido.estado_pill_class }}" id="pill-{{ pedido.id }}">{{ pedido.estado_label }}</span>
+                <span class="status-pill {{ pedido.estado_pill_class }}" id="pill-{{ pedido.id }}">{{
+                  pedido.estado_label }}</span>
                 <div class="or-price">{{ pedido.total_formateado }}</div>
               </div>
             </div>
-            {# ── Panel expandible de regalo (solo si es_regalo) ── #}
             {% if pedido.es_regalo %}
             <div class="gift-panel-v" id="gp-{{ pedido.id }}">
               {% if pedido.regalo_envoltura %}
@@ -1193,7 +1104,8 @@
                   {% if pedido.regalo_envoltura == 'bolsa_papel' %}Bolsa de papel
                   {% elif pedido.regalo_envoltura == 'bolsa_tela' %}Bolsa de tela
                   {% elif pedido.regalo_envoltura == 'caja' %}Caja decorativa
-                  {% else %}{{ pedido.regalo_envoltura }}{% endif %}
+                  {% else %}{{ pedido.regalo_envoltura }}
+                  {% endif %}
                 </span>
               </div>
               {% endif %}
@@ -1205,7 +1117,8 @@
                   {% elif pedido.regalo_decoracion == 'globos' %}🎈 Globos
                   {% elif pedido.regalo_decoracion == 'navidad' %}🎄 Navidad
                   {% elif pedido.regalo_decoracion == 'halloween' %}🎃 Halloween
-                  {% else %}{{ pedido.regalo_decoracion }}{% endif %}
+                  {% else %}{{ pedido.regalo_decoracion }}
+                  {% endif %}
                 </span>
               </div>
               {% endif %}
@@ -1224,7 +1137,7 @@
         </div>
       </div>
 
-      <!-- PRODUCTS -->
+      <!-- ── PRODUCTS ── -->
       <div class="card" id="secProducts" style="display:none;">
         <div class="card-hdr">
           <div>
@@ -1252,9 +1165,12 @@
                 onchange="previewProdPhoto(this)" />
             </div>
             <div class="frow2">
-              <div class="fg"><label>Nombre del producto <span class="req">*</span></label>
-                <input type="text" id="npNombre" class="fc" placeholder="Ej: Base de Maquillaje SPF30" /></div>
-              <div class="fg"><label>Categoría <span class="req">*</span></label>
+              <div class="fg">
+                <label>Nombre del producto <span class="req">*</span></label>
+                <input type="text" id="npNombre" class="fc" placeholder="Ej: Base de Maquillaje SPF30" />
+              </div>
+              <div class="fg">
+                <label>Categoría <span class="req">*</span></label>
                 <select id="npCategoria" class="fc">
                   <option value="">Selecciona...</option>
                   <option>Maquillaje</option>
@@ -1266,141 +1182,231 @@
                   <option>Regalos</option>
                   <option>Joyería</option>
                   <option>Artesanías</option>
-                </select></div>
+                </select>
+              </div>
             </div>
-            <div class="fg"><label>Descripción del producto <span class="req">*</span></label>
-              <textarea id="npDescripcion" class="fc" placeholder="Describe tu producto..."></textarea></div>
+            <div class="fg">
+              <label>Descripción del producto <span class="req">*</span></label>
+              <textarea id="npDescripcion" class="fc" placeholder="Describe tu producto..."></textarea>
+            </div>
             <div class="frow2">
-              <div class="fg"><label>Precio <span class="req">*</span></label>
-                <input type="text" id="npPrecio" class="fc" placeholder="Ej: 55000" /></div>
-              <div class="fg"><label>Unidades disponibles <span class="req">*</span></label>
-                <input type="number" id="npCantidad" class="fc" placeholder="22" min="0" /></div>
+              <div class="fg">
+                <label>Precio <span class="req">*</span></label>
+                <input type="text" id="npPrecio" class="fc" placeholder="Ej: 55000" />
+              </div>
+              <div class="fg">
+                <label>Unidades disponibles <span class="req">*</span></label>
+                <input type="number" id="npCantidad" class="fc" placeholder="22" min="0" />
+              </div>
             </div>
             <div style="display:flex;gap:10px;margin-top:8px;">
               <button class="btn" id="npSubmitBtn" onclick="submitProduct()">🚀 Publicar producto</button>
-              <button class="btn-out" onclick="document.getElementById('addProdForm').classList.remove('open')">Cancelar</button>
+              <button class="btn-out"
+                onclick="document.getElementById('addProdForm').classList.remove('open')">Cancelar</button>
             </div>
           </div>
+
           <div style="margin-top:8px;" id="prodListContainer">
             {% for prod in productos %}
             <div class="prod-row" id="prod-row-{{ prod.id }}">
               <div class="prod-thumb">
-                {% if prod.imagen %}<img src="{{ prod.imagen.url }}" alt="{{ prod.nombre }}">
-                {% else %}<span style="font-size:1.6rem;">📦</span>{% endif %}
+                {% if prod.imagen %}
+                <img src="{{ prod.imagen.url }}" alt="{{ prod.nombre }}">
+                {% else %}
+                <span style="font-size:1.6rem;">📦</span>
+                {% endif %}
               </div>
               <div>
                 <div class="prod-name">{{ prod.nombre }}</div>
                 <div class="prod-meta">{{ prod.categoria|default:"Sin categoría" }}</div>
                 <div>
-                  {% if prod.stock == "out" or prod.cantidad == 0 %}
-                    <span class="stock-pill sp-out">Agotado</span>
-                  {% elif prod.cantidad <= 5 %}
-                    <span class="stock-pill sp-low">{{ prod.cantidad }} disponibles</span>
-                  {% else %}
+                  {% if prod.cantidad == 0 %}
+                  <span class="stock-pill sp-out">Agotado</span>
+                  {% elif prod.cantidad <= 5 %} <span class="stock-pill sp-low">{{ prod.cantidad }} disponibles</span>
+                    {% else %}
                     <span class="stock-pill sp-ok">{{ prod.cantidad }} disponibles</span>
-                  {% endif %}
+                    {% endif %}
                 </div>
               </div>
               <div style="text-align:right;">
                 <div class="prod-price">{{ prod.precio_formateado }}</div>
               </div>
               <div class="prod-acts">
-                <button class="pa" onclick="abrirEditar({{ prod.id }},'{{ prod.nombre|escapejs }}','{{ prod.descripcion|truncatechars:200|escapejs }}','{{ prod.precio }}','{{ prod.cantidad }}','{{ prod.categoria|escapejs }}')">✏️ Editar</button>
+                <button class="pa"
+                  onclick="abrirEditar({{ prod.id }},'{{ prod.nombre|escapejs }}','{{ prod.descripcion|truncatechars:200|escapejs }}','{{ prod.precio }}','{{ prod.cantidad }}','{{ prod.categoria|escapejs }}')">✏️
+                  Editar</button>
                 <button class="pa del" onclick="eliminarProducto({{ prod.id }},this)">🗑 Eliminar</button>
               </div>
             </div>
             {% empty %}
-            <div id="emptyProdMsg" style="text-align:center;padding:32px 0;color:var(--mut);font-size:.84rem;">Aún no tienes productos. ¡Sube tu primer producto!</div>
+            <div id="emptyProdMsg" style="text-align:center;padding:32px 0;color:var(--mut);font-size:.84rem;">Aún no
+              tienes productos. ¡Sube tu primer producto!</div>
             {% endfor %}
           </div>
         </div>
       </div>
 
-      <!-- MESSAGES -->
-      <div class="card" id="secMessages" style="display:none;">
-        <div class="card-hdr">
-          <div>
-            <div class="card-title">Mensajes y Comentarios</div>
-            <div class="card-sub">5 mensajes sin responder</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div style="text-align:center;padding:32px 0;color:var(--mut);font-size:.84rem;">No hay mensajes aún.</div>
-        </div>
-      </div>
-
-      <!-- PROFILE -->
+      <!-- ── EDITAR PERFIL ── -->
       <div class="card" id="secProfile" style="display:none;">
         <div class="card-hdr">
           <div>
             <div class="card-title">Editar Perfil de Tienda</div>
-            <div class="card-sub">Los cambios pasan por aprobación antes de publicarse</div>
+            <div class="card-sub">Actualiza la información de tu tienda y cuenta</div>
           </div>
         </div>
         <div class="card-body">
-          <div class="approval-notice">
-            <strong>Proceso de aprobación de cambios</strong>
-            Cualquier cambio será revisado en 24 a 48 horas hábiles antes de publicarse.
-          </div>
-          <div class="fg" style="margin-bottom:22px;">
-            <label>Foto de perfil de la tienda</label>
-            <div class="prof-edit-zone">
-              <div class="pez-current">
-                <div class="pez-photo" id="profilePhotoCircle">{{ user.first_name|slice:":1"|upper }}</div>
-                <div class="pez-info">
-                  <div class="pez-name">{% if tienda %}{{ tienda.nombre }}{% else %}{{ user.first_name }}{% endif %}</div>
-                  <div class="pez-pending" id="photoPendingBadge" style="display:none">Cambio pendiente de aprobación</div>
-                  <div style="font-size:.72rem;color:var(--mut);margin-top:5px;">JPG, PNG o WEBP &middot; Máx 5MB &middot; 400x400px</div>
-                </div>
-                <button class="btn btn-sm btn-col"
-                  onclick="document.getElementById('profilePhotoFileInput').click()">Cambiar foto</button>
-                <input type="file" id="profilePhotoFileInput" accept="image/*" style="display:none"
-                  onchange="updateProfilePhoto(this)" />
-              </div>
+
+          <div
+            style="display:flex;align-items:center;gap:20px;padding-bottom:24px;border-bottom:1px solid var(--bd);margin-bottom:22px;">
+            <div id="profilePhotoCircle"
+              style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--mer),#002060);color:#fff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid var(--bd);flex-shrink:0;">
+              {{ user.first_name|slice:":1"|upper }}
+            </div>
+            <div>
+              <div style="font-size:.88rem;font-weight:700;margin-bottom:4px;">Foto de tienda</div>
+              <div style="font-size:.74rem;color:var(--mut);margin-bottom:10px;">JPG, PNG o WEBP. Máximo 5MB.</div>
+              <label class="btn btn-sm" for="profilePhotoInput" style="cursor:pointer;">📷 Cambiar foto</label>
+              <input type="file" id="profilePhotoInput" accept="image/*" style="display:none"
+                onchange="updateProfilePhoto(this)" />
             </div>
           </div>
+
+          <div
+            style="font-size:.8rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">
+            Datos de la tienda</div>
           <div class="frow2">
-            <div class="fg"><label>Nombre de la tienda <span class="req">*</span></label><input type="text" class="fc"
-                value="{% if tienda %}{{ tienda.nombre }}{% endif %}" /></div>
-            <div class="fg"><label>Categoría principal</label><select class="fc">
-                <option>{% if tienda %}{{ tienda.categoria }}{% endif %}</option>
+            <div class="fg">
+              <label>Nombre de la tienda <span class="req" style="color:var(--cia)">*</span></label>
+              <input type="text" id="vpNombre" class="fc" value="{% if tienda %}{{ tienda.nombre }}{% endif %}" />
+            </div>
+            <div class="fg">
+              <label>Categoría principal</label>
+              <select id="vpCategoria" class="fc">
+                <option value="{% if tienda %}{{ tienda.categoria }}{% endif %}">
+                  {% if tienda %}{{ tienda.categoria }}{% else %}Selecciona...{% endif %}
+                </option>
                 <option>Maquillaje</option>
                 <option>Ropa y Accesorios</option>
                 <option>Carteras y Bolsos</option>
                 <option>Calzado</option>
                 <option>Papelería</option>
                 <option>Tecnología</option>
-              </select></div>
+              </select>
+            </div>
           </div>
-          <div class="fg"><label>Descripción de la tienda <span class="req">*</span></label><textarea class="fc"
-              style="min-height:100px;">{% if tienda %}{{ tienda.descripcion }}{% endif %}</textarea></div>
+          <div class="fg">
+            <label>Descripción de la tienda <span class="req" style="color:var(--cia)">*</span></label>
+            <textarea id="vpDesc" class="fc"
+              style="min-height:100px;">{% if tienda %}{{ tienda.descripcion }}{% endif %}</textarea>
+          </div>
           <div class="frow2">
-            <div class="fg"><label>Ciudad</label><input type="text" class="fc"
-                value="{% if tienda %}{{ tienda.ubicacion|default:'' }}{% endif %}" /></div>
-            <div class="fg"><label>Departamento</label><select class="fc">
+            <div class="fg">
+              <label>Ciudad</label>
+              <input type="text" id="vpCiudad" class="fc"
+                value="{% if tienda %}{{ tienda.ubicacion|default:'' }}{% endif %}" />
+            </div>
+            <div class="fg">
+              <label>Departamento</label>
+              <select class="fc">
                 <option>Atlántico</option>
                 <option>Cundinamarca</option>
                 <option>Antioquia</option>
                 <option>Valle del Cauca</option>
                 <option>Santander</option>
-              </select></div>
+              </select>
+            </div>
+          </div>
+
+          <div
+            style="font-size:.8rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin:22px 0 14px;">
+            Datos de cuenta</div>
+          <div class="frow2">
+            <div class="fg">
+              <label>Nombre completo <span class="req" style="color:var(--cia)">*</span></label>
+              <input type="text" id="vpNombreUsuario" class="fc"
+                value="{{ user.get_full_name|default:user.first_name }}" />
+            </div>
+            <div class="fg">
+              <label>Teléfono de contacto</label>
+              <input type="tel" id="vpTelefono" class="fc" value="{{ user.telefono|default:'' }}" />
+            </div>
           </div>
           <div class="frow2">
-            <div class="fg"><label>Teléfono de contacto</label><input type="tel" class="fc"
-                value="{{ user.telefono|default:'' }}" /></div>
-            <div class="fg"><label>Correo electrónico</label><input type="email" class="fc" value="{{ user.email }}" /></div>
+            <div class="fg">
+              <label>Correo electrónico <span class="req" style="color:var(--cia)">*</span></label>
+              <input type="email" id="vpEmail" class="fc" value="{{ user.email }}" />
+            </div>
           </div>
-          <div style="display:flex;gap:10px;margin-top:4px;">
-            <button class="btn" onclick="alert('Cambios enviados para aprobación.')">Guardar y enviar a revisión</button>
-            <button class="btn-out">Cancelar cambios</button>
+
+          <div style="margin-top:24px;display:flex;gap:10px;">
+            <button class="btn" onclick="guardarPerfilVendedor()">💾 Guardar cambios</button>
+            <button class="btn-out" onclick="sec('overview', document.querySelector('.sitem'))">Cancelar</button>
           </div>
+
         </div>
       </div>
 
     </div>
   </div>
 
+  <!-- MODAL EDITAR PRODUCTO -->
+  <div id="editProdModal"
+    style="display:none;position:fixed;inset:0;background:rgba(10,15,30,.65);backdrop-filter:blur(6px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
+    <div
+      style="background:#fff;border-radius:16px;padding:32px;max-width:540px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.25);max-height:90vh;overflow-y:auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div style="font-size:1rem;font-weight:700;color:var(--mer)">✏️ Editar Producto</div>
+        <button onclick="cerrarEditar()"
+          style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#718096;">&times;</button>
+      </div>
+      <input type="hidden" id="epId" />
+      <div class="fg"><label>Nombre</label><input type="text" id="epNombre" class="fc" /></div>
+      <div class="fg">
+        <label>Categoría</label>
+        <select id="epCategoria" class="fc">
+          <option value="">Sin categoría</option>
+          <option>Maquillaje</option>
+          <option>Ropa y Accesorios</option>
+          <option>Carteras y Bolsos</option>
+          <option>Calzado</option>
+          <option>Papelería</option>
+          <option>Tecnología</option>
+          <option>Regalos</option>
+          <option>Joyería</option>
+          <option>Artesanías</option>
+        </select>
+      </div>
+      <div class="fg"><label>Descripción</label><textarea id="epDescripcion" class="fc"
+          style="min-height:80px;"></textarea></div>
+      <div class="frow2">
+        <div class="fg"><label>Precio</label><input type="text" id="epPrecio" class="fc" placeholder="Ej: 55000" />
+        </div>
+        <div class="fg"><label>Cantidad</label><input type="number" id="epCantidad" class="fc" min="0" /></div>
+      </div>
+      <div class="fg">
+        <label>Nueva foto (opcional)</label>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button class="btn btn-sm btn-col" onclick="document.getElementById('epImgInput').click()">🖼 Cambiar
+            imagen</button>
+          <input type="file" id="epImgInput" accept="image/*" style="display:none" onchange="previewEditImg(this)" />
+          <img id="epImgPreview" alt=""
+            style="max-height:60px;border-radius:8px;display:none;border:1px solid var(--bd);" />
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button class="btn" id="epSaveBtn" onclick="guardarEdicion()">💾 Guardar cambios</button>
+        <button class="btn-out" onclick="cerrarEditar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    /* ── CSRF ── */
+    function getCsrfToken() {
+      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
+    }
+
+    /* ── RELOJ ── */
     function tick() {
       const n = new Date(), pad = v => String(v).padStart(2, '0');
       document.getElementById('ct').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
@@ -1410,21 +1416,24 @@
     }
     tick(); setInterval(tick, 1000);
 
+    /* ── SECCIONES ── */
     function sec(id, btn) {
-      ['secOverview', 'secOrders', 'secProducts', 'secMessages', 'secProfile'].forEach(s => {
+      ['secOverview', 'secOrders', 'secProducts', 'secProfile'].forEach(s => {
         const el = document.getElementById(s); if (el) el.style.display = 'none';
       });
-      const map = { overview: 'secOverview', orders: 'secOrders', products: 'secProducts', messages: 'secMessages', profile: 'secProfile' };
+      const map = { overview: 'secOverview', orders: 'secOrders', products: 'secProducts', profile: 'secProfile' };
       const el = document.getElementById(map[id]); if (el) el.style.display = 'block';
       document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
-      btn.classList.add('act');
+      if (btn) btn.classList.add('act');
     }
 
+    /* ── REGALO ── */
     function toggleGiftPanel(id) {
       const panel = document.getElementById(id);
       if (panel) panel.classList.toggle('open');
     }
 
+    /* ── FOTOS (UI local) ── */
     function setSidePhoto(input) {
       if (!input.files[0]) return;
       const r = new FileReader();
@@ -1451,41 +1460,53 @@
       r.readAsDataURL(input.files[0]);
     }
 
-    function updateProfilePhoto(input) {
+    async function updateProfilePhoto(input) {
       if (!input.files[0]) return;
-      const r = new FileReader();
-      r.onload = e => {
-        const circle = document.getElementById('profilePhotoCircle');
-        let img = circle.querySelector('img');
-        if (!img) { img = document.createElement('img'); circle.appendChild(img); }
-        img.src = e.target.result; img.style.display = 'block';
-        document.getElementById('photoPendingBadge').style.display = 'inline-flex';
-      };
-      r.readAsDataURL(input.files[0]);
+      const fd = new FormData();
+      fd.append('imagen', input.files[0]);
+      try {
+        const res = await fetch('/perfil/foto/', {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getCsrfToken() },
+          body: fd,
+        });
+        const data = await res.json();
+        if (data.ok) {
+          const circle = document.getElementById('profilePhotoCircle');
+          let img = circle.querySelector('img');
+          if (!img) {
+            img = document.createElement('img');
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+            circle.appendChild(img);
+          }
+          img.src = data.url; img.style.display = 'block';
+          circle.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = ''; });
+          const side = document.getElementById('storePhotoCircle');
+          let sideImg = side.querySelector('img');
+          if (!sideImg) { sideImg = document.createElement('img'); side.appendChild(sideImg); }
+          sideImg.src = data.url; sideImg.style.display = 'block';
+          showToast('✅ Foto actualizada correctamente');
+        } else {
+          showToast('❌ ' + (data.error || 'Error al subir foto'));
+        }
+      } catch (e) { showToast('❌ Error de conexión'); }
     }
 
-    /* ── CSRF helper ── */
-    function getCsrfToken() {
-      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
-    }
-
-    /* ── SUBIR NUEVO PRODUCTO ── */
+    /* ── SUBIR PRODUCTO → BD ── */
     async function submitProduct() {
-      const nombre      = document.getElementById('npNombre')?.value.trim();
+      const nombre = document.getElementById('npNombre')?.value.trim();
       const descripcion = document.getElementById('npDescripcion')?.value.trim();
-      const precio      = document.getElementById('npPrecio')?.value.trim();
-      const cantidad    = document.getElementById('npCantidad')?.value.trim();
-      const categoria   = document.getElementById('npCategoria')?.value.trim();
+      const precio = document.getElementById('npPrecio')?.value.trim();
+      const cantidad = document.getElementById('npCantidad')?.value.trim();
+      const categoria = document.getElementById('npCategoria')?.value.trim();
       const imagenInput = document.getElementById('prodPhotoInput');
 
-      if (!nombre || !descripcion || !precio || !cantidad) {
-        showToast('❌ Completa todos los campos obligatorios'); return;
-      }
+      if (!nombre || !descripcion || !precio || !cantidad) { showToast('❌ Completa todos los campos obligatorios'); return; }
 
       const fd = new FormData();
       fd.append('nombre', nombre);
       fd.append('descripcion', descripcion);
-      fd.append('precio', precio.replace(/\$/g,'').replace(/\./g,''));
+      fd.append('precio', precio.replace(/\$/g, '').replace(/\./g, ''));
       fd.append('cantidad', cantidad);
       fd.append('categoria', categoria);
       if (imagenInput.files[0]) fd.append('imagen', imagenInput.files[0]);
@@ -1494,45 +1515,38 @@
       btn.disabled = true; btn.textContent = '⏳ Guardando...';
 
       try {
-        const res  = await fetch('/productos/nuevo/', {
-          method: 'POST',
-          headers: { 'X-CSRFToken': getCsrfToken() },
-          body: fd,
-        });
+        const res = await fetch('/productos/nuevo/', { method: 'POST', headers: { 'X-CSRFToken': getCsrfToken() }, body: fd });
         const data = await res.json();
         if (data.ok) {
           showToast('✅ Producto publicado correctamente');
           document.getElementById('addProdForm').classList.remove('open');
           appendProdRow(data);
-          // Limpiar campos
-          ['npNombre','npDescripcion','npPrecio','npCantidad'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
-          document.getElementById('npCategoria').value='';
+          ['npNombre', 'npDescripcion', 'npPrecio', 'npCantidad'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+          document.getElementById('npCategoria').value = '';
           document.getElementById('prodPhotoPreview').classList.remove('show');
-          document.getElementById('prodPhotoPlaceholder').style.display='';
-          document.getElementById('prodPhotoChange').style.display='none';
+          document.getElementById('prodPhotoPlaceholder').style.display = '';
+          document.getElementById('prodPhotoChange').style.display = 'none';
           document.getElementById('prodPhotoZone').classList.remove('has-photo');
-          imagenInput.value='';
-        } else {
-          showToast('❌ ' + (data.error || 'Error al guardar'));
-        }
-      } catch(e) { showToast('❌ Error de conexión'); }
-      finally { btn.disabled=false; btn.textContent='🚀 Publicar producto'; }
+          imagenInput.value = '';
+        } else { showToast('❌ ' + (data.error || 'Error al guardar')); }
+      } catch (e) { showToast('❌ Error de conexión'); }
+      finally { btn.disabled = false; btn.textContent = '🚀 Publicar producto'; }
     }
 
-    /* ── AGREGAR FILA AL DOM SIN RECARGAR ── */
     function appendProdRow(p) {
       const container = document.getElementById('prodListContainer');
       const empty = document.getElementById('emptyProdMsg');
       if (empty) empty.remove();
-      const stockLabel = p.cantidad == 0 ? '<span class="stock-pill sp-out">Agotado</span>'
-        : p.cantidad <= 5 ? `<span class="stock-pill sp-low">${p.cantidad} disponibles</span>`
-        : `<span class="stock-pill sp-ok">${p.cantidad} disponibles</span>`;
+      const stockLabel = p.cantidad == 0
+        ? '<span class="stock-pill sp-out">Agotado</span>'
+        : p.cantidad <= 5
+          ? `<span class="stock-pill sp-low">${p.cantidad} disponibles</span>`
+          : `<span class="stock-pill sp-ok">${p.cantidad} disponibles</span>`;
       const imgHtml = p.imagen
         ? `<img src="${p.imagen}" alt="${p.nombre}" style="width:100%;height:100%;object-fit:cover;">`
         : '<span style="font-size:1.6rem;">📦</span>';
       const row = document.createElement('div');
-      row.className = 'prod-row';
-      row.id = `prod-row-${p.id}`;
+      row.className = 'prod-row'; row.id = `prod-row-${p.id}`;
       row.innerHTML = `
         <div class="prod-thumb">${imgHtml}</div>
         <div>
@@ -1542,83 +1556,75 @@
         </div>
         <div style="text-align:right;"><div class="prod-price">${p.precio}</div></div>
         <div class="prod-acts">
-          <button class="pa" onclick="abrirEditar(${p.id},'${p.nombre.replace(/'/g,"\\'")}',' ','${p.precio_num||0}','${p.cantidad}','${p.categoria||''}')">✏️ Editar</button>
+          <button class="pa" onclick="abrirEditar(${p.id},'${p.nombre.replace(/'/g, "\\'")}','',${p.precio_num || 0},${p.cantidad},'${p.categoria || ''}')">✏️ Editar</button>
           <button class="pa del" onclick="eliminarProducto(${p.id},this)">🗑 Eliminar</button>
         </div>`;
       container.appendChild(row);
     }
 
-    /* ── ELIMINAR PRODUCTO ── */
+    /* ── ELIMINAR PRODUCTO → BD ── */
     async function eliminarProducto(id, btn) {
       if (!confirm('¿Eliminar este producto? Esta acción no se puede deshacer.')) return;
       btn.disabled = true;
       try {
-        const res  = await fetch(`/productos/${id}/eliminar/`, {
-          method: 'DELETE',
-          headers: { 'X-CSRFToken': getCsrfToken() },
-        });
+        const res = await fetch(`/productos/${id}/eliminar/`, { method: 'DELETE', headers: { 'X-CSRFToken': getCsrfToken() } });
         const data = await res.json();
-        if (data.ok) {
-          const row = document.getElementById(`prod-row-${id}`);
-          if (row) row.remove();
-          showToast('🗑 Producto eliminado');
-        } else { showToast('❌ ' + (data.error || 'Error')); }
-      } catch(e) { showToast('❌ Error de conexión'); }
+        if (data.ok) { const row = document.getElementById(`prod-row-${id}`); if (row) row.remove(); showToast('🗑 Producto eliminado'); }
+        else { showToast('❌ ' + (data.error || 'Error')); }
+      } catch (e) { showToast('❌ Error de conexión'); }
       finally { btn.disabled = false; }
     }
 
-    /* ── ABRIR MODAL EDITAR ── */
+    /* ── MODAL EDITAR PRODUCTO ── */
     function abrirEditar(id, nombre, descripcion, precio, cantidad, categoria) {
-      document.getElementById('epId').value        = id;
-      document.getElementById('epNombre').value    = nombre;
+      document.getElementById('epId').value = id;
+      document.getElementById('epNombre').value = nombre;
       document.getElementById('epDescripcion').value = descripcion;
-      document.getElementById('epPrecio').value    = precio;
-      document.getElementById('epCantidad').value  = cantidad;
+      document.getElementById('epPrecio').value = precio;
+      document.getElementById('epCantidad').value = cantidad;
       document.getElementById('epCategoria').value = categoria;
-      document.getElementById('epImgPreview').src  = '';
+      document.getElementById('epImgPreview').src = '';
       document.getElementById('epImgPreview').style.display = 'none';
       document.getElementById('editProdModal').style.display = 'flex';
     }
+
     function cerrarEditar() { document.getElementById('editProdModal').style.display = 'none'; }
 
-    /* ── GUARDAR EDICIÓN ── */
     async function guardarEdicion() {
-      const id          = document.getElementById('epId').value;
-      const nombre      = document.getElementById('epNombre').value.trim();
+      const id = document.getElementById('epId').value;
+      const nombre = document.getElementById('epNombre').value.trim();
       const descripcion = document.getElementById('epDescripcion').value.trim();
-      const precio      = document.getElementById('epPrecio').value.trim().replace(/\$/g,'').replace(/\./g,'');
-      const cantidad    = document.getElementById('epCantidad').value.trim();
-      const categoria   = document.getElementById('epCategoria').value.trim();
+      const precio = document.getElementById('epPrecio').value.trim().replace(/\$/g, '').replace(/\./g, '');
+      const cantidad = document.getElementById('epCantidad').value.trim();
+      const categoria = document.getElementById('epCategoria').value.trim();
       const imagenInput = document.getElementById('epImgInput');
 
       const fd = new FormData();
-      if (nombre)      fd.append('nombre',      nombre);
+      if (nombre) fd.append('nombre', nombre);
       if (descripcion) fd.append('descripcion', descripcion);
-      if (precio)      fd.append('precio',      precio);
-      if (cantidad)    fd.append('cantidad',    cantidad);
-      if (categoria)   fd.append('categoria',  categoria);
+      if (precio) fd.append('precio', precio);
+      if (cantidad) fd.append('cantidad', cantidad);
+      if (categoria) fd.append('categoria', categoria);
       if (imagenInput.files[0]) fd.append('imagen', imagenInput.files[0]);
 
       const btn = document.getElementById('epSaveBtn');
       btn.disabled = true; btn.textContent = '⏳ Guardando...';
 
       try {
-        const res  = await fetch(`/productos/${id}/editar/`, {
-          method: 'POST',
-          headers: { 'X-CSRFToken': getCsrfToken() },
-          body: fd,
-        });
+        const res = await fetch(`/productos/${id}/editar/`, { method: 'POST', headers: { 'X-CSRFToken': getCsrfToken() }, body: fd });
         const data = await res.json();
         if (data.ok) {
           showToast('✅ Producto actualizado');
           cerrarEditar();
           const row = document.getElementById(`prod-row-${id}`);
           if (row) {
-            const stockLabel = data.cantidad == 0 ? '<span class="stock-pill sp-out">Agotado</span>'
-              : data.cantidad <= 5 ? `<span class="stock-pill sp-low">${data.cantidad} disponibles</span>`
-              : `<span class="stock-pill sp-ok">${data.cantidad} disponibles</span>`;
-            row.querySelector('.prod-name').textContent  = data.nombre;
-            row.querySelector('.prod-meta').textContent  = data.categoria || 'Sin categoría';
+            const stockLabel = data.cantidad == 0
+              ? '<span class="stock-pill sp-out">Agotado</span>'
+              : data.cantidad <= 5
+                ? `<span class="stock-pill sp-low">${data.cantidad} disponibles</span>`
+                : `<span class="stock-pill sp-ok">${data.cantidad} disponibles</span>`;
+            row.querySelector('.prod-name').textContent = data.nombre;
+            row.querySelector('.prod-meta').textContent = data.categoria || 'Sin categoría';
             row.querySelector('.prod-price').textContent = data.precio;
             row.querySelectorAll('div > div')[2].innerHTML = stockLabel;
             if (data.imagen) {
@@ -1627,8 +1633,8 @@
             }
           }
         } else { showToast('❌ ' + (data.error || 'Error')); }
-      } catch(e) { showToast('❌ Error de conexión'); }
-      finally { btn.disabled=false; btn.textContent='💾 Guardar cambios'; }
+      } catch (e) { showToast('❌ Error de conexión'); }
+      finally { btn.disabled = false; btn.textContent = '💾 Guardar cambios'; }
     }
 
     function previewEditImg(input) {
@@ -1636,12 +1642,12 @@
       const r = new FileReader();
       r.onload = e => {
         const prev = document.getElementById('epImgPreview');
-        prev.src = e.target.result;
-        prev.style.display = 'block';
+        prev.src = e.target.result; prev.style.display = 'block';
       };
       r.readAsDataURL(input.files[0]);
     }
 
+    /* ── ESTADO PEDIDO → BD ── */
     async function actualizarEstado(select) {
       const pedidoId = select.dataset.pedido;
       const nuevoEstado = select.value;
@@ -1660,22 +1666,47 @@
           const row = select.closest('.pedido-item');
           if (row) row.dataset.estado = nuevoEstado;
           showToast(`Pedido #${pedidoId} → ${labelMap[nuevoEstado]}`);
-        } else {
-          showToast('Error: ' + (data.error || 'intenta de nuevo'));
-        }
+        } else { showToast('Error: ' + (data.error || 'intenta de nuevo')); }
       } catch (e) { showToast('Error de conexión'); }
     }
 
-    function filtrarPedidos(estado, btn) {
+    function filtrarPedidos(estado) {
       document.querySelectorAll('.pedido-item').forEach(row => {
-        row.style.display = (estado === 'todos' || row.dataset.estado === estado) ? '' : 'none';
+        const wrapper = row.closest('div[style*="border-bottom"]') || row.parentElement;
+        if (wrapper) wrapper.style.display = (estado === 'todos' || row.dataset.estado === estado) ? '' : 'none';
       });
     }
 
-    function getCsrfToken() {
-      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
+    /* ── GUARDAR PERFIL VENDEDOR → BD ── */
+    async function guardarPerfilVendedor() {
+      const nombre = document.getElementById('vpNombreUsuario')?.value.trim();
+      const email = document.getElementById('vpEmail')?.value.trim();
+      const telefono = document.getElementById('vpTelefono')?.value.trim();
+
+      if (!nombre || !email) { showToast('❌ Nombre y correo son obligatorios'); return; }
+      if (!email.includes('@')) { showToast('❌ Correo inválido'); return; }
+
+      try {
+        const res = await fetch('/perfil/editar/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
+          body: JSON.stringify({ nombre, email, telefono }),
+        });
+        const data = await res.json();
+        if (data.ok) {
+          document.getElementById('sideStoreName').textContent =
+            document.getElementById('vpNombre')?.value.trim() || data.nombre;
+          showToast('✅ Perfil actualizado correctamente');
+        } else {
+          showToast('❌ ' + (data.error || 'Error'));
+        }
+      } catch (e) { showToast('❌ Error de conexión'); }
     }
 
+    /* ── INICIALIZAR SELECTS DE ESTADO ── */
+    document.querySelectorAll('.estado-select').forEach(sel => { sel.value = sel.dataset.estadoActual; });
+
+    /* ── TOAST ── */
     function showToast(msg) {
       let t = document.getElementById('vnd-toast');
       if (!t) {
@@ -1688,46 +1719,8 @@
       clearTimeout(t._timer);
       t._timer = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(80px)'; }, 2800);
     }
-
-    document.querySelectorAll('.estado-select').forEach(sel => { sel.value = sel.dataset.estadoActual; });
   </script>
-  <!-- MODAL EDITAR PRODUCTO -->
-  <div id="editProdModal" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,.65);backdrop-filter:blur(6px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
-    <div style="background:#fff;border-radius:16px;padding:32px;max-width:540px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.25);max-height:90vh;overflow-y:auto;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-        <div style="font-size:1rem;font-weight:700;color:var(--mer)">✏️ Editar Producto</div>
-        <button onclick="cerrarEditar()" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#718096;">&times;</button>
-      </div>
-      <input type="hidden" id="epId" />
-      <div class="fg"><label>Nombre</label><input type="text" id="epNombre" class="fc" /></div>
-      <div class="fg"><label>Categoría</label>
-        <select id="epCategoria" class="fc">
-          <option value="">Sin categoría</option>
-          <option>Maquillaje</option><option>Ropa y Accesorios</option>
-          <option>Carteras y Bolsos</option><option>Calzado</option>
-          <option>Papelería</option><option>Tecnología</option>
-          <option>Regalos</option><option>Joyería</option><option>Artesanías</option>
-        </select>
-      </div>
-      <div class="fg"><label>Descripción</label><textarea id="epDescripcion" class="fc" style="min-height:80px;"></textarea></div>
-      <div class="frow2">
-        <div class="fg"><label>Precio</label><input type="text" id="epPrecio" class="fc" placeholder="Ej: 55000" /></div>
-        <div class="fg"><label>Cantidad</label><input type="number" id="epCantidad" class="fc" min="0" /></div>
-      </div>
-      <div class="fg">
-        <label>Nueva foto (opcional)</label>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <button class="btn btn-sm btn-col" onclick="document.getElementById('epImgInput').click()">🖼 Cambiar imagen</button>
-          <input type="file" id="epImgInput" accept="image/*" style="display:none" onchange="previewEditImg(this)" />
-          <img id="epImgPreview" alt="" style="max-height:60px;border-radius:8px;display:none;border:1px solid var(--bd);" />
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:8px;">
-        <button class="btn" id="epSaveBtn" onclick="guardarEdicion()">💾 Guardar cambios</button>
-        <button class="btn-out" onclick="cerrarEditar()">Cancelar</button>
-      </div>
-    </div>
-  </div>
 
 </body>
+
 </html>

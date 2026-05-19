@@ -14,6 +14,7 @@ class Usuario(AbstractUser):
     rol = models.CharField(max_length=20, choices=ROLES, default="comprador")
     aprobado = models.BooleanField(default=False)
     telefono = models.CharField(max_length=20, blank=True, default="")
+    foto_perfil = models.ImageField(upload_to="perfiles/", blank=True, null=True)
 
     def es_vendedor_aprobado(self):
         return self.rol == "vendedor" and self.aprobado
@@ -171,3 +172,22 @@ class Pedido(models.Model):
 
     def estado_label(self):
         return dict(self.ESTADOS).get(self.estado, self.estado)
+class BannerLanding(models.Model):
+    """Banners del hero slider de la landing page — editables desde el admin."""
+ 
+    orden    = models.PositiveSmallIntegerField(default=0, help_text="0 = primero")
+    imagen   = models.ImageField(
+        upload_to="banners/",
+        blank=True,
+        help_text="Imagen de fondo del slide",
+    )
+    activo   = models.BooleanField(default=True)
+    editado_en = models.DateTimeField(auto_now=True)
+ 
+    class Meta:
+        ordering = ["orden"]
+        verbose_name = "Banner Landing"
+        verbose_name_plural = "Banners Landing"
+ 
+    def __str__(self):
+        return f"Banner #{self.orden + 1} ({'activo' if self.activo else 'inactivo'})"
