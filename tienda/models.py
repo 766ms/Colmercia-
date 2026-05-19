@@ -46,8 +46,8 @@ class Tienda(models.Model):
 class Producto(models.Model):
     STOCK_CHOICES = [
         ("high", "Disponible"),
-        ("low", "Poco stock"),
-        ("out", "Agotado"),
+        ("low",  "Poco stock"),
+        ("out",  "Agotado"),
     ]
 
     OCASION_CHOICES = [
@@ -56,6 +56,26 @@ class Producto(models.Model):
         ("amor",       "Amor y Amistad"),
         ("navidad",    "Navidad"),
         ("halloween",  "Halloween"),
+    ]
+
+    SECCION_CHOICES = [
+        ("",           "No aparece en landing"),
+        ("nuevos",     "Nuevos Productos"),
+        ("destacados", "Más Vendidos"),
+        ("region",     "Productos de la Región"),
+    ]
+
+    CATEGORIA_CHOICES = [
+        ("",                   "Sin categoría"),
+        ("Maquillaje",         "Maquillaje"),
+        ("Ropa y Accesorios",  "Ropa y Accesorios"),
+        ("Carteras y Bolsos",  "Carteras y Bolsos"),
+        ("Calzado",            "Calzado"),
+        ("Papelería",          "Papelería"),
+        ("Tecnología",         "Tecnología"),
+        ("Regalos",            "Regalos"),
+        ("Joyería",            "Joyería"),
+        ("Artesanías",         "Artesanías"),
     ]
 
     tienda          = models.ForeignKey(Tienda, on_delete=models.CASCADE)
@@ -68,11 +88,25 @@ class Producto(models.Model):
     stock           = models.CharField(max_length=10, choices=STOCK_CHOICES, default="high")
     cantidad        = models.PositiveIntegerField(default=0)
     imagen          = models.ImageField(upload_to="productos/", blank=True)
-    ocasion_regalo  = models.CharField(          # ← NUEVO CAMPO
+    categoria       = models.CharField(
+                        max_length=50,
+                        choices=CATEGORIA_CHOICES,
+                        blank=True,
+                        default="",
+                      )
+    ocasion_regalo  = models.CharField(
                         max_length=20,
                         choices=OCASION_CHOICES,
                         default="todos",
                         blank=True,
+                      )
+    # ── APROBACIÓN Y SECCIÓN LANDING ─────────────────────
+    aprobado        = models.BooleanField(default=False)
+    seccion_landing = models.CharField(
+                        max_length=20,
+                        choices=SECCION_CHOICES,
+                        blank=True,
+                        default="",
                       )
     creado_en       = models.DateTimeField(auto_now_add=True)
 
@@ -82,6 +116,11 @@ class Producto(models.Model):
     def precio_formateado(self):
         """Devuelve el precio con formato colombiano: $55.000"""
         return f"${self.precio:,.0f}".replace(",", ".")
+
+    def precio_antiguo_formateado(self):
+        if self.precio_antiguo:
+            return f"${self.precio_antiguo:,.0f}".replace(",", ".")
+        return ""
 
 
 # ─────────────────────────────────────────────

@@ -469,3 +469,211 @@ class ActualizarEstadoPedidoView(LoginRequiredMixin, View):
             }
         )
  
+
+# ─────────────────────────────────────────────────────────────────────
+#  API PÚBLICA DE PRODUCTOS  —  GET /api/productos/
+#
+#  Devuelve todos los productos con imagen, precio, stock, etc.
+#  Se usa en la landing page para alimentar el buscador principal.
+# ─────────────────────────────────────────────────────────────────────
+def api_productos(request):
+    """Endpoint público: todos los productos de vendedores activos."""
+    productos = (
+        Producto.objects
+        .select_related("tienda__vendedor")
+        .filter(tienda__vendedor__aprobado=True)
+        .order_by("-creado_en")
+    )
+    data = [
+        {
+            "id":          p.id,
+            "nombre":      p.nombre,
+            "descripcion": p.descripcion,
+            "precio":      p.precio_formateado(),
+            "precio_num":  float(p.precio),
+            "categoria":   p.categoria,
+            "stock":       p.stock,
+            "cantidad":    p.cantidad,
+            "imagen":      p.imagen.url if p.imagen else "",
+            "tienda":      p.tienda.nombre,
+            "tienda_id":   p.tienda.id,
+        }
+        for p in productos
+    ]
+    return JsonResponse(data, safe=False)
+
+
+# ─────────────────────────────────────────────────────────────────────
+#  CREAR PRODUCTO  —  POST /productos/nuevo/
+#
+#  Recibe multipart/form-data con imagen.
+#  Solo vendedores aprobados con tienda activa pueden crear productos.
+# ─────────────────────────────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class CrearProductoView(LoginRequiredMixin, View):
+    login_url = "/"
+
+    def post(self, request):
+        user = request.user
+        if user.rol != "vendedor" or not user.aprobado:
+            return JsonResponse({"ok": False, "error": "Sin permisos."}, status=403)
+
+        try:
+            tienda = user.tienda
+        except Exception:
+            return JsonResponse({"ok": False, "error": "No tienes tienda asociada."}, status=400)
+
+        nombre     = request.POST.get("nombre", "").strip()
+        descripcion = request.POST.get("descripcion", "").strip()
+        precio_raw  = request.POST.get("precio", "0").replace("$", "").replace(".", "").replace(",", ".").strip()
+        cantidad    = request.POST.get("cantidad", "0").strip()
+        categoria   = request.POST.get("categoria", "").strip()
+        imagen      = request.FILES.get("imagen")
+
+        if not nombre or not descripcion or not precio_raw or not cantidad:
+            return JsonResponse({"ok": False, "error": "Completa todos los campos obligatorios."}, status=400)
+
+        try:
+            precio   = Decimal(precio_raw)
+            cantidad = int(cantidad)
+        except Exception:
+            return JsonResponse({"ok": False, "error": "Precio o cantidad inválidos."}, status=400)
+
+        # Determinar stock automáticamente según cantidad
+        if cantidad == 0:
+            stock = "out"
+        elif cantidad <= 5:
+            stock = "low"
+        else:
+            stock = "high"
+
+        prod = Producto(
+            tienda=tienda,
+            nombre=nombre,
+            descripcion=descripcion,
+            precio=precio,
+            cantidad=cantidad,
+            stock=stock,
+            categoria=categoria,
+            aprobado=True,
+            ocasion_regalo="",  # ← esto evita que aparezca en regalos
+        )
+        if imagen:
+            prod.imagen = imagen
+        prod.save()
+
+        return JsonResponse({
+            "ok":       True,
+            "id":       prod.id,
+            "nombre":   prod.nombre,
+            "precio":   prod.precio_formateado(),
+            "cantidad": prod.cantidad,
+            "stock":    prod.stock,
+            "categoria": prod.categoria,
+            "imagen":   prod.imagen.url if prod.imagen else "",
+        })
+
+
+# ─────────────────────────────────────────────────────────────────────
+#  EDITAR PRODUCTO  —  POST /productos/<id>/editar/
+# ─────────────────────────────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class EditarProductoView(LoginRequiredMixin, View):
+    login_url = "/"
+
+    def post(self, request, producto_id):
+        user = request.user
+        if user.rol != "vendedor" or not user.aprobado:
+            return JsonResponse({"ok": False, "error": "Sin permisos."}, status=403)
+
+        try:
+            prod = Producto.objects.get(pk=producto_id, tienda__vendedor=user)
+        except Producto.DoesNotExist:
+            return JsonResponse({"ok": False, "error": "Producto no encontrado."}, status=404)
+
+        nombre      = request.POST.get("nombre", "").strip()
+        descripcion = request.POST.get("descripcion", "").strip()
+        precio_raw  = request.POST.get("precio", "").replace("$", "").replace(".", "").replace(",", ".").strip()
+        cantidad    = request.POST.get("cantidad", "").strip()
+        categoria   = request.POST.get("categoria", "").strip()
+        imagen      = request.FILES.get("imagen")
+
+        if nombre:
+            prod.nombre = nombre
+        if descripcion:
+            prod.descripcion = descripcion
+        if precio_raw:
+            try:
+                prod.precio = Decimal(precio_raw)
+            except Exception:
+                return JsonResponse({"ok": False, "error": "Precio inválido."}, status=400)
+        if cantidad:
+            try:
+                prod.cantidad = int(cantidad)
+                if prod.cantidad == 0:
+                    prod.stock = "out"
+                elif prod.cantidad <= 5:
+                    prod.stock = "low"
+                else:
+                    prod.stock = "high"
+            except Exception:
+                return JsonResponse({"ok": False, "error": "Cantidad inválida."}, status=400)
+        if categoria:
+            prod.categoria = categoria
+        if imagen:
+            prod.imagen = imagen
+
+        prod.save()
+
+        return JsonResponse({
+            "ok":       True,
+            "id":       prod.id,
+            "nombre":   prod.nombre,
+            "precio":   prod.precio_formateado(),
+            "cantidad": prod.cantidad,
+            "stock":    prod.stock,
+            "categoria": prod.categoria,
+            "imagen":   prod.imagen.url if prod.imagen else "",
+        })
+
+
+# ─────────────────────────────────────────────────────────────────────
+#  ELIMINAR PRODUCTO  —  DELETE /productos/<id>/eliminar/
+# ─────────────────────────────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class EliminarProductoView(LoginRequiredMixin, View):
+    login_url = "/"
+
+    def delete(self, request, producto_id):
+        user = request.user
+        if user.rol != "vendedor" or not user.aprobado:
+            return JsonResponse({"ok": False, "error": "Sin permisos."}, status=403)
+
+        try:
+            prod = Producto.objects.get(pk=producto_id, tienda__vendedor=user)
+        except Producto.DoesNotExist:
+            return JsonResponse({"ok": False, "error": "Producto no encontrado."}, status=404)
+
+        prod.delete()
+        return JsonResponse({"ok": True, "id": producto_id})
+
+
+# ─────────────────────────────────────────────────────────────────────
+#  ACTUALIZAR OCASIÓN DE REGALO  —  POST /productos/<id>/ocasion/
+# ─────────────────────────────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class ActualizarOcasionRegaloView(LoginRequiredMixin, View):
+    def post(self, request, producto_id):
+        if request.user.rol != 'admin':
+            return JsonResponse({"ok": False, "error": "Sin permisos."}, status=403)
+        try:
+            prod = Producto.objects.get(pk=producto_id)
+        except Producto.DoesNotExist:
+            return JsonResponse({"ok": False, "error": "Producto no encontrado."}, status=404)
+        try:
+            body = json.loads(request.body)
+        except:
+            return JsonResponse({"ok": False, "error": "JSON inválido."}, status=400)
+        prod.ocasion_regalo = body.get('ocasion_regalo', '')
+        prod.save(update_fields=['ocasion_regalo'])
+        return JsonResponse({"ok": True, "nombre": prod.nombre, "ocasion_regalo": prod.ocasion_regalo})
