@@ -1084,15 +1084,11 @@
                 <select class="estado-select" data-pedido="{{ pedido.id }}" data-estado-actual="{{ pedido.estado }}"
                   onchange="actualizarEstado(this)"
                   style="border:1.5px solid #E2E8F0;border-radius:50px;padding:6px 14px;font-size:.74rem;font-family:'Poppins',sans-serif;outline:none;background:#F9FAFB;cursor:pointer;color:#1A1A2E;">
-                  <option value="procesando">Procesando</option>
-                  <option value="preparando">Preparando</option>
-                  <option value="en_camino">En camino</option>
-                  <option value="entregado">Entregado</option>
-                  <option value="cancelado">Cancelado</option>
+                  {% for opcion in pedido.opciones_estado %}
+                  <option value="{{ opcion.valor }}" {{ opcion.selected }}>{{ opcion.label }}</option>
+                  {% endfor %}
                 </select>
-                <span class="status-pill {{ pedido.estado_pill_class }}" id="pill-{{ pedido.id }}">{{
-                  pedido.estado_label }}</span>
-                <div class="or-price">{{ pedido.total_formateado }}</div>
+                <span class="status-pill sp-blue" id="pill-{{ pedido.id }}"></span>
               </div>
             </div>
             {% if pedido.es_regalo %}
@@ -1704,7 +1700,7 @@
     }
 
     /* ── INICIALIZAR SELECTS DE ESTADO ── */
-    document.querySelectorAll('.estado-select').forEach(sel => { sel.value = sel.dataset.estadoActual; });
+    //document.querySelectorAll('.estado-select').forEach(sel => { sel.value = sel.dataset.estadoActual; });
 
     /* ── TOAST ── */
     function showToast(msg) {
