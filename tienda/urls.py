@@ -38,4 +38,17 @@ urlpatterns = [
 
     # ── API Regalos ───────────────────────────────────────
     path("api/regalos/", views.productos_regalo, name="productos_regalo"),
+
+    # ── API Productos (buscador landing) ─────────────────
+    path("api/productos/", views.api_productos, name="api_productos"),
+
+    # ── Gestión de Productos (vendedor) ──────────────────
+    path("productos/nuevo/",
+         views.CrearProductoView.as_view(), name="crear_producto"),
+    path("productos/<int:producto_id>/editar/",
+         views.EditarProductoView.as_view(), name="editar_producto"),
+    path("productos/<int:producto_id>/eliminar/",
+         views.EliminarProductoView.as_view(), name="eliminar_producto"),
+    path("productos/<int:producto_id>/ocasion/",
+     views.ActualizarOcasionRegaloView.as_view(), name="actualizar_ocasion_regalo"),
 ]

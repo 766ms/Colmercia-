@@ -1506,6 +1506,8 @@
         <div class="smenu-lbl" style="margin-top:6px;">Configuración</div>
         <button class="sitem" onclick="sec('editor',this)"><span class="si-bar si-col"></span> Editor landing
           page</button>
+        <button class="sitem" onclick="sec('regalos',this)"><span class="si-bar si-red"></span> Gestión de
+          Regalos</button>
         <button class="sitem" onclick="sec('notifs',this)"><span class="si-bar si-grn"></span> Notificaciones</button>
         <div class="sdiv"></div>
         <button class="sitem danger" onclick="doLogout()"><span class="si-bar si-red"></span> Cerrar sesión</button>
@@ -1514,6 +1516,34 @@
 
     <div class="main">
 
+      <!-- ══ GESTIÓN DE REGALOS ══ -->
+      <div class="card" id="secRegalos" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Gestión de Regalos</div>
+            <div class="card-sub">Marca productos para que aparezcan en la sección de regalos de la landing</div>
+          </div>
+          <button class="btn btn-sm" onclick="cargarProductosAdmin()">🔄 Recargar</button>
+        </div>
+        <div class="card-body">
+          <div class="filter-bar">
+            <input class="filter-inp" type="text" placeholder="Buscar producto..."
+              oninput="filtrarProductosAdmin(this.value)" />
+            <select class="filter-sel" id="filtroOcasionAdmin">
+              <option value="todos">Todas las ocasiones</option>
+              <option value="">Sin ocasión (no aparece)</option>
+              <option value="cumpleanos">🎂 Cumpleaños</option>
+              <option value="amor">💝 Amor y Amistad</option>
+              <option value="navidad">🎄 Navidad</option>
+              <option value="halloween">🎃 Halloween</option>
+            </select>
+          </div>
+          <div id="adminProdList">
+            <div style="text-align:center;padding:40px;color:var(--mut);">Haz clic en 🔄 Recargar para ver los
+              productos.</div>
+          </div>
+        </div>
+      </div>
       <!-- ══ OVERVIEW ══ -->
       <div id="secOverview">
         <div class="card">
@@ -1792,7 +1822,7 @@
                   <span class="badge b-ok" style="font-size:.6rem;padding:2px 8px;margin-left:6px;">Activa</span>
                 </div>
                 <div class="sc-meta">
-                  {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif %}
+                  {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif%}
                   · {{ v.email }}
                 </div>
                 <div class="sc-stats">
@@ -1832,10 +1862,6 @@
                     onclick="auditLog('eliminó producto', '{{ prod.nombre|escapejs }}')">Eliminar</button>
                 </div>
               </div>
-              {% empty %}
-              <div style="padding:14px 0;font-size:.76rem;color:var(--mut);">
-                Esta tienda aún no tiene productos.
-              </div>
               {% endfor %}
             </div>
           </div>
@@ -1846,8 +1872,6 @@
           {% endfor %}
         </div>
       </div>
-      
-
       <!-- ══ AUDITORÍA ══ -->
       <div class="card" id="secAudit" style="display:none;">
         <div class="card-hdr">
@@ -2029,14 +2053,18 @@
     tick(); setInterval(tick, 1000);
 
     function sec(id, btn) {
-      ['secOverview', 'secVendors', 'secUsers', 'secSellers', 'secAudit', 'secEditor', 'secNotifs']
+      ['secOverview', 'secVendors', 'secUsers', 'secSellers', 'secAudit', 'secEditor', 'secNotifs', 'secRegalos']
         .forEach(s => { const el = document.getElementById(s); if (el) el.style.display = 'none'; });
-      const map = { overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers', audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs' };
+      const map = {
+        overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers',
+        audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs', regalos: 'secRegalos'
+      };
       const el = document.getElementById(map[id]);
       if (el) el.style.display = 'block';
       document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
       btn.classList.add('act');
       if (id === 'audit') renderAudit(document.getElementById('auditFilter').value);
+      if (id === 'regalos') cargarProductosAdmin();
     }
 
     function changeAvatar(input) {
@@ -2048,6 +2076,110 @@
         if (currentAdmin) localStorage.setItem(ADMINS[currentAdmin].avatarKey, e.target.result);
       };
       r.readAsDataURL(input.files[0]);
+    }
+    /* ══ GESTIÓN DE REGALOS ══ */
+    let todosProductosAdmin = [];
+
+    async function cargarProductosAdmin() {
+      const container = document.getElementById('adminProdList');
+      container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mut);">⏳ Cargando productos...</div>';
+      try {
+        const res = await fetch('/api/productos/');
+        todosProductosAdmin = await res.json();
+        renderProductosAdmin(todosProductosAdmin);
+      } catch (e) {
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:#F87171;">❌ Error al cargar productos.</div>';
+      }
+    }
+
+    function renderProductosAdmin(prods) {
+      const container = document.getElementById('adminProdList');
+      if (!prods.length) {
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--mut);">No hay productos.</div>';
+        return;
+      }
+      const ocasionLabels = {
+        '': 'Sin ocasión',
+        'todos': 'Todas las ocasiones',
+        'cumpleanos': '🎂 Cumpleaños',
+        'amor': '💝 Amor y Amistad',
+        'navidad': '🎄 Navidad',
+        'halloween': '🎃 Halloween',
+      };
+      container.innerHTML = prods.map(p => `
+    <div class="prod-row-s" id="apr-${p.id}" style="padding:14px 0;border-bottom:1px solid var(--bd);">
+      <div style="width:48px;height:48px;border-radius:8px;background:#111827;border:1px solid var(--bd);
+        flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        ${p.imagen ? `<img src="${p.imagen}" style="width:100%;height:100%;object-fit:cover;">` : '<span style="font-size:1.4rem;">📦</span>'}
+      </div>
+      <div class="pr-info" style="flex:1;">
+        <div class="pr-name">${p.nombre}</div>
+        <div class="pr-meta">${p.tienda} · ${p.categoria || 'Sin categoría'} · ${p.precio}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <select class="filter-sel" id="ocasion-${p.id}" style="font-size:.72rem;padding:6px 10px;">
+          <option value="" ${!p.ocasion_regalo ? 'selected' : ''}>Sin ocasión</option>
+          <option value="todos" ${p.ocasion_regalo === 'todos' ? 'selected' : ''}>Todas las ocasiones</option>
+          <option value="cumpleanos" ${p.ocasion_regalo === 'cumpleanos' ? 'selected' : ''}>🎂 Cumpleaños</option>
+          <option value="amor" ${p.ocasion_regalo === 'amor' ? 'selected' : ''}>💝 Amor y Amistad</option>
+          <option value="navidad" ${p.ocasion_regalo === 'navidad' ? 'selected' : ''}>🎄 Navidad</option>
+          <option value="halloween" ${p.ocasion_regalo === 'halloween' ? 'selected' : ''}>🎃 Halloween</option>
+        </select>
+        <button class="pr-btn sb-open" onclick="guardarOcasionRegalo(${p.id})"
+          style="background:rgba(52,211,153,.1);color:#34D399;border-color:rgba(52,211,153,.25);">
+          💾 Guardar
+        </button>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    function filtrarProductosAdmin(val) {
+      const filtrados = todosProductosAdmin.filter(p =>
+        p.nombre.toLowerCase().includes(val.toLowerCase()) ||
+        p.tienda.toLowerCase().includes(val.toLowerCase())
+      );
+      renderProductosAdmin(filtrados);
+    }
+
+    async function guardarOcasionRegalo(prodId) {
+      const select = document.getElementById(`ocasion-${prodId}`);
+      const nuevaOcasion = select.value;
+      try {
+        const res = await fetch(`/productos/${prodId}/ocasion/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
+          body: JSON.stringify({ ocasion_regalo: nuevaOcasion })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showAdminToast(`✅ Ocasión actualizada para "${data.nombre}"`);
+          addAuditEntry({
+            type: 'admin', actor: ADMINS[currentAdmin]?.name || 'Admin',
+            action: `Actualizó ocasión de regalo de <span class="hl">${data.nombre}</span> a <span class="hl">${nuevaOcasion || 'ninguna'}</span>`,
+            time: now(), tag: 'admin'
+          });
+        } else {
+          showAdminToast('❌ Error: ' + (data.error || 'intenta de nuevo'));
+        }
+      } catch (e) {
+        showAdminToast('❌ Error de conexión');
+      }
+    }
+
+    function showAdminToast(msg) {
+      let t = document.getElementById('adminToast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'adminToast';
+        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1E2535;color:#fff;padding:12px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;transition:transform .3s,opacity .3s;opacity:0;border:1px solid #2D3748;white-space:nowrap;font-family:Poppins,sans-serif;';
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(80px)'; }, 2800);
     }
 
     function toggleUserDetail(id, btn) {

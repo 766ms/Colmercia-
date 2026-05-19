@@ -4533,6 +4533,36 @@
         GIFT_PRODS.forEach(p => registerProduct(p));
       })();
 
+      /* ══ CARGA DE PRODUCTOS DE LA BASE DE DATOS ══
+         Trae los productos subidos por vendedores vía /api/productos/
+         y los inyecta en ALL_PRODUCTS para que el buscador principal
+         los encuentre en tiempo real.                               */
+      (async function cargarProductosBD() {
+        try {
+          const res = await fetch('/api/productos/');
+          const data = await res.json();
+          data.forEach(p => {
+            const prod = {
+              name: p.nombre,
+              brand: p.tienda,
+              store: p.tienda,
+              price: p.precio,
+              stock: p.stock === 'out' ? 'out' : 'ok',
+              cnt: p.cantidad,
+              img: p.imagen || '',
+              ico: '📦',
+              desc: p.descripcion,
+              storeLoc: p.categoria || '',
+              categoria: p.categoria || '',
+              bd_id: p.id,
+            };
+            registerProduct(prod);
+          });
+        } catch (e) {
+          console.warn('[ColMercia] No se pudo cargar productos de la BD:', e.message);
+        }
+      })();
+
       /* ══ HELPERS ══ */
       function starsStr(n) { return '⭐'.repeat(n); }
 
@@ -4601,7 +4631,7 @@
         if (prod.stock === 'out') bHTML = `<span class="sbdg sout">Agotado</span>`;
         badges.innerHTML = bHTML;
 
-        document.getElementById('qvDesc').textContent = prod.descripcion || 'Producto artesanal colombiano de alta calidad.';
+        document.getElementById('qvDesc').textContent = prod.desc || 'Producto artesanal colombiano de alta calidad.';
         document.getElementById('qvQty').textContent = '1';
 
         const addBtn = document.getElementById('qvAddBtn');
@@ -5415,10 +5445,10 @@
             ?.split('=')[1] || '';
 
           // ── Recoger datos del formulario de regalo ──────────────────
-          const esRegalo  = document.getElementById('giftCheck')?.checked || false;
-          const giftWrap  = esRegalo ? (window._giftWrap  || '') : '';
-          const giftDeco  = esRegalo ? (window._giftDeco  || '') : '';
-          const giftMsg   = esRegalo ? (document.getElementById('giftMsgText')?.value.trim() || '') : '';
+          const esRegalo = document.getElementById('giftCheck')?.checked || false;
+          const giftWrap = esRegalo ? (window._giftWrap || '') : '';
+          const giftDeco = esRegalo ? (window._giftDeco || '') : '';
+          const giftMsg = esRegalo ? (document.getElementById('giftMsgText')?.value.trim() || '') : '';
 
           const res = await fetch('/pedidos/crear/', {
             method: 'POST',
@@ -5429,10 +5459,10 @@
             body: JSON.stringify({
               items,
               metodo_pago: metodoPago,
-              es_regalo:         esRegalo,
-              regalo_envoltura:  giftWrap,
+              es_regalo: esRegalo,
+              regalo_envoltura: giftWrap,
               regalo_decoracion: giftDeco,
-              regalo_mensaje:    giftMsg,
+              regalo_mensaje: giftMsg,
             }),
           });
 
