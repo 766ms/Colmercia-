@@ -5414,13 +5414,26 @@
             .find(c => c.startsWith('csrftoken='))
             ?.split('=')[1] || '';
 
+          // ── Recoger datos del formulario de regalo ──────────────────
+          const esRegalo  = document.getElementById('giftCheck')?.checked || false;
+          const giftWrap  = esRegalo ? (window._giftWrap  || '') : '';
+          const giftDeco  = esRegalo ? (window._giftDeco  || '') : '';
+          const giftMsg   = esRegalo ? (document.getElementById('giftMsgText')?.value.trim() || '') : '';
+
           const res = await fetch('/pedidos/crear/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'X-CSRFToken': csrfToken,
             },
-            body: JSON.stringify({ items, metodo_pago: metodoPago }),
+            body: JSON.stringify({
+              items,
+              metodo_pago: metodoPago,
+              es_regalo:         esRegalo,
+              regalo_envoltura:  giftWrap,
+              regalo_decoracion: giftDeco,
+              regalo_mensaje:    giftMsg,
+            }),
           });
 
           const data = await res.json();

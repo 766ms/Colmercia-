@@ -338,6 +338,12 @@ class CrearPedidoView(LoginRequiredMixin, View):
         if not items:
             return JsonResponse({"ok": False, "error": "El carrito está vacío"}, status=400)
  
+        # ── Datos de empaque de regalo (opcionales) ──────────────────────
+        es_regalo         = bool(body.get("es_regalo", False))
+        regalo_envoltura  = str(body.get("regalo_envoltura", "")).strip()[:30]
+        regalo_decoracion = str(body.get("regalo_decoracion", "")).strip()[:30]
+        regalo_mensaje    = str(body.get("regalo_mensaje", "")).strip()
+
         pedidos_creados = []
         errores = []
  
@@ -372,6 +378,10 @@ class CrearPedidoView(LoginRequiredMixin, View):
                 cantidad=cantidad,
                 total=total,
                 estado="procesando",
+                es_regalo=es_regalo,
+                regalo_envoltura=regalo_envoltura  if es_regalo else "",
+                regalo_decoracion=regalo_decoracion if es_regalo else "",
+                regalo_mensaje=regalo_mensaje    if es_regalo else "",
             )
             pedidos_creados.append(
                 {
@@ -380,6 +390,7 @@ class CrearPedidoView(LoginRequiredMixin, View):
                     "cantidad": cantidad,
                     "total": str(total),
                     "estado": pedido.estado,
+                    "es_regalo": pedido.es_regalo,
                 }
             )
  
