@@ -188,3 +188,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'tienda.Usuario'
 LOGIN_URL = 'landing'
+SESSION_SAVE_EVERY_REQUEST = True

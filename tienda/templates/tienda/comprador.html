@@ -1347,8 +1347,7 @@
                 <div class="tsinfo">
                   <div class="tsname">Preparando pedido</div>
                   <div class="tsmeta">
-                    {% if pedido.estado == 'preparando' or pedido.estado == 'en_camino' or pedido.estado == 'entregado'
-                    %}
+                    {% if pedido.estado == 'preparando' or pedido.estado == 'en_camino' or pedido.estado == 'entregado' %}
                     En proceso
                     {% else %}
                     Pendiente
@@ -1428,7 +1427,7 @@
         <div class="card-hdr">
           <div>
             <div class="card-title">Favoritos</div>
-            <div class="card-sub">6 productos guardados</div>
+            <div class="card-sub" id="favCount">Cargando...</div>
           </div>
         </div>
         <div class="card-body">
@@ -1674,6 +1673,83 @@
   </div>
 
   <script>
+   async function cargarFavoritos() {
+  const grid = document.querySelector('.fav-grid');
+  if (!grid) return;
+  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">⏳ Cargando...</p>';
+
+  try {
+    const res = await fetch('/favoritos/');
+    const favs = await res.json();
+
+    const favCount = document.getElementById('favCount');  // ← aquí arriba
+
+    if (!favs.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">Aún no tienes favoritos guardados.</p>';
+      if (favCount) favCount.textContent = 'Sin favoritos';  // ← actualiza también cuando está vacío
+      return;
+    }
+
+    if (favCount) favCount.textContent = `${favs.length} producto${favs.length !== 1 ? 's' : ''} guardado${favs.length !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = favs.map(f => `
+      <div class="fav-card">
+        <div class="fav-img" style="${f.producto_imagen
+          ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;`
+          : ''}">
+          ${f.producto_imagen ? '' : f.producto_ico}
+        </div>
+        <div class="fav-info">
+          <div class="fav-name">${f.producto_nombre}</div>
+          <div class="fav-store">${f.producto_tienda}</div>
+          <div class="fav-price">${f.producto_precio}</div>
+        </div>
+        <button class="fav-btn">+ Agregar al carrito</button>
+      </div>
+    `).join('');
+
+  } catch (e) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">❌ Error al cargar favoritos.</p>';
+  }
+}async function cargarFavoritos() {
+  const grid = document.querySelector('.fav-grid');
+  if (!grid) return;
+  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">⏳ Cargando...</p>';
+
+  try {
+    const res = await fetch('/favoritos/');
+    const favs = await res.json();
+
+    const favCount = document.getElementById('favCount');  // ← aquí arriba
+
+    if (!favs.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">Aún no tienes favoritos guardados.</p>';
+      if (favCount) favCount.textContent = 'Sin favoritos';  // ← actualiza también cuando está vacío
+      return;
+    }
+
+    if (favCount) favCount.textContent = `${favs.length} producto${favs.length !== 1 ? 's' : ''} guardado${favs.length !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = favs.map(f => `
+      <div class="fav-card">
+        <div class="fav-img" style="${f.producto_imagen
+          ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;`
+          : ''}">
+          ${f.producto_imagen ? '' : f.producto_ico}
+        </div>
+        <div class="fav-info">
+          <div class="fav-name">${f.producto_nombre}</div>
+          <div class="fav-store">${f.producto_tienda}</div>
+          <div class="fav-price">${f.producto_precio}</div>
+        </div>
+        <button class="fav-btn">+ Agregar al carrito</button>
+      </div>
+    `).join('');
+
+  } catch (e) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">❌ Error al cargar favoritos.</p>';
+  }
+}
     /* ── CSRF ── */
     function getCsrf() {
       return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
@@ -1733,6 +1809,7 @@
       const el = document.getElementById(map[id]); if (el) el.style.display = 'block';
       document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
       btn.classList.add('act');
+      if (id === 'favs') cargarFavoritos();
     }
 
     /* ── TRACK TOGGLE ── */

@@ -190,3 +190,22 @@ class BannerLanding(models.Model):
 
     def __str__(self):
         return f"Banner #{self.orden + 1} ({'activo' if self.activo else 'inactivo'})"
+
+
+# ─────────────────────────────────────────────
+#  FAVORITO
+# ─────────────────────────────────────────────
+class Favorito(models.Model):
+    usuario         = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='favoritos')
+    producto_nombre = models.CharField(max_length=255)
+    producto_precio = models.CharField(max_length=50)
+    producto_imagen = models.CharField(max_length=500, blank=True)
+    producto_ico    = models.CharField(max_length=10, blank=True)
+    producto_tienda = models.CharField(max_length=255, blank=True)
+    creado_en       = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('usuario', 'producto_nombre')
+
+    def __str__(self):
+        return f"{self.usuario.email} → {self.producto_nombre}"
