@@ -73,4 +73,8 @@ urlpatterns = [
     path("favoritos/", get_favoritos, name="get_favoritos"),
     # Dentro de urlpatterns:
     path("admin-pag/pedidos/<int:pedido_id>/devolucion/", AdminDevolucionPedidoView.as_view(), name="admin_devolucion_pedido"),
+    # ── Chatbot ───────────────────────────────────────────
+    path("chatbot/",       views.ChatbotView.as_view(),    name="chatbot"),
+    path("chatbot/api/",   views.ChatbotAPIView.as_view(), name="chatbot_api"),
+    path("chatbot/stats/", views.chatbot_stats,            name="chatbot_stats"),
 ]

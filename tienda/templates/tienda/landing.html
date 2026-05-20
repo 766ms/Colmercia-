@@ -3088,43 +3088,62 @@
       bottom: 20px;
       right: 16px;
       z-index: 900;
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--mer), var(--cia));
+      background: linear-gradient(135deg, var(--mer), #0050C8);
       color: #fff;
       border: none;
-      font-size: 1.3rem;
-      box-shadow: 0 6px 24px rgba(0, 48, 135, .4);
+      font-size: 1.5rem;
+      box-shadow: 0 6px 24px rgba(0, 48, 135, .45);
       transition: all var(--tr);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
+      text-decoration: none;
+      animation: fabPulse 2.8s ease-in-out infinite;
+      cursor: pointer;
     }
-
     #chatbot-btn:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) translateY(-2px);
     }
-
-    #chatbot-win {
-      position: fixed;
-      bottom: 80px;
-      right: 12px;
-      z-index: 901;
-      width: calc(100vw - 24px);
-      max-width: 320px;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
-      overflow: hidden;
-      display: none;
-      animation: qvSlideUp .28s cubic-bezier(.34, 1.2, .64, 1);
+    @keyframes fabPulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(0,48,135,.45); }
+      50%       { box-shadow: 0 6px 24px rgba(0,48,135,.45), 0 0 0 10px rgba(0,48,135,.08); }
     }
-
-    #chatbot-win.open {
-      display: block;
+    .chatbot-fab-badge {
+      position: absolute;
+      top: -3px; right: -3px;
+      width: 20px; height: 20px;
+      background: var(--cia);
+      border-radius: 50%;
+      border: 2px solid #fff;
+      font-size: .48rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    .chatbot-fab-tooltip {
+      position: absolute;
+      right: 64px; top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      background: #1A1A2E;
+      color: #fff;
+      font-size: .68rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 50px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
+    }
+#chatbot-btn:hover .chatbot-fab-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
 
     .cb-hdr {
       background: linear-gradient(135deg, var(--mer), #002060);
@@ -3688,7 +3707,7 @@
           <div>
             <p>¿No sabes qué regalar?</p><small>Nuestro asistente te ayuda a encontrar el regalo ideal</small>
           </div>
-          <button class="gift-ai-btn" onclick="openChatbot()">✨ Usar asistente</button>
+          <a href="{% url 'chatbot' %}" class="gift-ai-btn">✨ Usar asistente</a>
         </div>
         <div class="ggrid" id="giftsGrid"></div>
       </div>
@@ -3724,16 +3743,11 @@
     </div>
 
     <!-- CHATBOT -->
-    <button id="chatbot-btn" onclick="openChatbot()" title="Asistente de regalos">🤖</button>
-    <div id="chatbot-win">
-      <div class="cb-hdr">
-        <div>
-          <div class="cb-title">🤖 Asistente de Regalos</div>
-          <div class="cb-sub">Te ayudo a encontrar el regalo ideal</div>
-        </div>
-        <button class="cb-close" onclick="closeChatbot()">✕</button>
-
-      </div>
+    <a id="chatbot-btn" href="{% url 'chatbot' %}" title="Asistente de Regalos IA">
+      🎁
+      <span class="chatbot-fab-badge">IA</span>
+      <span class="chatbot-fab-tooltip">🎁 Asistente de regalos</span>
+    </a>
 
       <div class="cb-body">
       </div><!-- cierra cb-body -->
