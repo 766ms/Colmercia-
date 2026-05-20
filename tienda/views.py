@@ -242,6 +242,18 @@ class AdminView(LoginRequiredMixin, TemplateView):
                 )
                 .order_by("-date_joined")
             )
+            cached["todos_pedidos"] = list(
+Pedido.objects
+    .select_related("usuario", "producto", "producto__tienda")
+    .only(
+        "id", "estado", "total", "cantidad", "fecha",
+        "es_regalo", "direccion_entrega",
+        "usuario__id", "usuario__first_name", "usuario__last_name", "usuario__email",
+        "producto__id", "producto__nombre",
+        "producto__tienda__id", "producto__tienda__nombre",
+    )
+    .order_by("-fecha")[:200]  # últimos 200 pedidos
+)
 
             cached["todos_usuarios"] = list(
                 Usuario.objects
@@ -983,7 +995,43 @@ class SubirFotoPerfilView(LoginRequiredMixin, View):
         user.save(update_fields=["foto_perfil"])
         return JsonResponse({"ok": True, "url": user.foto_perfil.url})
 
-def landing(request):
-    if not request.session.session_key:
-        request.session.create()
-    return render(request, 'landing.html', {...})
+
+# ─────────────────────────────────────────────
+#  DEVOLUCIÓN DE PEDIDO (admin)
+# ─────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class AdminDevolucionPedidoView(LoginRequiredMixin, View):
+    def post(self, request, pedido_id):
+        if request.user.rol != "admin":
+            return JsonResponse({"ok": False, "error": "Sin permisos."}, status=403)
+        try:
+            pedido = Pedido.objects.select_related(
+                "usuario", "producto", "producto__tienda"
+            ).get(pk=pedido_id)
+        except Pedido.DoesNotExist:
+            return JsonResponse({"ok": False, "error": "Pedido no encontrado."}, status=404)
+
+        if pedido.estado == "cancelado":
+            return JsonResponse({"ok": False, "error": "El pedido ya está cancelado/devuelto."}, status=400)
+
+        estado_anterior = pedido.estado
+        pedido.estado = "cancelado"
+        pedido.save(update_fields=["estado"])
+
+        # Restituir stock si el producto aún existe
+        if pedido.producto:
+            prod = pedido.producto
+            prod.cantidad += pedido.cantidad
+            prod.stock = "out" if prod.cantidad == 0 else "low" if prod.cantidad <= 5 else "high"
+            prod.save(update_fields=["cantidad", "stock"])
+
+        return JsonResponse({
+            "ok": True,
+            "pedido_id": pedido.id,
+            "estado_anterior": estado_anterior,
+            "estado": pedido.estado,
+            "stock_restituido": pedido.cantidad if pedido.producto else 0,
+            "producto": pedido.producto.nombre if pedido.producto else "—",
+            "usuario": f"{pedido.usuario.first_name} {pedido.usuario.last_name}",
+            "total": str(pedido.total),
+        })
