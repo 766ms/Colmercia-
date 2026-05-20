@@ -966,9 +966,15 @@
         <button class="sitem" onclick="sec('products',this)"><span class="si-dot green"></span> Mis productos</button>
         <button class="sitem" onclick="sec('profile',this)"><span class="si-dot amber"></span> Editar perfil</button>
         <div class="sdiv"></div>
-        <a href="{% url 'logout' %}" class="sitem danger" style="text-decoration:none;">
-          <span class="si-dot red"></span> Cerrar sesión
-        </a>
+        <div class="smenu-div"></div>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="sitem danger"
+            style="width:100%;text-align:left;background:none;font-family:'Poppins',sans-serif;">
+            <span class="si-icon">X</span> Cerrar sesión
+          </button>
+        </form>
+        
       </div>
     </aside>
 
