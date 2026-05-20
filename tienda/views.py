@@ -1,6 +1,9 @@
 import json
 from decimal import Decimal, InvalidOperation
-
+import numpy as np
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -1035,3 +1038,278 @@ class AdminDevolucionPedidoView(LoginRequiredMixin, View):
             "usuario": f"{pedido.usuario.first_name} {pedido.usuario.last_name}",
             "total": str(pedido.total),
         })
+    # ─────────────────────────────────────────────────────────────────────
+#  CHATBOT
+# ─────────────────────────────────────────────────────────────────────
+class MotorBusqueda:
+
+    STOPWORDS_ES = [
+        'de', 'la', 'el', 'en', 'y', 'a', 'los', 'las', 'un', 'una',
+        'es', 'se', 'que', 'por', 'con', 'para', 'del', 'al', 'lo',
+        'como', 'su', 'sus', 'le', 'me', 'te', 'nos', 'les', 'mas',
+        'pero', 'si', 'ya', 'hay', 'mi', 'tu', 'muy', 'quiero',
+        'busco', 'necesito', 'dame', 'tengo', 'tiene', 'tienen',
+    ]
+
+    def __init__(self):
+        self.df           = self._cargar_productos()
+        self.vectorizer   = None
+        self.matriz_tfidf = None
+        if not self.df.empty:
+            self._construir_indice()
+
+    def _cargar_productos(self):
+        qs = Producto.objects.values(
+            'id', 'nombre', 'descripcion', 'precio',
+            'stock', 'categoria', 'ocasion_regalo', 'imagen',
+        )
+        if not qs.exists():
+            return pd.DataFrame()
+        df = pd.DataFrame(list(qs))
+        df['precio'] = pd.to_numeric(df['precio'], errors='coerce').fillna(0).astype(float)
+        df['texto_busqueda'] = (
+            df['nombre'].fillna('') + ' ' +
+            df['nombre'].fillna('') + ' ' +
+            df['nombre'].fillna('') + ' ' +
+            df['descripcion'].fillna('') + ' ' +
+            df['categoria'].fillna('') + ' ' +
+            df['ocasion_regalo'].fillna('').str.replace('_', ' ')
+        ).str.lower().str.strip()
+        return df
+
+    def _construir_indice(self):
+        self.vectorizer = TfidfVectorizer(
+            strip_accents='unicode',
+            lowercase=True,
+            ngram_range=(1, 2),
+            stop_words=self.STOPWORDS_ES,
+            min_df=1,
+            max_features=5000,
+        )
+        self.matriz_tfidf = self.vectorizer.fit_transform(
+            self.df['texto_busqueda'].tolist()
+        )
+
+    def buscar(self, consulta, top_n=8, filtro_ocasion=None,
+               filtro_categoria=None, filtro_precio_min=None,
+               filtro_precio_max=None):
+        if self.df.empty or self.vectorizer is None:
+            return pd.DataFrame()
+        df_f = self.df.copy(deep=True)
+        if filtro_ocasion:
+            df_f = df_f[df_f['ocasion_regalo'] == filtro_ocasion]
+        if filtro_categoria:
+            df_f = df_f[
+                df_f['categoria'].str.normalize('NFKD')
+                .str.encode('ascii', errors='ignore')
+                .str.decode('ascii')
+                .str.lower() == filtro_categoria.lower()
+            ]
+        if filtro_precio_min is not None:
+            df_f = df_f[df_f['precio'] >= filtro_precio_min]
+        if filtro_precio_max is not None:
+            df_f = df_f[df_f['precio'] <= filtro_precio_max]
+        if df_f.empty:
+            return pd.DataFrame()
+        indices = df_f.index.tolist()
+        if not indices:
+            return pd.DataFrame()
+        vec       = self.vectorizer.transform([consulta.lower()])
+        submatriz = self.matriz_tfidf[indices]
+        if submatriz.shape[0] == 0:
+            return pd.DataFrame()
+        sims      = cosine_similarity(vec, submatriz).flatten()
+        top_idx   = np.argsort(sims)[::-1][:top_n]
+        resultado = df_f.reset_index(drop=True).iloc[top_idx].copy()
+        resultado['score'] = sims[top_idx]
+        return resultado
+
+
+def _formatear_precio(precio):
+    return f"${int(precio):,}".replace(",", ".")
+
+
+def _detectar_ocasion(msg):
+    ocasiones = {
+        'cumpleanos': ['cumpleaños', 'cumpleano', 'birthday', 'aniversario'],
+        'amor':       ['amor', 'amistad', 'san valentin', 'novio', 'novia', 'pareja'],
+        'navidad':    ['navidad', 'navideño', 'diciembre', 'nochebuena', 'christmas'],
+        'halloween':  ['halloween', 'terror', 'octubre', 'disfraz'],
+    }
+    for ocasion, kws in ocasiones.items():
+        if any(k in msg for k in kws):
+            return ocasion
+    return None
+
+
+def _detectar_precio(msg):
+    rangos = {
+        (None,   50000): ['menos de 50', 'menos de $50', 'barato', 'economico', 'asequible', '50 mil'],
+        (50000, 100000): ['entre 50', '50 y 100', 'mediano', '100 mil'],
+        (100000,  None): ['mas de 100', 'más de 100', 'premium', 'lujoso', 'exclusivo'],
+    }
+    for (mn, mx), kws in rangos.items():
+        if any(k in msg for k in kws):
+            return mn, mx
+    return None, None
+
+
+def _detectar_categoria(msg):
+    categorias = {
+        'Maquillaje':        ['maquillaje', 'cosmetico', 'labial', 'sombra', 'base', 'maquilla'],
+        'Ropa y Accesorios': ['ropa', 'camiseta', 'accesorio', 'bufanda', 'gorra', 'vestido'],
+        'Carteras y Bolsos': ['cartera', 'bolso', 'bolsa', 'maletin'],
+        'Calzado':           ['zapato', 'calzado', 'tenis', 'sandalia', 'bota'],
+        'Papeleria':         ['papeleria', 'cuaderno', 'lapiz', 'agenda', 'libreta'],
+        'Tecnologia':        ['tecnologia', 'electronico', 'audifonos', 'cargador', 'usb'],
+        'Regalos':           ['regalo', 'detalle', 'sorpresa', 'obsequio'],
+        'Joyeria':           ['joya', 'joyeria', 'collar', 'pulsera', 'aretes', 'anillo'],
+        'Artesanias':        ['artesania', 'artesanal', 'tejido', 'ceramica', 'hecho a mano'],
+    }
+    for categoria, kws in categorias.items():
+        if any(k in msg for k in kws):
+            return categoria
+    return None
+
+
+OCASION_LABELS = {
+    'cumpleanos': 'cumpleaños 🎂',
+    'amor':       'amor y amistad ❤️',
+    'navidad':    'navidad 🎄',
+    'halloween':  'halloween 🎃',
+}
+
+
+class ChatbotView(TemplateView):
+    template_name = "tienda/chatbot.html"
+
+
+def chatbot_stats(request):
+    qs = Producto.objects.values('categoria', 'ocasion_regalo', 'stock')
+    if not qs.exists():
+        return JsonResponse({'total': 0, 'disponibles': 0, 'categorias': 0, 'ocasiones': 0})
+    df = pd.DataFrame(list(qs))
+    return JsonResponse({
+        'total':       int(len(df)),
+        'disponibles': int((df['stock'] == 'high').sum()),
+        'categorias':  int(df['categoria'].nunique()),
+        'ocasiones':   int(df['ocasion_regalo'].nunique()),
+    })
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ChatbotAPIView(View):
+
+    def post(self, request):
+        try:
+            body = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({'respuesta': '⚠️ No pude leer tu mensaje.', 'productos': []})
+
+        mensaje = body.get('mensaje', '').strip()
+        if not mensaje:
+            return JsonResponse({'respuesta': '¡Escríbeme algo! 🎁', 'productos': []})
+
+        msg_lower = mensaje.lower()
+
+        if any(s in msg_lower for s in ['hola', 'buenas', 'hello', 'hey']) and len(mensaje) < 30:
+            return JsonResponse({
+                'respuesta': (
+                    '¡Hola! 👋 Soy el asistente de regalos de <strong>ColMercia</strong>.<br><br>'
+                    'Cuéntame qué ocasión buscas o qué presupuesto tienes y te ayudo a '
+                    'encontrar el regalo perfecto. 🎁'
+                ),
+                'productos': []
+            })
+
+        ocasion      = _detectar_ocasion(msg_lower)
+        min_p, max_p = _detectar_precio(msg_lower)
+        categoria    = _detectar_categoria(msg_lower)
+
+        motor = MotorBusqueda()
+
+        if motor.df.empty:
+            return JsonResponse({
+                'respuesta': 'No hay productos en el catálogo ahora mismo. ¡Vuelve pronto! 🎁',
+                'productos': []
+            })
+
+        resultados = pd.DataFrame()
+
+        if ocasion:
+            resultados = motor.buscar(consulta=mensaje, top_n=8, filtro_ocasion=ocasion)
+
+        if resultados.empty and categoria:
+            resultados = motor.buscar(
+                consulta=mensaje, top_n=8,
+                filtro_categoria=categoria,
+                filtro_precio_min=min_p,
+                filtro_precio_max=max_p,
+            )
+
+        if resultados.empty:
+            resultados = motor.buscar(
+                consulta=mensaje, top_n=8,
+                filtro_precio_min=min_p,
+                filtro_precio_max=max_p,
+            )
+
+        if resultados.empty and (min_p is not None or max_p is not None):
+            resultados = motor.buscar(
+                consulta='regalo especial', top_n=8,
+                filtro_precio_min=min_p,
+                filtro_precio_max=max_p,
+            )
+
+        productos = []
+        if not resultados.empty:
+            for _, fila in resultados.iterrows():
+                imagen_url = ''
+                if fila['imagen']:
+                    try:
+                        prod = Producto.objects.get(pk=int(fila['id']))
+                        imagen_url = prod.imagen.url if prod.imagen else ''
+                    except Producto.DoesNotExist:
+                        pass
+                productos.append({
+                    'id':     int(fila['id']),
+                    'nombre': fila['nombre'],
+                    'precio': _formatear_precio(fila['precio']),
+                    'stock':  fila['stock'],
+                    'imagen': imagen_url,
+                    'ocasion': fila['ocasion_regalo'],
+                })
+
+        respuesta = self._construir_respuesta(productos, ocasion, categoria, min_p, max_p)
+        return JsonResponse({'respuesta': respuesta, 'productos': productos})
+
+    def _construir_respuesta(self, productos, ocasion, categoria, min_p, max_p):
+        total = len(productos)
+
+        if min_p is not None and max_p is not None:
+            precio_label = f"entre {_formatear_precio(min_p)} y {_formatear_precio(max_p)}"
+        elif max_p is not None:
+            precio_label = f"menos de {_formatear_precio(max_p)}"
+        elif min_p is not None:
+            precio_label = f"más de {_formatear_precio(min_p)}"
+        else:
+            precio_label = None
+
+        ocasion_label   = OCASION_LABELS.get(ocasion) if ocasion else None
+        categoria_label = categoria if categoria else None
+
+        if total == 0:
+            msg = "No encontré productos que coincidan. 😕<br><br>"
+            msg += "Intenta con otra categoría, ocasión o precio. ¡El catálogo se actualiza constantemente! 🎁"
+            return msg
+
+        if ocasion_label:
+            intro = f"¡Aquí tienes <strong>{total} opción{'es' if total > 1 else ''}</strong> para <strong>{ocasion_label}</strong>!"
+        elif categoria_label:
+            intro = f"Encontré <strong>{total} producto{'s' if total > 1 else ''}</strong> en <strong>{categoria_label}</strong>:"
+        elif precio_label:
+            intro = f"Encontré <strong>{total} regalo{'s' if total > 1 else ''}</strong> con precio <strong>{precio_label}</strong>:"
+        else:
+            intro = f"Estos son los <strong>{total} producto{'s' if total > 1 else ''}</strong> más relevantes:"
+
+        return intro + "<br><br>¿Quieres buscar algo diferente? 😊"
