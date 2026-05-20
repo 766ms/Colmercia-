@@ -71,17 +71,9 @@
       letter-spacing: -0.5px;
     }
 
-    .nav-logo .lc {
-      color: var(--col);
-    }
-
-    .nav-logo .lm {
-      color: var(--mer);
-    }
-
-    .nav-logo .lr {
-      color: var(--cia);
-    }
+    .nav-logo .lc { color: var(--col); }
+    .nav-logo .lm { color: var(--mer); }
+    .nav-logo .lr { color: var(--cia); }
 
     .nav-right {
       display: flex;
@@ -98,16 +90,8 @@
       transition: all var(--tr);
     }
 
-    .nlink:hover {
-      background: #EDF2F7;
-      color: var(--mer);
-    }
-
-    .nlink.act {
-      background: var(--mer);
-      color: #fff;
-      font-weight: 600;
-    }
+    .nlink:hover { background: #EDF2F7; color: var(--mer); }
+    .nlink.act { background: var(--mer); color: #fff; font-weight: 600; }
 
     .wrapper {
       max-width: 1240px;
@@ -153,11 +137,7 @@
       overflow: hidden;
     }
 
-    .prof-ava img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .prof-ava img { width: 100%; height: 100%; object-fit: cover; }
 
     .photo-upload-btn {
       position: absolute;
@@ -179,32 +159,12 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
     }
 
-    .photo-upload-btn:hover {
-      transform: scale(1.2);
-    }
+    .photo-upload-btn:hover { transform: scale(1.2); }
+    #photoInput { display: none; }
 
-    #photoInput {
-      display: none;
-    }
-
-    .prof-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 2px;
-    }
-
-    .prof-email {
-      font-size: .78rem;
-      color: rgba(255, 255, 255, .6);
-      margin-bottom: 12px;
-    }
-
-    .prof-phone-display {
-      font-size: .76rem;
-      color: rgba(255, 255, 255, .5);
-      margin-bottom: 12px;
-    }
+    .prof-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .prof-email { font-size: .78rem; color: rgba(255, 255, 255, .6); margin-bottom: 12px; }
+    .prof-phone-display { font-size: .76rem; color: rgba(255, 255, 255, .5); margin-bottom: 12px; }
 
     .prof-plan-btn {
       display: inline-flex;
@@ -222,11 +182,7 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    .prof-plan-btn:hover {
-      background: var(--col);
-      color: #1A1A2E;
-      border-color: var(--col);
-    }
+    .prof-plan-btn:hover { background: var(--col); color: #1A1A2E; border-color: var(--col); }
 
     .clock-box {
       background: #0A1628;
@@ -235,34 +191,12 @@
       border-top: 1px solid rgba(255, 255, 255, .06);
     }
 
-    .clock-time {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 3px;
-      line-height: 1;
-    }
+    .clock-time { font-size: 2.4rem; font-weight: 700; color: #fff; letter-spacing: 3px; line-height: 1; }
+    .clock-date { font-size: .75rem; color: rgba(255, 255, 255, .5); margin-top: 6px; font-weight: 400; }
+    .clock-tz { font-size: .66rem; color: rgba(255, 255, 255, .3); margin-top: 2px; }
 
-    .clock-date {
-      font-size: .75rem;
-      color: rgba(255, 255, 255, .5);
-      margin-top: 6px;
-      font-weight: 400;
-    }
-
-    .clock-tz {
-      font-size: .66rem;
-      color: rgba(255, 255, 255, .3);
-      margin-top: 2px;
-    }
-
-    .smenu {
-      padding: 12px;
-    }
-
-    .smenu-group {
-      margin-bottom: 6px;
-    }
+    .smenu { padding: 12px; }
+    .smenu-group { margin-bottom: 6px; }
 
     .smenu-label {
       font-size: .64rem;
@@ -291,16 +225,8 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    .sitem:hover {
-      background: #EDF2F7;
-      color: var(--mer);
-    }
-
-    .sitem.act {
-      background: #EBF4FF;
-      color: var(--mer);
-      font-weight: 600;
-    }
+    .sitem:hover { background: #EDF2F7; color: var(--mer); }
+    .sitem.act { background: #EBF4FF; color: var(--mer); font-weight: 600; }
 
     .sitem .si-icon {
       width: 20px;
@@ -315,34 +241,13 @@
       font-weight: 700;
     }
 
-    .sitem.act .si-icon {
-      background: var(--mer);
-      color: #fff;
-    }
+    .sitem.act .si-icon { background: var(--mer); color: #fff; }
+    .smenu-div { height: 1px; background: var(--bd); margin: 8px 0; }
+    .sitem.danger { color: var(--cia); }
+    .sitem.danger:hover { background: #FFF5F5; }
+    .sitem.danger .si-icon { color: var(--cia); }
 
-    .smenu-div {
-      height: 1px;
-      background: var(--bd);
-      margin: 8px 0;
-    }
-
-    .sitem.danger {
-      color: var(--cia);
-    }
-
-    .sitem.danger:hover {
-      background: #FFF5F5;
-    }
-
-    .sitem.danger .si-icon {
-      color: var(--cia);
-    }
-
-    .main {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
+    .main { display: flex; flex-direction: column; gap: 22px; }
 
     .card {
       background: var(--wht);
@@ -359,20 +264,9 @@
       justify-content: space-between;
     }
 
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1A1A2E;
-    }
-
-    .card-sub {
-      font-size: .76rem;
-      color: var(--mut);
-    }
-
-    .card-body {
-      padding: 24px 28px;
-    }
+    .card-title { font-size: 1rem; font-weight: 700; color: #1A1A2E; }
+    .card-sub { font-size: .76rem; color: var(--mut); }
+    .card-body { padding: 24px 28px; }
 
     .btn {
       display: inline-flex;
@@ -390,15 +284,8 @@
       cursor: pointer;
     }
 
-    .btn:hover {
-      background: #002060;
-      transform: translateY(-1px);
-    }
-
-    .btn-col {
-      background: var(--col) !important;
-      color: #1A1A2E !important;
-    }
+    .btn:hover { background: #002060; transform: translateY(-1px); }
+    .btn-col { background: var(--col) !important; color: #1A1A2E !important; }
 
     .btn-out {
       background: transparent;
@@ -413,49 +300,16 @@
       cursor: pointer;
     }
 
-    .btn-out:hover {
-      background: var(--mer);
-      color: #fff;
-    }
+    .btn-out:hover { background: var(--mer); color: #fff; }
+    .btn-sm { font-size: .74rem; padding: 7px 16px; }
+    .btn-danger { color: var(--cia) !important; border-color: var(--cia) !important; }
+    .btn-danger:hover { background: var(--cia) !important; color: #fff !important; }
 
-    .btn-sm {
-      font-size: .74rem;
-      padding: 7px 16px;
-    }
-
-    .btn-danger {
-      color: var(--cia) !important;
-      border-color: var(--cia) !important;
-    }
-
-    .btn-danger:hover {
-      background: var(--cia) !important;
-      color: #fff !important;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
-
-    .dot-blue {
-      background: #3B82F6;
-    }
-
-    .dot-green {
-      background: #22C55E;
-    }
-
-    .dot-amber {
-      background: #F59E0B;
-    }
-
-    .dot-red {
-      background: var(--cia);
-    }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .dot-blue { background: #3B82F6; }
+    .dot-green { background: #22C55E; }
+    .dot-amber { background: #F59E0B; }
+    .dot-red { background: var(--cia); }
 
     .order-card {
       border: 1px solid var(--bd);
@@ -465,74 +319,20 @@
       transition: all var(--tr);
     }
 
-    .order-card:last-child {
-      margin-bottom: 0;
-    }
+    .order-card:last-child { margin-bottom: 0; }
+    .order-card:hover { border-color: #C3DAFE; box-shadow: 0 2px 12px rgba(0, 48, 135, .08); }
 
-    .order-card:hover {
-      border-color: #C3DAFE;
-      box-shadow: 0 2px 12px rgba(0, 48, 135, .08);
-    }
+    .order-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .order-id { font-size: .72rem; font-weight: 600; color: var(--mut); margin-bottom: 3px; }
+    .order-name { font-size: .9rem; font-weight: 600; }
+    .order-meta { font-size: .74rem; color: var(--mut); margin-top: 3px; }
+    .order-price { font-size: .95rem; font-weight: 700; color: var(--mer); }
 
-    .order-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .order-id {
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--mut);
-      margin-bottom: 3px;
-    }
-
-    .order-name {
-      font-size: .9rem;
-      font-weight: 600;
-    }
-
-    .order-meta {
-      font-size: .74rem;
-      color: var(--mut);
-      margin-top: 3px;
-    }
-
-    .order-price {
-      font-size: .95rem;
-      font-weight: 700;
-      color: var(--mer);
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      font-size: .72rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 50px;
-    }
-
-    .sp-blue {
-      background: #EBF8FF;
-      color: #1565C0;
-    }
-
-    .sp-green {
-      background: #F0FFF4;
-      color: #276749;
-    }
-
-    .sp-amber {
-      background: #FFFBEB;
-      color: #92400E;
-    }
-
-    .sp-red {
-      background: #FFEBEE;
-      color: #C62828;
-    }
+    .status-pill { display: inline-flex; align-items: center; font-size: .72rem; font-weight: 600; padding: 4px 12px; border-radius: 50px; }
+    .sp-blue { background: #EBF8FF; color: #1565C0; }
+    .sp-green { background: #F0FFF4; color: #276749; }
+    .sp-amber { background: #FFFBEB; color: #92400E; }
+    .sp-red { background: #FFEBEE; color: #C62828; }
 
     .order-actions {
       display: flex;
@@ -552,27 +352,9 @@
       font-size: .76rem;
     }
 
-    .gift-info-ttl {
-      font-weight: 700;
-      font-size: .82rem;
-      color: #7A6000;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .gift-info-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-      color: #4A3800;
-    }
-
-    .gift-info-row:last-child {
-      margin-bottom: 0;
-    }
+    .gift-info-ttl { font-weight: 700; font-size: .82rem; color: #7A6000; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .gift-info-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: #4A3800; }
+    .gift-info-row:last-child { margin-bottom: 0; }
 
     .gift-chip {
       display: inline-flex;
@@ -608,95 +390,27 @@
       margin-top: 14px;
     }
 
-    .track-panel.open {
-      display: block;
-    }
+    .track-panel.open { display: block; }
+    .track-title { font-size: .82rem; font-weight: 700; color: var(--mer); margin-bottom: 16px; }
 
-    .track-title {
-      font-size: .82rem;
-      font-weight: 700;
-      color: var(--mer);
-      margin-bottom: 16px;
-    }
+    .tstep { display: flex; gap: 14px; margin-bottom: 16px; }
+    .tstep:last-child { margin-bottom: 0; }
+    .tscol { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
 
-    .tstep {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
+    .tsdot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; }
+    .tsd { background: var(--mer); color: #fff; }
+    .tsa { background: var(--col); color: #1A1A2E; }
+    .tsp { background: #E2E8F0; border: 2px solid var(--bd); color: var(--mut); }
 
-    .tstep:last-child {
-      margin-bottom: 0;
-    }
+    .tsline { width: 2px; flex: 1; margin: 4px 0; }
+    .tsld { background: var(--mer); }
+    .tslp { background: var(--bd); }
 
-    .tscol {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
+    .tsinfo { padding-top: 3px; }
+    .tsname { font-size: .82rem; font-weight: 600; }
+    .tsmeta { font-size: .7rem; color: var(--mut); margin-top: 2px; }
 
-    .tsdot {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .75rem;
-      font-weight: 700;
-    }
-
-    .tsd {
-      background: var(--mer);
-      color: #fff;
-    }
-
-    .tsa {
-      background: var(--col);
-      color: #1A1A2E;
-    }
-
-    .tsp {
-      background: #E2E8F0;
-      border: 2px solid var(--bd);
-      color: var(--mut);
-    }
-
-    .tsline {
-      width: 2px;
-      flex: 1;
-      margin: 4px 0;
-    }
-
-    .tsld {
-      background: var(--mer);
-    }
-
-    .tslp {
-      background: var(--bd);
-    }
-
-    .tsinfo {
-      padding-top: 3px;
-    }
-
-    .tsname {
-      font-size: .82rem;
-      font-weight: 600;
-    }
-
-    .tsmeta {
-      font-size: .7rem;
-      color: var(--mut);
-      margin-top: 2px;
-    }
-
-    .fav-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 14px;
-    }
+    .fav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
 
     .fav-card {
       background: var(--bg);
@@ -707,45 +421,12 @@
       cursor: pointer;
     }
 
-    .fav-card:hover {
-      box-shadow: var(--shadow-md);
-      border-color: #C3DAFE;
-      transform: translateY(-2px);
-    }
-
-    .fav-img {
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.4rem;
-      background: linear-gradient(135deg, #FFF9E6, #FFF3CD);
-    }
-
-    .fav-info {
-      padding: 10px 12px;
-    }
-
-    .fav-name {
-      font-size: .78rem;
-      font-weight: 600;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .fav-store {
-      font-size: .68rem;
-      color: var(--mut);
-      margin-top: 2px;
-    }
-
-    .fav-price {
-      font-size: .84rem;
-      font-weight: 700;
-      color: var(--mer);
-      margin-top: 5px;
-    }
+    .fav-card:hover { box-shadow: var(--shadow-md); border-color: #C3DAFE; transform: translateY(-2px); }
+    .fav-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; background: linear-gradient(135deg, #FFF9E6, #FFF3CD); }
+    .fav-info { padding: 10px 12px; }
+    .fav-name { font-size: .78rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .fav-store { font-size: .68rem; color: var(--mut); margin-top: 2px; }
+    .fav-price { font-size: .84rem; font-weight: 700; color: var(--mer); margin-top: 5px; }
 
     .fav-btn {
       width: 100%;
@@ -760,10 +441,7 @@
       transition: all var(--tr);
     }
 
-    .fav-btn:hover {
-      background: var(--mer);
-      color: #fff;
-    }
+    .fav-btn:hover { background: var(--mer); color: #fff; }
 
     .sec-row {
       display: flex;
@@ -775,32 +453,12 @@
       flex-wrap: wrap;
     }
 
-    .sec-row:last-child {
-      border-bottom: none;
-    }
+    .sec-row:last-child { border-bottom: none; }
+    .sec-lbl { font-size: .88rem; font-weight: 600; }
+    .sec-sub { font-size: .73rem; color: var(--mut); margin-top: 3px; }
 
-    .sec-lbl {
-      font-size: .88rem;
-      font-weight: 600;
-    }
-
-    .sec-sub {
-      font-size: .73rem;
-      color: var(--mut);
-      margin-top: 3px;
-    }
-
-    .inline-edit {
-      display: none;
-      gap: 8px;
-      align-items: center;
-      margin-top: 8px;
-      width: 100%;
-    }
-
-    .inline-edit.open {
-      display: flex;
-    }
+    .inline-edit { display: none; gap: 8px; align-items: center; margin-top: 8px; width: 100%; }
+    .inline-edit.open { display: flex; }
 
     .inline-inp {
       flex: 1;
@@ -825,9 +483,7 @@
       white-space: nowrap;
     }
 
-    .inline-save:hover {
-      background: #002060;
-    }
+    .inline-save:hover { background: #002060; }
 
     .inline-cancel {
       background: var(--bg);
@@ -853,35 +509,12 @@
       flex-wrap: wrap;
     }
 
-    .security-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .security-item:hover {
-      border-color: #C3DAFE;
-    }
-
-    .security-icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .security-text-wrap {
-      flex: 1;
-    }
-
-    .security-lbl {
-      font-size: .88rem;
-      font-weight: 700;
-    }
-
-    .security-desc {
-      font-size: .72rem;
-      color: var(--mut);
-      margin-top: 3px;
-      line-height: 1.5;
-    }
+    .security-item:last-child { margin-bottom: 0; }
+    .security-item:hover { border-color: #C3DAFE; }
+    .security-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .security-text-wrap { flex: 1; }
+    .security-lbl { font-size: .88rem; font-weight: 700; }
+    .security-desc { font-size: .72rem; color: var(--mut); margin-top: 3px; line-height: 1.5; }
 
     .security-status {
       display: inline-flex;
@@ -894,20 +527,33 @@
       margin-top: 6px;
     }
 
-    .ss-ok {
-      background: #F0FFF4;
-      color: #276749;
+    .ss-ok { background: #F0FFF4; color: #276749; }
+    .ss-warn { background: #FFFBEB; color: #92400E; }
+    .ss-off { background: #FFF5F5; color: var(--cia); }
+
+    /* ── Formulario inline contraseña (sección Seguridad) ── */
+    .pass-form-inline {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+      width: 100%;
     }
 
-    .ss-warn {
-      background: #FFFBEB;
-      color: #92400E;
+    .pass-form-inline.open { display: flex; }
+
+    .pass-form-inline input {
+      border: 1.5px solid var(--bd);
+      border-radius: var(--rs);
+      padding: 9px 14px;
+      font-size: .82rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      width: 100%;
+      transition: border-color var(--tr);
     }
 
-    .ss-off {
-      background: #FFF5F5;
-      color: var(--cia);
-    }
+    .pass-form-inline input:focus { border-color: var(--mer); }
 
     .modal-ov {
       position: fixed;
@@ -921,9 +567,7 @@
       padding: 20px;
     }
 
-    .modal-ov.open {
-      display: flex;
-    }
+    .modal-ov.open { display: flex; }
 
     .mbox {
       background: #fff;
@@ -936,29 +580,12 @@
     }
 
     @keyframes mi {
-      from {
-        opacity: 0;
-        transform: scale(.94) translateY(16px)
-      }
-
-      to {
-        opacity: 1;
-        transform: none
-      }
+      from { opacity: 0; transform: scale(.94) translateY(16px) }
+      to { opacity: 1; transform: none }
     }
 
-    .mhdr {
-      padding: 20px 28px;
-      border-bottom: 1px solid var(--bd);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .mttl {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
+    .mhdr { padding: 20px 28px; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; }
+    .mttl { font-size: 1.1rem; font-weight: 700; }
 
     .mxbtn {
       background: #F7FAFC;
@@ -971,12 +598,7 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    .plans-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      padding: 24px 28px;
-    }
+    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 24px 28px; }
 
     .pc {
       border-radius: var(--r);
@@ -986,10 +608,7 @@
       transition: border-color var(--tr);
     }
 
-    .pc.feat {
-      border-color: var(--col);
-      background: linear-gradient(135deg, #FFFEF0, #FFF9CC);
-    }
+    .pc.feat { border-color: var(--col); background: linear-gradient(135deg, #FFFEF0, #FFF9CC); }
 
     .pbadge {
       position: absolute;
@@ -1004,37 +623,11 @@
       border-radius: 50px;
     }
 
-    .pname {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .pprice {
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: var(--mer);
-      margin-bottom: 12px;
-    }
-
-    .pprice span {
-      font-size: .76rem;
-      font-weight: 400;
-      color: var(--mut);
-    }
-
-    .plist {
-      list-style: none;
-      font-size: .78rem;
-      color: #4A5568;
-      line-height: 1.95;
-    }
-
-    .plist li::before {
-      content: '+ ';
-      color: var(--mer);
-      font-weight: 700;
-    }
+    .pname { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .pprice { font-size: 1.7rem; font-weight: 800; color: var(--mer); margin-bottom: 12px; }
+    .pprice span { font-size: .76rem; font-weight: 400; color: var(--mut); }
+    .plist { list-style: none; font-size: .78rem; color: #4A5568; line-height: 1.95; }
+    .plist li::before { content: '+ '; color: var(--mer); font-weight: 700; }
 
     .pbtn {
       width: 100%;
@@ -1049,34 +642,13 @@
       transition: all var(--tr);
     }
 
-    .pc .pbtn {
-      background: var(--mer);
-      color: #fff;
-    }
+    .pc .pbtn { background: var(--mer); color: #fff; }
+    .pc.feat .pbtn { background: var(--col); color: #1A1A2E; }
+    .pbtn:hover { filter: brightness(.92); }
 
-    .pc.feat .pbtn {
-      background: var(--col);
-      color: #1A1A2E;
-    }
+    .mbody-pad { padding: 22px 28px; display: flex; flex-direction: column; gap: 14px; }
 
-    .pbtn:hover {
-      filter: brightness(.92);
-    }
-
-    .mbody-pad {
-      padding: 22px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .fg label {
-      display: block;
-      font-size: .76rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #4A5568;
-    }
+    .fg label { display: block; font-size: .76rem; font-weight: 600; margin-bottom: 5px; color: #4A5568; }
 
     .fc {
       width: 100%;
@@ -1089,14 +661,8 @@
       transition: border-color var(--tr);
     }
 
-    .fc:focus {
-      border-color: var(--mer);
-    }
-
-    .fg {
-      display: flex;
-      flex-direction: column;
-    }
+    .fc:focus { border-color: var(--mer); }
+    .fg { display: flex; flex-direction: column; }
 
     #prof-toast {
       position: fixed;
@@ -1118,32 +684,15 @@
     }
 
     @media(max-width:860px) {
-      .wrapper {
-        grid-template-columns: 1fr;
-        padding: 0 16px;
-      }
-
-      .sidebar {
-        position: static;
-      }
-
-      nav {
-        padding: 0 20px;
-      }
+      .wrapper { grid-template-columns: 1fr; padding: 0 16px; }
+      .sidebar { position: static; }
+      nav { padding: 0 20px; }
     }
 
     @media(max-width:480px) {
-      .plans-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card-body {
-        padding: 18px 16px;
-      }
-
-      .card-hdr {
-        padding: 16px;
-      }
+      .plans-grid { grid-template-columns: 1fr; }
+      .card-body { padding: 18px 16px; }
+      .card-hdr { padding: 16px; }
     }
   </style>
 </head>
@@ -1253,14 +802,10 @@
                 <div class="order-price">{{ pedido.total_formateado }}</div>
                 <div style="margin-top:6px;">
                   <span class="status-pill {{ pedido.estado_pill_class }}">
-                    {% if pedido.estado == 'en_camino' %}
-                    <span class="dot dot-blue"></span>
-                    {% elif pedido.estado == 'entregado' %}
-                    <span class="dot dot-green"></span>
-                    {% elif pedido.estado == 'cancelado' %}
-                    <span class="dot dot-red"></span>
-                    {% else %}
-                    <span class="dot dot-amber"></span>
+                    {% if pedido.estado == 'en_camino' %}<span class="dot dot-blue"></span>
+                    {% elif pedido.estado == 'entregado' %}<span class="dot dot-green"></span>
+                    {% elif pedido.estado == 'cancelado' %}<span class="dot dot-red"></span>
+                    {% else %}<span class="dot dot-amber"></span>
                     {% endif %}
                     {{ pedido.estado_label }}
                   </span>
@@ -1284,8 +829,7 @@
                   {% if pedido.regalo_envoltura == 'bolsa_papel' %}🛍️ Bolsa de papel
                   {% elif pedido.regalo_envoltura == 'bolsa_tela' %}👜 Bolsa de tela
                   {% elif pedido.regalo_envoltura == 'caja' %}📦 Caja decorativa
-                  {% else %}{{ pedido.regalo_envoltura }}
-                  {% endif %}
+                  {% else %}{{ pedido.regalo_envoltura }}{% endif %}
                 </span>
               </div>
               {% endif %}
@@ -1297,8 +841,7 @@
                   {% elif pedido.regalo_decoracion == 'globos' %}🎈 Globos
                   {% elif pedido.regalo_decoracion == 'navidad' %}🎄 Navidad
                   {% elif pedido.regalo_decoracion == 'halloween' %}🎃 Halloween
-                  {% else %}{{ pedido.regalo_decoracion }}
-                  {% endif %}
+                  {% else %}{{ pedido.regalo_decoracion }}{% endif %}
                 </span>
               </div>
               {% endif %}
@@ -1308,19 +851,16 @@
             </div>
             {% endif %}
 
-            <!-- TRACKER DE PEDIDO -->
+            <!-- TRACKER -->
             <div class="track-panel" id="t{{ pedido.id }}">
               <div class="track-title">Pedido #{{ pedido.id }} — {{ pedido.estado_label }}</div>
 
-              <!-- Paso 1: Confirmado -->
               <div class="tstep">
                 <div class="tscol">
                   <div class="tsdot tsd">1</div>
                   {% if pedido.estado == 'preparando' or pedido.estado == 'en_camino' or pedido.estado == 'entregado' %}
                   <div class="tsline tsld"></div>
-                  {% else %}
-                  <div class="tsline tslp"></div>
-                  {% endif %}
+                  {% else %}<div class="tsline tslp"></div>{% endif %}
                 </div>
                 <div class="tsinfo">
                   <div class="tsname">Pedido confirmado</div>
@@ -1328,93 +868,65 @@
                 </div>
               </div>
 
-              <!-- Paso 2: Preparando -->
               <div class="tstep">
                 <div class="tscol">
                   {% if pedido.estado == 'preparando' or pedido.estado == 'en_camino' or pedido.estado == 'entregado' %}
                   <div class="tsdot tsd">2</div>
-                  {% elif pedido.estado == 'procesando' %}
-                  <div class="tsdot tsp">2</div>
-                  {% else %}
-                  <div class="tsdot tsa">2</div>
-                  {% endif %}
+                  {% elif pedido.estado == 'procesando' %}<div class="tsdot tsp">2</div>
+                  {% else %}<div class="tsdot tsa">2</div>{% endif %}
                   {% if pedido.estado == 'en_camino' or pedido.estado == 'entregado' %}
                   <div class="tsline tsld"></div>
-                  {% else %}
-                  <div class="tsline tslp"></div>
-                  {% endif %}
+                  {% else %}<div class="tsline tslp"></div>{% endif %}
                 </div>
                 <div class="tsinfo">
                   <div class="tsname">Preparando pedido</div>
                   <div class="tsmeta">
-                    {% if pedido.estado == 'preparando' or pedido.estado == 'en_camino' or pedido.estado == 'entregado' %}
-                    En proceso
-                    {% else %}
-                    Pendiente
-                    {% endif %}
+                    {% if pedido.estado == 'preparando' or pedido.estado == 'en_camino' or pedido.estado == 'entregado' %}En proceso
+                    {% else %}Pendiente{% endif %}
                   </div>
                 </div>
               </div>
 
-              <!-- Paso 3: En camino -->
               <div class="tstep">
                 <div class="tscol">
-                  {% if pedido.estado == 'en_camino' %}
-                  <div class="tsdot tsa">3</div>
-                  {% elif pedido.estado == 'entregado' %}
-                  <div class="tsdot tsd">3</div>
-                  {% else %}
-                  <div class="tsdot tsp">3</div>
-                  {% endif %}
-                  {% if pedido.estado == 'entregado' %}
-                  <div class="tsline tsld"></div>
-                  {% else %}
-                  <div class="tsline tslp"></div>
-                  {% endif %}
+                  {% if pedido.estado == 'en_camino' %}<div class="tsdot tsa">3</div>
+                  {% elif pedido.estado == 'entregado' %}<div class="tsdot tsd">3</div>
+                  {% else %}<div class="tsdot tsp">3</div>{% endif %}
+                  {% if pedido.estado == 'entregado' %}<div class="tsline tsld"></div>
+                  {% else %}<div class="tsline tslp"></div>{% endif %}
                 </div>
                 <div class="tsinfo">
                   <div class="tsname">En camino</div>
                   <div class="tsmeta">
                     {% if pedido.estado == 'en_camino' %}En tránsito
                     {% elif pedido.estado == 'entregado' %}Completado
-                    {% else %}Pendiente
-                    {% endif %}
+                    {% else %}Pendiente{% endif %}
                   </div>
                 </div>
               </div>
 
-              <!-- Paso 4: Entregado -->
               <div class="tstep">
                 <div class="tscol">
-                  {% if pedido.estado == 'entregado' %}
-                  <div class="tsdot tsd">4</div>
-                  {% else %}
-                  <div class="tsdot tsp">4</div>
-                  {% endif %}
+                  {% if pedido.estado == 'entregado' %}<div class="tsdot tsd">4</div>
+                  {% else %}<div class="tsdot tsp">4</div>{% endif %}
                 </div>
                 <div class="tsinfo">
                   <div class="tsname">Entregado</div>
                   <div class="tsmeta">
-                    {% if pedido.estado == 'entregado' %}
-                    Entregado el {{ pedido.fecha|date:"d M" }}
-                    {% else %}
-                    Pendiente
-                    {% endif %}
+                    {% if pedido.estado == 'entregado' %}Entregado el {{ pedido.fecha|date:"d M" }}
+                    {% else %}Pendiente{% endif %}
                   </div>
                 </div>
               </div>
-
-            </div>{# /track-panel #}
-          </div>{# /order-card #}
+            </div>
+          </div>
           {% endfor %}
           {% else %}
           <div style="text-align:center;padding:52px 20px;color:var(--mut);">
             <div style="font-size:3rem;margin-bottom:14px;">🛒</div>
             <div style="font-size:1rem;font-weight:700;color:#1A1A2E;margin-bottom:6px;">Aún no tienes pedidos</div>
-            <p style="font-size:.84rem;margin-bottom:22px;">Explora el marketplace y encuentra productos de
-              microempresas colombianas.</p>
-            <a href="{% url 'landing' %}"
-              style="display:inline-flex;align-items:center;gap:7px;background:var(--mer);color:#fff;padding:11px 26px;border-radius:50px;font-size:.84rem;font-weight:600;text-decoration:none;">
+            <p style="font-size:.84rem;margin-bottom:22px;">Explora el marketplace y encuentra productos de microempresas colombianas.</p>
+            <a href="{% url 'landing' %}" style="display:inline-flex;align-items:center;gap:7px;background:var(--mer);color:#fff;padding:11px 26px;border-radius:50px;font-size:.84rem;font-weight:600;text-decoration:none;">
               🇨🇴 Ir al Marketplace
             </a>
           </div>
@@ -1431,62 +943,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="fav-grid">
-            <div class="fav-card">
-              <div class="fav-img">&#128132;</div>
-              <div class="fav-info">
-                <div class="fav-name">Paleta Sombras Nude</div>
-                <div class="fav-store">Glam Medellín</div>
-                <div class="fav-price">$67.000</div>
-              </div>
-              <button class="fav-btn">+ Agregar al carrito</button>
-            </div>
-            <div class="fav-card">
-              <div class="fav-img">&#128095;</div>
-              <div class="fav-info">
-                <div class="fav-name">Sneakers Blancas Premium</div>
-                <div class="fav-store">Paso Firme</div>
-                <div class="fav-price">$185.000</div>
-              </div>
-              <button class="fav-btn">+ Agregar al carrito</button>
-            </div>
-            <div class="fav-card">
-              <div class="fav-img">&#128221;</div>
-              <div class="fav-info">
-                <div class="fav-name">Bullet Journal A5</div>
-                <div class="fav-store">Papel y Arte</div>
-                <div class="fav-price">$28.000</div>
-              </div>
-              <button class="fav-btn">+ Agregar al carrito</button>
-            </div>
-            <div class="fav-card">
-              <div class="fav-img">&#127801;</div>
-              <div class="fav-info">
-                <div class="fav-name">Perfume Dulce Miel 50ml</div>
-                <div class="fav-store">Essence CO</div>
-                <div class="fav-price">$95.000</div>
-              </div>
-              <button class="fav-btn">+ Agregar al carrito</button>
-            </div>
-            <div class="fav-card">
-              <div class="fav-img">&#128092;</div>
-              <div class="fav-info">
-                <div class="fav-name">Mini Bag Cadena Dorada</div>
-                <div class="fav-store">Studio BH</div>
-                <div class="fav-price">$118.000</div>
-              </div>
-              <button class="fav-btn">+ Agregar al carrito</button>
-            </div>
-            <div class="fav-card">
-              <div class="fav-img">&#129405;</div>
-              <div class="fav-info">
-                <div class="fav-name">Blazer Oversized Gris</div>
-                <div class="fav-store">Urban Style</div>
-                <div class="fav-price">$195.000</div>
-              </div>
-              <button class="fav-btn">+ Agregar al carrito</button>
-            </div>
-          </div>
+          <div class="fav-grid"></div>
         </div>
       </div>
 
@@ -1499,8 +956,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div
-            style="display:flex;align-items:center;gap:20px;padding:14px 0 24px;border-bottom:1px solid var(--bd);margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:20px;padding:14px 0 24px;border-bottom:1px solid var(--bd);margin-bottom:20px;">
             <div style="position:relative;">
               <div id="profilePhotoPreview"
                 style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--mer),#002060);color:#fff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid var(--bd);">
@@ -1514,8 +970,7 @@
                 <label class="btn btn-sm" for="photoInputProfile" style="cursor:pointer;">📷 Subir foto</label>
                 <button class="btn-out btn-sm" onclick="removePhoto()">Eliminar</button>
               </div>
-              <input type="file" id="photoInputProfile" accept="image/*" style="display:none;"
-                onchange="handlePhotoUpload(event)" />
+              <input type="file" id="photoInputProfile" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)" />
             </div>
           </div>
 
@@ -1554,17 +1009,28 @@
         </div>
         <div class="card-body">
 
+          <!-- Contraseña -->
           <div class="security-item">
             <div class="security-icon">🔑</div>
             <div class="security-text-wrap">
               <div class="security-lbl">Contraseña</div>
               <div class="security-desc">Última actualización: hace 30 días. Recomendamos cambiarla cada 3 meses.</div>
               <div class="security-status ss-ok">✓ Contraseña establecida</div>
+              <!-- Formulario inline para cambiar contraseña -->
+              <div class="pass-form-inline" id="passFormInline">
+                <input type="password" id="secCurrentPass" placeholder="Contraseña actual" />
+                <input type="password" id="secNewPass" placeholder="Nueva contraseña (mín. 8 caracteres)" />
+                <input type="password" id="secNewPassConf" placeholder="Confirmar nueva contraseña" />
+                <div style="display:flex;gap:8px;margin-top:4px;">
+                  <button class="btn btn-sm" id="passGuardarBtn" onclick="changePassword()">💾 Guardar contraseña</button>
+                  <button class="btn-out btn-sm" onclick="togglePassForm(false)">Cancelar</button>
+                </div>
+              </div>
             </div>
-            <button class="btn-out btn-sm"
-              onclick="document.getElementById('changePassModal').classList.add('open')">Cambiar</button>
+            <button class="btn-out btn-sm" id="passCambiarBtn" onclick="togglePassForm(true)">Cambiar</button>
           </div>
 
+          <!-- Correo -->
           <div class="security-item">
             <div class="security-icon">📧</div>
             <div class="security-text-wrap">
@@ -1579,6 +1045,7 @@
             <button class="btn-out btn-sm" onclick="openInline('email')">Editar</button>
           </div>
 
+          <!-- Teléfono -->
           <div class="security-item">
             <div class="security-icon">📱</div>
             <div class="security-text-wrap">
@@ -1593,12 +1060,12 @@
             <button class="btn-out btn-sm" onclick="openInline('phone')">Editar</button>
           </div>
 
+          <!-- 2FA -->
           <div class="security-item">
             <div class="security-icon">🔐</div>
             <div class="security-text-wrap">
               <div class="security-lbl">Verificación en dos pasos</div>
-              <div class="security-desc">Agrega una capa extra de seguridad. Se enviará un código a tu teléfono al
-                iniciar sesión.</div>
+              <div class="security-desc">Agrega una capa extra de seguridad. Se enviará un código a tu teléfono al iniciar sesión.</div>
               <div class="security-status ss-off" id="twoFAStatus">✕ No activada</div>
             </div>
             <button class="btn btn-sm" onclick="toggle2FA()">Activar</button>
@@ -1646,336 +1113,333 @@
     </div>
   </div>
 
-  <!-- CHANGE PASSWORD MODAL -->
-  <div class="modal-ov" id="changePassModal" onclick="if(event.target===this)this.classList.remove('open')">
-    <div class="mbox">
-      <div class="mhdr">
-        <div class="mttl">🔑 Cambiar Contraseña</div>
-        <button class="mxbtn" onclick="document.getElementById('changePassModal').classList.remove('open')">X</button>
-      </div>
-      <div class="mbody-pad">
-        <div class="fg">
-          <label>Contraseña actual</label>
-          <input type="password" class="fc" id="currentPass" placeholder="••••••••" />
-        </div>
-        <div class="fg">
-          <label>Nueva contraseña</label>
-          <input type="password" class="fc" id="newPass" placeholder="Mínimo 8 caracteres" />
-        </div>
-        <div class="fg">
-          <label>Confirmar nueva contraseña</label>
-          <input type="password" class="fc" id="newPassConf" placeholder="Repite la contraseña" />
-        </div>
-        <button class="btn" style="width:100%;justify-content:center;" onclick="changePassword()">Actualizar
-          contraseña</button>
-      </div>
-    </div>
-  </div>
-
   <script>
   const SESSION_ID = "{{ request.session.session_key|default:'guest' }}";
 
-async function addToCartFromFav(producto) {
-  try {
-    await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ producto })
-    });
-    showToast('🛒 Agregado al carrito — redirigiendo a pago...');
-    setTimeout(() => {
-      window.location.href = '/?openPay=1';
-    }, 1200);
-  } catch (e) {
-    showToast('❌ Error al agregar al carrito');
-  }
-}
-
-async function cargarFavoritos() {
-  const grid = document.querySelector('.fav-grid');
-  const favCount = document.getElementById('favCount');
-  if (!grid) return;
-  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">⏳ Cargando...</p>';
-
-  try {
-    const res = await fetch('/favoritos/');
-    const favs = await res.json();
-
-    if (!favs.length) {
-      grid.innerHTML = `
-        <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--mut);">
-          <div style="font-size:2.5rem;margin-bottom:12px;">🤍</div>
-          <div style="font-size:.95rem;font-weight:600;color:#1A1A2E;margin-bottom:6px;">Aún no tienes favoritos</div>
-          <p style="font-size:.82rem;">Explora el marketplace y guarda los productos que te gusten.</p>
-        </div>`;
-      if (favCount) favCount.textContent = 'Sin favoritos';
-      return;
-    }
-
-    if (favCount) favCount.textContent = `${favs.length} producto${favs.length !== 1 ? 's' : ''} guardado${favs.length !== 1 ? 's' : ''}`;
-
-    grid.innerHTML = favs.map((f, i) => {
-      const prod = {
-        id: f.producto_nombre,
-        name: f.producto_nombre,
-        brand: f.producto_tienda,
-        store: f.producto_tienda,
-        price: f.producto_precio,
-        img: f.producto_imagen || '',
-        ico: f.producto_ico || '🎁',
-        stock: 'ok',
-        cnt: 10,
-      };
-      return `
-        <div class="fav-card">
-          <div class="fav-img" style="${f.producto_imagen
-            ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;font-size:0;`
-            : ''}">
-            ${f.producto_imagen ? '' : (f.producto_ico || '🎁')}
-          </div>
-          <div class="fav-info">
-            <div class="fav-name">${f.producto_nombre}</div>
-            <div class="fav-store">${f.producto_tienda}</div>
-            <div class="fav-price">${f.producto_precio}</div>
-          </div>
-          <button class="fav-btn" onclick='addToCartFromFav(${JSON.stringify(prod)})'>
-            🛒 Agregar al carrito
-          </button>
-        </div>`;
-    }).join('');
-
-  } catch (e) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">❌ Error al cargar favoritos.</p>';
-  }
-}
-    /* ── CSRF ── */
-    function getCsrf() {
-      return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
-    }
-
-    /* ── ESTADO COMPARTIDO (UI local, fuente de verdad = BD) ── */
-    const St = {
-      name: '{{ user.get_full_name|default:user.first_name|escapejs }}',
-      email: '{{ user.email|escapejs }}',
-      phone: '{{ user.telefono|default:""|escapejs }}',
-      avatar: null,
-    };
-
-    /* ── INICIALIZAR UI ── */
-    function initUI() {
-      document.getElementById('sidebarName').textContent = St.name;
-      document.getElementById('sidebarEmail').textContent = St.email;
-      document.getElementById('sidebarPhone').textContent = St.phone || 'Sin teléfono';
-
-      const ava = document.getElementById('profAvatar');
-      if (St.avatar) {
-        ava.innerHTML = `<img src="${St.avatar}" alt="avatar" style="width:100%;height:100%;object-fit:cover;" />`;
-      } else {
-        ava.textContent = (St.name || 'U').charAt(0).toUpperCase();
-      }
-
-      const preview = document.getElementById('profilePhotoPreview');
-      if (preview) {
-        if (St.avatar) {
-          preview.innerHTML = `<img src="${St.avatar}" alt="avatar" style="width:100%;height:100%;object-fit:cover;" />`;
-        } else {
-          preview.textContent = (St.name || 'U').charAt(0).toUpperCase();
-        }
-      }
-
-      const sd = document.getElementById('secEmailDisplay'); if (sd) sd.textContent = St.email;
-      const sp = document.getElementById('secPhoneDisplay'); if (sp) sp.textContent = St.phone || 'Sin teléfono';
-    }
-    initUI();
-
-    /* ── RELOJ ── */
-    function tick() {
-      const n = new Date(), pad = v => String(v).padStart(2, '0');
-      document.getElementById('ct').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
-      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      document.getElementById('cd').textContent = `${days[n.getDay()]} ${n.getDate()} de ${months[n.getMonth()]}, ${n.getFullYear()}`;
-    }
-    tick(); setInterval(tick, 1000);
-
-    /* ── SECCIONES ── */
-    function showSec(id, btn) {
-      ['secOrders', 'secFavs', 'secProfile', 'secSecurity'].forEach(s => {
-        const el = document.getElementById(s); if (el) el.style.display = 'none';
+  async function addToCartFromFav(producto) {
+    try {
+      await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ producto })
       });
-      const map = { orders: 'secOrders', favs: 'secFavs', profile: 'secProfile', security: 'secSecurity' };
-      const el = document.getElementById(map[id]); if (el) el.style.display = 'block';
-      document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
-      btn.classList.add('act');
-      if (id === 'favs') cargarFavoritos();
+      showToast('🛒 Agregado al carrito — redirigiendo a pago...');
+      setTimeout(() => { window.location.href = '/?openPay=1'; }, 1200);
+    } catch (e) {
+      showToast('❌ Error al agregar al carrito');
     }
+  }
 
-    /* ── TRACK TOGGLE ── */
-    function toggleTrack(id) { document.getElementById(id).classList.toggle('open'); }
+  async function cargarFavoritos() {
+    const grid = document.querySelector('.fav-grid');
+    const favCount = document.getElementById('favCount');
+    if (!grid) return;
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">⏳ Cargando...</p>';
 
-    /* ── CANCELAR EDICIÓN PERFIL ── */
-    function cancelEditProfile() {
-      document.getElementById('editName').value = St.name;
-      document.getElementById('editEmail').value = St.email;
-      document.getElementById('editPhone').value = St.phone;
-    }
+    try {
+      const res = await fetch('/favoritos/');
+      const favs = await res.json();
 
-    /* ── FOTO ── */
-    async function handlePhotoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      if (file.size > 5 * 1024 * 1024) { showToast('❌ La imagen debe pesar menos de 5MB'); return; }
-
-      const fd = new FormData();
-      fd.append('imagen', file);
-
-      try {
-        const res = await fetch('/perfil/foto/', {
-          method: 'POST',
-          headers: { 'X-CSRFToken': getCsrf() },
-          body: fd,
-        });
-        const data = await res.json();
-        if (data.ok) {
-          St.avatar = data.url;
-          initUI();
-          showToast('✅ Foto de perfil actualizada correctamente');
-        } else {
-          showToast('❌ ' + (data.error || 'Error al subir foto'));
-        }
-      } catch (e) { showToast('❌ Error de conexión'); }
-    }
-
-    function removePhoto() {
-      St.avatar = null;
-      initUI();
-      showToast('🗑 Foto eliminada');
-    }
-
-    /* ── GUARDAR PERFIL → BD ── */
-    async function saveProfileChanges() {
-      const nombre = document.getElementById('editName')?.value.trim();
-      const email = document.getElementById('editEmail')?.value.trim();
-      const telefono = document.getElementById('editPhone')?.value.trim();
-
-      if (!nombre || !email) { showToast('❌ Completa nombre y correo'); return; }
-      if (!email.includes('@')) { showToast('❌ Correo inválido'); return; }
-
-      try {
-        const res = await fetch('/perfil/editar/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
-          body: JSON.stringify({ nombre, email, telefono }),
-        });
-        const data = await res.json();
-        if (data.ok) {
-          St.name = data.nombre;
-          St.email = data.email;
-          St.phone = data.telefono;
-          initUI();
-          showToast('✅ Perfil actualizado correctamente');
-        } else {
-          showToast('❌ ' + (data.error || 'Error al guardar'));
-        }
-      } catch (e) { showToast('❌ Error de conexión'); }
-    }
-
-    /* ── INLINE EDIT (seguridad) → BD ── */
-    function openInline(field) {
-      if (field === 'email') {
-        document.getElementById('inlineEmailInp').value = St.email;
-        document.getElementById('emailInlineEdit').classList.add('open');
-      } else if (field === 'phone') {
-        document.getElementById('inlinePhoneInp').value = St.phone;
-        document.getElementById('phoneInlineEdit').classList.add('open');
-      }
-    }
-
-    function closeInline(field) {
-      if (field === 'email') document.getElementById('emailInlineEdit').classList.remove('open');
-      if (field === 'phone') document.getElementById('phoneInlineEdit').classList.remove('open');
-    }
-
-    async function saveInlineField(field) {
-      let nombre = St.name;
-      let email = St.email;
-      let telefono = St.phone;
-
-      if (field === 'email') {
-        const val = document.getElementById('inlineEmailInp').value.trim();
-        if (!val || !val.includes('@')) { showToast('❌ Ingresa un correo válido'); return; }
-        email = val;
-      } else if (field === 'phone') {
-        const val = document.getElementById('inlinePhoneInp').value.trim();
-        if (!val) { showToast('❌ Ingresa un teléfono válido'); return; }
-        telefono = val;
+      if (!favs.length) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--mut);">
+            <div style="font-size:2.5rem;margin-bottom:12px;">🤍</div>
+            <div style="font-size:.95rem;font-weight:600;color:#1A1A2E;margin-bottom:6px;">Aún no tienes favoritos</div>
+            <p style="font-size:.82rem;">Explora el marketplace y guarda los productos que te gusten.</p>
+          </div>`;
+        if (favCount) favCount.textContent = 'Sin favoritos';
+        return;
       }
 
-      try {
-        const res = await fetch('/perfil/editar/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
-          body: JSON.stringify({ nombre, email, telefono }),
-        });
-        const data = await res.json();
-        if (data.ok) {
-          St.email = data.email;
-          St.phone = data.telefono;
-          closeInline(field);
-          initUI();
-          showToast(`✅ ${field === 'email' ? 'Correo' : 'Teléfono'} actualizado correctamente`);
-        } else {
-          showToast('❌ ' + (data.error || 'Error al guardar'));
-        }
-      } catch (e) { showToast('❌ Error de conexión'); }
-    }
+      if (favCount) favCount.textContent = `${favs.length} producto${favs.length !== 1 ? 's' : ''} guardado${favs.length !== 1 ? 's' : ''}`;
 
-    /* ── CAMBIAR CONTRASEÑA ── */
-    function changePassword() {
-      const np = document.getElementById('newPass').value;
-      const nc = document.getElementById('newPassConf').value;
-      if (np.length < 8) { showToast('❌ La contraseña debe tener mínimo 8 caracteres'); return; }
-      if (np !== nc) { showToast('❌ Las contraseñas no coinciden'); return; }
-      document.getElementById('changePassModal').classList.remove('open');
-      document.getElementById('currentPass').value = '';
-      document.getElementById('newPass').value = '';
-      document.getElementById('newPassConf').value = '';
-      showToast('✅ Contraseña actualizada correctamente');
-    }
+      grid.innerHTML = favs.map(f => {
+        const prod = {
+          id: f.producto_nombre, name: f.producto_nombre, brand: f.producto_tienda,
+          store: f.producto_tienda, price: f.producto_precio,
+          img: f.producto_imagen || '', ico: f.producto_ico || '🎁', stock: 'ok', cnt: 10,
+        };
+        return `
+          <div class="fav-card">
+            <div class="fav-img" style="${f.producto_imagen
+              ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;font-size:0;`
+              : ''}">
+              ${f.producto_imagen ? '' : (f.producto_ico || '🎁')}
+            </div>
+            <div class="fav-info">
+              <div class="fav-name">${f.producto_nombre}</div>
+              <div class="fav-store">${f.producto_tienda}</div>
+              <div class="fav-price">${f.producto_precio}</div>
+            </div>
+            <button class="fav-btn" onclick='addToCartFromFav(${JSON.stringify(prod)})'>
+              🛒 Agregar al carrito
+            </button>
+          </div>`;
+      }).join('');
 
-    /* ── 2FA (local) ── */
-    let twoFAEnabled = false;
-    function toggle2FA() {
-      twoFAEnabled = !twoFAEnabled;
-      const s = document.getElementById('twoFAStatus');
-      const btn = s.parentElement.parentElement.querySelector('.btn');
-      if (twoFAEnabled) {
-        s.className = 'security-status ss-ok';
-        s.textContent = '✓ Activada';
-        btn.textContent = 'Desactivar';
-        showToast('✅ Verificación en dos pasos activada');
+    } catch (e) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">❌ Error al cargar favoritos.</p>';
+    }
+  }
+
+  /* ── CSRF ── */
+  function getCsrf() {
+    return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('csrftoken='))?.split('=')[1] || '';
+  }
+
+  /* ── ESTADO COMPARTIDO ── */
+  const St = {
+    name:   '{{ user.get_full_name|default:user.first_name|escapejs }}',
+    email:  '{{ user.email|escapejs }}',
+    phone:  '{{ user.telefono|default:""|escapejs }}',
+    avatar: {% if user.foto_perfil %}'{{ user.foto_perfil.url }}'{% else %}null{% endif %},
+  };
+
+  /* ── INICIALIZAR UI ── */
+  function initUI() {
+    document.getElementById('sidebarName').textContent  = St.name;
+    document.getElementById('sidebarEmail').textContent = St.email;
+    document.getElementById('sidebarPhone').textContent = St.phone || 'Sin teléfono';
+
+    const ava = document.getElementById('profAvatar');
+    if (St.avatar) {
+      ava.innerHTML = `<img src="${St.avatar}" alt="avatar" style="width:100%;height:100%;object-fit:cover;" />`;
+    } else if (!ava.querySelector('img')) {
+  ava.textContent = (St.name || 'U').charAt(0).toUpperCase();
+}
+
+    const preview = document.getElementById('profilePhotoPreview');
+if (preview) {
+  if (St.avatar) {
+    preview.innerHTML = `<img src="${St.avatar}" alt="avatar" style="width:100%;height:100%;object-fit:cover;" />`;
+  } else if (!preview.querySelector('img')) {
+    preview.textContent = (St.name || 'U').charAt(0).toUpperCase();
+  }
+}
+
+    const sd = document.getElementById('secEmailDisplay'); if (sd) sd.textContent = St.email;
+    const sp = document.getElementById('secPhoneDisplay'); if (sp) sp.textContent = St.phone || 'Sin teléfono';
+  }
+  initUI();
+
+  /* ── RELOJ ── */
+  function tick() {
+    const n = new Date(), pad = v => String(v).padStart(2, '0');
+    document.getElementById('ct').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+    const days   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    document.getElementById('cd').textContent = `${days[n.getDay()]} ${n.getDate()} de ${months[n.getMonth()]}, ${n.getFullYear()}`;
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ── SECCIONES ── */
+  function showSec(id, btn) {
+    ['secOrders','secFavs','secProfile','secSecurity'].forEach(s => {
+      const el = document.getElementById(s); if (el) el.style.display = 'none';
+    });
+    const map = { orders:'secOrders', favs:'secFavs', profile:'secProfile', security:'secSecurity' };
+    const el = document.getElementById(map[id]); if (el) el.style.display = 'block';
+    document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
+    btn.classList.add('act');
+    if (id === 'favs') cargarFavoritos();
+  }
+
+  /* ── TRACK TOGGLE ── */
+  function toggleTrack(id) { document.getElementById(id).classList.toggle('open'); }
+
+  /* ── CANCELAR EDICIÓN PERFIL ── */
+  function cancelEditProfile() {
+    document.getElementById('editName').value  = St.name;
+    document.getElementById('editEmail').value = St.email;
+    document.getElementById('editPhone').value = St.phone;
+  }
+
+  /* ── FOTO ── */
+  async function handlePhotoUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { showToast('❌ La imagen debe pesar menos de 5MB'); return; }
+
+    const fd = new FormData();
+    fd.append('imagen', file);
+
+    try {
+      const res = await fetch('/perfil/foto/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getCsrf() },
+        body: fd,
+      });
+      const data = await res.json();
+      if (data.ok) {
+        St.avatar = data.url;
+        initUI();
+        showToast('✅ Foto de perfil actualizada correctamente');
       } else {
-        s.className = 'security-status ss-off';
-        s.textContent = '✕ No activada';
-        btn.textContent = 'Activar';
-        showToast('ℹ️ Verificación en dos pasos desactivada');
+        showToast('❌ ' + (data.error || 'Error al subir foto'));
       }
+    } catch (e) { showToast('❌ Error de conexión'); }
+  }
+
+  function removePhoto() { St.avatar = null; initUI(); showToast('🗑 Foto eliminada'); }
+
+  /* ── GUARDAR PERFIL → BD ── */
+  async function saveProfileChanges() {
+    const nombre   = document.getElementById('editName')?.value.trim();
+    const email    = document.getElementById('editEmail')?.value.trim();
+    const telefono = document.getElementById('editPhone')?.value.trim();
+
+    if (!nombre || !email) { showToast('❌ Completa nombre y correo'); return; }
+    if (!email.includes('@')) { showToast('❌ Correo inválido'); return; }
+
+    try {
+      const res = await fetch('/perfil/editar/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
+        body: JSON.stringify({ nombre, email, telefono }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        St.name  = data.nombre;
+        St.email = data.email;
+        St.phone = data.telefono;
+        initUI();
+        showToast('✅ Perfil actualizado correctamente');
+      } else {
+        showToast('❌ ' + (data.error || 'Error al guardar'));
+      }
+    } catch (e) { showToast('❌ Error de conexión'); }
+  }
+
+  /* ── INLINE EDIT correo/teléfono (sección Seguridad) → BD ── */
+  function openInline(field) {
+    if (field === 'email') {
+      document.getElementById('inlineEmailInp').value = St.email;
+      document.getElementById('emailInlineEdit').classList.add('open');
+    } else if (field === 'phone') {
+      document.getElementById('inlinePhoneInp').value = St.phone;
+      document.getElementById('phoneInlineEdit').classList.add('open');
+    }
+  }
+
+  function closeInline(field) {
+    if (field === 'email') document.getElementById('emailInlineEdit').classList.remove('open');
+    if (field === 'phone') document.getElementById('phoneInlineEdit').classList.remove('open');
+  }
+
+  async function saveInlineField(field) {
+    let nombre   = St.name;
+    let email    = St.email;
+    let telefono = St.phone;
+
+    if (field === 'email') {
+      const val = document.getElementById('inlineEmailInp').value.trim();
+      if (!val || !val.includes('@')) { showToast('❌ Ingresa un correo válido'); return; }
+      email = val;
+    } else if (field === 'phone') {
+      const val = document.getElementById('inlinePhoneInp').value.trim();
+      if (!val) { showToast('❌ Ingresa un teléfono válido'); return; }
+      telefono = val;
     }
 
-    /* ── TOAST ── */
-    function showToast(msg) {
-      const t = document.getElementById('prof-toast');
-      t.textContent = msg;
-      t.style.opacity = '1';
-      t.style.transform = 'translateX(-50%) translateY(0)';
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => {
-        t.style.opacity = '0';
-        t.style.transform = 'translateX(-50%) translateY(80px)';
-      }, 2800);
+    try {
+      const res = await fetch('/perfil/editar/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
+        body: JSON.stringify({ nombre, email, telefono }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        St.email = data.email;
+        St.phone = data.telefono;
+        closeInline(field);
+        initUI();
+        showToast(`✅ ${field === 'email' ? 'Correo' : 'Teléfono'} actualizado correctamente`);
+      } else {
+        showToast('❌ ' + (data.error || 'Error al guardar'));
+      }
+    } catch (e) { showToast('❌ Error de conexión'); }
+  }
+
+  /* ── TOGGLE FORMULARIO CONTRASEÑA ── */
+  function togglePassForm(open) {
+    const form = document.getElementById('passFormInline');
+    const btn  = document.getElementById('passCambiarBtn');
+    form.classList.toggle('open', open);
+    btn.style.display = open ? 'none' : '';
+    if (!open) {
+      document.getElementById('secCurrentPass').value  = '';
+      document.getElementById('secNewPass').value      = '';
+      document.getElementById('secNewPassConf').value  = '';
     }
+  }
+
+  /* ── CAMBIAR CONTRASEÑA → BD ── */
+  async function changePassword() {
+    const cp = document.getElementById('secCurrentPass').value;
+    const np = document.getElementById('secNewPass').value.trim();
+    const nc = document.getElementById('secNewPassConf').value.trim();
+
+    if (!cp || !np || !nc) { showToast('❌ Completa todos los campos'); return; }
+    if (np.length < 8)     { showToast('❌ La contraseña debe tener mínimo 8 caracteres'); return; }
+    if (np !== nc)         { showToast('❌ Las contraseñas no coinciden'); return; }
+
+    const btn = document.getElementById('passGuardarBtn');
+    btn.disabled    = true;
+    btn.textContent = '⏳ Guardando...';
+
+    try {
+      const res = await fetch('/perfil/cambiar-password/', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrf() },
+        body: JSON.stringify({ password_actual: cp, password_nuevo: np, password_confirm: nc }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        togglePassForm(false);
+        showToast('✅ Contraseña actualizada correctamente');
+      } else {
+        showToast('❌ ' + (data.error || 'Error al actualizar'));
+      }
+    } catch (e) {
+      showToast('❌ Error de conexión');
+    } finally {
+      btn.disabled    = false;
+      btn.textContent = '💾 Guardar contraseña';
+    }
+  }
+
+  /* ── 2FA (local) ── */
+  let twoFAEnabled = false;
+  function toggle2FA() {
+    twoFAEnabled = !twoFAEnabled;
+    const s   = document.getElementById('twoFAStatus');
+    const btn = s.parentElement.parentElement.querySelector('.btn');
+    if (twoFAEnabled) {
+      s.className  = 'security-status ss-ok';
+      s.textContent = '✓ Activada';
+      btn.textContent = 'Desactivar';
+      showToast('✅ Verificación en dos pasos activada');
+    } else {
+      s.className  = 'security-status ss-off';
+      s.textContent = '✕ No activada';
+      btn.textContent = 'Activar';
+      showToast('ℹ️ Verificación en dos pasos desactivada');
+    }
+  }
+
+  /* ── TOAST ── */
+  function showToast(msg) {
+    const t = document.getElementById('prof-toast');
+    t.textContent = msg;
+    t.style.opacity   = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => {
+      t.style.opacity   = '0';
+      t.style.transform = 'translateX(-50%) translateY(80px)';
+    }, 2800);
+  }
   </script>
 
 </body>
-
 </html>

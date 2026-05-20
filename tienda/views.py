@@ -1035,3 +1035,38 @@ class AdminDevolucionPedidoView(LoginRequiredMixin, View):
             "usuario": f"{pedido.usuario.first_name} {pedido.usuario.last_name}",
             "total": str(pedido.total),
         })
+# ─────────────────────────────────────────────
+#  CAMBIAR CONTRASEÑA
+# ─────────────────────────────────────────────
+@method_decorator(csrf_exempt, name="dispatch")
+class CambiarPasswordView(LoginRequiredMixin, View):
+    def post(self, request):
+        try:
+            body = json.loads(request.body)
+        except Exception:
+            return JsonResponse({"ok": False, "error": "JSON inválido"}, status=400)
+
+        from django.contrib.auth import update_session_auth_hash
+
+        password_actual  = body.get("password_actual", "")
+        password_nuevo   = body.get("password_nuevo", "").strip()
+        password_confirm = body.get("password_confirm", "").strip()
+
+        if not password_actual or not password_nuevo:
+            return JsonResponse({"ok": False, "error": "Completa todos los campos"}, status=400)
+
+        if len(password_nuevo) < 8:
+            return JsonResponse({"ok": False, "error": "La contraseña debe tener mínimo 8 caracteres"}, status=400)
+
+        if password_nuevo != password_confirm:
+            return JsonResponse({"ok": False, "error": "Las contraseñas nuevas no coinciden"}, status=400)
+
+        if not request.user.check_password(password_actual):
+            return JsonResponse({"ok": False, "error": "La contraseña actual es incorrecta"}, status=400)
+
+        request.user.set_password(password_nuevo)
+        request.user.save()
+        # Mantiene la sesión activa después del cambio
+        update_session_auth_hash(request, request.user)
+
+        return JsonResponse({"ok": True, "mensaje": "Contraseña actualizada correctamente"})
