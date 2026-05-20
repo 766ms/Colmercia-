@@ -73,4 +73,5 @@ urlpatterns = [
     path("favoritos/", get_favoritos, name="get_favoritos"),
     # Dentro de urlpatterns:
     path("admin-pag/pedidos/<int:pedido_id>/devolucion/", AdminDevolucionPedidoView.as_view(), name="admin_devolucion_pedido"),
+    path("perfil/cambiar-password/", views.CambiarPasswordView.as_view(), name="cambiar_password"),
 ]

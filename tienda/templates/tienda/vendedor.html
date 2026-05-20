@@ -9,903 +9,203 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
 
-    html,
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #F0F2F5;
-      color: #1A1A2E;
-      min-height: 100vh
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit
-    }
-
-    button {
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer;
-      border: none
-    }
+    html,body { font-family:'Poppins',sans-serif; background:#F0F2F5; color:#1A1A2E; min-height:100vh }
+    a { text-decoration:none; color:inherit }
+    button { font-family:'Poppins',sans-serif; cursor:pointer; border:none }
 
     :root {
-      --col: #F5C518;
-      --mer: #003087;
-      --cia: #CE1126;
-      --bg: #F0F2F5;
-      --wht: #fff;
-      --bd: #E2E8F0;
-      --mut: #718096;
-      --r: 14px;
-      --rs: 10px;
-      --tr: .2s ease;
-      --sh: 0 4px 20px rgba(0, 48, 135, .08);
-      --shm: 0 8px 32px rgba(0, 48, 135, .14)
+      --col:#F5C518; --mer:#003087; --cia:#CE1126;
+      --bg:#F0F2F5; --wht:#fff; --bd:#E2E8F0; --mut:#718096;
+      --r:14px; --rs:10px; --tr:.2s ease;
+      --sh:0 4px 20px rgba(0,48,135,.08); --shm:0 8px 32px rgba(0,48,135,.14)
     }
 
     nav {
-      background: var(--wht);
-      border-bottom: 3px solid var(--col);
-      padding: 0 40px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--sh)
+      background:var(--wht); border-bottom:3px solid var(--col);
+      padding:0 40px; height:64px; display:flex; align-items:center;
+      justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:var(--sh)
     }
-
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: 800
-    }
-
-    .nav-logo .lc {
-      color: var(--col)
-    }
-
-    .nav-logo .lm {
-      color: var(--mer)
-    }
-
-    .nav-logo .lr {
-      color: var(--cia)
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    .nlink {
-      font-size: .82rem;
-      font-weight: 500;
-      color: var(--mut);
-      padding: 8px 18px;
-      border-radius: 50px;
-      transition: all var(--tr)
-    }
-
-    .nlink:hover {
-      background: #EDF2F7;
-      color: var(--mer)
-    }
-
-    .nlink.act {
-      background: var(--mer);
-      color: #fff;
-      font-weight: 600
-    }
+    .nav-logo { font-size:1.5rem; font-weight:800 }
+    .nav-logo .lc { color:var(--col) }
+    .nav-logo .lm { color:var(--mer) }
+    .nav-logo .lr { color:var(--cia) }
+    .nav-right { display:flex; align-items:center; gap:10px }
+    .nlink { font-size:.82rem; font-weight:500; color:var(--mut); padding:8px 18px; border-radius:50px; transition:all var(--tr) }
+    .nlink:hover { background:#EDF2F7; color:var(--mer) }
+    .nlink.act { background:var(--mer); color:#fff; font-weight:600 }
 
     .wrapper {
-      max-width: 1300px;
-      margin: 36px auto;
-      padding: 0 32px;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 28px;
-      align-items: start
+      max-width:1300px; margin:36px auto; padding:0 32px;
+      display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start
     }
 
-    .sidebar {
-      background: var(--wht);
-      border-radius: var(--r);
-      box-shadow: var(--sh);
-      overflow: hidden
-    }
+    .sidebar { background:var(--wht); border-radius:var(--r); box-shadow:var(--sh); overflow:hidden }
 
-    .s-top {
-      background: linear-gradient(145deg, #0A1628, #003087);
-      padding: 28px 24px;
-      text-align: center
-    }
+    .s-top { background:linear-gradient(145deg,#0A1628,#003087); padding:28px 24px; text-align:center }
 
-    .store-photo-wrap {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 12px
-    }
-
+    .store-photo-wrap { position:relative; display:inline-block; margin-bottom:12px }
     .store-photo {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, .4);
-      background: rgba(255, 255, 255, .15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      overflow: hidden;
-      margin: 0 auto
+      width:90px; height:90px; border-radius:50%; border:3px solid rgba(255,255,255,.4);
+      background:rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center;
+      font-size:2.5rem; overflow:hidden; margin:0 auto
     }
-
-    .store-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none
-    }
+    .store-photo img { width:100%; height:100%; object-fit:cover; display:none }
 
     .photo-edit-btn {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--col);
-      color: #1A1A2E;
-      font-size: .65rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: 2px solid #fff
+      position:absolute; bottom:2px; right:2px; width:26px; height:26px;
+      border-radius:50%; background:var(--col); color:#1A1A2E; font-size:.65rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; cursor:pointer; border:2px solid #fff
     }
 
-    .store-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 3px
-    }
-
-    .store-cat {
-      font-size: .75rem;
-      color: rgba(255, 255, 255, .55);
-      margin-bottom: 10px
-    }
+    .store-name { font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:3px }
+    .store-cat { font-size:.75rem; color:rgba(255,255,255,.55); margin-bottom:10px }
 
     .verified-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(72, 187, 120, .2);
-      border: 1px solid rgba(72, 187, 120, .4);
-      color: #68D391;
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: .68rem;
-      font-weight: 600
+      display:inline-flex; align-items:center; gap:5px;
+      background:rgba(72,187,120,.2); border:1px solid rgba(72,187,120,.4);
+      color:#68D391; padding:4px 12px; border-radius:50px; font-size:.68rem; font-weight:600
     }
 
-    .clock-box {
-      background: #050D1A;
-      padding: 18px 24px;
-      text-align: center
-    }
+    .clock-box { background:#050D1A; padding:18px 24px; text-align:center }
+    .clock-time { font-size:2.2rem; font-weight:700; color:#fff; letter-spacing:3px; line-height:1 }
+    .clock-date { font-size:.73rem; color:rgba(255,255,255,.45); margin-top:6px }
+    .clock-tz { font-size:.63rem; color:rgba(255,255,255,.25); margin-top:2px }
 
-    .clock-time {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 3px;
-      line-height: 1
-    }
-
-    .clock-date {
-      font-size: .73rem;
-      color: rgba(255, 255, 255, .45);
-      margin-top: 6px
-    }
-
-    .clock-tz {
-      font-size: .63rem;
-      color: rgba(255, 255, 255, .25);
-      margin-top: 2px
-    }
-
-    .smenu {
-      padding: 12px
-    }
-
-    .smenu-lbl {
-      font-size: .64rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--mut);
-      padding: 7px 14px 3px
-    }
+    .smenu { padding:12px }
+    .smenu-lbl { font-size:.64rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--mut); padding:7px 14px 3px }
 
     .sitem {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 11px 14px;
-      border-radius: var(--rs);
-      font-size: .84rem;
-      font-weight: 500;
-      color: #4A5568;
-      cursor: pointer;
-      transition: all var(--tr);
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      border: none;
-      font-family: 'Poppins', sans-serif
-    }
-
-    .sitem:hover {
-      background: #EDF2F7;
-      color: var(--mer)
-    }
-
-    .sitem.act {
-      background: #EBF4FF;
-      color: var(--mer);
-      font-weight: 600
-    }
-
-    .si-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0
-    }
-
-    .si-dot.blue {
-      background: var(--mer)
-    }
-
-    .si-dot.amber {
-      background: var(--col)
-    }
-
-    .si-dot.green {
-      background: #22C55E
-    }
-
-    .si-dot.red {
-      background: var(--cia)
-    }
-
-    .sitem-badge {
-      margin-left: auto;
-      background: var(--cia);
-      color: #fff;
-      font-size: .58rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 50px
-    }
-
-    .sdiv {
-      height: 1px;
-      background: var(--bd);
-      margin: 8px 0
-    }
-
-    .sitem.danger {
-      color: var(--cia)
-    }
-
-    .sitem.danger:hover {
-      background: #FFF5F5
-    }
-
-    .main {
-      display: flex;
-      flex-direction: column;
-      gap: 22px
-    }
-
-    .card {
-      background: var(--wht);
-      border-radius: var(--r);
-      box-shadow: var(--sh)
-    }
-
-    .card-hdr {
-      padding: 20px 28px;
-      border-bottom: 1px solid var(--bd);
-      display: flex;
-      align-items: center;
-      justify-content: space-between
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700
-    }
-
-    .card-sub {
-      font-size: .76rem;
-      color: var(--mut);
-      margin-top: 2px
-    }
-
-    .card-body {
-      padding: 24px 28px
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px
-    }
-
-    .stat {
-      background: var(--bg);
-      border-radius: var(--rs);
-      border: 1px solid var(--bd);
-      padding: 18px;
-      position: relative;
-      overflow: hidden
-    }
-
-    .stat-accent {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px
-    }
-
-    .stat-val {
-      font-size: 1.8rem;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 3px
-    }
-
-    .stat-lbl {
-      font-size: .72rem;
-      color: var(--mut);
-      font-weight: 500
-    }
-
-    .stat-delta {
-      font-size: .7rem;
-      font-weight: 600;
-      margin-top: 6px
-    }
-
-    .dUp {
-      color: #22C55E
-    }
-
-    .dDn {
-      color: var(--cia)
-    }
-
-    .chart-wrap {
-      background: var(--bg);
-      border-radius: var(--rs);
-      border: 1px solid var(--bd);
-      padding: 20px;
-      margin-top: 18px
-    }
-
-    .chart-title {
-      font-size: .84rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      color: #1A1A2E
-    }
-
-    .bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      height: 110px
-    }
-
-    .bw {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px
-    }
-
-    .bv {
-      font-size: .65rem;
-      font-weight: 600;
-      color: var(--mer)
-    }
-
-    .bf {
-      width: 100%;
-      background: linear-gradient(180deg, var(--col), #e6aa00);
-      border-radius: 6px 6px 0 0;
-      min-height: 4px
-    }
-
-    .bl {
-      font-size: .65rem;
-      color: var(--mut)
-    }
-
-    .order-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--bd)
-    }
-
-    .order-row:last-child {
-      border-bottom: none
-    }
-
-    .or-status {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0
-    }
-
-    .or-new {
-      background: var(--mer)
-    }
-
-    .or-prep {
-      background: var(--col)
-    }
-
-    .or-info {
-      flex: 1
-    }
-
-    .or-name {
-      font-size: .85rem;
-      font-weight: 600
-    }
-
-    .or-meta {
-      font-size: .7rem;
-      color: var(--mut);
-      margin-top: 2px
-    }
-
-    .or-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0
-    }
-
-    .status-pill {
-      font-size: .7rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 50px
-    }
-
-    .sp-blue {
-      background: #EBF8FF;
-      color: #1565C0
-    }
-
-    .sp-amber {
-      background: #FFFBEB;
-      color: #92400E
-    }
-
-    .sp-green {
-      background: #E8F5E9;
-      color: #2E7D32
-    }
-
-    .sp-red {
-      background: #FFEBEE;
-      color: #C62828
-    }
-
-    .or-price {
-      font-size: .88rem;
-      font-weight: 700;
-      color: var(--mer)
-    }
-
-    .prod-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto auto;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--bd)
-    }
-
-    .prod-row:last-child {
-      border-bottom: none
-    }
-
-    .prod-thumb {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--rs);
-      background: linear-gradient(135deg, #FFF9E6, #FFF3CD);
-      border: 1px solid var(--bd);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      overflow: hidden;
-      flex-shrink: 0
-    }
-
-    .prod-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover
-    }
-
-    .prod-name {
-      font-size: .84rem;
-      font-weight: 600
-    }
-
-    .prod-meta {
-      font-size: .7rem;
-      color: var(--mut);
-      margin-top: 2px
-    }
-
-    .prod-price {
-      font-size: .88rem;
-      font-weight: 700;
-      color: var(--mer);
-      white-space: nowrap
-    }
-
-    .stock-pill {
-      font-size: .65rem;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 50px;
-      display: inline-block;
-      margin-top: 3px
-    }
-
-    .sp-ok {
-      background: #F0FFF4;
-      color: #276749
-    }
-
-    .sp-low {
-      background: #FFFBEB;
-      color: #92400E
-    }
-
-    .sp-out {
-      background: #FFF5F5;
-      color: #9B2C2C
-    }
-
-    .prod-acts {
-      display: flex;
-      gap: 6px;
-      flex-shrink: 0
-    }
-
-    .pa {
-      background: transparent;
-      border: 1.5px solid var(--bd);
-      border-radius: 50px;
-      font-size: .7rem;
-      padding: 5px 13px;
-      color: var(--mut);
-      transition: all var(--tr);
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer
-    }
-
-    .pa:hover {
-      border-color: var(--mer);
-      color: var(--mer)
-    }
-
-    .pa.del:hover {
-      border-color: var(--cia);
-      color: var(--cia)
-    }
-
-    .add-form {
-      display: none;
-      background: var(--bg);
-      border: 2px dashed var(--bd);
-      border-radius: var(--r);
-      padding: 28px;
-      margin-top: 18px
-    }
-
-    .add-form.open {
-      display: block
-    }
-
-    .form-title {
-      font-size: .95rem;
-      font-weight: 700;
-      color: var(--mer);
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--bd)
-    }
-
-    .fg {
-      margin-bottom: 14px
-    }
-
-    .fg label {
-      display: block;
-      font-size: .76rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-      color: #2D3748
-    }
-
-    .fg label span.req {
-      color: var(--cia)
-    }
-
-    .fc {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: var(--rs);
-      border: 1.5px solid var(--bd);
-      font-size: .82rem;
-      font-family: 'Poppins', sans-serif;
-      outline: none;
-      background: #fff;
-      color: #1A1A2E;
-      transition: all var(--tr)
-    }
-
-    .fc:focus {
-      border-color: var(--mer);
-      box-shadow: 0 0 0 3px rgba(0, 48, 135, .07)
-    }
-
-    .fc::placeholder {
-      color: #A0AEC0
-    }
-
-    textarea.fc {
-      resize: vertical;
-      min-height: 80px
-    }
-
-    select.fc {
-      appearance: none
-    }
-
-    .frow2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px
-    }
-
-    .frow3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 14px
-    }
-
-    .photo-upload-zone {
-      border: 2px dashed var(--bd);
-      border-radius: var(--rs);
-      padding: 30px;
-      text-align: center;
-      cursor: pointer;
-      transition: all var(--tr);
-      background: #fff;
-      position: relative
-    }
-
-    .photo-upload-zone:hover {
-      border-color: var(--mer);
-      background: #F7FBFF
-    }
-
-    .photo-upload-zone.has-photo {
-      padding: 10px;
-      border-style: solid;
-      border-color: var(--mer)
-    }
-
-    .puz-label {
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--mer);
-      margin-bottom: 4px
-    }
-
-    .puz-sub {
-      font-size: .7rem;
-      color: var(--mut)
-    }
-
-    .puz-preview {
-      max-height: 140px;
-      border-radius: var(--rs);
-      display: none
-    }
-
-    .puz-preview.show {
-      display: block;
-      margin: 0 auto
-    }
-
-    .puz-change {
-      font-size: .7rem;
-      color: var(--mer);
-      margin-top: 8px;
-      font-weight: 500
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--mer);
-      color: #fff;
-      padding: 10px 22px;
-      border-radius: 50px;
-      font-size: .82rem;
-      font-weight: 600;
-      border: none;
-      transition: all var(--tr);
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer
-    }
-
-    .btn:hover {
-      background: #002060;
-      transform: translateY(-1px)
-    }
-
-    .btn-col {
-      background: var(--col) !important;
-      color: #1A1A2E !important
-    }
-
-    .btn-col:hover {
-      background: #e6aa00 !important
-    }
-
-    .btn-out {
-      background: transparent;
-      color: var(--mer);
-      border: 2px solid var(--mer);
-      padding: 9px 20px;
-      border-radius: 50px;
-      font-size: .8rem;
-      font-weight: 600;
-      transition: all var(--tr);
-      font-family: 'Poppins', sans-serif;
-      cursor: pointer
-    }
-
-    .btn-out:hover {
-      background: var(--mer);
-      color: #fff
-    }
-
-    .btn-sm {
-      font-size: .76rem;
-      padding: 7px 16px
-    }
-
-    .gift-badge-v {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: linear-gradient(135deg, #FFFEF0, #FFF9CC);
-      border: 1.5px solid #F5C518;
-      border-radius: 50px;
-      padding: 3px 12px;
-      font-size: .7rem;
-      font-weight: 700;
-      color: #7A6000;
-      cursor: pointer;
-      transition: all .2s;
-      flex-shrink: 0
-    }
-
-    .gift-badge-v:hover {
-      background: #F5C518;
-      color: #fff
-    }
-
-    .gift-panel-v {
-      display: none;
-      background: linear-gradient(135deg, #FFFEF0, #FFF9CC);
-      border: 1.5px solid #F5C518;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-top: 8px;
-      font-size: .76rem;
-      color: #4A3800
-    }
-
-    .gift-panel-v.open {
-      display: block
-    }
-
-    .gpv-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px
-    }
-
-    .gpv-row:last-child {
-      margin-bottom: 0
-    }
-
-    .gpv-lbl {
-      font-weight: 700;
-      min-width: 85px
-    }
-
-    .gpv-chip {
-      background: rgba(245, 197, 24, .3);
-      border: 1px solid rgba(245, 197, 24, .5);
-      border-radius: 50px;
-      padding: 2px 10px;
-      font-size: .7rem;
-      font-weight: 600
-    }
-
-    .gpv-msg {
-      margin-top: 8px;
-      background: #fff;
-      border: 1px solid rgba(245, 197, 24, .4);
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-style: italic;
-      line-height: 1.5
-    }
-
-    @media(max-width:900px) {
-      .wrapper {
-        grid-template-columns: 1fr
-      }
-
-      .sidebar {
-        position: static
-      }
-
-      .frow2,
-      .frow3 {
-        grid-template-columns: 1fr
-      }
-    }
+      display:flex; align-items:center; gap:11px; padding:11px 14px;
+      border-radius:var(--rs); font-size:.84rem; font-weight:500; color:#4A5568;
+      cursor:pointer; transition:all var(--tr); background:transparent;
+      width:100%; text-align:left; border:none; font-family:'Poppins',sans-serif
+    }
+    .sitem:hover { background:#EDF2F7; color:var(--mer) }
+    .sitem.act { background:#EBF4FF; color:var(--mer); font-weight:600 }
+
+    .si-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0 }
+    .si-dot.blue { background:var(--mer) }
+    .si-dot.amber { background:var(--col) }
+    .si-dot.green { background:#22C55E }
+    .si-dot.red { background:var(--cia) }
+
+    .sitem-badge { margin-left:auto; background:var(--cia); color:#fff; font-size:.58rem; font-weight:700; padding:2px 7px; border-radius:50px }
+    .sdiv { height:1px; background:var(--bd); margin:8px 0 }
+    .sitem.danger { color:var(--cia) }
+    .sitem.danger:hover { background:#FFF5F5 }
+
+    .main { display:flex; flex-direction:column; gap:22px }
+
+    .card { background:var(--wht); border-radius:var(--r); box-shadow:var(--sh) }
+    .card-hdr { padding:20px 28px; border-bottom:1px solid var(--bd); display:flex; align-items:center; justify-content:space-between }
+    .card-title { font-size:1rem; font-weight:700 }
+    .card-sub { font-size:.76rem; color:var(--mut); margin-top:2px }
+    .card-body { padding:24px 28px }
+
+    .stats { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:18px }
+
+    .order-row { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--bd) }
+    .order-row:last-child { border-bottom:none }
+    .or-status { width:10px; height:10px; border-radius:50%; flex-shrink:0 }
+    .or-new { background:var(--mer) }
+    .or-prep { background:var(--col) }
+    .or-info { flex:1 }
+    .or-name { font-size:.85rem; font-weight:600 }
+    .or-meta { font-size:.7rem; color:var(--mut); margin-top:2px }
+    .or-right { display:flex; align-items:center; gap:8px; flex-shrink:0 }
+
+    .status-pill { font-size:.7rem; font-weight:600; padding:4px 12px; border-radius:50px }
+    .sp-blue { background:#EBF8FF; color:#1565C0 }
+    .sp-amber { background:#FFFBEB; color:#92400E }
+    .sp-green { background:#E8F5E9; color:#2E7D32 }
+    .sp-red { background:#FFEBEE; color:#C62828 }
+
+    .or-price { font-size:.88rem; font-weight:700; color:var(--mer) }
+
+    .prod-row { display:grid; grid-template-columns:auto 1fr auto auto; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid var(--bd) }
+    .prod-row:last-child { border-bottom:none }
+    .prod-thumb { width:52px; height:52px; border-radius:var(--rs); background:linear-gradient(135deg,#FFF9E6,#FFF3CD); border:1px solid var(--bd); display:flex; align-items:center; justify-content:center; font-size:1.4rem; overflow:hidden; flex-shrink:0 }
+    .prod-thumb img { width:100%; height:100%; object-fit:cover }
+    .prod-name { font-size:.84rem; font-weight:600 }
+    .prod-meta { font-size:.7rem; color:var(--mut); margin-top:2px }
+    .prod-price { font-size:.88rem; font-weight:700; color:var(--mer); white-space:nowrap }
+
+    .stock-pill { font-size:.65rem; font-weight:600; padding:3px 9px; border-radius:50px; display:inline-block; margin-top:3px }
+    .sp-ok { background:#F0FFF4; color:#276749 }
+    .sp-low { background:#FFFBEB; color:#92400E }
+    .sp-out { background:#FFF5F5; color:#9B2C2C }
+
+    .prod-acts { display:flex; gap:6px; flex-shrink:0 }
+    .pa { background:transparent; border:1.5px solid var(--bd); border-radius:50px; font-size:.7rem; padding:5px 13px; color:var(--mut); transition:all var(--tr); font-family:'Poppins',sans-serif; cursor:pointer }
+    .pa:hover { border-color:var(--mer); color:var(--mer) }
+    .pa.del:hover { border-color:var(--cia); color:var(--cia) }
+
+    .add-form { display:none; background:var(--bg); border:2px dashed var(--bd); border-radius:var(--r); padding:28px; margin-top:18px }
+    .add-form.open { display:block }
+    .form-title { font-size:.95rem; font-weight:700; color:var(--mer); margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--bd) }
+
+    .fg { margin-bottom:14px }
+    .fg label { display:block; font-size:.76rem; font-weight:600; margin-bottom:5px; color:#2D3748 }
+    .fg label span.req { color:var(--cia) }
+
+    .fc { width:100%; padding:10px 14px; border-radius:var(--rs); border:1.5px solid var(--bd); font-size:.82rem; font-family:'Poppins',sans-serif; outline:none; background:#fff; color:#1A1A2E; transition:all var(--tr) }
+    .fc:focus { border-color:var(--mer); box-shadow:0 0 0 3px rgba(0,48,135,.07) }
+    .fc::placeholder { color:#A0AEC0 }
+    textarea.fc { resize:vertical; min-height:80px }
+    select.fc { appearance:none }
+    .frow2 { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+    .frow3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px }
+
+    .photo-upload-zone { border:2px dashed var(--bd); border-radius:var(--rs); padding:30px; text-align:center; cursor:pointer; transition:all var(--tr); background:#fff; position:relative }
+    .photo-upload-zone:hover { border-color:var(--mer); background:#F7FBFF }
+    .photo-upload-zone.has-photo { padding:10px; border-style:solid; border-color:var(--mer) }
+    .puz-label { font-size:.82rem; font-weight:600; color:var(--mer); margin-bottom:4px }
+    .puz-sub { font-size:.7rem; color:var(--mut) }
+    .puz-preview { max-height:140px; border-radius:var(--rs); display:none }
+    .puz-preview.show { display:block; margin:0 auto }
+    .puz-change { font-size:.7rem; color:var(--mer); margin-top:8px; font-weight:500 }
+
+    .btn { display:inline-flex; align-items:center; gap:7px; background:var(--mer); color:#fff; padding:10px 22px; border-radius:50px; font-size:.82rem; font-weight:600; border:none; transition:all var(--tr); font-family:'Poppins',sans-serif; cursor:pointer }
+    .btn:hover { background:#002060; transform:translateY(-1px) }
+    .btn-col { background:var(--col)!important; color:#1A1A2E!important }
+    .btn-col:hover { background:#e6aa00!important }
+    .btn-out { background:transparent; color:var(--mer); border:2px solid var(--mer); padding:9px 20px; border-radius:50px; font-size:.8rem; font-weight:600; transition:all var(--tr); font-family:'Poppins',sans-serif; cursor:pointer }
+    .btn-out:hover { background:var(--mer); color:#fff }
+    .btn-sm { font-size:.76rem; padding:7px 16px }
+
+    .gift-badge-v { display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#FFFEF0,#FFF9CC); border:1.5px solid #F5C518; border-radius:50px; padding:3px 12px; font-size:.7rem; font-weight:700; color:#7A6000; cursor:pointer; transition:all .2s; flex-shrink:0 }
+    .gift-badge-v:hover { background:#F5C518; color:#fff }
+    .gift-panel-v { display:none; background:linear-gradient(135deg,#FFFEF0,#FFF9CC); border:1.5px solid #F5C518; border-radius:10px; padding:14px 16px; margin-top:8px; font-size:.76rem; color:#4A3800 }
+    .gift-panel-v.open { display:block }
+    .gpv-row { display:flex; align-items:center; gap:8px; margin-bottom:6px }
+    .gpv-row:last-child { margin-bottom:0 }
+    .gpv-lbl { font-weight:700; min-width:85px }
+    .gpv-chip { background:rgba(245,197,24,.3); border:1px solid rgba(245,197,24,.5); border-radius:50px; padding:2px 10px; font-size:.7rem; font-weight:600 }
+    .gpv-msg { margin-top:8px; background:#fff; border:1px solid rgba(245,197,24,.4); border-radius:8px; padding:8px 12px; font-style:italic; line-height:1.5 }
+
+    /* Seguridad */
+    .security-item { border:1px solid var(--bd); border-radius:var(--rs); padding:16px 18px; display:flex; align-items:flex-start; gap:14px; transition:border-color var(--tr); flex-wrap:wrap; margin-bottom:10px }
+    .security-item:last-child { margin-bottom:0 }
+    .security-item:hover { border-color:#C3DAFE }
+    .security-status { display:inline-flex; align-items:center; gap:5px; font-size:.68rem; font-weight:700; padding:3px 10px; border-radius:50px; margin-top:6px }
+    .ss-ok { background:#F0FFF4; color:#276749 }
+    .ss-off { background:#FFF5F5; color:var(--cia) }
+
+    /* Formulario inline contraseña */
+    .pass-form-inline { display:none; flex-direction:column; gap:10px; margin-top:14px; width:100% }
+    .pass-form-inline.open { display:flex }
+    .pass-form-inline input { border:1.5px solid var(--bd); border-radius:var(--rs); padding:9px 14px; font-size:.82rem; font-family:'Poppins',sans-serif; outline:none; width:100%; transition:border-color var(--tr) }
+    .pass-form-inline input:focus { border-color:var(--mer) }
+
+    /* Inline edit correo/teléfono */
+    .inline-edit { display:none; flex-direction:column; gap:8px; margin-top:10px }
+    .inline-edit.open { display:flex }
+    .inline-edit input { border:1.5px solid var(--bd); border-radius:var(--rs); padding:9px 14px; font-size:.82rem; font-family:'Poppins',sans-serif; outline:none; transition:border-color var(--tr) }
+    .inline-edit input:focus { border-color:var(--mer) }
+
+    @media(max-width:900px) { .wrapper { grid-template-columns:1fr } .sidebar { position:static } .frow2,.frow3 { grid-template-columns:1fr } }
   </style>
 </head>
 
@@ -932,8 +232,7 @@
             {{ user.first_name|slice:":1"|upper }}
             {% endif %}
           </div>
-          <div class="photo-edit-btn" onclick="document.getElementById('sidePhotoInput').click()" title="Cambiar foto">+
-          </div>
+          <div class="photo-edit-btn" onclick="document.getElementById('sidePhotoInput').click()" title="Cambiar foto">+</div>
           <input type="file" id="sidePhotoInput" accept="image/*" style="display:none" onchange="setSidePhoto(this)" />
         </div>
         <div class="store-name" id="sideStoreName">
@@ -943,9 +242,7 @@
           {% if tienda %}
           {{ tienda.categoria|default:"Sin categoría" }}
           {% if tienda.ubicacion %}&middot; {{ tienda.ubicacion }}{% endif %}
-          {% else %}
-          Sin tienda aún
-          {% endif %}
+          {% else %}Sin tienda aún{% endif %}
         </div>
         <div class="verified-badge">Tienda verificada</div>
       </div>
@@ -965,78 +262,53 @@
         </button>
         <button class="sitem" onclick="sec('products',this)"><span class="si-dot green"></span> Mis productos</button>
         <button class="sitem" onclick="sec('profile',this)"><span class="si-dot amber"></span> Editar perfil</button>
+        <button class="sitem" onclick="sec('security',this)"><span class="si-dot red"></span> Seguridad</button>
         <div class="sdiv"></div>
-        <div class="smenu-div"></div>
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
-          <button type="submit" class="sitem danger"
-            style="width:100%;text-align:left;background:none;font-family:'Poppins',sans-serif;">
-            <span class="si-icon">X</span> Cerrar sesión
+          <button type="submit" class="sitem danger" style="width:100%;text-align:left;background:none;font-family:'Poppins',sans-serif;">
+            <span class="si-dot red"></span> Cerrar sesión
           </button>
         </form>
-        
       </div>
     </aside>
 
     <div class="main">
 
       <!-- ── OVERVIEW ── -->
-<div id="secOverview">
-  <div class="card">
-    <div class="card-hdr">
-      <div>
-        <div class="card-title">Resumen del Mes</div>
-        <div class="card-sub"><b>Actualizado en tiempo real</b></div>
-      </div>
-    </div>
-    <div class="card-body">
-      
-      <div class="stats" style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 18px;">
-        
-        <!-- Tarjeta AMARILLA (Usa var(--col) #F5C518) -->
-        <div style="background: var(--col); border-radius: var(--rs, 12px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column;">
-          <div style="font-size: .9rem; font-weight: 700; color: #111827; text-transform: uppercase; letter-spacing: 0.5px;">Ventas totales</div>
-          
-          <!-- Línea sólida tipo tabla -->
-          <div style="border-top: 1px solid #111827; margin: 12px 0; opacity: 0.2;"></div>
-          
-          <div style="font-size: 2rem; font-weight: 800; color: #111827;">
-            ${{ total_ventas|floatformat:0 }}
+      <div id="secOverview">
+        <div class="card">
+          <div class="card-hdr">
+            <div>
+              <div class="card-title">Resumen del Mes</div>
+              <div class="card-sub"><b>Actualizado en tiempo real</b></div>
+            </div>
           </div>
-          <div style="font-size: .73rem; color: #111827; margin-top: 8px; font-weight: 600; opacity: 0.8;">Pedidos no cancelados</div>
-        </div>
-
-        <!-- Tarjeta AZUL (Usa var(--mer) #003087) -->
-        <div style="background: var(--mer); border-radius: var(--rs, 12px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column;">
-          <div style="font-size: .9rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">Productos activos</div>
-          
-          <!-- Línea sólida tipo tabla -->
-          <div style="border-top: 1px solid #ffffff; margin: 12px 0; opacity: 0.3;"></div>
-          
-          <div style="font-size: 2rem; font-weight: 800; color: #ffffff;">
-            {{ total_productos }}
+          <div class="card-body">
+            <div class="stats">
+              <div style="background:var(--col);border-radius:var(--rs);border:1px solid rgba(0,0,0,.1);padding:20px;display:flex;flex-direction:column;">
+                <div style="font-size:.9rem;font-weight:700;color:#111827;text-transform:uppercase;letter-spacing:.5px;">Ventas totales</div>
+                <div style="border-top:1px solid #111827;margin:12px 0;opacity:.2;"></div>
+                <div style="font-size:2rem;font-weight:800;color:#111827;">${{ total_ventas|floatformat:0 }}</div>
+                <div style="font-size:.73rem;color:#111827;margin-top:8px;font-weight:600;opacity:.8;">Pedidos no cancelados</div>
+              </div>
+              <div style="background:var(--mer);border-radius:var(--rs);border:1px solid rgba(0,0,0,.1);padding:20px;display:flex;flex-direction:column;">
+                <div style="font-size:.9rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px;">Productos activos</div>
+                <div style="border-top:1px solid #fff;margin:12px 0;opacity:.3;"></div>
+                <div style="font-size:2rem;font-weight:800;color:#fff;">{{ total_productos }}</div>
+                <div style="font-size:.73rem;color:#fff;margin-top:8px;font-weight:500;opacity:.9;">En catálogo</div>
+              </div>
+              <div style="background:var(--cia);border-radius:var(--rs);border:1px solid rgba(0,0,0,.1);padding:20px;display:flex;flex-direction:column;">
+                <div style="font-size:.9rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px;">Pedidos totales</div>
+                <div style="border-top:1px solid #fff;margin:12px 0;opacity:.3;"></div>
+                <div style="font-size:2rem;font-weight:800;color:#fff;">{{ total_pedidos }}</div>
+                <div style="font-size:.73rem;color:#fff;margin-top:8px;font-weight:500;opacity:.9;">Requieren atención</div>
+              </div>
+            </div>
           </div>
-          <div style="font-size: .73rem; color: #ffffff; margin-top: 8px; font-weight: 500; opacity: 0.9;">En catálogo</div>
         </div>
-
-        <!-- Tarjeta ROJA (Usa var(--cia) #CE1126) -->
-        <div style="background: var(--cia); border-radius: var(--rs, 12px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column;">
-          <div style="font-size: .9rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">Pedidos totales</div>
-          
-          <!-- Línea sólida tipo tabla -->
-          <div style="border-top: 1px solid #ffffff; margin: 12px 0; opacity: 0.3;"></div>
-          
-          <div style="font-size: 2rem; font-weight: 800; color: #ffffff;">
-            {{ total_pedidos }}
-          </div>
-          <div style="font-size: .73rem; color: #ffffff; margin-top: 8px; font-weight: 500; opacity: 0.9;">Requieren atención</div>
-        </div>
-
       </div>
 
-    </div>
-  </div>
-</div>
       <!-- ── ORDERS ── -->
       <div class="card" id="secOrders" style="display:none;">
         <div class="card-hdr">
@@ -1045,25 +317,18 @@
             <div class="card-sub">{{ pedidos|length }} pedidos en total</div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <button class="btn btn-sm" style="background:#EBF4FF;color:#003087;"
-              onclick="filtrarPedidos('todos',this)">Todos</button>
-            <button class="btn btn-sm" style="background:#FFFBEB;color:#92400E;"
-              onclick="filtrarPedidos('procesando',this)">Procesando</button>
-            <button class="btn btn-sm" style="background:#EBF4FF;color:#1565C0;"
-              onclick="filtrarPedidos('preparando',this)">Preparando</button>
-            <button class="btn btn-sm" style="background:#E3F2FD;color:#0D47A1;"
-              onclick="filtrarPedidos('en_camino',this)">En camino</button>
-            <button class="btn btn-sm" style="background:#F0FFF4;color:#276749;"
-              onclick="filtrarPedidos('entregado',this)">Entregados</button>
+            <button class="btn btn-sm" style="background:#EBF4FF;color:#003087;" onclick="filtrarPedidos('todos',this)">Todos</button>
+            <button class="btn btn-sm" style="background:#FFFBEB;color:#92400E;" onclick="filtrarPedidos('procesando',this)">Procesando</button>
+            <button class="btn btn-sm" style="background:#EBF4FF;color:#1565C0;" onclick="filtrarPedidos('preparando',this)">Preparando</button>
+            <button class="btn btn-sm" style="background:#E3F2FD;color:#0D47A1;" onclick="filtrarPedidos('en_camino',this)">En camino</button>
+            <button class="btn btn-sm" style="background:#F0FFF4;color:#276749;" onclick="filtrarPedidos('entregado',this)">Entregados</button>
           </div>
         </div>
         <div class="card-body" id="pedidosContainer">
           {% for pedido in pedidos %}
           <div style="border-bottom:1px solid var(--bd);">
-            <div class="order-row pedido-item" data-estado="{{ pedido.estado }}" data-id="{{ pedido.id }}"
-              style="border-bottom:none;">
-              <div class="or-status {% if pedido.estado == 'procesando' %}or-new{% else %}or-prep{% endif %}"
-                id="dot-{{ pedido.id }}"></div>
+            <div class="order-row pedido-item" data-estado="{{ pedido.estado }}" data-id="{{ pedido.id }}" style="border-bottom:none;">
+              <div class="or-status {% if pedido.estado == 'procesando' %}or-new{% else %}or-prep{% endif %}" id="dot-{{ pedido.id }}"></div>
               <div class="or-info">
                 <div class="or-name">
                   {% if pedido.producto %}{{ pedido.producto.nombre }}{% else %}Producto externo{% endif %}
@@ -1098,8 +363,7 @@
                   {% if pedido.regalo_envoltura == 'bolsa_papel' %}Bolsa de papel
                   {% elif pedido.regalo_envoltura == 'bolsa_tela' %}Bolsa de tela
                   {% elif pedido.regalo_envoltura == 'caja' %}Caja decorativa
-                  {% else %}{{ pedido.regalo_envoltura }}
-                  {% endif %}
+                  {% else %}{{ pedido.regalo_envoltura }}{% endif %}
                 </span>
               </div>
               {% endif %}
@@ -1111,8 +375,7 @@
                   {% elif pedido.regalo_decoracion == 'globos' %}🎈 Globos
                   {% elif pedido.regalo_decoracion == 'navidad' %}🎄 Navidad
                   {% elif pedido.regalo_decoracion == 'halloween' %}🎃 Halloween
-                  {% else %}{{ pedido.regalo_decoracion }}
-                  {% endif %}
+                  {% else %}{{ pedido.regalo_decoracion }}{% endif %}
                 </span>
               </div>
               {% endif %}
@@ -1138,16 +401,14 @@
             <div class="card-title">Mis Productos</div>
             <div class="card-sub">{{ productos|length }} productos activos</div>
           </div>
-          <button class="btn btn-col" onclick="document.getElementById('addProdForm').classList.toggle('open')">+ Subir
-            nuevo producto</button>
+          <button class="btn btn-col" onclick="document.getElementById('addProdForm').classList.toggle('open')">+ Subir nuevo producto</button>
         </div>
         <div class="card-body">
           <div class="add-form" id="addProdForm">
             <div class="form-title">✨ Nuevo Producto</div>
             <div class="fg">
               <label>Foto del producto <span class="req">*</span></label>
-              <div class="photo-upload-zone" id="prodPhotoZone"
-                onclick="document.getElementById('prodPhotoInput').click()">
+              <div class="photo-upload-zone" id="prodPhotoZone" onclick="document.getElementById('prodPhotoInput').click()">
                 <img class="puz-preview" id="prodPhotoPreview" alt="Vista previa" />
                 <div id="prodPhotoPlaceholder">
                   <div class="puz-label">Haz clic para subir una foto</div>
@@ -1155,48 +416,28 @@
                 </div>
                 <div class="puz-change" id="prodPhotoChange" style="display:none">Clic para cambiar foto</div>
               </div>
-              <input type="file" id="prodPhotoInput" accept="image/*" style="display:none"
-                onchange="previewProdPhoto(this)" />
+              <input type="file" id="prodPhotoInput" accept="image/*" style="display:none" onchange="previewProdPhoto(this)" />
             </div>
             <div class="frow2">
-              <div class="fg">
-                <label>Nombre del producto <span class="req">*</span></label>
-                <input type="text" id="npNombre" class="fc" placeholder="Ej: Base de Maquillaje SPF30" />
-              </div>
+              <div class="fg"><label>Nombre del producto <span class="req">*</span></label><input type="text" id="npNombre" class="fc" placeholder="Ej: Base de Maquillaje SPF30" /></div>
               <div class="fg">
                 <label>Categoría <span class="req">*</span></label>
                 <select id="npCategoria" class="fc">
                   <option value="">Selecciona...</option>
-                  <option>Maquillaje</option>
-                  <option>Ropa y Accesorios</option>
-                  <option>Carteras y Bolsos</option>
-                  <option>Calzado</option>
-                  <option>Papelería</option>
-                  <option>Tecnología</option>
-                  <option>Regalos</option>
-                  <option>Joyería</option>
-                  <option>Artesanías</option>
+                  <option>Maquillaje</option><option>Ropa y Accesorios</option><option>Carteras y Bolsos</option>
+                  <option>Calzado</option><option>Papelería</option><option>Tecnología</option>
+                  <option>Regalos</option><option>Joyería</option><option>Artesanías</option>
                 </select>
               </div>
             </div>
-            <div class="fg">
-              <label>Descripción del producto <span class="req">*</span></label>
-              <textarea id="npDescripcion" class="fc" placeholder="Describe tu producto..."></textarea>
-            </div>
+            <div class="fg"><label>Descripción del producto <span class="req">*</span></label><textarea id="npDescripcion" class="fc" placeholder="Describe tu producto..."></textarea></div>
             <div class="frow2">
-              <div class="fg">
-                <label>Precio <span class="req">*</span></label>
-                <input type="text" id="npPrecio" class="fc" placeholder="Ej: 55000" />
-              </div>
-              <div class="fg">
-                <label>Unidades disponibles <span class="req">*</span></label>
-                <input type="number" id="npCantidad" class="fc" placeholder="22" min="0" />
-              </div>
+              <div class="fg"><label>Precio <span class="req">*</span></label><input type="text" id="npPrecio" class="fc" placeholder="Ej: 55000" /></div>
+              <div class="fg"><label>Unidades disponibles <span class="req">*</span></label><input type="number" id="npCantidad" class="fc" placeholder="22" min="0" /></div>
             </div>
             <div style="display:flex;gap:10px;margin-top:8px;">
               <button class="btn" id="npSubmitBtn" onclick="submitProduct()">🚀 Publicar producto</button>
-              <button class="btn-out"
-                onclick="document.getElementById('addProdForm').classList.remove('open')">Cancelar</button>
+              <button class="btn-out" onclick="document.getElementById('addProdForm').classList.remove('open')">Cancelar</button>
             </div>
           </div>
 
@@ -1204,37 +445,26 @@
             {% for prod in productos %}
             <div class="prod-row" id="prod-row-{{ prod.id }}">
               <div class="prod-thumb">
-                {% if prod.imagen %}
-                <img src="{{ prod.imagen.url }}" alt="{{ prod.nombre }}">
-                {% else %}
-                <span style="font-size:1.6rem;">📦</span>
-                {% endif %}
+                {% if prod.imagen %}<img src="{{ prod.imagen.url }}" alt="{{ prod.nombre }}">
+                {% else %}<span style="font-size:1.6rem;">📦</span>{% endif %}
               </div>
               <div>
                 <div class="prod-name">{{ prod.nombre }}</div>
                 <div class="prod-meta">{{ prod.categoria|default:"Sin categoría" }}</div>
                 <div>
-                  {% if prod.cantidad == 0 %}
-                  <span class="stock-pill sp-out">Agotado</span>
-                  {% elif prod.cantidad <= 5 %} <span class="stock-pill sp-low">{{ prod.cantidad }} disponibles</span>
-                    {% else %}
-                    <span class="stock-pill sp-ok">{{ prod.cantidad }} disponibles</span>
-                    {% endif %}
+                  {% if prod.cantidad == 0 %}<span class="stock-pill sp-out">Agotado</span>
+                  {% elif prod.cantidad <= 5 %}<span class="stock-pill sp-low">{{ prod.cantidad }} disponibles</span>
+                  {% else %}<span class="stock-pill sp-ok">{{ prod.cantidad }} disponibles</span>{% endif %}
                 </div>
               </div>
-              <div style="text-align:right;">
-                <div class="prod-price">{{ prod.precio_formateado }}</div>
-              </div>
+              <div style="text-align:right;"><div class="prod-price">{{ prod.precio_formateado }}</div></div>
               <div class="prod-acts">
-                <button class="pa"
-                  onclick="abrirEditar({{ prod.id }},'{{ prod.nombre|escapejs }}','{{ prod.descripcion|truncatechars:200|escapejs }}','{{ prod.precio }}','{{ prod.cantidad }}','{{ prod.categoria|escapejs }}')">✏️
-                  Editar</button>
+                <button class="pa" onclick="abrirEditar({{ prod.id }},'{{ prod.nombre|escapejs }}','{{ prod.descripcion|truncatechars:200|escapejs }}','{{ prod.precio }}','{{ prod.cantidad }}','{{ prod.categoria|escapejs }}')">✏️ Editar</button>
                 <button class="pa del" onclick="eliminarProducto({{ prod.id }},this)">🗑 Eliminar</button>
               </div>
             </div>
             {% empty %}
-            <div id="emptyProdMsg" style="text-align:center;padding:32px 0;color:var(--mut);font-size:.84rem;">Aún no
-              tienes productos. ¡Sube tu primer producto!</div>
+            <div id="emptyProdMsg" style="text-align:center;padding:32px 0;color:var(--mut);font-size:.84rem;">Aún no tienes productos. ¡Sube tu primer producto!</div>
             {% endfor %}
           </div>
         </div>
@@ -1249,109 +479,135 @@
           </div>
         </div>
         <div class="card-body">
-
-          <div
-            style="display:flex;align-items:center;gap:20px;padding-bottom:24px;border-bottom:1px solid var(--bd);margin-bottom:22px;">
-            <div id="profilePhotoCircle"
-              style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--mer),#002060);color:#fff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid var(--bd);flex-shrink:0;">
+          <div style="display:flex;align-items:center;gap:20px;padding-bottom:24px;border-bottom:1px solid var(--bd);margin-bottom:22px;">
+            <div id="profilePhotoCircle" style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--mer),#002060);color:#fff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid var(--bd);flex-shrink:0;">
               {{ user.first_name|slice:":1"|upper }}
             </div>
             <div>
               <div style="font-size:.88rem;font-weight:700;margin-bottom:4px;">Foto de tienda</div>
               <div style="font-size:.74rem;color:var(--mut);margin-bottom:10px;">JPG, PNG o WEBP. Máximo 5MB.</div>
               <label class="btn btn-sm" for="profilePhotoInput" style="cursor:pointer;">📷 Cambiar foto</label>
-              <input type="file" id="profilePhotoInput" accept="image/*" style="display:none"
-                onchange="updateProfilePhoto(this)" />
+              <input type="file" id="profilePhotoInput" accept="image/*" style="display:none" onchange="updateProfilePhoto(this)" />
             </div>
           </div>
 
-          <div
-            style="font-size:.8rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">
-            Datos de la tienda</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Datos de la tienda</div>
           <div class="frow2">
-            <div class="fg">
-              <label>Nombre de la tienda <span class="req" style="color:var(--cia)">*</span></label>
-              <input type="text" id="vpNombre" class="fc" value="{% if tienda %}{{ tienda.nombre }}{% endif %}" />
-            </div>
+            <div class="fg"><label>Nombre de la tienda <span class="req" style="color:var(--cia)">*</span></label><input type="text" id="vpNombre" class="fc" value="{% if tienda %}{{ tienda.nombre }}{% endif %}" /></div>
             <div class="fg">
               <label>Categoría principal</label>
               <select id="vpCategoria" class="fc">
-                <option value="{% if tienda %}{{ tienda.categoria }}{% endif %}">
-                  {% if tienda %}{{ tienda.categoria }}{% else %}Selecciona...{% endif %}
-                </option>
-                <option>Maquillaje</option>
-                <option>Ropa y Accesorios</option>
-                <option>Carteras y Bolsos</option>
-                <option>Calzado</option>
-                <option>Papelería</option>
-                <option>Tecnología</option>
+                <option value="{% if tienda %}{{ tienda.categoria }}{% endif %}">{% if tienda %}{{ tienda.categoria }}{% else %}Selecciona...{% endif %}</option>
+                <option>Maquillaje</option><option>Ropa y Accesorios</option><option>Carteras y Bolsos</option>
+                <option>Calzado</option><option>Papelería</option><option>Tecnología</option>
               </select>
             </div>
           </div>
-          <div class="fg">
-            <label>Descripción de la tienda <span class="req" style="color:var(--cia)">*</span></label>
-            <textarea id="vpDesc" class="fc"
-              style="min-height:100px;">{% if tienda %}{{ tienda.descripcion }}{% endif %}</textarea>
-          </div>
+          <div class="fg"><label>Descripción de la tienda <span class="req" style="color:var(--cia)">*</span></label><textarea id="vpDesc" class="fc" style="min-height:100px;">{% if tienda %}{{ tienda.descripcion }}{% endif %}</textarea></div>
           <div class="frow2">
-            <div class="fg">
-              <label>Ciudad</label>
-              <input type="text" id="vpCiudad" class="fc"
-                value="{% if tienda %}{{ tienda.ubicacion|default:'' }}{% endif %}" />
-            </div>
+            <div class="fg"><label>Ciudad</label><input type="text" id="vpCiudad" class="fc" value="{% if tienda %}{{ tienda.ubicacion|default:'' }}{% endif %}" /></div>
             <div class="fg">
               <label>Departamento</label>
               <select class="fc">
-                <option>Atlántico</option>
-                <option>Cundinamarca</option>
-                <option>Antioquia</option>
-                <option>Valle del Cauca</option>
-                <option>Santander</option>
+                <option>Atlántico</option><option>Cundinamarca</option><option>Antioquia</option>
+                <option>Valle del Cauca</option><option>Santander</option>
               </select>
             </div>
           </div>
 
-          <div
-            style="font-size:.8rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin:22px 0 14px;">
-            Datos de cuenta</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin:22px 0 14px;">Datos de cuenta</div>
           <div class="frow2">
-            <div class="fg">
-              <label>Nombre completo <span class="req" style="color:var(--cia)">*</span></label>
-              <input type="text" id="vpNombreUsuario" class="fc"
-                value="{{ user.get_full_name|default:user.first_name }}" />
-            </div>
-            <div class="fg">
-              <label>Teléfono de contacto</label>
-              <input type="tel" id="vpTelefono" class="fc" value="{{ user.telefono|default:'' }}" />
-            </div>
+            <div class="fg"><label>Nombre completo <span class="req" style="color:var(--cia)">*</span></label><input type="text" id="vpNombreUsuario" class="fc" value="{{ user.get_full_name|default:user.first_name }}" /></div>
+            <div class="fg"><label>Teléfono de contacto</label><input type="tel" id="vpTelefono" class="fc" value="{{ user.telefono|default:'' }}" /></div>
           </div>
           <div class="frow2">
-            <div class="fg">
-              <label>Correo electrónico <span class="req" style="color:var(--cia)">*</span></label>
-              <input type="email" id="vpEmail" class="fc" value="{{ user.email }}" />
-            </div>
+            <div class="fg"><label>Correo electrónico <span class="req" style="color:var(--cia)">*</span></label><input type="email" id="vpEmail" class="fc" value="{{ user.email }}" /></div>
           </div>
 
           <div style="margin-top:24px;display:flex;gap:10px;">
             <button class="btn" onclick="guardarPerfilVendedor()">💾 Guardar cambios</button>
-            <button class="btn-out" onclick="sec('overview', document.querySelector('.sitem'))">Cancelar</button>
+            <button class="btn-out" onclick="sec('overview',document.querySelector('.sitem'))">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SEGURIDAD ── -->
+      <div class="card" id="secSecurity" style="display:none;">
+        <div class="card-hdr">
+          <div>
+            <div class="card-title">Seguridad de la Cuenta</div>
+            <div class="card-sub">Gestiona tu contraseña y datos de acceso</div>
+          </div>
+        </div>
+        <div class="card-body">
+
+          <!-- Contraseña -->
+          <div class="security-item">
+            <div style="font-size:1.4rem;flex-shrink:0;margin-top:2px;">🔑</div>
+            <div style="flex:1;">
+              <div style="font-size:.88rem;font-weight:700;">Contraseña</div>
+              <div style="font-size:.72rem;color:var(--mut);margin-top:3px;line-height:1.5;">Recomendamos usar una contraseña segura y única.</div>
+              <div id="passStatus" class="security-status ss-ok">✓ Contraseña establecida</div>
+              <!-- Formulario inline contraseña -->
+              <div class="pass-form-inline" id="passFormInline">
+                <input type="password" id="secVActual"   placeholder="Contraseña actual" />
+                <input type="password" id="secVNueva"    placeholder="Nueva contraseña (mín. 8 caracteres)" />
+                <input type="password" id="secVConfirm"  placeholder="Confirmar nueva contraseña" />
+                <div style="display:flex;gap:8px;margin-top:4px;">
+                  <button class="btn btn-sm" id="passGuardarBtn" onclick="guardarPassword()">💾 Guardar contraseña</button>
+                  <button class="btn-out btn-sm" onclick="togglePassForm(false)">Cancelar</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-out btn-sm" id="passCambiarBtn" onclick="togglePassForm(true)" style="flex-shrink:0;align-self:flex-start;">Cambiar</button>
+          </div>
+
+          <!-- Correo -->
+          <div class="security-item">
+            <div style="font-size:1.4rem;flex-shrink:0;margin-top:2px;">📧</div>
+            <div style="flex:1;">
+              <div style="font-size:.88rem;font-weight:700;">Correo electrónico</div>
+              <div id="secEmailDisplay" style="font-size:.78rem;color:var(--mut);margin-top:4px;">{{ user.email }}</div>
+              <div id="emailEditInline" class="inline-edit">
+                <input type="email" id="secEmailInput" placeholder="nuevo@correo.com" />
+                <div style="display:flex;gap:8px;">
+                  <button class="btn btn-sm" onclick="guardarCampoSeguridad('email')">💾 Guardar</button>
+                  <button class="btn-out btn-sm" onclick="toggleSecField('email',false)">Cancelar</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-out btn-sm" onclick="toggleSecField('email',true)" style="flex-shrink:0;align-self:flex-start;">Editar</button>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="security-item">
+            <div style="font-size:1.4rem;flex-shrink:0;margin-top:2px;">📱</div>
+            <div style="flex:1;">
+              <div style="font-size:.88rem;font-weight:700;">Teléfono de contacto</div>
+              <div id="secPhoneDisplay" style="font-size:.78rem;color:var(--mut);margin-top:4px;">{{ user.telefono|default:"Sin teléfono" }}</div>
+              <div id="phoneEditInline" class="inline-edit">
+                <input type="tel" id="secPhoneInput" placeholder="+57 300 000 0000" />
+                <div style="display:flex;gap:8px;">
+                  <button class="btn btn-sm" onclick="guardarCampoSeguridad('phone')">💾 Guardar</button>
+                  <button class="btn-out btn-sm" onclick="toggleSecField('phone',false)">Cancelar</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-out btn-sm" onclick="toggleSecField('phone',true)" style="flex-shrink:0;align-self:flex-start;">Editar</button>
           </div>
 
         </div>
       </div>
 
-    </div>
-  </div>
+    </div><!-- /main -->
+  </div><!-- /wrapper -->
 
   <!-- MODAL EDITAR PRODUCTO -->
-  <div id="editProdModal"
-    style="display:none;position:fixed;inset:0;background:rgba(10,15,30,.65);backdrop-filter:blur(6px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
-    <div
-      style="background:#fff;border-radius:16px;padding:32px;max-width:540px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.25);max-height:90vh;overflow-y:auto;">
+  <div id="editProdModal" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,.65);backdrop-filter:blur(6px);z-index:2000;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:#fff;border-radius:16px;padding:32px;max-width:540px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.25);max-height:90vh;overflow-y:auto;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
         <div style="font-size:1rem;font-weight:700;color:var(--mer)">✏️ Editar Producto</div>
-        <button onclick="cerrarEditar()"
-          style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#718096;">&times;</button>
+        <button onclick="cerrarEditar()" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#718096;">&times;</button>
       </div>
       <input type="hidden" id="epId" />
       <div class="fg"><label>Nombre</label><input type="text" id="epNombre" class="fc" /></div>
@@ -1359,32 +615,22 @@
         <label>Categoría</label>
         <select id="epCategoria" class="fc">
           <option value="">Sin categoría</option>
-          <option>Maquillaje</option>
-          <option>Ropa y Accesorios</option>
-          <option>Carteras y Bolsos</option>
-          <option>Calzado</option>
-          <option>Papelería</option>
-          <option>Tecnología</option>
-          <option>Regalos</option>
-          <option>Joyería</option>
-          <option>Artesanías</option>
+          <option>Maquillaje</option><option>Ropa y Accesorios</option><option>Carteras y Bolsos</option>
+          <option>Calzado</option><option>Papelería</option><option>Tecnología</option>
+          <option>Regalos</option><option>Joyería</option><option>Artesanías</option>
         </select>
       </div>
-      <div class="fg"><label>Descripción</label><textarea id="epDescripcion" class="fc"
-          style="min-height:80px;"></textarea></div>
+      <div class="fg"><label>Descripción</label><textarea id="epDescripcion" class="fc" style="min-height:80px;"></textarea></div>
       <div class="frow2">
-        <div class="fg"><label>Precio</label><input type="text" id="epPrecio" class="fc" placeholder="Ej: 55000" />
-        </div>
+        <div class="fg"><label>Precio</label><input type="text" id="epPrecio" class="fc" placeholder="Ej: 55000" /></div>
         <div class="fg"><label>Cantidad</label><input type="number" id="epCantidad" class="fc" min="0" /></div>
       </div>
       <div class="fg">
         <label>Nueva foto (opcional)</label>
         <div style="display:flex;align-items:center;gap:12px;">
-          <button class="btn btn-sm btn-col" onclick="document.getElementById('epImgInput').click()">🖼 Cambiar
-            imagen</button>
+          <button class="btn btn-sm btn-col" onclick="document.getElementById('epImgInput').click()">🖼 Cambiar imagen</button>
           <input type="file" id="epImgInput" accept="image/*" style="display:none" onchange="previewEditImg(this)" />
-          <img id="epImgPreview" alt=""
-            style="max-height:60px;border-radius:8px;display:none;border:1px solid var(--bd);" />
+          <img id="epImgPreview" alt="" style="max-height:60px;border-radius:8px;display:none;border:1px solid var(--bd);" />
         </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:8px;">
@@ -1404,28 +650,28 @@
     function tick() {
       const n = new Date(), pad = v => String(v).padStart(2, '0');
       document.getElementById('ct').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
-      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      const days   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+      const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
       document.getElementById('cd').textContent = `${days[n.getDay()]} ${n.getDate()} de ${months[n.getMonth()]}, ${n.getFullYear()}`;
     }
     tick(); setInterval(tick, 1000);
 
-    /* ── SECCIONES ── */
+    /* ── SECCIONES ── (bug corregido: forEach estaba roto) */
     function sec(id, btn) {
-      ['secOverview', 'secOrders', 'secProducts', 'secProfile'].forEach(s => {
+      ['secOverview','secOrders','secProducts','secProfile','secSecurity'].forEach(s => {
         const el = document.getElementById(s); if (el) el.style.display = 'none';
       });
-      const map = { overview: 'secOverview', orders: 'secOrders', products: 'secProducts', profile: 'secProfile' };
+      const map = {
+        overview: 'secOverview', orders: 'secOrders',
+        products: 'secProducts', profile: 'secProfile', security: 'secSecurity'
+      };
       const el = document.getElementById(map[id]); if (el) el.style.display = 'block';
       document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
       if (btn) btn.classList.add('act');
     }
 
     /* ── REGALO ── */
-    function toggleGiftPanel(id) {
-      const panel = document.getElementById(id);
-      if (panel) panel.classList.toggle('open');
-    }
+    function toggleGiftPanel(id) { const p = document.getElementById(id); if (p) p.classList.toggle('open'); }
 
     /* ── FOTOS (UI local) ── */
     function setSidePhoto(input) {
@@ -1459,40 +705,30 @@
       const fd = new FormData();
       fd.append('imagen', input.files[0]);
       try {
-        const res = await fetch('/perfil/foto/', {
-          method: 'POST',
-          headers: { 'X-CSRFToken': getCsrfToken() },
-          body: fd,
-        });
+        const res  = await fetch('/perfil/foto/', { method:'POST', headers:{'X-CSRFToken':getCsrfToken()}, body:fd });
         const data = await res.json();
         if (data.ok) {
           const circle = document.getElementById('profilePhotoCircle');
           let img = circle.querySelector('img');
-          if (!img) {
-            img = document.createElement('img');
-            img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
-            circle.appendChild(img);
-          }
+          if (!img) { img = document.createElement('img'); img.style.cssText='width:100%;height:100%;object-fit:cover;'; circle.appendChild(img); }
           img.src = data.url; img.style.display = 'block';
           circle.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = ''; });
-          const side = document.getElementById('storePhotoCircle');
-          let sideImg = side.querySelector('img');
+          const side    = document.getElementById('storePhotoCircle');
+          let sideImg   = side.querySelector('img');
           if (!sideImg) { sideImg = document.createElement('img'); side.appendChild(sideImg); }
           sideImg.src = data.url; sideImg.style.display = 'block';
           showToast('✅ Foto actualizada correctamente');
-        } else {
-          showToast('❌ ' + (data.error || 'Error al subir foto'));
-        }
+        } else { showToast('❌ ' + (data.error || 'Error al subir foto')); }
       } catch (e) { showToast('❌ Error de conexión'); }
     }
 
     /* ── SUBIR PRODUCTO → BD ── */
     async function submitProduct() {
-      const nombre = document.getElementById('npNombre')?.value.trim();
+      const nombre      = document.getElementById('npNombre')?.value.trim();
       const descripcion = document.getElementById('npDescripcion')?.value.trim();
-      const precio = document.getElementById('npPrecio')?.value.trim();
-      const cantidad = document.getElementById('npCantidad')?.value.trim();
-      const categoria = document.getElementById('npCategoria')?.value.trim();
+      const precio      = document.getElementById('npPrecio')?.value.trim();
+      const cantidad    = document.getElementById('npCantidad')?.value.trim();
+      const categoria   = document.getElementById('npCategoria')?.value.trim();
       const imagenInput = document.getElementById('prodPhotoInput');
 
       if (!nombre || !descripcion || !precio || !cantidad) { showToast('❌ Completa todos los campos obligatorios'); return; }
@@ -1500,7 +736,7 @@
       const fd = new FormData();
       fd.append('nombre', nombre);
       fd.append('descripcion', descripcion);
-      fd.append('precio', precio.replace(/\$/g, '').replace(/\./g, ''));
+      fd.append('precio', precio.replace(/\$/g,'').replace(/\./g,''));
       fd.append('cantidad', cantidad);
       fd.append('categoria', categoria);
       if (imagenInput.files[0]) fd.append('imagen', imagenInput.files[0]);
@@ -1509,48 +745,43 @@
       btn.disabled = true; btn.textContent = '⏳ Guardando...';
 
       try {
-        const res = await fetch('/productos/nuevo/', { method: 'POST', headers: { 'X-CSRFToken': getCsrfToken() }, body: fd });
+        const res  = await fetch('/productos/nuevo/', { method:'POST', headers:{'X-CSRFToken':getCsrfToken()}, body:fd });
         const data = await res.json();
         if (data.ok) {
           showToast('✅ Producto publicado correctamente');
           document.getElementById('addProdForm').classList.remove('open');
           appendProdRow(data);
-          ['npNombre', 'npDescripcion', 'npPrecio', 'npCantidad'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-          document.getElementById('npCategoria').value = '';
+          ['npNombre','npDescripcion','npPrecio','npCantidad'].forEach(id => { const el = document.getElementById(id); if (el) el.value=''; });
+          document.getElementById('npCategoria').value='';
           document.getElementById('prodPhotoPreview').classList.remove('show');
-          document.getElementById('prodPhotoPlaceholder').style.display = '';
-          document.getElementById('prodPhotoChange').style.display = 'none';
+          document.getElementById('prodPhotoPlaceholder').style.display='';
+          document.getElementById('prodPhotoChange').style.display='none';
           document.getElementById('prodPhotoZone').classList.remove('has-photo');
-          imagenInput.value = '';
+          imagenInput.value='';
         } else { showToast('❌ ' + (data.error || 'Error al guardar')); }
       } catch (e) { showToast('❌ Error de conexión'); }
-      finally { btn.disabled = false; btn.textContent = '🚀 Publicar producto'; }
+      finally { btn.disabled=false; btn.textContent='🚀 Publicar producto'; }
     }
 
     function appendProdRow(p) {
       const container = document.getElementById('prodListContainer');
-      const empty = document.getElementById('emptyProdMsg');
+      const empty     = document.getElementById('emptyProdMsg');
       if (empty) empty.remove();
-      const stockLabel = p.cantidad == 0
+      const stockLabel = p.cantidad==0
         ? '<span class="stock-pill sp-out">Agotado</span>'
-        : p.cantidad <= 5
-          ? `<span class="stock-pill sp-low">${p.cantidad} disponibles</span>`
-          : `<span class="stock-pill sp-ok">${p.cantidad} disponibles</span>`;
+        : p.cantidad<=5 ? `<span class="stock-pill sp-low">${p.cantidad} disponibles</span>`
+        : `<span class="stock-pill sp-ok">${p.cantidad} disponibles</span>`;
       const imgHtml = p.imagen
         ? `<img src="${p.imagen}" alt="${p.nombre}" style="width:100%;height:100%;object-fit:cover;">`
         : '<span style="font-size:1.6rem;">📦</span>';
       const row = document.createElement('div');
-      row.className = 'prod-row'; row.id = `prod-row-${p.id}`;
-      row.innerHTML = `
+      row.className='prod-row'; row.id=`prod-row-${p.id}`;
+      row.innerHTML=`
         <div class="prod-thumb">${imgHtml}</div>
-        <div>
-          <div class="prod-name">${p.nombre}</div>
-          <div class="prod-meta">${p.categoria || 'Sin categoría'}</div>
-          <div>${stockLabel}</div>
-        </div>
+        <div><div class="prod-name">${p.nombre}</div><div class="prod-meta">${p.categoria||'Sin categoría'}</div><div>${stockLabel}</div></div>
         <div style="text-align:right;"><div class="prod-price">${p.precio}</div></div>
         <div class="prod-acts">
-          <button class="pa" onclick="abrirEditar(${p.id},'${p.nombre.replace(/'/g, "\\'")}','',${p.precio_num || 0},${p.cantidad},'${p.categoria || ''}')">✏️ Editar</button>
+          <button class="pa" onclick="abrirEditar(${p.id},'${p.nombre.replace(/'/g,"\\'")}','',${p.precio_num||0},${p.cantidad},'${p.categoria||''}')">✏️ Editar</button>
           <button class="pa del" onclick="eliminarProducto(${p.id},this)">🗑 Eliminar</button>
         </div>`;
       container.appendChild(row);
@@ -1559,162 +790,222 @@
     /* ── ELIMINAR PRODUCTO → BD ── */
     async function eliminarProducto(id, btn) {
       if (!confirm('¿Eliminar este producto? Esta acción no se puede deshacer.')) return;
-      btn.disabled = true;
+      btn.disabled=true;
       try {
-        const res = await fetch(`/productos/${id}/eliminar/`, { method: 'DELETE', headers: { 'X-CSRFToken': getCsrfToken() } });
+        const res  = await fetch(`/productos/${id}/eliminar/`, { method:'DELETE', headers:{'X-CSRFToken':getCsrfToken()} });
         const data = await res.json();
-        if (data.ok) { const row = document.getElementById(`prod-row-${id}`); if (row) row.remove(); showToast('🗑 Producto eliminado'); }
-        else { showToast('❌ ' + (data.error || 'Error')); }
+        if (data.ok) { const row=document.getElementById(`prod-row-${id}`); if(row) row.remove(); showToast('🗑 Producto eliminado'); }
+        else { showToast('❌ '+(data.error||'Error')); }
       } catch (e) { showToast('❌ Error de conexión'); }
-      finally { btn.disabled = false; }
+      finally { btn.disabled=false; }
     }
 
     /* ── MODAL EDITAR PRODUCTO ── */
     function abrirEditar(id, nombre, descripcion, precio, cantidad, categoria) {
-      document.getElementById('epId').value = id;
-      document.getElementById('epNombre').value = nombre;
+      document.getElementById('epId').value          = id;
+      document.getElementById('epNombre').value      = nombre;
       document.getElementById('epDescripcion').value = descripcion;
-      document.getElementById('epPrecio').value = precio;
-      document.getElementById('epCantidad').value = cantidad;
-      document.getElementById('epCategoria').value = categoria;
-      document.getElementById('epImgPreview').src = '';
+      document.getElementById('epPrecio').value      = precio;
+      document.getElementById('epCantidad').value    = cantidad;
+      document.getElementById('epCategoria').value   = categoria;
+      document.getElementById('epImgPreview').src    = '';
       document.getElementById('epImgPreview').style.display = 'none';
       document.getElementById('editProdModal').style.display = 'flex';
     }
 
-    function cerrarEditar() { document.getElementById('editProdModal').style.display = 'none'; }
+    function cerrarEditar() { document.getElementById('editProdModal').style.display='none'; }
 
     async function guardarEdicion() {
-      const id = document.getElementById('epId').value;
-      const nombre = document.getElementById('epNombre').value.trim();
+      const id          = document.getElementById('epId').value;
+      const nombre      = document.getElementById('epNombre').value.trim();
       const descripcion = document.getElementById('epDescripcion').value.trim();
-      const precio = document.getElementById('epPrecio').value.trim().replace(/\$/g, '').replace(/\./g, '');
-      const cantidad = document.getElementById('epCantidad').value.trim();
-      const categoria = document.getElementById('epCategoria').value.trim();
+      const precio      = document.getElementById('epPrecio').value.trim().replace(/\$/g,'').replace(/\./g,'');
+      const cantidad    = document.getElementById('epCantidad').value.trim();
+      const categoria   = document.getElementById('epCategoria').value.trim();
       const imagenInput = document.getElementById('epImgInput');
 
       const fd = new FormData();
-      if (nombre) fd.append('nombre', nombre);
+      if (nombre)      fd.append('nombre', nombre);
       if (descripcion) fd.append('descripcion', descripcion);
-      if (precio) fd.append('precio', precio);
-      if (cantidad) fd.append('cantidad', cantidad);
-      if (categoria) fd.append('categoria', categoria);
+      if (precio)      fd.append('precio', precio);
+      if (cantidad)    fd.append('cantidad', cantidad);
+      if (categoria)   fd.append('categoria', categoria);
       if (imagenInput.files[0]) fd.append('imagen', imagenInput.files[0]);
 
       const btn = document.getElementById('epSaveBtn');
-      btn.disabled = true; btn.textContent = '⏳ Guardando...';
+      btn.disabled=true; btn.textContent='⏳ Guardando...';
 
       try {
-        const res = await fetch(`/productos/${id}/editar/`, { method: 'POST', headers: { 'X-CSRFToken': getCsrfToken() }, body: fd });
+        const res  = await fetch(`/productos/${id}/editar/`, { method:'POST', headers:{'X-CSRFToken':getCsrfToken()}, body:fd });
         const data = await res.json();
         if (data.ok) {
-          showToast('✅ Producto actualizado');
-          cerrarEditar();
+          showToast('✅ Producto actualizado'); cerrarEditar();
           const row = document.getElementById(`prod-row-${id}`);
           if (row) {
-            const stockLabel = data.cantidad == 0
-              ? '<span class="stock-pill sp-out">Agotado</span>'
-              : data.cantidad <= 5
-                ? `<span class="stock-pill sp-low">${data.cantidad} disponibles</span>`
-                : `<span class="stock-pill sp-ok">${data.cantidad} disponibles</span>`;
+            const stockLabel = data.cantidad==0 ? '<span class="stock-pill sp-out">Agotado</span>'
+              : data.cantidad<=5 ? `<span class="stock-pill sp-low">${data.cantidad} disponibles</span>`
+              : `<span class="stock-pill sp-ok">${data.cantidad} disponibles</span>`;
             row.querySelector('.prod-name').textContent = data.nombre;
-            row.querySelector('.prod-meta').textContent = data.categoria || 'Sin categoría';
-            row.querySelector('.prod-price').textContent = data.precio;
+            row.querySelector('.prod-meta').textContent = data.categoria||'Sin categoría';
+            row.querySelector('.prod-price').textContent= data.precio;
             row.querySelectorAll('div > div')[2].innerHTML = stockLabel;
-            if (data.imagen) {
-              const thumb = row.querySelector('.prod-thumb');
-              thumb.innerHTML = `<img src="${data.imagen}" alt="${data.nombre}" style="width:100%;height:100%;object-fit:cover;">`;
-            }
+            if (data.imagen) { const thumb=row.querySelector('.prod-thumb'); thumb.innerHTML=`<img src="${data.imagen}" alt="${data.nombre}" style="width:100%;height:100%;object-fit:cover;">`; }
           }
-        } else { showToast('❌ ' + (data.error || 'Error')); }
+        } else { showToast('❌ '+(data.error||'Error')); }
       } catch (e) { showToast('❌ Error de conexión'); }
-      finally { btn.disabled = false; btn.textContent = '💾 Guardar cambios'; }
+      finally { btn.disabled=false; btn.textContent='💾 Guardar cambios'; }
     }
 
     function previewEditImg(input) {
       if (!input.files[0]) return;
       const r = new FileReader();
-      r.onload = e => {
-        const prev = document.getElementById('epImgPreview');
-        prev.src = e.target.result; prev.style.display = 'block';
-      };
+      r.onload = e => { const prev=document.getElementById('epImgPreview'); prev.src=e.target.result; prev.style.display='block'; };
       r.readAsDataURL(input.files[0]);
     }
 
     /* ── ESTADO PEDIDO → BD ── */
     async function actualizarEstado(select) {
-      const pedidoId = select.dataset.pedido;
+      const pedidoId    = select.dataset.pedido;
       const nuevoEstado = select.value;
-      const pill = document.getElementById(`pill-${pedidoId}`);
-      const labelMap = { procesando: 'Procesando', preparando: 'Preparando', en_camino: 'En camino', entregado: 'Entregado', cancelado: 'Cancelado' };
-      const pillMap = { procesando: 'sp-amber', preparando: 'sp-amber', en_camino: 'sp-blue', entregado: 'sp-green', cancelado: 'sp-red' };
+      const pill        = document.getElementById(`pill-${pedidoId}`);
+      const labelMap    = { procesando:'Procesando', preparando:'Preparando', en_camino:'En camino', entregado:'Entregado', cancelado:'Cancelado' };
+      const pillMap     = { procesando:'sp-amber', preparando:'sp-amber', en_camino:'sp-blue', entregado:'sp-green', cancelado:'sp-red' };
       try {
-        const res = await fetch(`/pedidos/${pedidoId}/estado/`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
-          body: JSON.stringify({ estado: nuevoEstado }),
-        });
+        const res  = await fetch(`/pedidos/${pedidoId}/estado/`, { method:'PATCH', headers:{'Content-Type':'application/json','X-CSRFToken':getCsrfToken()}, body:JSON.stringify({estado:nuevoEstado}) });
         const data = await res.json();
         if (data.ok) {
-          if (pill) { pill.className = `status-pill ${pillMap[nuevoEstado] || 'sp-blue'}`; pill.textContent = labelMap[nuevoEstado]; }
-          const row = select.closest('.pedido-item');
-          if (row) row.dataset.estado = nuevoEstado;
+          if (pill) { pill.className=`status-pill ${pillMap[nuevoEstado]||'sp-blue'}`; pill.textContent=labelMap[nuevoEstado]; }
+          const row = select.closest('.pedido-item'); if (row) row.dataset.estado=nuevoEstado;
           showToast(`Pedido #${pedidoId} → ${labelMap[nuevoEstado]}`);
-        } else { showToast('Error: ' + (data.error || 'intenta de nuevo')); }
+        } else { showToast('Error: '+(data.error||'intenta de nuevo')); }
       } catch (e) { showToast('Error de conexión'); }
     }
 
     function filtrarPedidos(estado) {
       document.querySelectorAll('.pedido-item').forEach(row => {
         const wrapper = row.closest('div[style*="border-bottom"]') || row.parentElement;
-        if (wrapper) wrapper.style.display = (estado === 'todos' || row.dataset.estado === estado) ? '' : 'none';
+        if (wrapper) wrapper.style.display = (estado==='todos' || row.dataset.estado===estado) ? '' : 'none';
       });
     }
 
     /* ── GUARDAR PERFIL VENDEDOR → BD ── */
     async function guardarPerfilVendedor() {
-      const nombre = document.getElementById('vpNombreUsuario')?.value.trim();
-      const email = document.getElementById('vpEmail')?.value.trim();
+      const nombre   = document.getElementById('vpNombreUsuario')?.value.trim();
+      const email    = document.getElementById('vpEmail')?.value.trim();
       const telefono = document.getElementById('vpTelefono')?.value.trim();
 
       if (!nombre || !email) { showToast('❌ Nombre y correo son obligatorios'); return; }
       if (!email.includes('@')) { showToast('❌ Correo inválido'); return; }
 
       try {
-        const res = await fetch('/perfil/editar/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCsrfToken() },
-          body: JSON.stringify({ nombre, email, telefono }),
-        });
+        const res  = await fetch('/perfil/editar/', { method:'POST', headers:{'Content-Type':'application/json','X-CSRFToken':getCsrfToken()}, body:JSON.stringify({nombre,email,telefono}) });
         const data = await res.json();
         if (data.ok) {
-          document.getElementById('sideStoreName').textContent =
-            document.getElementById('vpNombre')?.value.trim() || data.nombre;
+          document.getElementById('sideStoreName').textContent = document.getElementById('vpNombre')?.value.trim() || data.nombre;
+          // Reflejar en la sección seguridad
+          const sd = document.getElementById('secEmailDisplay'); if (sd) sd.textContent = data.email;
+          const sp = document.getElementById('secPhoneDisplay'); if (sp) sp.textContent = data.telefono || 'Sin teléfono';
           showToast('✅ Perfil actualizado correctamente');
-        } else {
-          showToast('❌ ' + (data.error || 'Error'));
-        }
+        } else { showToast('❌ '+(data.error||'Error')); }
       } catch (e) { showToast('❌ Error de conexión'); }
     }
 
-    /* ── INICIALIZAR SELECTS DE ESTADO ── */
-    //document.querySelectorAll('.estado-select').forEach(sel => { sel.value = sel.dataset.estadoActual; });
+    /* ── SEGURIDAD: toggle contraseña ── */
+    function togglePassForm(open) {
+      const form = document.getElementById('passFormInline');
+      const btn  = document.getElementById('passCambiarBtn');
+      form.classList.toggle('open', open);
+      btn.style.display = open ? 'none' : '';
+      if (!open) {
+        document.getElementById('secVActual').value  = '';
+        document.getElementById('secVNueva').value   = '';
+        document.getElementById('secVConfirm').value = '';
+      }
+    }
+
+    /* ── SEGURIDAD: guardar contraseña → BD ── */
+    async function guardarPassword() {
+      const actual   = document.getElementById('secVActual').value;
+      const nueva    = document.getElementById('secVNueva').value.trim();
+      const confirm  = document.getElementById('secVConfirm').value.trim();
+
+      if (!actual || !nueva || !confirm) { showToast('❌ Completa todos los campos'); return; }
+      if (nueva.length < 8)             { showToast('❌ Mínimo 8 caracteres');         return; }
+      if (nueva !== confirm)            { showToast('❌ Las contraseñas no coinciden'); return; }
+
+      const btn = document.getElementById('passGuardarBtn');
+      btn.disabled=true; btn.textContent='⏳ Guardando...';
+
+      try {
+        const res  = await fetch('/perfil/cambiar-password/', {
+          method:  'POST',
+          headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+          body:    JSON.stringify({ password_actual:actual, password_nuevo:nueva, password_confirm:confirm }),
+        });
+        const data = await res.json();
+        if (data.ok) { togglePassForm(false); showToast('✅ Contraseña actualizada correctamente'); }
+        else          { showToast('❌ '+(data.error||'Error al actualizar')); }
+      } catch (e)   { showToast('❌ Error de conexión'); }
+      finally       { btn.disabled=false; btn.textContent='💾 Guardar contraseña'; }
+    }
+
+    /* ── SEGURIDAD: toggle correo / teléfono ── */
+    function toggleSecField(field, open) {
+      const map = {
+        email: { form:'emailEditInline', input:'secEmailInput', display:'secEmailDisplay' },
+        phone: { form:'phoneEditInline', input:'secPhoneInput', display:'secPhoneDisplay' },
+      };
+      const { form, input, display } = map[field];
+      document.getElementById(form).classList.toggle('open', open);
+      if (open) document.getElementById(input).value = document.getElementById(display).textContent.trim();
+    }
+
+    /* ── SEGURIDAD: guardar correo / teléfono → BD ── */
+    async function guardarCampoSeguridad(field) {
+      const map = {
+        email: { input:'secEmailInput', display:'secEmailDisplay' },
+        phone: { input:'secPhoneInput', display:'secPhoneDisplay' },
+      };
+      const { input, display } = map[field];
+      const val = document.getElementById(input).value.trim();
+
+      if (!val) { showToast('❌ El campo no puede estar vacío'); return; }
+      if (field==='email' && !val.includes('@')) { showToast('❌ Correo inválido'); return; }
+
+      const nombre   = document.getElementById('vpNombreUsuario')?.value.trim()
+                    || '{{ user.get_full_name|default:user.first_name|escapejs }}';
+      const email    = field==='email' ? val : document.getElementById('secEmailDisplay').textContent.trim();
+      const telefono = field==='phone' ? val : document.getElementById('secPhoneDisplay').textContent.trim();
+
+      try {
+        const res  = await fetch('/perfil/editar/', {
+          method:  'POST',
+          headers: {'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},
+          body:    JSON.stringify({ nombre, email, telefono }),
+        });
+        const data = await res.json();
+        if (data.ok) {
+          document.getElementById(display).textContent = field==='email' ? data.email : data.telefono;
+          toggleSecField(field, false);
+          showToast(`✅ ${field==='email' ? 'Correo' : 'Teléfono'} actualizado correctamente`);
+        } else { showToast('❌ '+(data.error||'Error al guardar')); }
+      } catch (e) { showToast('❌ Error de conexión'); }
+    }
 
     /* ── TOAST ── */
     function showToast(msg) {
       let t = document.getElementById('vnd-toast');
       if (!t) {
-        t = document.createElement('div'); t.id = 'vnd-toast';
-        t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A1A2E;color:#fff;padding:12px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.22);font-family:Poppins,sans-serif;';
+        t = document.createElement('div'); t.id='vnd-toast';
+        t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A1A2E;color:#fff;padding:12px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.22);font-family:Poppins,sans-serif;';
         document.body.appendChild(t);
       }
       t.textContent = msg;
-      requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+      requestAnimationFrame(() => { t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)'; });
       clearTimeout(t._timer);
-      t._timer = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(80px)'; }, 2800);
+      t._timer = setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(80px)'; }, 2800);
     }
   </script>
 
 </body>
-
 </html>
