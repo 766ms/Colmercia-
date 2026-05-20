@@ -1673,46 +1673,27 @@
   </div>
 
   <script>
-   async function cargarFavoritos() {
-  const grid = document.querySelector('.fav-grid');
-  if (!grid) return;
-  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">⏳ Cargando...</p>';
+  const SESSION_ID = "{{ request.session.session_key|default:'guest' }}";
 
+async function addToCartFromFav(producto) {
   try {
-    const res = await fetch('/favoritos/');
-    const favs = await res.json();
-
-    const favCount = document.getElementById('favCount');  // ← aquí arriba
-
-    if (!favs.length) {
-      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">Aún no tienes favoritos guardados.</p>';
-      if (favCount) favCount.textContent = 'Sin favoritos';  // ← actualiza también cuando está vacío
-      return;
-    }
-
-    if (favCount) favCount.textContent = `${favs.length} producto${favs.length !== 1 ? 's' : ''} guardado${favs.length !== 1 ? 's' : ''}`;
-
-    grid.innerHTML = favs.map(f => `
-      <div class="fav-card">
-        <div class="fav-img" style="${f.producto_imagen
-          ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;`
-          : ''}">
-          ${f.producto_imagen ? '' : f.producto_ico}
-        </div>
-        <div class="fav-info">
-          <div class="fav-name">${f.producto_nombre}</div>
-          <div class="fav-store">${f.producto_tienda}</div>
-          <div class="fav-price">${f.producto_precio}</div>
-        </div>
-        <button class="fav-btn">+ Agregar al carrito</button>
-      </div>
-    `).join('');
-
+    await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ producto })
+    });
+    showToast('🛒 Agregado al carrito — redirigiendo a pago...');
+    setTimeout(() => {
+      window.location.href = '/?openPay=1';
+    }, 1200);
   } catch (e) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">❌ Error al cargar favoritos.</p>';
+    showToast('❌ Error al agregar al carrito');
   }
-}async function cargarFavoritos() {
+}
+
+async function cargarFavoritos() {
   const grid = document.querySelector('.fav-grid');
+  const favCount = document.getElementById('favCount');
   if (!grid) return;
   grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">⏳ Cargando...</p>';
 
@@ -1720,31 +1701,48 @@
     const res = await fetch('/favoritos/');
     const favs = await res.json();
 
-    const favCount = document.getElementById('favCount');  // ← aquí arriba
-
     if (!favs.length) {
-      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">Aún no tienes favoritos guardados.</p>';
-      if (favCount) favCount.textContent = 'Sin favoritos';  // ← actualiza también cuando está vacío
+      grid.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--mut);">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🤍</div>
+          <div style="font-size:.95rem;font-weight:600;color:#1A1A2E;margin-bottom:6px;">Aún no tienes favoritos</div>
+          <p style="font-size:.82rem;">Explora el marketplace y guarda los productos que te gusten.</p>
+        </div>`;
+      if (favCount) favCount.textContent = 'Sin favoritos';
       return;
     }
 
     if (favCount) favCount.textContent = `${favs.length} producto${favs.length !== 1 ? 's' : ''} guardado${favs.length !== 1 ? 's' : ''}`;
 
-    grid.innerHTML = favs.map(f => `
-      <div class="fav-card">
-        <div class="fav-img" style="${f.producto_imagen
-          ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;`
-          : ''}">
-          ${f.producto_imagen ? '' : f.producto_ico}
-        </div>
-        <div class="fav-info">
-          <div class="fav-name">${f.producto_nombre}</div>
-          <div class="fav-store">${f.producto_tienda}</div>
-          <div class="fav-price">${f.producto_precio}</div>
-        </div>
-        <button class="fav-btn">+ Agregar al carrito</button>
-      </div>
-    `).join('');
+    grid.innerHTML = favs.map((f, i) => {
+      const prod = {
+        id: f.producto_nombre,
+        name: f.producto_nombre,
+        brand: f.producto_tienda,
+        store: f.producto_tienda,
+        price: f.producto_precio,
+        img: f.producto_imagen || '',
+        ico: f.producto_ico || '🎁',
+        stock: 'ok',
+        cnt: 10,
+      };
+      return `
+        <div class="fav-card">
+          <div class="fav-img" style="${f.producto_imagen
+            ? `background-image:url('${f.producto_imagen}');background-size:cover;background-position:center;font-size:0;`
+            : ''}">
+            ${f.producto_imagen ? '' : (f.producto_ico || '🎁')}
+          </div>
+          <div class="fav-info">
+            <div class="fav-name">${f.producto_nombre}</div>
+            <div class="fav-store">${f.producto_tienda}</div>
+            <div class="fav-price">${f.producto_precio}</div>
+          </div>
+          <button class="fav-btn" onclick='addToCartFromFav(${JSON.stringify(prod)})'>
+            🛒 Agregar al carrito
+          </button>
+        </div>`;
+    }).join('');
 
   } catch (e) {
     grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--mut);">❌ Error al cargar favoritos.</p>';

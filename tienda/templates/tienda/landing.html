@@ -3682,6 +3682,7 @@
             <option value="100">Más de $100.000</option>
           </select>
         </div>
+        
         <div class="gift-cta">
           <div class="gift-cta-ico">🤖</div>
           <div>
@@ -4935,6 +4936,7 @@
           <div class="regbg-wrap">
             <div class="regbg" style="background-image:url('${p.img}');"></div>
             <button class="reg-add" onclick="event.stopPropagation();addToCart(ALL_PRODUCTS[${idx}])">+ Carrito</button>
+            <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])">♡</button>
           </div>
           <div class="reginfo">
             <div class="regsub">${p.storeLoc}</div>
@@ -5029,25 +5031,27 @@
           return;
         }
 
+
         grid.innerHTML = data.map(p => {
-          const prod = {
-            name: p.nombre, brand: '', price: p.precio,
-            stock: p.stock, img: p.imagen, ico: '🎁',
-            store: '', storeLoc: '', desc: '', cnt: 10,
-          };
-          const idx = registerProduct(prod);
-          return `
-            <div class="gcard" onclick="openProductQV(${idx})">
-                <div class="gimg" style="${p.imagen ? `background-image:url('${p.imagen}');background-size:cover;background-position:center;` : ''}">
-                    ${p.imagen ? '' : '🎁'}
-                </div>
-                <div class="ginfo">
-                    <div class="gname">${p.nombre}</div>
-                    <div class="gprice">${p.precio}</div>
-                    <button class="gbtn" onclick="event.stopPropagation();openProductQV(${idx})">🔍 Ver detalle</button>
-                </div>
-            </div>`;
-        }).join('');
+  const prod = {
+    name: p.nombre, brand: '', price: p.precio,
+    stock: p.stock, img: p.imagen, ico: '🎁',
+    store: '', storeLoc: '', desc: '', cnt: 10,
+  };
+  const idx = registerProduct(prod);
+  return `
+    <div class="gcard" onclick="openProductQV(${idx})">
+        <div class="gimg" style="position:relative;${p.imagen ? `background-image:url('${p.imagen}');background-size:cover;background-position:center;` : ''}">
+            ${p.imagen ? '' : '🎁'}
+            <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])" style="position:absolute;top:8px;left:8px;">♡</button>
+        </div>
+        <div class="ginfo">
+            <div class="gname">${p.nombre}</div>
+            <div class="gprice">${p.precio}</div>
+            <button class="gbtn" onclick="event.stopPropagation();openProductQV(${idx})">🔍 Ver detalle</button>
+        </div>
+    </div>`;
+}).join('');
 
       } catch (e) {
         grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⚠️ Error al cargar los regalos.</div>';
@@ -5057,6 +5061,8 @@
 
     // Carga inicial
     filtrarRegalos();
+    
+
 
     /* ══ CATEGORY FILTER ══ */
     function showCat(cat, el) {
@@ -5565,6 +5571,13 @@
       clearTimeout(toast._t);
       toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 3000);
     }
+    // Abrir pago automáticamente si viene desde favoritos
+(function checkOpenPay() {
+  if (new URLSearchParams(window.location.search).get('openPay') === '1') {
+    history.replaceState(null, '', window.location.pathname);
+    setTimeout(() => openModal('payModal'), 600);
+  }
+})();
 
 
   </script>

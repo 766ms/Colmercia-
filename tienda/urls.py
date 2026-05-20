@@ -2,7 +2,8 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from . import views
-from .views import toggle_favorito, get_favoritos  # ← aquí arriba
+from .views import toggle_favorito, get_favoritos 
+from .views import AdminDevolucionPedidoView # ← aquí arriba
 
 urlpatterns = [
     # ── Páginas principales ──────────────────────────────
@@ -70,4 +71,6 @@ urlpatterns = [
     # ── Favoritos ─────────────────────────────────────────
     path("favoritos/toggle/", toggle_favorito, name="toggle_favorito"),
     path("favoritos/", get_favoritos, name="get_favoritos"),
+    # Dentro de urlpatterns:
+    path("admin-pag/pedidos/<int:pedido_id>/devolucion/", AdminDevolucionPedidoView.as_view(), name="admin_devolucion_pedido"),
 ]

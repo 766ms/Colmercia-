@@ -1468,6 +1468,7 @@
           page</button>
         <button class="sitem" onclick="sec('regalos',this)"><span class="si-bar si-red"></span> Gestión de
           Regalos</button>
+        <button class="sitem" onclick="sec('pagos',this)"><span class="si-bar si-grn"></span> Pagos & Devoluciones</button>
         <button class="sitem" onclick="sec('notifs',this)"><span class="si-bar si-grn"></span> Notificaciones</button>
         <div class="sdiv"></div>
         <button class="sitem danger" onclick="doLogout()"><span class="si-bar si-red"></span> Cerrar sesión</button>
@@ -1920,6 +1921,100 @@
           {% endif %}
         </div>
       </div>
+      <!-- ══ PAGOS & DEVOLUCIONES ══ -->
+<div class="card" id="secPagos" style="display:none;">
+  <div class="card-hdr">
+    <div>
+      <div class="card-title">Pagos & Devoluciones</div>
+      <div class="card-sub">Historial de pedidos — gestiona reembolsos y devoluciones</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <select class="filter-sel" id="pagosEstadoFilter" onchange="filtrarPagos()">
+        <option value="">Todos los estados</option>
+        <option value="procesando">Procesando</option>
+        <option value="preparando">Preparando</option>
+        <option value="en_camino">En camino</option>
+        <option value="entregado">Entregado</option>
+        <option value="cancelado">Cancelado / Devuelto</option>
+      </select>
+      <button class="btn-out btn-sm" onclick="exportPagosCSV()">⬇ Exportar CSV</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="filter-bar">
+      <input class="filter-inp" type="text" placeholder="Buscar por cliente, producto o tienda..."
+        oninput="filtrarPagos()" id="pagosSearch" />
+      <div style="font-size:.75rem;color:var(--mut);white-space:nowrap;">
+        Total: <strong style="color:#fff;" id="pagosCount">0</strong> pedidos ·
+        <strong style="color:#34D399;" id="pagosTotal">$0</strong>
+      </div>
+    </div>
+    <div id="pagosTable">
+      {% if todos_pedidos %}
+        {% for p in todos_pedidos %}
+        <div class="vreq-item pagos-row"
+          id="pedido-row-{{ p.id }}"
+          data-estado="{{ p.estado }}"
+          data-search="{{ p.usuario.first_name|lower }} {{ p.usuario.last_name|lower }} {{ p.usuario.email|lower }} {% if p.producto %}{{ p.producto.nombre|lower }}{% endif %} {% if p.producto.tienda %}{{ p.producto.tienda.nombre|lower }}{% endif %}"
+          data-total="{{ p.total }}">
+          <div class="vreq-top">
+            <div class="vreq-ava"
+              style="background:{% if p.estado == 'entregado' %}linear-gradient(135deg,#34D399,#059669){% elif p.estado == 'cancelado' %}linear-gradient(135deg,#F87171,#DC2626){% elif p.estado == 'en_camino' %}linear-gradient(135deg,#60A5FA,#2563EB){% else %}linear-gradient(135deg,#FCD34D,#D97706){% endif %};color:#fff;font-size:.75rem;font-weight:800;">
+              #{{ p.id }}
+            </div>
+            <div class="vreq-info">
+              <div class="vreq-name" style="display:flex;align-items:center;gap:8px;">
+                {{ p.usuario.first_name }} {{ p.usuario.last_name }}
+                <span class="badge {% if p.estado == 'entregado' %}b-ok{% elif p.estado == 'cancelado' %}b-admin{% elif p.estado == 'en_camino' %}b-buyer{% else %}b-pend{% endif %}"
+                  id="estado-badge-{{ p.id }}">
+                  {% if p.estado == 'procesando' %}⏳ Procesando
+                  {% elif p.estado == 'preparando' %}📦 Preparando
+                  {% elif p.estado == 'en_camino' %}🚚 En camino
+                  {% elif p.estado == 'entregado' %}✅ Entregado
+                  {% elif p.estado == 'cancelado' %}↩ Devuelto
+                  {% endif %}
+                </span>
+                {% if p.es_regalo %}<span class="vtag vt-cat">🎁 Regalo</span>{% endif %}
+              </div>
+              <div class="vreq-meta">
+                {{ p.usuario.email }} · 
+                {% if p.producto %}{{ p.producto.nombre }}{% else %}Producto eliminado{% endif %}
+                {% if p.producto.tienda %} · {{ p.producto.tienda.nombre }}{% endif %}
+              </div>
+              <div class="vreq-tags">
+                <span class="vtag" style="background:rgba(52,211,153,.1);color:#34D399;font-size:.72rem;font-weight:700;">
+                  ${{ p.total|floatformat:0 }}
+                </span>
+                <span class="vtag vt-date">{{ p.cantidad }} und.</span>
+                <span class="vtag vt-date">{{ p.fecha|date:"d M Y, H:i" }}</span>
+              </div>
+            </div>
+          </div>
+          {% if p.estado != 'cancelado' %}
+          <div class="vreq-actions" id="acciones-{{ p.id }}">
+            <button class="vbtn vb-no"
+              onclick="procesarDevolucion({{ p.id }}, '{{ p.usuario.first_name|escapejs }} {{ p.usuario.last_name|escapejs }}', '{% if p.producto %}{{ p.producto.nombre|escapejs }}{% else %}Producto eliminado{% endif %}', '{{ p.total|floatformat:0 }}')">
+              ↩ Procesar devolución
+            </button>
+            <span style="font-size:.7rem;color:var(--mut);align-self:center;">
+              Esta acción cancela el pedido y restituye el stock automáticamente.
+            </span>
+          </div>
+          {% else %}
+          <div class="vreq-actions" id="acciones-{{ p.id }}">
+            <span style="font-size:.73rem;color:#F87171;">↩ Devolución procesada</span>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      {% else %}
+        <div style="text-align:center;padding:48px 0;color:var(--mut);font-size:.85rem;">
+          No hay pedidos registrados aún.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
 
       <!-- ══ TIENDA SELECT PARA MODAL (oculto, usado por JS) ══ -->
       <div style="display:none;" id="tiendaSelectData">
@@ -2112,9 +2207,9 @@
 
     /* ══ NAVEGACIÓN DE SECCIONES ══ */
     function sec(id, btn) {
-      ['secOverview', 'secVendors', 'secUsers', 'secSellers', 'secAudit', 'secEditor', 'secNotifs', 'secRegalos']
+      ['secOverview', 'secVendors', 'secUsers', 'secSellers', 'secAudit', 'secEditor', 'secNotifs', 'secRegalos', 'secPagos']
         .forEach(s => { const el = document.getElementById(s); if (el) el.style.display = 'none'; });
-      const map = { overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers', audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs', regalos: 'secRegalos' };
+      const map = { overview: 'secOverview', vendors: 'secVendors', users: 'secUsers', sellers: 'secSellers', audit: 'secAudit', editor: 'secEditor', notifs: 'secNotifs', regalos: 'secRegalos', pagos: 'secPagos' };
       const el = document.getElementById(map[id]);
       if (el) el.style.display = 'block';
       document.querySelectorAll('.sitem').forEach(s => s.classList.remove('act'));
@@ -2122,6 +2217,7 @@
       if (id === 'audit') renderAudit(document.getElementById('auditFilter').value);
       if (id === 'regalos') cargarProductosAdmin();
       if (id === 'editor') cargarBannersAdmin();
+      if (id === 'pagos') filtrarPagos();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -2569,6 +2665,97 @@
     }
 
     /* ══ INIT ══ */
+    /* ══ PAGOS & DEVOLUCIONES ══ */
+function filtrarPagos() {
+  const q = (document.getElementById('pagosSearch')?.value || '').toLowerCase();
+  const estado = document.getElementById('pagosEstadoFilter')?.value || '';
+  let count = 0, total = 0;
+  document.querySelectorAll('.pagos-row').forEach(row => {
+    const matchSearch = !q || (row.dataset.search || '').includes(q);
+    const matchEstado = !estado || row.dataset.estado === estado;
+    const visible = matchSearch && matchEstado;
+    row.style.display = visible ? '' : 'none';
+    if (visible) {
+      count++;
+      total += parseFloat(row.dataset.total || 0);
+    }
+  });
+  const countEl = document.getElementById('pagosCount');
+  const totalEl = document.getElementById('pagosTotal');
+  if (countEl) countEl.textContent = count;
+  if (totalEl) totalEl.textContent = '$' + Math.round(total).toLocaleString('es-CO');
+}
+
+async function procesarDevolucion(pedidoId, cliente, producto, total) {
+  const confirm1 = confirm(
+    `¿Procesar devolución del pedido #${pedidoId}?\n\n` +
+    `Cliente: ${cliente}\n` +
+    `Producto: ${producto}\n` +
+    `Monto: $${total}\n\n` +
+    `Esta acción cancela el pedido y restituye el stock.`
+  );
+  if (!confirm1) return;
+
+  try {
+    const res = await fetch(`/admin-pag/pedidos/${pedidoId}/devolucion/`, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': getCsrf() },
+    });
+    const data = await res.json();
+
+    if (data.ok) {
+      // Actualizar badge de estado
+      const badge = document.getElementById(`estado-badge-${pedidoId}`);
+      if (badge) {
+        badge.className = 'badge b-admin';
+        badge.textContent = '↩ Devuelto';
+      }
+      // Actualizar color del avatar-número
+      const row = document.getElementById(`pedido-row-${pedidoId}`);
+      if (row) {
+        row.dataset.estado = 'cancelado';
+        const ava = row.querySelector('.vreq-ava');
+        if (ava) ava.style.background = 'linear-gradient(135deg,#F87171,#DC2626)';
+      }
+      // Reemplazar botón de acción
+      const acciones = document.getElementById(`acciones-${pedidoId}`);
+      if (acciones) {
+        acciones.innerHTML = '<span style="font-size:.73rem;color:#F87171;">↩ Devolución procesada</span>';
+      }
+
+      addAuditEntry({
+        type: 'admin',
+        actor: ADMINS[currentAdmin]?.name || 'Admin',
+        action: `Procesó devolución del pedido <span class="hl">#${pedidoId}</span> — ${producto} (${cliente})`,
+        time: now(),
+        tag: 'admin'
+      });
+
+      showAdminToast(`✅ Devolución #${pedidoId} procesada. Stock restituido: ${data.stock_restituido} und.`);
+      filtrarPagos();
+    } else {
+      showAdminToast('❌ ' + (data.error || 'Error al procesar devolución'));
+    }
+  } catch (e) {
+    showAdminToast('❌ Error de conexión');
+  }
+}
+
+function exportPagosCSV() {
+  const rows = ['#Pedido,Cliente,Email,Producto,Tienda,Total,Cantidad,Estado,Fecha'];
+  document.querySelectorAll('.pagos-row').forEach(row => {
+    if (row.style.display === 'none') return;
+    const cols = row.querySelectorAll('.vreq-name, .vreq-meta, .vtag');
+    rows.push(row.dataset.search.replace(/,/g, ';') + ',' + row.dataset.total + ',' + row.dataset.estado);
+  });
+  const blob = new Blob(['\uFEFF' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'colmercia_pagos.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Inicializar contadores cuando se entra a la sección
+const _secOriginal = sec;
     renderAudit('all');
   </script>
 </body>
