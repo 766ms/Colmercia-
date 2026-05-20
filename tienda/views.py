@@ -3,19 +3,51 @@ from decimal import Decimal, InvalidOperation
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import TemplateView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 from django.core.cache import cache
 from django.db.models import Prefetch, Sum
 from django.db.models.functions import TruncMonth
 from django.utils import timezone
 
-from .models import Pedido, Tienda, Usuario, Producto, BannerLanding
+from .models import Pedido, Tienda, Usuario, Producto, BannerLanding, Favorito
 from .forms import CompradorRegistroForm, VendedorRegistroForm
+
+@login_required
+@require_POST
+def toggle_favorito(request):
+    data = json.loads(request.body)
+    nombre = data.get('nombre')
+    
+    fav, created = Favorito.objects.get_or_create(
+        usuario=request.user,
+        producto_nombre=nombre,
+        defaults={
+            'producto_precio': data.get('precio', ''),
+            'producto_imagen': data.get('imagen', ''),
+            'producto_ico':    data.get('ico', ''),
+            'producto_tienda': data.get('tienda', ''),
+        }
+    )
+    if not created:
+        fav.delete()
+        return JsonResponse({'ok': True, 'action': 'removed'})
+    
+    return JsonResponse({'ok': True, 'action': 'added'})
+
+
+@login_required
+def get_favoritos(request):
+    favs = request.user.favoritos.all().values(
+        'producto_nombre', 'producto_precio', 'producto_imagen', 'producto_ico', 'producto_tienda'
+    )
+    return JsonResponse(list(favs), safe=False)
 
 
 # ─────────────────────────────────────────────
@@ -950,3 +982,8 @@ class SubirFotoPerfilView(LoginRequiredMixin, View):
         user.foto_perfil = imagen
         user.save(update_fields=["foto_perfil"])
         return JsonResponse({"ok": True, "url": user.foto_perfil.url})
+
+def landing(request):
+    if not request.session.session_key:
+        request.session.create()
+    return render(request, 'landing.html', {...})

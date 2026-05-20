@@ -3499,8 +3499,8 @@
 <body>
   {% csrf_token %}
   <script>
-    const USER_AUTH = "{{ user.is_authenticated }}";
-    const SESSION_ID = "{{ request.session.session_key }}";
+    const USER_AUTH = "{{ user.is_authenticated|default:'False' }}";
+    const SESSION_ID = "{% if request.session.session_key %}{{ request.session.session_key }}{% else %}guest{% endif %}";
   </script>
 
   <!-- TICKER -->
@@ -4311,6 +4311,36 @@
        TODA LA LÓGICA JS VA DENTRO DE ESTE BLOQUE SCRIPT
   ══════════════════════════════════════════════════════ -->
   <script>
+    async function toggleFavorito(btn, producto) {
+  if (USER_AUTH !== "True") {
+    openModal('accountModal');
+    showToast('⚠️ Inicia sesión para guardar favoritos');
+    return;
+  }
+
+  try {
+    const res = await fetch('/favoritos/toggle/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({
+        nombre:  producto.name,
+        precio:  producto.price,
+        imagen:  producto.img   || '',
+        ico:     producto.ico   || '',
+        tienda:  producto.store || producto.brand || '',
+      })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      const added = data.action === 'added';
+      btn.textContent = added ? '♥' : '♡';
+      btn.classList.toggle('wished', added);
+      showToast(added ? '❤️ Agregado a favoritos' : '🗑 Eliminado de favoritos');
+    }
+  } catch (e) {
+    showToast('❌ Error de conexión');
+  }
+}
     /* ══ REGALO: envoltura y decoración ══ */
     function selectWrap(el, val) {
       document.querySelectorAll('#giftMsgBox .wrap-opt[data-val]').forEach(o => {
@@ -4815,7 +4845,7 @@
                 <div class="ncard" onclick="openProductQV(${idx})">
                   <div class="qv-chip">👁 Vista rápida</div>
                   <div class="nbadge">Nuevo</div>
-                  <button class="nwish" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'">♡</button>
+                  <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])">♡</button>
                   <div class="nimg" style="background-image:url('${p.img}');background-size:cover;background-position:center;"></div>
                   <div class="ninfo">
                     <div class="nbrand">${p.brand || p.store || ''}</div>
@@ -4925,7 +4955,7 @@
       <div class="ncard" onclick="openProductQV(${idx})">
         <div class="qv-chip">👁 Vista rápida</div>
         <div class="nbadge">Nuevo</div>
-        <button class="nwish" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'">♡</button>
+        <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])">♡</button>
         <div class="nimg" style="background-image:url('${p.img}');background-size:cover;background-position:center;"></div>
         <div class="ninfo">
           <div class="nbrand">${p.brand}</div>
@@ -4952,7 +4982,7 @@
       <div class="ncard" onclick="openProductQV(${idx})">
         ${rank}
         <div class="qv-chip">👁 Vista rápida</div>
-        <button class="nwish" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'">♡</button>
+        <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])">♡</button>
         <div class="nimg" style="background-image:url('${p.img}');background-size:cover;background-position:center;"></div>
         <div class="ninfo">
           <div class="nbrand">${p.brand}</div>
@@ -5074,7 +5104,7 @@
       <div class="ncard" onclick="openProductQV(${idx})">
         <div class="qv-chip">👁 Vista rápida</div>
         <div class="nbadge">Nuevo</div>
-        <button class="nwish" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'">♡</button>
+        <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])">♡</button>
         <div class="nimg" style="background-image:url('${p.img}');background-size:cover;background-position:center;"></div>
         <div class="ninfo">
           <div class="nbrand">${p.brand}</div>

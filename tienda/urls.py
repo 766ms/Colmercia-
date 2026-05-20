@@ -2,6 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from . import views
+from .views import toggle_favorito, get_favoritos  # ← aquí arriba
 
 urlpatterns = [
     # ── Páginas principales ──────────────────────────────
@@ -61,6 +62,12 @@ urlpatterns = [
          views.AdminEliminarBannerView.as_view(), name="admin_eliminar_banner"),
     path("admin-pag/banners/reordenar/",
          views.AdminReordenarBannersView.as_view(), name="admin_reordenar_banners"),
+
+    # ── Perfil ────────────────────────────────────────────
     path("perfil/editar/", views.EditarPerfilView.as_view(), name="editar_perfil"),
     path("perfil/foto/", views.SubirFotoPerfilView.as_view(), name="subir_foto_perfil"),
+
+    # ── Favoritos ─────────────────────────────────────────
+    path("favoritos/toggle/", toggle_favorito, name="toggle_favorito"),
+    path("favoritos/", get_favoritos, name="get_favoritos"),
 ]
