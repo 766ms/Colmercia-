@@ -975,70 +975,62 @@
     <div class="main">
 
       <!-- ── OVERVIEW ── -->
-      <div id="secOverview">
-        <div class="card">
-          <div class="card-hdr">
-            <div>
-              <div class="card-title">Resumen del Mes</div>
-              <div class="card-sub">Actualizado hace 5 minutos</div>
-            </div>
+<div id="secOverview">
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">Resumen del Mes</div>
+        <div class="card-sub"><b>Actualizado en tiempo real</b></div>
+      </div>
+    </div>
+    <div class="card-body">
+      
+      <div class="stats" style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 18px;">
+        
+        <!-- Tarjeta AMARILLA (Usa var(--col) #F5C518) -->
+        <div style="background: var(--col); border-radius: var(--rs, 12px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column;">
+          <div style="font-size: .9rem; font-weight: 700; color: #111827; text-transform: uppercase; letter-spacing: 0.5px;">Ventas totales</div>
+          
+          <!-- Línea sólida tipo tabla -->
+          <div style="border-top: 1px solid #111827; margin: 12px 0; opacity: 0.2;"></div>
+          
+          <div style="font-size: 2rem; font-weight: 800; color: #111827;">
+            ${{ total_ventas|floatformat:0 }}
           </div>
-          <div class="card-body">
-            <div class="stats">
-              <div class="stat">
-                <div class="stat-accent" style="background:var(--mer)"></div>
-                <div style="padding-left:12px;">
-                  <div class="stat-val" style="color:var(--mer)">$2.4M</div>
-                  <div class="stat-lbl">Ventas totales</div>
-                  <div class="stat-delta dUp">+ 18% vs mes anterior</div>
-                </div>
-              </div>
-              <div class="stat">
-                <div class="stat-accent" style="background:var(--col)"></div>
-                <div style="padding-left:12px;">
-                  <div class="stat-val" style="color:#D4A000">{{ productos|length }}</div>
-                  <div class="stat-lbl">Productos activos</div>
-                  <div class="stat-delta dUp">En catálogo</div>
-                </div>
-              </div>
-              <div class="stat">
-                <div class="stat-accent" style="background:var(--cia)"></div>
-                <div style="padding-left:12px;">
-                  <div class="stat-val" style="color:var(--cia)">{{ pedidos|length }}</div>
-                  <div class="stat-lbl">Pedidos totales</div>
-                  <div class="stat-delta dDn">Requieren atención</div>
-                </div>
-              </div>
-            </div>
-            <div class="chart-wrap">
-              <div class="chart-title">Ventas por semana</div>
-              <div class="bars">
-                <div class="bw">
-                  <div class="bv">$480K</div>
-                  <div class="bf" style="height:40%"></div>
-                  <div class="bl">Sem 1</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">$620K</div>
-                  <div class="bf" style="height:55%"></div>
-                  <div class="bl">Sem 2</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">$890K</div>
-                  <div class="bf" style="height:82%"></div>
-                  <div class="bl">Sem 3</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">$410K</div>
-                  <div class="bf" style="height:36%"></div>
-                  <div class="bl">Sem 4</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div style="font-size: .73rem; color: #111827; margin-top: 8px; font-weight: 600; opacity: 0.8;">Pedidos no cancelados</div>
         </div>
+
+        <!-- Tarjeta AZUL (Usa var(--mer) #003087) -->
+        <div style="background: var(--mer); border-radius: var(--rs, 12px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column;">
+          <div style="font-size: .9rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">Productos activos</div>
+          
+          <!-- Línea sólida tipo tabla -->
+          <div style="border-top: 1px solid #ffffff; margin: 12px 0; opacity: 0.3;"></div>
+          
+          <div style="font-size: 2rem; font-weight: 800; color: #ffffff;">
+            {{ total_productos }}
+          </div>
+          <div style="font-size: .73rem; color: #ffffff; margin-top: 8px; font-weight: 500; opacity: 0.9;">En catálogo</div>
+        </div>
+
+        <!-- Tarjeta ROJA (Usa var(--cia) #CE1126) -->
+        <div style="background: var(--cia); border-radius: var(--rs, 12px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; display: flex; flex-direction: column;">
+          <div style="font-size: .9rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">Pedidos totales</div>
+          
+          <!-- Línea sólida tipo tabla -->
+          <div style="border-top: 1px solid #ffffff; margin: 12px 0; opacity: 0.3;"></div>
+          
+          <div style="font-size: 2rem; font-weight: 800; color: #ffffff;">
+            {{ total_pedidos }}
+          </div>
+          <div style="font-size: .73rem; color: #ffffff; margin-top: 8px; font-weight: 500; opacity: 0.9;">Requieren atención</div>
+        </div>
+
       </div>
 
+    </div>
+  </div>
+</div>
       <!-- ── ORDERS ── -->
       <div class="card" id="secOrders" style="display:none;">
         <div class="card-hdr">

@@ -1484,77 +1484,53 @@
               <div class="card-title">Resumen General del Sistema</div>
               <div class="card-sub">ColMercia — datos en tiempo real</div>
             </div>
-            <button class="btn-out btn-sm">Exportar reporte</button>
+            <button class="btn-out btn-sm" onclick="exportCSV('ventas')">Exportar CSV</button>
           </div>
           <div class="card-body">
-            <div class="stats">
-              <div class="stat">
-                <div class="stat-stripe" style="background:#3B82F6"></div>
-                <div class="stat-val sv-blu">{{ todos_usuarios.count }}</div>
-                <div class="stat-lbl">Usuarios totales</div>
-                <div class="stat-delta dUp">Total registrados</div>
-              </div>
-              <div class="stat">
-                <div class="stat-stripe" style="background:var(--col)"></div>
-                <div class="stat-val sv-col">{{ vendedores_aprobados.count }}</div>
-                <div class="stat-lbl">Vendedores activos</div>
-                <div class="stat-delta dUp">Aprobados</div>
-              </div>
-              <div class="stat">
-                <div class="stat-stripe" style="background:#22C55E"></div>
-                <div class="stat-val sv-grn">—</div>
-                <div class="stat-lbl">Productos publicados</div>
-                <div class="stat-delta dUp">En tiendas activas</div>
-              </div>
-              <div class="stat">
-                <div class="stat-stripe" style="background:var(--cia)"></div>
-                <div class="stat-val sv-red">{{ vendedores_pendientes.count }}</div>
-                <div class="stat-lbl">Solicitudes pendientes</div>
-                <div class="stat-delta dDn">
-                  {% if vendedores_pendientes.count > 0 %}Requieren atención{% else %}Sin pendientes{% endif %}
-                </div>
-              </div>
-            </div>
-            <div class="chart-wrap">
-              <div class="chart-title">Ventas totales de la plataforma — 2025 (en millones COP)</div>
-              <div class="bars">
-                <div class="bw">
-                  <div class="bv">$32M</div>
-                  <div class="bf bf-col" style="height:38%"></div>
-                  <div class="bl">Ene</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">$35M</div>
-                  <div class="bf bf-col" style="height:44%"></div>
-                  <div class="bl">Feb</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">$38M</div>
-                  <div class="bf bf-col" style="height:50%"></div>
-                  <div class="bl">Mar</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">$48M</div>
-                  <div class="bf bf-col" style="height:64%"></div>
-                  <div class="bl">Abr</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">Proy.</div>
-                  <div class="bf"
-                    style="height:18%;background:rgba(245,197,24,.25);border:1px dashed rgba(245,197,24,.4);"></div>
-                  <div class="bl">May</div>
-                </div>
-                <div class="bw">
-                  <div class="bv">Proy.</div>
-                  <div class="bf"
-                    style="height:12%;background:rgba(245,197,24,.2);border:1px dashed rgba(245,197,24,.3);"></div>
-                  <div class="bl">Jun</div>
-                </div>
-              </div>
-            </div>
+            <div class="stats" style="display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 18px;">
+  
+  <!-- Tarjeta PRINCIPAL: Ventas Totales (Mantiene su protagonismo) -->
+  <div style="background:#111827; border-radius:var(--rs, 12px); border:1px solid var(--bd, #374151); padding:20px; grid-column: 1 / -1;">
+    <div style="font-size:.84rem;font-weight:600;color:#fff;margin-bottom:6px;">💰 Ventas totales de la plataforma</div>
+    <div style="font-size:2rem;font-weight:800;color:#34D399;">
+      ${{ ventas_totales_plataforma|floatformat:0 }}
+    </div>
+    <div style="font-size:.73rem;color:var(--mut, #9CA3AF);margin-top:4px;">*Monto en cop*</div>
+  </div>
+
+  <!-- Tarjeta AMARILLA: Usuarios -->
+  <div style="background:#111827; border-radius:var(--rs, 12px); border:1px solid var(--bd, #374151); padding:20px; border-top: 4px solid #F59E0B;">
+    <div style="font-size:.84rem;font-weight:600;color:#fff;margin-bottom:6px;">👥 Usuarios totales</div>
+    <div style="font-size:2rem;font-weight:800;color:#F59E0B;">
+      {{ total_usuarios }}
+    </div>
+    <div style="font-size:.73rem;color:var(--mut, #9CA3AF);margin-top:4px;">Total registrados</div>
+  </div>
+
+  <!-- Tarjeta AZUL: Vendedores Activos -->
+  <div style="background:#111827; border-radius:var(--rs, 12px); border:1px solid var(--bd, #374151); padding:20px; border-top: 4px solid #3B82F6;">
+    <div style="font-size:.84rem;font-weight:600;color:#fff;margin-bottom:6px;">🏪 Vendedores activos</div>
+    <div style="font-size:2rem;font-weight:800;color:#3B82F6;">
+      {{ total_vendedores_activos }}
+    </div>
+    <div style="font-size:.73rem;color:var(--mut, #9CA3AF);margin-top:4px;">Aprobados</div>
+  </div>
+
+  <!-- Tarjeta ROJA: Solicitudes Pendientes -->
+  <div style="background:#111827; border-radius:var(--rs, 12px); border:1px solid var(--bd, #374151); padding:20px; border-top: 4px solid #EF4444;">
+    <div style="font-size:.84rem;font-weight:600;color:#fff;margin-bottom:6px;">⏳ Solicitudes pendientes</div>
+    <div style="font-size:2rem;font-weight:800;color:#EF4444;">
+      {{ vendedores_pendientes.count }}
+    </div>
+    <div style="font-size:.73rem;color:var(--mut, #9CA3AF);margin-top:4px;">
+      {% if vendedores_pendientes.count > 0 %}Requieren atención{% else %}Sin pendientes{% endif %}
+    </div>
+  </div>
+
+</div>
           </div>
         </div>
-      </div>
+        </div>
 
       <!-- ══ SOLICITUDES VENDEDORES ══ -->
       <div class="card" id="secVendors" style="display:none;">
@@ -1735,76 +1711,102 @@
         </div>
       </div>
 
-      <!-- ══ CONTROL VENDEDORES ══ -->
-      <div class="card" id="secSellers" style="display:none;">
-        <div class="card-hdr">
-          <div>
-            <div class="card-title">Control de Vendedores</div>
-            <div class="card-sub">Gestión de tiendas y publicaciones activas</div>
-          </div>
-          <button class="btn-out btn-sm" onclick="exportCSV('vendedores')">Exportar CSV</button>
+     <!-- ══ CONTROL VENDEDORES ══ -->
+<div class="card" id="secSellers" style="display:none;">
+  <div class="card-hdr">
+    <div>
+      <div class="card-title">Control de Vendedores</div>
+      <div class="card-sub">Gestión de tiendas y publicaciones activas</div>
+    </div>
+    <button class="btn-out btn-sm" onclick="exportCSV('vendedores')">Exportar CSV</button>
+  </div>
+  <div class="card-body">
+    <div class="filter-bar">
+    <input class="filter-inp" type="text" placeholder="Buscar vendedor por nombre o tienda..."
+      oninput="filtrarVendedores(this.value)" />
+  </div>
+   <div id="sellersContainer">
+{% for v in vendedores_aprobados %}
+    <div class="seller-card" id="sc-{{ v.id }}"
+     data-nombre="{{ v.first_name|lower }} {{ v.last_name|lower }}"
+     data-tienda="{% if v.tienda %}{{ v.tienda.nombre|lower }}{% endif %}">
+      <div class="seller-card-top">
+        <div class="sc-ava" style="background:linear-gradient(135deg,var(--col),#e6aa00);color:#1A1A2E;">
+          {{ v.first_name|slice:":1"|upper }}
         </div>
-        <div class="card-body">
-          {% for v in vendedores_aprobados %}
-          <div class="seller-card" id="sc-{{ v.id }}">
-            <div class="seller-card-top">
-              <div class="sc-ava" style="background:linear-gradient(135deg,var(--col),#e6aa00);color:#1A1A2E;">
-                {{ v.first_name|slice:":1"|upper }}
-              </div>
-              <div class="sc-info">
-                <div class="sc-name">
-                  {% if v.tienda %}{{ v.tienda.nombre }}{% else %}{{ v.first_name }}{% endif %}
-                  <span class="badge b-ok" style="font-size:.6rem;padding:2px 8px;margin-left:6px;">Activa</span>
-                </div>
-                <div class="sc-meta">
-                  {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif %} · {{ v.email }}
-                </div>
-                <div class="sc-stats">
-                  <div class="sc-stat">
-                    <strong>{% if v.tienda %}{{ v.tienda.producto_set.count }}{% else %}0{% endif %}</strong>Productos
-                  </div>
-                  <div class="sc-stat"><strong>{{ v.date_joined|date:"d M Y" }}</strong>Registrado</div>
-                </div>
-              </div>
+        <div class="sc-info">
+          <div class="sc-name">
+            {% if v.tienda %}{{ v.tienda.nombre }}{% else %}{{ v.first_name }}{% endif %}
+            <span class="badge b-ok" style="font-size:.6rem;padding:2px 8px;margin-left:6px;">Activa</span>
+          </div>
+          <div class="sc-meta">
+            {% if v.tienda %}{{ v.tienda.categoria|default:"—" }} · {{ v.tienda.ubicacion|default:"—" }}{% endif %} · {{ v.email }}
+          </div>
+          <div class="sc-stats">
+            <div class="sc-stat">
+              <strong>{% if v.tienda %}{{ v.tienda.producto_set.count }}{% else %}0{% endif %}</strong>Productos
             </div>
-            <div class="sc-actions">
-              <button class="sc-btn sb-view" onclick="toggleProdList('pl-{{ v.id }}', this)">Ver publicaciones ▾</button>
-              {% if v.tienda %}
-                {% with vnombre=v.tienda.nombre|escapejs %}
-                <button class="sc-btn sb-close" onclick="toggleStore('sc-{{ v.id }}', '{{ vnombre }}', 'cerrar')">Cerrar tienda</button>
-                {% endwith %}
+            <div class="sc-stat"><strong>{{ v.date_joined|date:"d M Y" }}</strong>Registrado</div>
+          </div>
+        </div>
+      </div>
+      <div class="sc-actions">
+        <button class="sc-btn sb-view" onclick="toggleProdList('pl-{{ v.id }}', this)">Ver publicaciones ▾</button>
+        {% if v.tienda %}
+          {% with vnombre=v.tienda.nombre|escapejs %}
+          <button class="sc-btn sb-close" onclick="toggleStore('sc-{{ v.id }}', '{{ vnombre }}', 'cerrar')">Cerrar tienda</button>
+          {% endwith %}
+        {% else %}
+          {% with vnombre=v.first_name|escapejs %}
+          <button class="sc-btn sb-close" onclick="toggleStore('sc-{{ v.id }}', '{{ vnombre }}', 'cerrar')">Cerrar tienda</button>
+          {% endwith %}
+        {% endif %}
+      </div>
+
+      <!-- LISTA DE PRODUCTOS CON IMAGEN -->
+      <div class="prod-list" id="pl-{{ v.id }}">
+        {% if v.tienda %}
+          {% for prod in v.tienda.producto_set.all %}
+          <div class="prod-row-s" id="admin-prod-{{ prod.id }}">
+            <div style="width:56px;height:56px;border-radius:8px;background:#0D1117;border:1px solid var(--bd);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+              {% if prod.imagen %}
+                <img src="{{ prod.imagen.url }}" style="width:100%;height:100%;object-fit:cover;" alt="{{ prod.nombre }}">
               {% else %}
-                {% with vnombre=v.first_name|escapejs %}
-                <button class="sc-btn sb-close" onclick="toggleStore('sc-{{ v.id }}', '{{ vnombre }}', 'cerrar')">Cerrar tienda</button>
-                {% endwith %}
+                <span style="font-size:1.4rem;">📦</span>
               {% endif %}
             </div>
-            <div class="prod-list" id="pl-{{ v.id }}">
-              {% if v.tienda %}
-                {% for prod in v.tienda.producto_set.all %}
-                <div class="prod-row-s">
-                  <div class="pr-ico">📦</div>
-                  <div class="pr-info">
-                    <div class="pr-name">{{ prod.nombre }}</div>
-                    <div class="pr-meta">
-                      {{ prod.cantidad }} disponibles{% if prod.stock == 'out' %}<span style="color:#F87171;"> · Agotado</span>{% endif %}
-                    </div>
-                  </div>
-                  <div class="pr-price">{{ prod.precio_formateado }}</div>
-                  <div class="pr-act">
-                    <button class="pr-btn prb-hide" onclick="auditLog('ocultó producto', '{{ prod.nombre|escapejs }}')">Ocultar</button>
-                    <button class="pr-btn prb-del" onclick="auditLog('eliminó producto', '{{ prod.nombre|escapejs }}')">Eliminar</button>
-                  </div>
-                </div>
-                {% endfor %}
+            <div class="pr-info">
+              <div class="pr-name">{{ prod.nombre }}</div>
+              <div class="pr-meta">
+                {{ prod.categoria|default:"Sin categoría" }} ·
+                {% if prod.cantidad == 0 %}<span style="color:#F87171;">Agotado</span>
+                {% elif prod.cantidad <= 5 %}<span style="color:#FCD34D;">{{ prod.cantidad }} disponibles</span>
+                {% else %}<span style="color:#34D399;">{{ prod.cantidad }} disponibles</span>{% endif %}
+                {% if prod.ocasion_regalo %} · <span style="color:var(--col);">🎁 {{ prod.get_ocasion_regalo_display }}</span>{% endif %}
+              </div>
+              {% if prod.descripcion %}
+              <div style="font-size:.68rem;color:#718096;margin-top:3px;line-height:1.4;">{{ prod.descripcion|truncatechars:80 }}</div>
               {% endif %}
+            </div>
+            <div class="pr-price">{{ prod.precio_formateado }}</div>
+            <div class="pr-act">
+              <button class="pr-btn" style="background:rgba(96,165,250,.1);color:#60A5FA;border-color:rgba(96,165,250,.2);"
+                onclick='abrirModalEditarProd({{ prod.id }}, "{{ prod.nombre|escapejs }}", "{{ prod.descripcion|truncatechars:200|escapejs }}", {{ prod.precio }}, {{ prod.cantidad }}, "{{ prod.categoria|escapejs }}", "{{ prod.ocasion_regalo|escapejs }}")'>✏️</button>
+              <button class="pr-btn prb-del" onclick="eliminarProductoAdmin({{ prod.id }},'{{ prod.nombre|escapejs }}')">🗑</button>
             </div>
           </div>
           {% empty %}
-          <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">No hay vendedores aprobados aún.</div>
+          <div style="padding:16px 0;color:var(--mut);font-size:.78rem;text-align:center;">Esta tienda no tiene productos.</div>
           {% endfor %}
-        </div>
+        {% endif %}
       </div>
+    </div>
+    {% empty %}
+    <div style="text-align:center;padding:40px 0;color:var(--mut);font-size:.82rem;">No hay vendedores aprobados aún.</div>
+    {% endfor %}
+</div>
+  </div>
+</div>
 
       <!-- ══ AUDITORÍA ══ -->
       <div class="card" id="secAudit" style="display:none;">
@@ -2021,6 +2023,14 @@
   </div>
 
   <script>
+    function filtrarVendedores(val) {
+  const q = val.toLowerCase().trim();
+  document.querySelectorAll('#sellersContainer .seller-card').forEach(card => {
+    const nombre = card.dataset.nombre || '';
+    const tienda = card.dataset.tienda || '';
+    card.style.display = (nombre.includes(q) || tienda.includes(q)) ? '' : 'none';
+  });
+}
     /* ══ CONFIGURACIÓN ══ */
     let currentAdmin = null;
     const ADMINS = {
@@ -2112,6 +2122,7 @@
       if (id === 'audit') renderAudit(document.getElementById('auditFilter').value);
       if (id === 'regalos') cargarProductosAdmin();
       if (id === 'editor') cargarBannersAdmin();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     /* ══ AVATAR ══ */
@@ -2471,21 +2482,22 @@
       } catch (e) { showAdminToast('❌ Error de conexión'); }
     }
 
-    function abrirModalEditarProd(prod) {
-      ampMode = 'edit';
-      document.getElementById('adminModalTitle').textContent = '✏️ Editar Producto';
-      document.getElementById('ampId').value = prod.id;
-      document.getElementById('ampNombre').value = prod.nombre || '';
-      document.getElementById('ampDescripcion').value = prod.descripcion || '';
-      document.getElementById('ampPrecio').value = prod.precio_num || '';
-      document.getElementById('ampCantidad').value = prod.cantidad || '';
-      document.getElementById('ampCategoria').value = prod.categoria || '';
-      document.getElementById('ampOcasion').value = prod.ocasion_regalo || '';
-      document.getElementById('ampTiendaRow').style.display = 'none';
-      document.getElementById('ampImgPreview').style.display = 'none';
-      document.getElementById('ampImgInput').value = '';
-      document.getElementById('adminProdModal').style.display = 'flex';
-    }
+    function abrirModalEditarProd(id, nombre, descripcion, precio, cantidad, categoria, ocasion) {
+   ampMode = 'edit';
+  document.getElementById('adminModalTitle').textContent = '✏️ Editar Producto';
+  document.getElementById('ampId').value = id;
+  document.getElementById('ampNombre').value = nombre;
+  document.getElementById('ampDescripcion').value = descripcion;
+  document.getElementById('ampPrecio').value = precio;
+  document.getElementById('ampCantidad').value = cantidad;
+  document.getElementById('ampCategoria').value = categoria || '';
+  document.getElementById('ampOcasion').value = ocasion || '';
+  document.getElementById('ampTiendaRow').style.display = 'none';
+  document.getElementById('ampImgPreview').style.display = 'none';
+  document.getElementById('ampImgInput').value = '';
+  document.getElementById('adminProdModal').style.display = 'flex';
+}
+
     function abrirModalCrearProd() {
       ampMode = 'create';
       document.getElementById('adminModalTitle').textContent = '➕ Nuevo Producto';
