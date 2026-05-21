@@ -389,7 +389,7 @@ function closeCart() {
 }
 
 async function renderCart() {
-  const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+  const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
   const items = await res.json();
   const container = document.getElementById('cartItems');
   const cnt = document.getElementById('drawerCnt');
@@ -422,13 +422,13 @@ async function renderCart() {
 }
 
 async function eliminarItem(id) {
-  await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, { method: 'DELETE' });
+  await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}/${id}`, { method: 'DELETE' });
   await renderCart();
   await actualizarBadge();
 }
 
 async function cambiarCantidad(id, delta) {
-  const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+  const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
   const items = await res.json();
   const item = items.find(p => p.id === id);
   if (!item) return;
@@ -436,7 +436,7 @@ async function cambiarCantidad(id, delta) {
     await eliminarItem(id);
   } else {
     item.cantidad += delta;
-    await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
+    await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ producto: item })
@@ -453,7 +453,7 @@ function pQty(btn, d, max) {
 
 /* ── MODALS ── */
 async function cargarResumenPago() {
-  const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+  const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
   const items = await res.json();
   const fmt = n => '$' + n.toLocaleString('es-CO');
 

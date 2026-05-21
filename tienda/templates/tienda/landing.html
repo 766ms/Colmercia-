@@ -4693,7 +4693,7 @@
       if (!producto) return;
       if (!producto.id) producto.id = producto.name;
       try {
-        await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, {
+        await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ producto })
@@ -4704,7 +4704,7 @@
 
     async function actualizarBadge() {
       try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+        const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
         const items = await res.json();
         const total = items.reduce((sum, p) => sum + p.cantidad, 0);
         const b = document.getElementById('cartBadge');
@@ -4728,7 +4728,7 @@
 
     async function renderCart() {
       try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+        const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
         const items = await res.json();
         const container = document.getElementById('cartItems');
         const cnt = document.getElementById('drawerCnt');
@@ -4773,13 +4773,13 @@
     }
 
     async function eliminarItem(id) {
-      await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, { method: 'DELETE' });
+      await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}/${id}`, { method: 'DELETE' });
       await renderCart(); await actualizarBadge();
     }
 
     async function cambiarCantidad(id, delta) {
       try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+        const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
         const items = await res.json();
         const item = items.find(p => p.id === id);
         if (!item) return;
@@ -4789,7 +4789,7 @@
           const maxStock = item.cnt || 99;
           const nuevaCantidad = Math.min(item.cantidad + delta, maxStock);
           if (nuevaCantidad === item.cantidad) return;
-          await fetch(`http://localhost:3000/carrito/${SESSION_ID}/${id}`, {
+          await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ cantidad: nuevaCantidad })
@@ -5392,7 +5392,7 @@
         return;
       }
       try {
-        const res = await fetch(`http://localhost:3000/carrito/${SESSION_ID}`);
+        const res = await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`);
         const items = await res.json();
         const payItems = document.getElementById('payItems');
         const payTotal = document.getElementById('payTotal');
@@ -5490,7 +5490,7 @@
         }
 
         // 2️⃣  Vaciar carrito en Node.js
-        await fetch(`http://localhost:3000/carrito/${SESSION_ID}`, { method: 'DELETE' });
+        await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`, { method: 'DELETE' });
         await actualizarBadge();
 
         // 3️⃣  Cerrar modal y mostrar confirmación
