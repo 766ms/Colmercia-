@@ -27,7 +27,7 @@ if not SECRET_KEY:
 
 DEBUG = os.getenv("DEBUG") == "True"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', '.colmercia.com']
 
 # ─────────────────────────────────────────────
 # APPS
@@ -172,6 +172,7 @@ USE_TZ = True
 # ─────────────────────────────────────────────
 # ARCHIVOS ESTÁTICOS
 # ─────────────────────────────────────────────
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
