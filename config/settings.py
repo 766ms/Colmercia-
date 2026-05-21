@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tienda',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 # ─────────────────────────────────────────────
@@ -183,6 +185,16 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 # ─────────────────────────────────────────────
 # CONFIGURACIÓN FINAL
 # ─────────────────────────────────────────────
@@ -190,3 +202,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'tienda.Usuario'
 LOGIN_URL = 'landing'
 SESSION_SAVE_EVERY_REQUEST = True
+
