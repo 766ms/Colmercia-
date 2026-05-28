@@ -203,6 +203,7 @@ LOGIN_URL = 'landing'
 SESSION_SAVE_EVERY_REQUEST = True
 
 WHITENOISE_MANIFEST_STRICT = False
+STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"
 
 STORAGES = {
     "default": {
