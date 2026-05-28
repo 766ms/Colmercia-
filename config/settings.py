@@ -183,8 +183,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # ─────────────────────────────────────────────
 # MEDIA (IMÁGENES)
 # ─────────────────────────────────────────────
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Cloudinary
 CLOUDINARY_STORAGE = {
