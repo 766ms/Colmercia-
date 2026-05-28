@@ -183,8 +183,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # ─────────────────────────────────────────────
 # MEDIA (IMÁGENES)
 # ─────────────────────────────────────────────
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = BASE_DIR / 'media'
 
 # Cloudinary
 CLOUDINARY_STORAGE = {
@@ -203,7 +203,6 @@ LOGIN_URL = 'landing'
 SESSION_SAVE_EVERY_REQUEST = True
 
 WHITENOISE_MANIFEST_STRICT = False
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 STORAGES = {
     "default": {
