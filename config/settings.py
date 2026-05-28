@@ -7,6 +7,8 @@ import os
 from urllib.parse import urlparse, parse_qsl
 from dotenv import load_dotenv
 
+load_dotenv()  
+
 # ─────────────────────────────────────────────
 # BASE DIR
 # ─────────────────────────────────────────────
@@ -38,19 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'tienda',
     'cloudinary',
-    'cloudinary_storage',
 ]
 
 # ─────────────────────────────────────────────
 # MIDDLEWARE  (orden importa: GZip primero, WhiteNoise segundo)
 # ─────────────────────────────────────────────
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
     "django.middleware.gzip.GZipMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -177,13 +179,12 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ─────────────────────────────────────────────
 # MEDIA (IMÁGENES)
 # ─────────────────────────────────────────────
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 # Cloudinary
 CLOUDINARY_STORAGE = {
@@ -191,8 +192,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 # ─────────────────────────────────────────────
@@ -202,4 +201,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'tienda.Usuario'
 LOGIN_URL = 'landing'
 SESSION_SAVE_EVERY_REQUEST = True
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 

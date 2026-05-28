@@ -5024,56 +5024,53 @@
       </div>`).join('');
     })();
 
-    /* ══ RENDER GIFTS ══ */
-    async function filtrarRegalos() {
-      const ocasion = document.getElementById('giftOcasionFilter')?.value || 'todos';
-      const precio = document.getElementById('giftPrecioFilter')?.value || 'todos';
-      const grid = document.getElementById('giftsGrid');
-      if (!grid) return;
+   async function filtrarRegalos() {
+  const ocasion = document.getElementById('giftOcasionFilter')?.value || 'todos';
+  const precio = document.getElementById('giftPrecioFilter')?.value || 'todos';
+  const grid = document.getElementById('giftsGrid');
+  if (!grid) return;
 
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⏳ Cargando...</div>';
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⏳ Cargando...</div>';
 
-      try {
-        const res = await fetch(`/api/regalos/?ocasion=${ocasion}&precio=${precio}`);
-        const data = await res.json();
+  try {
+    const res = await fetch(`/api/regalos/?ocasion=${ocasion}&precio=${precio}`);
+    const data = await res.json();
 
-        if (data.length === 0) {
-          grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#718096;font-size:.9rem;">😕 No encontramos regalos con esos filtros.<br><small>Prueba otra combinación.</small></div>';
-          return;
-        }
+    if (data.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:#718096;font-size:.9rem;">😕 No encontramos regalos con esos filtros.<br><small>Prueba otra combinación.</small></div>';
+      return;
+    }
 
-
-        grid.innerHTML = data.map(p => {
-  const prod = {
-    name: p.nombre, brand: '', price: p.precio,
-    stock: p.stock, img: p.imagen, ico: '🎁',
-    store: '', storeLoc: '', desc: '', cnt: 10,
-  };
-  const idx = registerProduct(prod);
-  return `
-    <div class="gcard" onclick="openProductQV(${idx})">
-        <div class="gimg" style="position:relative;${p.imagen ? `background-image:url('${p.imagen}');background-size:cover;background-position:center;` : ''}">
-            ${p.imagen ? '' : '🎁'}
+    grid.innerHTML = data.map(p => {
+      const existing = ALL_PRODUCTS.find(x =>
+        x.name.toLowerCase().trim() === p.nombre.toLowerCase().trim()
+      );
+      const imgFinal = p.imagen || (existing ? existing.img : '') || '';
+      const prod = {
+        name: p.nombre, brand: '', price: p.precio,
+        stock: p.stock, img: imgFinal, ico: '🎁',
+        store: '', storeLoc: '', desc: '', cnt: 10,
+      };
+      const idx = registerProduct(prod);
+      return `
+        <div class="gcard" onclick="openProductQV(${idx})">
+          <div class="gimg" style="position:relative;${imgFinal ? `background-image:url('${imgFinal}');background-size:cover;background-position:center;` : ''}">
+            ${imgFinal ? '' : '🎁'}
             <button class="nwish" onclick="event.stopPropagation();toggleFavorito(this, ALL_PRODUCTS[${idx}])" style="position:absolute;top:8px;left:8px;">♡</button>
-        </div>
-        <div class="ginfo">
+          </div>
+          <div class="ginfo">
             <div class="gname">${p.nombre}</div>
             <div class="gprice">${p.precio}</div>
             <button class="gbtn" onclick="event.stopPropagation();openProductQV(${idx})">🔍 Ver detalle</button>
-        </div>
-    </div>`;
-}).join('');
+          </div>
+        </div>`;
+    }).join('');
 
-      } catch (e) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⚠️ Error al cargar los regalos.</div>';
-        console.error('filtrarRegalos error:', e);
-      }
-    }
-
-    // Carga inicial
-    filtrarRegalos();
-    
-
+  } catch (e) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#718096;">⚠️ Error al cargar los regalos.</div>';
+    console.error('filtrarRegalos error:', e);
+  }
+}
 
     /* ══ CATEGORY FILTER ══ */
     function showCat(cat, el) {

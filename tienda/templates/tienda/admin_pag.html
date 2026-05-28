@@ -2578,14 +2578,23 @@
       } catch (e) { showAdminToast('❌ Error de conexión'); }
     }
 
-    function abrirModalEditarProd(id, nombre, descripcion, precio, cantidad, categoria, ocasion) {
-   ampMode = 'edit';
+    function abrirModalEditarProd(data) {
+  // Soporta tanto objeto como parámetros separados (desde control vendedores)
+  let id, nombre, descripcion, precio, cantidad, categoria, ocasion;
+  if (typeof data === 'object') {
+    ({ id, nombre: nombre, descripcion, precio, cantidad, categoria, ocasion_regalo: ocasion } = data);
+    precio = data.precio_num || precio;
+  } else {
+    [id, nombre, descripcion, precio, cantidad, categoria, ocasion] = arguments;
+  }
+
+  ampMode = 'edit';
   document.getElementById('adminModalTitle').textContent = '✏️ Editar Producto';
   document.getElementById('ampId').value = id;
-  document.getElementById('ampNombre').value = nombre;
-  document.getElementById('ampDescripcion').value = descripcion;
-  document.getElementById('ampPrecio').value = precio;
-  document.getElementById('ampCantidad').value = cantidad;
+  document.getElementById('ampNombre').value = nombre || '';
+  document.getElementById('ampDescripcion').value = descripcion || '';
+  document.getElementById('ampPrecio').value = precio || '';
+  document.getElementById('ampCantidad').value = cantidad || '';
   document.getElementById('ampCategoria').value = categoria || '';
   document.getElementById('ampOcasion').value = ocasion || '';
   document.getElementById('ampTiendaRow').style.display = 'none';
@@ -2593,6 +2602,9 @@
   document.getElementById('ampImgInput').value = '';
   document.getElementById('adminProdModal').style.display = 'flex';
 }
+
+   
+
 
     function abrirModalCrearProd() {
       ampMode = 'create';
