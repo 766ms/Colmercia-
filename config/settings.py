@@ -179,7 +179,6 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # ─────────────────────────────────────────────
 # MEDIA (IMÁGENES)
@@ -203,11 +202,14 @@ AUTH_USER_MODEL = 'tienda.Usuario'
 LOGIN_URL = 'landing'
 SESSION_SAVE_EVERY_REQUEST = True
 
+WHITENOISE_MANIFEST_STRICT = False
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
