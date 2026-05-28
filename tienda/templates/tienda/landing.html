@@ -1,4 +1,4 @@
-﻿{% load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -12,6 +12,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <style>
+    .delivery-box {
+  border: 1.5px solid #C3DAFE;
+  border-radius: var(--r);
+  padding: 14px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #F0F7FF, #EBF4FF);
+}
+.delivery-ttl {
+  font-size: .78rem;
+  font-weight: 700;
+  color: #003087;
+  margin-bottom: 12px;
+}
     /* ── GIFT WRAP OPTIONS ── */
     .wrap-opt {
       border: 2px solid var(--bd);
@@ -4252,6 +4265,39 @@
           </div>
         </div>
 
+        <!-- DIRECCIÓN DE ENTREGA -->
+<div class="delivery-box">
+  <div class="delivery-ttl">📍 Dirección de entrega <span style="color:var(--cia)">*</span></div>
+
+  <div class="fg" style="margin-bottom:8px;">
+    <label style="font-size:.68rem;font-weight:700;margin-bottom:4px;display:block;">
+      Departamento <span style="color:var(--cia)">*</span>
+    </label>
+    <select id="payDepartamento" class="fc" onchange="onDeptChange(this.value)"
+      style="appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;">
+      <option value="">Selecciona tu departamento...</option>
+    </select>
+  </div>
+
+  <div class="fg" style="margin-bottom:8px;">
+    <label style="font-size:.68rem;font-weight:700;margin-bottom:4px;display:block;">
+      Municipio / Ciudad <span style="color:var(--cia)">*</span>
+    </label>
+    <select id="payMunicipio" class="fc" disabled
+      style="appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;opacity:.55;">
+      <option value="">Primero selecciona un departamento</option>
+    </select>
+  </div>
+
+  <div class="fg">
+    <label style="font-size:.68rem;font-weight:700;margin-bottom:4px;display:block;">
+      Dirección exacta <span style="color:var(--cia)">*</span>
+    </label>
+    <input type="text" id="payDireccion" class="fc"
+      placeholder="Ej: Calle 34 #12-56, Apto 301, Barrio El Prado" />
+  </div>
+</div>
+
         <div class="gift-wrap-box">
           <div class="gift-wrap-ttl">🎁 ¿Es un regalo?</div>
           <div class="gift-tog">
@@ -4326,6 +4372,43 @@
        TODA LA LÓGICA JS VA DENTRO DE ESTE BLOQUE SCRIPT
   ══════════════════════════════════════════════════════ -->
   <script>
+
+    /* ── Departamentos y municipios de Colombia ── */
+const COLOMBIA_DEPTS = {"Amazonas":["Leticia","Puerto Nariño"],"Antioquia":["Medellín","Bello","Envigado","Itagüí","Rionegro","Apartadó","Turbo","Caucasia","Sabaneta","La Estrella","Copacabana","Girardota","Barbosa","Caldas","Andes","Jericó","Santa Fe de Antioquia","Puerto Berrío","Yarumal","Montelíbano"],"Arauca":["Arauca","Saravena","Tame","Arauquita","Fortul"],"Atlántico":["Barranquilla","Soledad","Malambo","Sabanalarga","Baranoa","Puerto Colombia","Galapa","Santo Tomás","Palmar de Varela","Sabanagrande"],"Bolívar":["Cartagena","Magangué","Mompós","El Carmen de Bolívar","Turbaco","Arjona","San Juan Nepomuceno","Calamar","Zambrano"],"Boyacá":["Tunja","Duitama","Sogamoso","Chiquinquirá","Paipa","Monguí","Villa de Leyva","Nobsa","Puerto Boyacá","Samacá"],"Caldas":["Manizales","Villamaría","Chinchiná","La Dorada","Riosucio","Anserma","Manzanares","Pensilvania","Palestina"],"Caquetá":["Florencia","San Vicente del Caguán","Puerto Rico","Belén de los Andaquíes","Cartagena del Chairá"],"Casanare":["Yopal","Aguazul","Villanueva","Paz de Ariporo","Trinidad","Monterrey"],"Cauca":["Popayán","Santander de Quilichao","Puerto Tejada","Patía","Bolívar","Miranda","Corinto"],"Cesar":["Valledupar","Aguachica","Bosconia","Codazzi","La Paz","San Alberto","Chimichagua"],"Chocó":["Quibdó","Istmina","Tadó","Condoto","Bahía Solano","Nuquí"],"Córdoba":["Montería","Lorica","Sahagún","Cereté","Montelíbano","Planeta Rica","Tierralta","San Pelayo"],"Cundinamarca":["Bogotá D.C.","Soacha","Fusagasugá","Facatativá","Zipaquirá","Chía","Mosquera","Madrid","Funza","Girardot","Cajicá","Tocancipá","Sibaté","La Calera","Ubaté"],"Guainía":["Inírida"],"Guaviare":["San José del Guaviare","Calamar","El Retorno","Miraflores"],"Huila":["Neiva","Pitalito","Garzón","La Plata","Campoalegre","Palermo"],"La Guajira":["Riohacha","Maicao","Uribia","Manaure","San Juan del Cesar","Fonseca","Albania"],"Magdalena":["Santa Marta","Ciénaga","Fundación","Plato","El Banco","Aracataca","Pivijay"],"Meta":["Villavicencio","Acacías","Granada","Puerto López","Puerto Gaitán","San Martín","Cumaral"],"Nariño":["Pasto","Tumaco","Ipiales","La Unión","Samaniego","Túquerres","Sandoná"],"Norte de Santander":["Cúcuta","Ocaña","Pamplona","Villa del Rosario","Los Patios","El Zulia","Tibú","Sardinata"],"Putumayo":["Mocoa","Puerto Asís","Orito","Valle del Guamuez","Puerto Caicedo","Villagarzón"],"Quindío":["Armenia","Calarcá","Montenegro","Quimbaya","La Tebaida","Circasia","Filandia"],"Risaralda":["Pereira","Dosquebradas","Santa Rosa de Cabal","La Virginia","Marsella","Quinchía","Balboa"],"San Andrés y Providencia":["San Andrés","Providencia"],"Santander":["Bucaramanga","Floridablanca","Girón","Piedecuesta","Barrancabermeja","San Gil","Socorro","Vélez","Barbosa","Lebrija"],"Sucre":["Sincelejo","Corozal","San Marcos","Magangué","Morroa","Los Palmitos","Sampués","Tolú"],"Tolima":["Ibagué","Espinal","Melgar","Honda","Líbano","Chaparral","Mariquita","Armero"],"Valle del Cauca":["Cali","Buenaventura","Palmira","Tuluá","Buga","Cartago","Yumbo","Jamundí","Candelaria","Guadalajara de Buga","Caicedonia","Sevilla","Pradera"],"Vaupés":["Mitú"],"Vichada":["Puerto Carreño","La Primavera","Santa Rosalía","Cumaribo"]};
+
+(function initDeptSelect() {
+  const sel = document.getElementById('payDepartamento');
+  if (!sel) return;
+  Object.keys(COLOMBIA_DEPTS).sort().forEach(d => {
+    const opt = document.createElement('option');
+    opt.value = d; opt.textContent = d;
+    sel.appendChild(opt);
+  });
+})();
+
+function onDeptChange(dept) {
+  const munSel = document.getElementById('payMunicipio');
+  if (!munSel) return;
+  munSel.innerHTML = '<option value="">Selecciona tu municipio...</option>';
+  if (!dept) { munSel.disabled = true; munSel.style.opacity = '.55'; return; }
+  (COLOMBIA_DEPTS[dept] || []).sort().forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m; opt.textContent = m;
+    munSel.appendChild(opt);
+  });
+  munSel.disabled = false;
+  munSel.style.opacity = '1';
+}
+
+function resetDeliveryFields() {
+  const dept = document.getElementById('payDepartamento');
+  const mun  = document.getElementById('payMunicipio');
+  const dir  = document.getElementById('payDireccion');
+  if (dept) dept.value = '';
+  if (mun)  { mun.innerHTML = '<option value="">Primero selecciona un departamento</option>'; mun.disabled = true; mun.style.opacity = '.55'; }
+  if (dir)  dir.value = '';
+}
+    
     async function toggleFavorito(btn, producto) {
   if (USER_AUTH !== "True") {
     openModal('accountModal');
@@ -5178,7 +5261,7 @@
         }
       }
 
-      if (id === 'payModal') renderPayModal();
+      if (id === 'payModal') { renderPayModal(); resetDeliveryFields(); }
     }
 
 
@@ -5433,75 +5516,79 @@
     /* ── 2. FUNCIÓN NUEVA: confirmarPago() ─────────────────────── */
 
     async function confirmarPago() {
-      const btn = document.getElementById('payConfirmBtn');
-      if (btn.disabled) return;
+  const btn = document.getElementById('payConfirmBtn');
+  if (btn.disabled) return;
 
-      // Obtener método de pago seleccionado
-      const payOptSel = document.querySelector('.pay-opt.sel .pay-opt-name');
-      const metodoPago = payOptSel ? payOptSel.textContent : 'card';
+  const payOptSel = document.querySelector('.pay-opt.sel .pay-opt-name');
+  const metodoPago = payOptSel ? payOptSel.textContent : 'card';
 
-      // Obtener items guardados
-      let items = [];
-      try { items = JSON.parse(btn.dataset.items || '[]'); } catch (e) { }
-      if (!items.length) { showToast('❌ Tu carrito está vacío'); return; }
+  let items = [];
+  try { items = JSON.parse(btn.dataset.items || '[]'); } catch (e) {}
+  if (!items.length) { showToast('❌ Tu carrito está vacío'); return; }
 
-      btn.disabled = true;
-      btn.textContent = '⏳ Procesando pago...';
+  // Validar dirección
+  const _dept = document.getElementById('payDepartamento')?.value?.trim() || '';
+  const _mun  = document.getElementById('payMunicipio')?.value?.trim()  || '';
+  const _dir  = document.getElementById('payDireccion')?.value?.trim()  || '';
 
-      try {
-        // 1️⃣  Crear pedidos en Django
-        const csrfToken = document.cookie.split(';')
-          .map(c => c.trim())
-          .find(c => c.startsWith('csrftoken='))
-          ?.split('=')[1] || '';
+  if (!_dept || !_mun || !_dir) {
+    showToast('❌ Completa la dirección: departamento, municipio y dirección exacta');
+    return;
+  }
 
-        // ── Recoger datos del formulario de regalo ──────────────────
-        const esRegalo = document.getElementById('giftCheck')?.checked || false;
-        const giftWrap = esRegalo ? (window._giftWrap || '') : '';
-        const giftDeco = esRegalo ? (window._giftDeco || '') : '';
-        const giftMsg = esRegalo ? (document.getElementById('giftMsgText')?.value.trim() || '') : '';
+  btn.disabled = true;
+  btn.textContent = '⏳ Procesando pago...';
 
-        const res = await fetch('/pedidos/crear/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
-          },
-          body: JSON.stringify({
-            items,
-            metodo_pago: metodoPago,
-            es_regalo: esRegalo,
-            regalo_envoltura: giftWrap,
-            regalo_decoracion: giftDeco,
-            regalo_mensaje: giftMsg,
-          }),
-        });
+  const csrfToken = document.cookie.split(';')
+    .map(c => c.trim())
+    .find(c => c.startsWith('csrftoken='))
+    ?.split('=')[1] || '';
 
-        const data = await res.json();
+  const esRegalo = document.getElementById('giftCheck')?.checked || false;
+  const giftWrap = esRegalo ? (window._giftWrap || '') : '';
+  const giftDeco = esRegalo ? (window._giftDeco || '') : '';
+  const giftMsg  = esRegalo ? (document.getElementById('giftMsgText')?.value.trim() || '') : '';
 
-        if (!data.ok) {
-          showToast('❌ Error al procesar: ' + (data.error || 'intenta de nuevo'));
-          btn.disabled = false;
-          btn.textContent = 'Confirmar pago';
-          return;
-        }
+  try {
+    const res = await fetch('/pedidos/crear/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken,
+      },
+      body: JSON.stringify({
+        items,
+        metodo_pago:       metodoPago,
+        es_regalo:         esRegalo,
+        regalo_envoltura:  giftWrap,
+        regalo_decoracion: giftDeco,
+        regalo_mensaje:    giftMsg,
+        departamento:      _dept,
+        municipio:         _mun,
+        direccion:         _dir,
+      })
+    });
 
-        // 2️⃣  Vaciar carrito en Node.js
-        await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`, { method: 'DELETE' });
-        await actualizarBadge();
+    const data = await res.json();
 
-        // 3️⃣  Cerrar modal y mostrar confirmación
-        closeModal('payModal');
-        mostrarModalExito(data.pedidos);
-
-      } catch (e) {
-        showToast('❌ Error de conexión. Intenta de nuevo.');
-        btn.disabled = false;
-        btn.textContent = 'Confirmar pago';
-      }
+    if (!data.ok) {
+      showToast('❌ Error al procesar: ' + (data.error || 'intenta de nuevo'));
+      btn.disabled = false;
+      btn.textContent = 'Confirmar pago';
+      return;
     }
 
+    await fetch(`https://colmercia-carrito-production.up.railway.app/carrito/${SESSION_ID}`, { method: 'DELETE' });
+    await actualizarBadge();
+    closeModal('payModal');
+    mostrarModalExito(data.pedidos);
 
+  } catch (e) {
+    showToast('❌ Error de conexión. Intenta de nuevo.');
+    btn.disabled = false;
+    btn.textContent = 'Confirmar pago';
+  }
+}
     /* ── 3. MODAL DE ÉXITO TRAS PAGO ───────────────────────────── */
 
     function mostrarModalExito(pedidos) {

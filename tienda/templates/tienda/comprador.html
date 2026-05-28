@@ -9,6 +9,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <style>
+    .delivery-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 9px 13px;
+  background: #F0F7FF;
+  border: 1px solid #C3DAFE;
+  border-radius: 8px;
+  font-size: .76rem;
+  color: #1A1A2E;
+}
+.delivery-icon { flex-shrink: 0; font-size: .9rem; }
+.delivery-text { line-height: 1.5; }
     *,
     *::before,
     *::after {
@@ -818,6 +832,13 @@
                 {% if pedido.estado == 'entregado' %}Ver detalles{% else %}Rastrear pedido{% endif %}
               </button>
             </div>
+
+            {% if pedido.direccion_entrega %}
+<div class="delivery-info-row">
+  <span class="delivery-icon">📍</span>
+  <span class="delivery-text">{{ pedido.direccion_entrega }}</span>
+</div>
+{% endif %}
 
             {% if pedido.es_regalo %}
             <div class="gift-info-box">

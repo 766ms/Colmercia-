@@ -246,17 +246,17 @@ class AdminView(LoginRequiredMixin, TemplateView):
                 .order_by("-date_joined")
             )
             cached["todos_pedidos"] = list(
-Pedido.objects
-    .select_related("usuario", "producto", "producto__tienda")
-    .only(
-        "id", "estado", "total", "cantidad", "fecha",
-        "es_regalo", "direccion_entrega",
-        "usuario__id", "usuario__first_name", "usuario__last_name", "usuario__email",
-        "producto__id", "producto__nombre",
-        "producto__tienda__id", "producto__tienda__nombre",
-    )
-    .order_by("-fecha")[:200]  # últimos 200 pedidos
-)
+                Pedido.objects
+                .select_related("usuario", "producto", "producto__tienda")
+                .only(
+                    "id", "estado", "total", "cantidad", "fecha",
+                    "es_regalo", "direccion_entrega",
+                    "usuario__id", "usuario__first_name", "usuario__last_name", "usuario__email",
+                    "producto__id", "producto__nombre",
+                    "producto__tienda__id", "producto__tienda__nombre",
+                )
+                .order_by("-fecha")[:200]
+            )
 
             cached["todos_usuarios"] = list(
                 Usuario.objects
@@ -452,12 +452,15 @@ class CrearPedidoView(LoginRequiredMixin, View):
         items = body.get("items", [])
         if not items:
             return JsonResponse({"ok": False, "error": "El carrito está vacío"}, status=400)
-
+        
         es_regalo         = bool(body.get("es_regalo", False))
         regalo_envoltura  = str(body.get("regalo_envoltura", "")).strip()[:30]
         regalo_decoracion = str(body.get("regalo_decoracion", "")).strip()[:30]
         regalo_mensaje    = str(body.get("regalo_mensaje", "")).strip()
-
+        _dept     = str(body.get("departamento", "")).strip()[:60]
+        _mun      = str(body.get("municipio", "")).strip()[:80]
+        _dir      = str(body.get("direccion", "")).strip()[:150]
+        direccion_entrega = ", ".join(filter(None, [_dept, _mun, _dir]))
         pedidos_creados = []
 
         for item in items:
@@ -475,16 +478,17 @@ class CrearPedidoView(LoginRequiredMixin, View):
             producto_obj = Producto.objects.filter(nombre__iexact=nombre_producto).first()
 
             pedido = Pedido.objects.create(
-                usuario=request.user,
-                producto=producto_obj,
-                cantidad=cantidad,
-                total=total,
-                estado="procesando",
-                es_regalo=es_regalo,
-                regalo_envoltura=regalo_envoltura  if es_regalo else "",
-                regalo_decoracion=regalo_decoracion if es_regalo else "",
-                regalo_mensaje=regalo_mensaje       if es_regalo else "",
-            )
+    usuario=request.user,
+    producto=producto_obj,
+    cantidad=cantidad,
+    total=total,
+    estado="procesando",
+    direccion_entrega=direccion_entrega,   # ← esto faltaba
+    es_regalo=es_regalo,
+    regalo_envoltura=regalo_envoltura  if es_regalo else "",
+    regalo_decoracion=regalo_decoracion if es_regalo else "",
+    regalo_mensaje=regalo_mensaje       if es_regalo else "",
+)
             pedidos_creados.append({
                 "id": pedido.id,
                 "producto": nombre_producto,

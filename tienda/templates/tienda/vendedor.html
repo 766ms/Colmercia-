@@ -335,10 +335,14 @@
                   &times; {{ pedido.cantidad }}
                 </div>
                 <div class="or-meta">
-                  {{ pedido.usuario.first_name }} {{ pedido.usuario.last_name }}
-                  &middot; Pedido #{{ pedido.id }}
-                  &middot; {{ pedido.fecha|date:"d M Y, H:i" }}
-                </div>
+  {{ pedido.usuario.first_name }} {{ pedido.usuario.last_name }}
+  &middot; Pedido #{{ pedido.id }}
+  &middot; {{ pedido.fecha|date:"d M Y, H:i" }}
+  {% if pedido.direccion_entrega %}
+  <br>
+  <span style="color:#1565C0;font-weight:600;">📍 {{ pedido.direccion_entrega }}</span>
+  {% endif %}
+</div>
               </div>
               <div class="or-right" style="gap:10px;flex-wrap:wrap;align-items:center;">
                 {% if pedido.es_regalo %}

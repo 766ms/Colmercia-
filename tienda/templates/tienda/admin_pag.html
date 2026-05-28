@@ -1981,6 +1981,13 @@
                 {% if p.producto %}{{ p.producto.nombre }}{% else %}Producto eliminado{% endif %}
                 {% if p.producto.tienda %} · {{ p.producto.tienda.nombre }}{% endif %}
               </div>
+              {% if p.direccion_entrega %}
+              <div style="font-size:.72rem;color:#60A5FA;margin-top:4px;">
+                📍 {{ p.direccion_entrega }}
+              </div>
+              {% endif %}
+              <div class="vreq-tags">
+              </div>
               <div class="vreq-tags">
                 <span class="vtag" style="background:rgba(52,211,153,.1);color:#34D399;font-size:.72rem;font-weight:700;">
                   ${{ p.total|floatformat:0 }}
@@ -2011,6 +2018,12 @@
         <div style="text-align:center;padding:48px 0;color:var(--mut);font-size:.85rem;">
           No hay pedidos registrados aún.
         </div>
+        {% if pedido.direccion_entrega %}
+<div style="font-size:.72rem;color:#1565C0;margin-top:3px;">
+  📍 {{ pedido.direccion_entrega }}
+</div>
+{% endif %}
+
       {% endif %}
     </div>
   </div>
